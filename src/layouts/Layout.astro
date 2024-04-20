@@ -1,4 +1,8 @@
 ---
+// Supports weights 200-800
+import '@fontsource-variable/plus-jakarta-sans';
+// Supports weights 200-800
+import '@fontsource-variable/manrope';
 interface Props {
 	title: string;
 }
@@ -33,7 +37,10 @@ const { title } = Astro.props;
 		);
 	}
 	html {
-		font-family: system-ui, sans-serif;
+/* 		
+ 	 	font-family: 'Manrope Variable', sans-serif;
+		font-family: 'Plus Jakarta Sans Variable', sans-serif;
+ */		font-family: system-ui, sans-serif;
 		background: #13151a;
 		background-size: 224px;
 	}
