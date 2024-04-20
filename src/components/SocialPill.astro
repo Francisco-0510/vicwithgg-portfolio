@@ -1,0 +1,21 @@
+<a
+    {...Astro.props}
+    target="_blank"
+    rel="noopener noreferrer"
+    role="link"
+    class="icon-btn"
+>
+    <slot />
+</a>
+<style>
+    .icon-btn { 
+        width: 3rem;
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #222;
+        padding: .625rem;
+        border-radius: 100%;
+    }
+</style>

@@ -3,56 +3,80 @@
 import '@fontsource-variable/plus-jakarta-sans';
 // Supports weights 200-800
 import '@fontsource-variable/manrope';
+import Header from '@/components/Header.astro';
+
 interface Props {
-	title: string;
+	title: string
+	description: string
 }
 
-const { title } = Astro.props;
+const { description, title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 	</head>
 	<body>
+
+		<Header />
 		<slot />
+
 	</body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </html>
 <style is:global>
 	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+		--vg-body-bg: #0A0A0A;
+		--vg-body-color: #fff;
+		--vg-primary-color: #D3E97A;
+		--vg-secondary-color: #c7c7c7;
+		--vg-secondary-bg: #222222;
+		--vg-tertiary-color: #0a0a0a;
+		color-scheme: light dark;
 	}
 	html {
+		
 /* 		
- 	 	font-family: 'Manrope Variable', sans-serif;
+ 	 	font-family: , sans-serif;
 		font-family: 'Plus Jakarta Sans Variable', sans-serif;
- */		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
+ */		
+		
+ 		font-family:'Manrope Variable', system-ui, sans-serif;
+		scroll-behavior: smooth;
 	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+	body {
+		background-color: var(--vg-body-bg);
+		color: var(--vg-body-color);
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+		scroll-behavior: none;
 	}
+	@media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+	h1, h2, a{
+		font-family: 'Plus Jakarta Sans Variable', sans-serif;
+	}
+	.h1, .h2{
+		color: var(--vg-body-color);
+		font-size: 2.5rem;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 90%;
+		text-transform: uppercase;
+	}
+
 </style>

@@ -1,1 +1,82 @@
-<p>Navbar</p>
+---
+const navItems = [
+    {
+        title: "Sobre Mi",
+        label: "sobre-mi",
+        url: "/#sobre-mi",
+    },
+    {
+        title: "Mis Habilidades",
+        label: "mis-habilidades",
+        url: "/#mis-habilidades",
+    },
+    {
+        title: "Proyectos",
+        label: "proyectos",
+        url: "/#proyectos",
+    },
+    {
+        title: "Mi Experiencia",
+        label: "experiencia",
+        url: "/#experiencia",
+    },
+    {
+        title: "Contacto",
+        label: "contacto",
+        url: "/#contacto",
+    },
+]
+---
+
+
+<header>
+    <nav class="navbar ">
+        <div class="container-fluid">
+            <a class="navbar-brand " href="#">
+                VicWithGG
+              </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasNavbar">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" >VicWitGG</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                    {
+                        navItems.map((link) => (
+                            <a 
+                            class="nav-link text-white" 
+                            aria-label={link.label}
+                            href={link.url}>
+                                {link.title}
+                            </a>
+                        ))
+                    }
+                </li>
+               
+              </ul>
+              
+            </div>
+          </div>
+        </div>
+        
+        </div>
+      </nav>
+</header>
+<style>
+    nav, #offcanvasNavbar {
+        background: #0a0a0a;
+        color: white;
+    }
+    .navbar-brand, .offcanvas-title{
+        color: white;
+        font-size: 1.125rem;
+        line-height: 100%;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+</style>
