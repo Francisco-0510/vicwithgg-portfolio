@@ -1,0 +1,192 @@
+---
+import Stack from '@components/home/stack.astro';
+import Button from '../components/Button.astro';
+import Projects from '../components/home/projects.astro';
+import Separator from '../components/home/separator.astro';
+import PageHeading from '@components/Page-heading.astro';
+import Layout from '../layouts/Layout.astro';
+import GitHub from '@components/icons/GitHub.astro';
+import Linkedin from '@components/icons/Linkedin.astro';
+import Figma from '@components/icons/Figma.astro';
+import Mail from '@components/icons/Mail.astro';
+Stack;
+---
+
+<Layout title="Francisco Victorico Aguirre Jiménez">
+	<!-- CONTAINER INDEX -->
+	<div class="mx-auto w-full max-w-7xl lg:px-8">
+		<div class="px-6 sm:px-8 lg:px-12">
+			<div class="mx-auto max-w-2xl lg:max-w-5xl">
+				<!-- HEADER CONTAINER -->
+				<section
+					class="relative flex h-full mt-8 md:mt-8 lg:mt-8 flex-col md:h-[85dvh]">
+					<div
+						class="flex w-full flex-col items-center gap-8 md:flex-row md:justify-start mb-14 mt-4 md:mt-0">
+						<div
+							class="group relative rounded-full opacity-[0.9] transition-shadow duration-300 hover:shadow-lg">
+							<span
+								class="relative flex shrink-0 overflow-hidden rounded-full m-1 h-28 w-28"
+								><img
+									alt="JV profile picture"
+									fetchpriority="high"
+									width="790"
+									height="790"
+									decoding="async"
+									data-nimg="1"
+									class="scale-110"
+									src="/assets/images/me.jpg"
+									style="color: transparent;"
+								/><span
+									class="flex h-full w-full items-center justify-center rounded-full bg-muted"
+									>JV</span
+								></span
+							>
+						</div>
+						<div
+							class="flex h-full w-full flex-col items-center gap-3 md:min-w-[350px] md:items-start">
+							<h2
+								class="flex items-center text-center text-3xl font-bold leading-tight dark:text-white">
+								Francisco Victorico Aguirre Jiménez
+							</h2>
+							<div
+								class="flex items-center justify-center gap-x-2 text-foreground dark:text-muted-foreground">
+								<span
+									class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-800/30 dark:text-green-500">
+									<span
+										class="size-1.5 inline-block rounded-full bg-green-800 dark:bg-green-500"
+									></span>
+									DISPONIBLE
+								</span>
+							</div>
+							<div class="relative flex h-auto items-end gap-3">
+								<a
+									href=""
+									type="button"
+									class="p-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+									<GitHub />
+								</a>
+								<a
+									href=""
+									type="button"
+									class="p-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+									<Linkedin />
+								</a>
+								<a
+									href=""
+									type="button"
+									class="p-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+									<Figma />
+								</a>
+								<a
+									href=""
+									type="button"
+									class="p-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+									<Mail />
+								</a>
+							</div>
+						</div>
+					</div>
+					<div
+						class="flex h-auto w-auto flex-wrap gap-x-5 gap-y-3 text-4xl lg:text-6xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-5xl">
+						<span
+							class="animate-gradient-foreground-1 bg-gradient-to-r from-[#0D6EFD] to-[#3e20ff] bg-clip-text text-transparent"
+							>Diseñador UX/UI.</span
+						><span class="shadow-1"></span>
+
+						<span
+							data-content="& Desarrollador Web"
+							class="before:text-gradient-white relative block select-none before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-[110%] before:w-full before:animate-gradient-background-3 before:content-[attr(data-content)]"
+							><span
+								class="animate-gradient-foreground-3 bg-gradient-to-r from-gradient-3-start to-gradient-3-end bg-clip-text text-transparent"
+								>& Desarrollador Web</span
+							><span class="shadow-3"></span></span
+						>
+					</div>
+					<p
+						class="mb-[20px] mt-4 max-w-2xl text-sm text-foreground text-neutral-600 dark:text-neutral-400 md:text-base md:leading-7">
+						Soy Francisco Victorico Aguirre Jiménez, un apasionado Diseñador
+						UX/UI y Desarrollador Web enfocado en crear experiencias digitales
+						excepcionales. Mi objetivo es lograr un equilibrio perfecto entre
+						las necesidades de los usuarios y los objetivos del producto.
+					</p>
+					<div class="flex animate-slowfade gap-5 will-change-transform">
+						<Button text="Descargar CV" link="https://x.com/aliml92" />
+					</div>
+					<div
+						class="absolute bottom-0 left-[50%] right-[50%] hidden -translate-x-[50%] -translate-y-[50%] md:block">
+						<a
+							class="inline-flex h-10 w-10 animate-bounce items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-colors hover:bg-zinc-800/5 dark:hover:bg-zinc-900/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+							href="#featured"
+							><svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								class="h-6 w-6"><path d="m6 9 6 6 6-6"></path></svg
+							></a
+						>
+					</div>
+				</section>
+
+				<!-- Projects -->
+				<Separator text="Check out my projects" />
+				<Projects />
+			</div>
+		</div>
+	</div>
+
+	<!-- Header Inicio 
+	<div
+		class="relative z-20 w-full max-w-4xl mx-auto mt-8 px-7 md:mt-8 lg:mt-8 xl:px-0">
+		<div class="flex flex-col items-center md:flex-row">
+			<div class="relative w-full md:w-1/2">
+				<h1
+					class="mb-5 text-4xl font-bold leading-tight md:text-4xl lg:text-5xl dark:text-white">
+					Hello, I'm Francisco Victorico Aguirre Jiménez.
+				</h1>
+				<p class="mb-6 text-base text-neutral-600 dark:text-neutral-400">
+					Diseñador UX/UI y Desarrollador Web<br class="hidden lg:block" /> Lorem
+					ipsum dolor sit amet consectetur adipisicing elit. Soluta quasi laudantium
+					dolorem minus modi veritatis ex esse odit facilis incidunt?
+				</p>
+
+				<Button text="Descargar CV" link="https://x.com/aliml92" />
+			</div>
+			<div
+				class="relative justify-end hidden w-full mt-10 md:flex md:pl-10 md:w-1/2 md:mt-0 md:translate-y-4 xl:translate-y-0">
+				<div class="relative z-50 w-full">
+					<div class="relative z-30 max-w-[300px] mx-auto">
+						<img
+							src="/assets/images/me.jpg"
+							loading="eager"
+							decoding="auto"
+							class="relative z-30 w-full mx-auto dark:-translate-y-0.5"
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>-->
+
+	<!-- About Me Section 
+	<Separator text="About Me" />
+	<PageHeading
+		id="about"
+		title="About Me"
+		description="Hello 👋 I'm a backend engineer from Tashkent, Uzbekistan. I’m passionate about exploring new technologies and staying updated with tech news."
+	/> -->
+
+	<!-- Projects Section -->
+
+	<!-- Stack Section -->
+	<Separator text="Check my stack" />
+	<Stack />
+</Layout>
+
+<!-- <Writings />
+ -->

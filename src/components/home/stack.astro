@@ -1,0 +1,181 @@
+---
+import Button from '@components/Button.astro';
+import stack from '@collections/stack.json';
+/* const stack = [
+	{
+		name: 'Figma',
+		image: 'assets/images/stack/figma.svg',
+	},
+];*/
+---
+
+<section class="max-w-4xl mx-auto px-7 lg:px-0">
+	<header class="max-w-2xl space-y-5">
+		<h1
+			class="text-4xl font-bold tracking-tight text-foreground dark:text-neutral-100 sm:text-5xl sm:font-semibold sm:leading-[4rem]">
+			<span class="text-blue-500 dark:text-neutral-100">Tecnologías</span> que uso
+			con frecuencia y<span class="text-blue-500 dark:text-neutral-100">
+				disfruto</span
+			> al máximo. 🚀
+		</h1><p class="text-base text-foreground dark:text-neutral-300">
+			These are my favorite ones, but I'm always open to learn new technologies.
+			I'm a fast learner, adaptable, and dedicated to continually enhancing my
+			skills to elevate my capabilities as a software engineer.
+		</p>
+	</header>
+	<div class="my-16 space-y-28 sm:mt-20">
+		<!-- LANGUAGES SKILLS CONTAINER -->
+		<div
+			class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
+			<div class="grid max-w-4xl grid-cols-1 gap-y-8 md:grid-cols-4">
+				<h2
+					class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300">
+					languages
+				</h2>
+				<div
+					class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12">
+					{
+						stack.languages.map((language) => {
+							return (
+								<button data-state="closed" class="cursor-default">
+									<article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
+										<div
+											id="overlay"
+											class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 overflow-hidden">
+											<div
+												id="shadow-overlay"
+												class="absolute left-0 top-20 h-[40px] w-[40px] opacity-0 blur-2xl transition-opacity duration-200 ease-in-out group-hover:opacity-100 bg-gradient-to-r from-[#019ae9] to-[#00dfd8]"
+											/>
+										</div>
+										<img
+											src={language.image}
+											alt=""
+											class="h-12 w-12 duration-300 group-hover:-rotate-45 "
+										/>
+										<div class="z-10 flex flex-col">
+											<p class="text-start text-sm font-semibold text-black dark:text-neutral-50 ">
+												{language.name}
+											</p>
+											<p class="text-start text-xs text-neutral-800 dark:text-neutral-200">
+												{language.type}
+											</p>
+										</div>
+									</article>
+								</button>
+							);
+						})
+					}
+				</div>
+			</div>
+		</div>
+		<!-- FRONTEND SKILLS CONTAINER -->
+		<div
+			class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
+			<div class="grid max-w-4xl grid-cols-1 gap-y-8 md:grid-cols-4">
+				<h2
+					class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300">
+					Frontend
+				</h2>
+				<div
+					class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12">
+					{
+						stack.frontend.map((frontend) => {
+							return (
+								<button data-state="closed" class="cursor-default">
+									<article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
+										<div
+											id="overlay"
+											class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 overflow-hidden">
+											<div
+												id="shadow-overlay"
+												class="absolute left-0 top-20 h-[40px] w-[40px] opacity-0 blur-2xl transition-opacity duration-200 ease-in-out group-hover:opacity-100 bg-gradient-to-r from-[#019ae9] to-[#00dfd8]"
+											/>
+										</div>
+										<img
+											src={frontend.image}
+											alt=""
+											class="h-12 w-12 duration-300 group-hover:-rotate-45 "
+										/>
+										<div class="z-10 flex flex-col">
+											<p class="text-start text-sm font-semibold text-black dark:text-neutral-50">
+												{frontend.name}
+											</p>
+											<p class="text-start text-xs text-neutral-800 dark:text-neutral-200">
+												{frontend.type}
+											</p>
+										</div>
+									</article>
+								</button>
+							);
+						})
+					}
+				</div>
+			</div>
+		</div>
+		<!-- TOOLS SKILLS CONTAINER -->
+		<div
+			class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
+			<div class="grid max-w-4xl grid-cols-1 gap-y-8 md:grid-cols-4">
+				<h2
+					class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300">
+					Tools
+				</h2>
+				<div
+					class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12">
+					{
+						stack.tools.map((tools) => {
+							return (
+								<button data-state="closed" class="cursor-default">
+									<article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
+										<div
+											id="overlay"
+											class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:bg-slate-100/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100  sm:-inset-x-6 overflow-hidden">
+											<div
+												id="shadow-overlay"
+												class="absolute left-0 top-20 h-[40px] w-[40px] opacity-0 blur-2xl transition-opacity duration-200 ease-in-out group-hover:opacity-100 bg-gradient-to-r from-[#019ae9] to-[#00dfd8]"
+											/>
+										</div>
+										<img
+											src={tools.image}
+											alt=""
+											class="h-12 w-12 duration-300 group-hover:-rotate-45 "
+										/>
+										<div class="z-10 flex flex-col">
+											<p class="text-start text-sm font-semibold text-black dark:text-neutral-50">
+												{tools.name}
+											</p>
+											<p class="text-start text-xs text-neutral-800 dark:text-neutral-200">
+												{tools.type}
+											</p>
+										</div>
+									</article>
+								</button>
+							);
+						})
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--<p class="mb-6 text-base text-neutral-600 dark:text-neutral-400">
+		Software and resources I use on a regular basis.
+	</p>
+	 <div
+		class="grid items-stretch w-full sm:grid-cols-2 md:grid-cols-3 gap-7 mt-7">
+		{
+			stack.map((stack) => {
+				return (
+					<div class="flex w-fit px-3 border border-1 border-neutral-200 rounded items-center ">
+						<img src={stack.image} alt="" class="size-12" />
+						<p class="text-neutral-800 dark:text-neutral-100">{stack.name}</p>
+					</div>
+				);
+			})
+		}
+	</div> -->
+
+	<div class="flex items-center justify-center w-full py-5">
+		<Button text="Ver Mi Stack" link="/projects" />
+	</div>
+</section>

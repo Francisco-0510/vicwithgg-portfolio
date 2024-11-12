@@ -1,0 +1,82 @@
+[
+    {
+        "name": "VGG Movies",
+        "description": "description",
+        "highlights": [
+            "highlight 1",
+            "highlight 2"
+        ],
+        "image": "/assets/images/projects/VGG Movie Search.png",
+        "link": "link",
+        "figma": "figma",
+        "github": "github"
+    },
+    {
+        "name": "VG Design UI Kit",
+        "description": "Mi propio Kit de Diseño UI/UX ⚡️ VG Design UI Kit",
+        "highlights": [
+            "highlight 1",
+            "highlight 2"
+        ],
+        "image": "/assets/images/projects/thumbnail-vg.png",
+        "link": "https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-10"
+    },
+    {
+        "name": "CV Web Minimalista",
+        "description": "Curriculum Minimalista maquetado para web y pdf usando ASTRO",
+        "highlights": [
+            "highlight 1",
+            "highlight 2"
+        ],
+        "image": "/assets/images/projects/thumbnail-cv.webp",
+        "link": "link",
+        "figma": "figma",
+        "github": "github"
+    },
+    {
+        "name": "Hospital Ángel del Mar",
+        "description": "Rediseño de Sitio Web para Hospital Ángel del Mar.",
+        "highlights": [
+            "highlight 1",
+            "highlight 2"
+        ],
+        "image": "/assets/images/projects/Cover HAM.png",
+        "link": "https://hospitalangeldelmar.com.mx/"
+    },
+    {
+        "name": "BETAJ: Agencia de Seguridad Privada",
+        "description": "Diseño de Sitio Web para empresa de Seguridad Privada BETAJ",
+        "highlights": [
+            "highlight 1",
+            "highlight 2"
+        ],
+        "image": "/assets/images/projects/betaj.png",
+        "link": "link",
+        "figma": "figma",
+        "github": "github"
+    },
+    {
+        "name": "Taller de Innovación en la Estrategia Comercial.",
+        "description": "Diseño de Landing Page para el 'Taller de Innovación en la Estrategia Comercial', impartido por Gabriel Belsol.",
+        "highlights": [
+            "highlight 1",
+            "highlight 2"
+        ],
+        "image": "/assets/images/projects/GABRIEL.png",
+        "link": "link",
+        "figma": "figma",
+        "github": "github"
+    },
+    {
+        "name": "Portafolio Back-end Braquetes.com.mx",
+        "description": "Desarrollo de portafolio web para programador backend.",
+        "highlights": [
+            "highlight 1",
+            "highlight 2"
+        ],
+        "image": "/assets/images/projects/coverBR.png",
+        "link": "link",
+        "figma": "figma",
+        "github": "github"
+    }
+]

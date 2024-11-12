@@ -1,0 +1,14 @@
+---
+const { link, text } = Astro.props;
+---
+
+<!-- <a
+	href={link}
+	class="bg-violet-dark border border-slate-700/20 shadow-inner hover:bg-primary-dark hover:border hover:border-violet-dark px-8 py-[0.8rem] w-full md:w-fit text-sm md:text-base rounded-lg hover:text-white transition-all duration-300 ease-in-out text-gray-light">
+	{text}
+</a> -->
+<a
+	href={link}
+	class="inline-flex w-auto px-8 py-[0.8rem] text-sm md:text-base font-semibold duration-300 ease-out border rounded-lg bg-neutral-900 dark:bg-white dark:text-neutral-900 text-neutral-100 hover:border-neutral-700 border-neutral-900 dark:hover:border-neutral-300 hover:bg-white dark:hover:bg-black dark:hover:text-white hover:text-neutral-900">
+	{text}
+</a>

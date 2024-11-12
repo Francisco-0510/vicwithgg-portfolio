@@ -1,0 +1,88 @@
+{
+    "languages": [
+        {
+            "name": "HTML5",
+            "image": "assets/images/stack/html5.svg",
+            "type": "Markup Language"
+        },
+        {
+            "name": "CSS3",
+            "image": "assets/images/stack/css3.svg",
+            "type": "Styling Language"
+        },
+        {
+            "name": "JavaScript",
+            "image": "assets/images/stack/javascript.svg",
+            "type": "Programming Language"
+        }
+    ],
+    "frontend": [
+        {
+            "name": "Bootstrap",
+            "image": "assets/images/stack/bootstrap.svg",
+            "type": "Styling Framework"
+        },
+        {
+            "name": "Tailwind CSS",
+            "image": "assets/images/stack/tailwindcss.svg",
+            "type": "Styling Framework"
+        },
+        {
+            "name": "React",
+            "image": "assets/images/stack/react.svg",
+            "type": "Mobile Framework"
+        },
+        {
+            "name": "Angular",
+            "image": "assets/images/stack/angular.svg",
+            "type": "Web Framework"
+        },
+        {
+            "name": "Astro",
+            "image": "assets/images/stack/astro.svg",
+            "type": "Static Site Generator"
+        },
+        {
+            "name": "Ionic",
+            "image": "assets/images/stack/ionic.svg",
+            "type": "Mobile Framework"
+        }
+    ],
+    "tools": [
+        {
+            "name": "Figma",
+            "image": "assets/images/stack/figma.svg",
+            "type": "Design Tool"
+        },
+        {
+            "name": "GitHub",
+            "image": "assets/images/stack/github.svg",
+            "type": "Version Control System"
+        },
+        {
+            "name": "Adobe XD",
+            "image": "assets/images/stack/adobe_xd.svg",
+            "type": "Design Tool"
+        },
+        {
+            "name": "Webflow",
+            "image": "assets/images/stack/webflow.svg",
+            "type": "Design Tool"
+        },
+        {
+            "name": "Node.js",
+            "image": "assets/images/stack/nodejs.svg",
+            "type": "Runtime Environment"
+        },
+        {
+            "name": "VS Code",
+            "image": "assets/images/stack/vscode.svg",
+            "type": "Code Editor"
+        },
+        {
+            "name": "NPM",
+            "image": "assets/images/stack/npm.svg",
+            "type": "Package Manager"
+        }
+    ]
+}

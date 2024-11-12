@@ -1,0 +1,70 @@
+---
+import '@fontsource-variable/inter';
+
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<!-- Used to add dark mode right away, adding here prevents any flicker -->
+		<script is:inline>
+			if (typeof Storage !== 'undefined') {
+				if (
+					localStorage.getItem('dark_mode') &&
+					localStorage.getItem('dark_mode') == 'true'
+				) {
+					document.documentElement.classList.add('dark');
+				}
+			}
+		</script>
+		<style>
+			.prose img {
+				border-radius: 20px;
+			}
+		</style>
+		<script src="../assets/css/main.css"></script>
+	</head>
+	<body class="antialiased bg-white dark:bg-[rgb(18,18,18)]">
+		<Navbar />
+		<slot />
+		<Footer />
+		<script src="../assets/js/main.js"></script>
+	</body>
+</html>
+<style is:global>
+	html {
+		html {
+			font-family: 'Inter Variable', sans-serif;
+			scroll-behavior: smooth;
+		}
+	}
+	/* :root {
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+	html {
+		font-family: system-ui, sans-serif;
+		background: #13151a;
+	} */
+</style>
