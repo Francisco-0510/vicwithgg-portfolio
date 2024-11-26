@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro';
+import GitHub from '@components/icons/GitHub.astro';
+import Linkedin from '@components/icons/Linkedin.astro';
+import Figma from '@components/icons/Figma.astro';
+import Button from '../components/Button.astro';
+import Mail from '@components/icons/Mail.astro';
+import Download from './icons/Download.astro';
+import ContactIcon from './icons/ContactIcon.astro';
+import { Image } from 'astro:assets';
+import meImage from '../assets/images/me.webp';
+import X from './icons/X.astro';
+---
+
+<section class="relative flex h-100 justify-start flex-col h-[100dvh]">
+  <div class="h-auto items-center gap-8 mb-8">
+    <header
+      class="relative flex flex-row-reverse flex-wrap-reverse justify-end sm:flex-nowrap">
+      <div>
+        <div
+          class="flex h-full w-full flex-col items-start gap-y-4 md:min-w-[350px] md:items-start">
+          <h2
+            class="flex text-pretty items-center text-2xl md:my-3 font-semibold dark:text-white">
+            ¡Hola! Soy Francisco V. Aguirre Jiménez
+          </h2>
+          <div
+            class="flex items-center pb-10 sm:pb-0 px-5 gap-14 md:gap-8 text-xl text-gray-700 dark:text-gray-100">
+            <a href="https://github.com/Francisco-0510" target="_blank">
+              <GitHub />
+            </a>
+            <a href="https://www.linkedin.com/in/vicwith-gg/" target="_blank">
+              <Linkedin />
+            </a>
+            <a href="https://www.figma.com/@vicwithgg" target="_blank">
+              <Figma />
+            </a>
+            <a href="https://x.com/VicWithGG1" target="_blank">
+              <X />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-2 mb-6 mr-10 aspect-square size-24 overflow-clip rounded-full bg-white object-cover sm:mb-0 md:min-h-28 md:min-w-28 lg:-mt-2 2xl:-mt-0 [@media(width>=37rem)]:mr-14">
+        <Image
+          src={meImage}
+          width={meImage.width / 2}
+          densities={[1.5, 2]}
+          alt="VicWithGG profile picture"
+          data-nimg="1"
+          decoding="async"
+          loading="lazy"
+          class="scale-110"
+        />
+      </div>
+    </header>
+    <!-- Avatar component Header Container -->
+  </div>
+  <div
+    class="flex h-auto w-auto flex-wrap gap-x-5 gap-y-3 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+    <span
+      class="animate-gradient-foreground-1 bg-gradient-to-r from-[#0d6fff] to-[#0d6fff] bg-clip-text text-transparent"
+      >Diseñador UX/UI
+    </span>
+    <span class="shadow-1"> </span>
+    <span
+      data-content="& Desarrollador Web"
+      class="before:text-gradient-white relative block select-none before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-[110%] before:w-full before:animate-gradient-background-3 before:content-[attr(data-content)]"
+      ><span
+        class="animate-gradient-foreground-3 bg-gradient-to-r from-gradient-3-start to-gradient-3-end bg-clip-text text-transparent"
+        >& Desarrollador Web
+      </span>
+      <span class="shadow-3"></span>
+    </span>
+  </div>
+  <p
+    class="mt-8 max-w-[750px] text-pretty text-lg text-black dark:text-white xs:text-lg">
+    Apasionado <strong class="text-blue-600 dark:text-blue-500"
+      >Diseñador UX/UI</strong
+    > y <strong class="text-blue-600 dark:text-blue-500"
+      >Desarrollador Web</strong
+    > enfocado en crear experiencias digitales excepcionales. Mi objetivo es lograr
+    un equilibrio perfecto entre las necesidades de los usuarios y los objetivos
+    del producto.
+  </p>
+
+  <!-- Buttons -->
+  <div class="mt-7 gap-5 flex w-full sm:inline-flex">
+    <a
+      href="/public/assets/CV _ AGUIRRE JIMENEZ FRANCISCO VICTORICO.pdf"
+      download="Francisco_Aguirre_CV.pdf"
+      class="relative overflow-hidden bg-blue-500 text-white px-6 py-3 rounded-lg font-medium transition duration-300 ease-in-out hover:bg-blue-600 hover:shadow-lg will-change-transform inline-flex justify-center items-center gap-x-2 focus:outline-none">
+      Descargar CV
+      <Download />
+    </a>
+    <a
+      href="mailto:vgg.designer.01@gmail.com"
+      class="py-3 hover:shadow-lg
+					backdrop-blur-sm
+					duration-400
+					will-change-transform
+					md:text-base
+					transition-shadow
+					hover:bg-currentColor px-4 inline-flex justify-center items-center gap-x-2 text-base font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+      href="#">
+      Conectemos
+      <ContactIcon />
+    </a>
+  </div>
+  <!-- End Buttons -->
+
+  <div
+    class="absolute bottom-0 left-[50%] right-[50%] hidden -translate-x-[50%] -translate-y-[50%] md:block">
+    <a
+      class="inline-flex h-10 w-10 animate-bounce items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium dark:text-white ring-offset-background transition-colors dark:bg-zinc-800 hover:bg-zinc-800/5 dark:hover:bg-zinc-900/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+      href="#featured">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="h-6 w-6"><path d="m6 9 6 6 6-6"></path></svg
+      ></a
+    >
+  </div>
+</section>

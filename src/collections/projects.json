@@ -1,82 +1,180 @@
 [
     {
-        "name": "VGG Movies",
-        "description": "description",
+        "name": "VicWithGG Portafolio Web",
+        "description": "Portafolio personal con Astro, Tailwind CSS y Vercel.",
         "highlights": [
-            "highlight 1",
-            "highlight 2"
+            "Astro",
+            "Tailwind CSS",
+            "Vercel"
         ],
-        "image": "/assets/images/projects/VGG Movie Search.png",
-        "link": "link",
-        "figma": "figma",
-        "github": "github"
+        "image": "/assets/images/projects/vicwithgg-cover.png",
+        "link": "#",
+        "github": "https://github.com/Francisco-0510/vicwithgg-portfolio"
+    },
+    {
+        "name": "VGG Movies Search",
+        "description": "App para explorar y guardar películas favoritas, usando Firebase.",
+        "highlights": [
+            "React",
+            "Firebase",
+            "Chakra UI"
+        ],
+        "image": "/assets/images/projects/vgg-movie.png",
+        "link": "https://vgg-movie-search.vercel.app/",
+        "github": "https://github.com/Francisco-0510/movie-app-react"
+    },
+    {
+        "name": "CV Minimalista (Web y PDF)",
+        "description": "CV minimalista en Web y PDF, configurable con JSON.",
+        "highlights": [
+            "Astro",
+            "Typescript",
+            "JSON",
+            "Ninja Keys"
+        ],
+        "image": "/assets/images/projects/thumbnail-cv.webp",
+        "link": "https://vicwithgg.netlify.app/",
+        "github": "https://github.com/Francisco-0510/minimalist-portfolio"
     },
     {
         "name": "VG Design UI Kit",
-        "description": "Mi propio Kit de Diseño UI/UX ⚡️ VG Design UI Kit",
+        "description": "Kit de diseño UI/UX en Figma.",
         "highlights": [
-            "highlight 1",
-            "highlight 2"
+            "Figma",
+            "Design System",
+            "Atomic"
         ],
         "image": "/assets/images/projects/thumbnail-vg.png",
-        "link": "https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-10"
+        "link": "https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-10",
+        "figma": "https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-10"
     },
     {
-        "name": "CV Web Minimalista",
-        "description": "Curriculum Minimalista maquetado para web y pdf usando ASTRO",
+        "name": "Hospital Ángel de Mar",
+        "description": "Rediseño UI/UX e implementación en Webflow.",
         "highlights": [
-            "highlight 1",
-            "highlight 2"
-        ],
-        "image": "/assets/images/projects/thumbnail-cv.webp",
-        "link": "link",
-        "figma": "figma",
-        "github": "github"
-    },
-    {
-        "name": "Hospital Ángel del Mar",
-        "description": "Rediseño de Sitio Web para Hospital Ángel del Mar.",
-        "highlights": [
-            "highlight 1",
-            "highlight 2"
+            "Figma",
+            "Webflow",
+            "Diseño UX",
+            "Diseño UI"
         ],
         "image": "/assets/images/projects/Cover HAM.png",
         "link": "https://hospitalangeldelmar.com.mx/"
     },
     {
-        "name": "BETAJ: Agencia de Seguridad Privada",
-        "description": "Diseño de Sitio Web para empresa de Seguridad Privada BETAJ",
+        "name": "Seguridad Privada BETAJ",
+        "description": "Diseño de interfaces y desarrollo en Webflow.",
         "highlights": [
-            "highlight 1",
-            "highlight 2"
+            "Figma",
+            "Webflow",
+            "HTML",
+            "CSS"
         ],
         "image": "/assets/images/projects/betaj.png",
-        "link": "link",
-        "figma": "figma",
-        "github": "github"
+        "link": "https://betaj.mx/"
     },
     {
-        "name": "Taller de Innovación en la Estrategia Comercial.",
-        "description": "Diseño de Landing Page para el 'Taller de Innovación en la Estrategia Comercial', impartido por Gabriel Belsol.",
+        "name": "Portafolio braquetes.com.mx",
+        "description": "Portafolio web para programador backend.",
         "highlights": [
-            "highlight 1",
-            "highlight 2"
-        ],
-        "image": "/assets/images/projects/GABRIEL.png",
-        "link": "link",
-        "figma": "figma",
-        "github": "github"
-    },
-    {
-        "name": "Portafolio Back-end Braquetes.com.mx",
-        "description": "Desarrollo de portafolio web para programador backend.",
-        "highlights": [
-            "highlight 1",
-            "highlight 2"
+            "HTML",
+            "CSS",
+            "Bootstrap",
+            "GitHub"
         ],
         "image": "/assets/images/projects/coverBR.png",
-        "link": "link",
-        "figma": "figma",
-        "github": "github"
+        "link": "https://www.braquetes.com.mx/#/"
+    },
+    {
+        "name": "Diseño de Sistema Web de Gestión de Actividades",
+        "description": "Investigación y diseño UX/UI para sistema web.",
+        "highlights": [
+            "Figma",
+            "Design Sytems",
+            "Mobile Design",
+            "Diseño UI",
+            "Investigación UX"
+        ],
+        "image": "/assets/images/projects/thumbnail-tutoriasDesign.png",
+        "link": "https://www.figma.com/community/file/1205620325712950079",
+        "figma": "https://www.figma.com/community/file/1205620325712950079"
+    },
+    {
+        "name": "Desarrollo Front-end de Sistema Web de Gestion de Actividades",
+        "description": "Desarrollo frontend con Ionic para sistema UTVCO.",
+        "highlights": [
+            "IONIC",
+            "Bootstrap",
+            "GitHub",
+            "Frontend"
+        ],
+        "image": "/assets/images/projects/thumbnail-tutoriasDev.png",
+        "link": "https://github.com/Francisco-0510/plataformaEstadias",
+        "github": "https://github.com/Francisco-0510/plataformaEstadias"
+    },
+    {
+        "name": "Rediseño App HealthCheck",
+        "description": "Rediseño de app HealthCheck para dispositivos móviles.",
+        "highlights": [
+            "Figma",
+            "Material Design",
+            "Mobile Design",
+            "Design System"
+        ],
+        "image": "/assets/images/projects/thumbnail-rediseño.jpg",
+        "figma": "https://www.figma.com/community/file/1283078639346112182"
+    },
+    {
+        "name": "App Healthcheck - Smartwatch y Mobile ",
+        "description": "App de seguimiento de salud para móviles y wearables.",
+        "highlights": [
+            "Figma",
+            "Mobile Design"
+        ],
+        "image": "/assets/images/projects/thumbnail-healtcheck.png",
+        "link": "https://www.figma.com/community/file/1270644133161232117",
+        "figma": "https://www.figma.com/community/file/1270644133161232117"
+    },
+    {
+        "name": "Arquitectura y UX de app HealthCheck ",
+        "description": "Mapas de navegación y wireflows para HealthCheck.",
+        "highlights": [
+            "Figma"
+        ],
+        "image": "/assets/images/projects/thumbnail-arqH.png",
+        "link": "https://www.figma.com/community/file/1125658163306261422",
+        "figma": "https://www.figma.com/community/file/1125658163306261422"
+    },
+    {
+        "name": "BIT Tournament 2023",
+        "description": "Diseño UI y desarrollo frontend en Angular.",
+        "highlights": [
+            "Angular",
+            "GitHub"
+        ],
+        "image": "/assets/images/projects/thumbnail-BIT.png",
+        "link": "https://github.com/Francisco-0510/BIT-TOURNAMENT-2023",
+        "figma": "https://www.figma.com/community/file/1165464149403530205/diseno-de-interfaces-bit-tournament-2023",
+        "github": "https://github.com/Francisco-0510/BIT-TOURNAMENT-2023"
+    },
+    {
+        "name": "User Story Mapping - BIT TOURNAMENT 2023",
+        "description": "Historias de usuario y mapas de navegación para BIT Tournament.",
+        "highlights": [
+            "Figma"
+        ],
+        "image": "/assets/images/projects/thumbnail-storyBIT.png",
+        "link": "https://www.figma.com/community/file/1183832840468301220/user-story-mapping-bit-tournament-2023",
+        "figma": "https://www.figma.com/community/file/1183832840468301220/user-story-mapping-bit-tournament-2023"
+    },
+    {
+        "name": "Sistema Venta de Boletos La Solteca",
+        "description": "Diseño y desarrollo de sistema de venta de boletos.",
+        "highlights": [
+            "Adobe XD",
+            "Angular"
+        ],
+        "image": "/assets/images/projects/thumbnail-soltecaDesign.png",
+        "link": "https://xd.adobe.com/view/5b7241f4-f464-4276-69b2-89a327b55523-2d43/",
+        "github": "https://github.com/Francisco-0510/Solteca"
     }
 ]

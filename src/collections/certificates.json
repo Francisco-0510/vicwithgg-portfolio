@@ -1,0 +1,68 @@
+[
+    {
+        "time": "Noviembre 2024",
+        "title": "Foundations of User Experience (UX) Design",
+        "certificationName": "Google",
+        "img": "/assets/images/certification-badges/google.jpeg"
+    },
+    {
+        "time": "Octubre 2024",
+        "title": "Scrum Foundation Professional Certificate (SFPC)",
+        "certificationName": "CertiProfCertiProf",
+        "img": "/assets/images/certification-badges/certiprof.jpeg"
+    },
+    {
+        "time": "Noviembre 2024",
+        "title": "Figma avanzado",
+        "certificationName": "Linkedin",
+        "img": "/assets/images/certification-badges/linkedin.jpeg"
+    },
+    {
+        "time": "01/02/2021",
+        "title": "Introducción a la Ciberseguridad",
+        "certificationName": "Cisco Networking Academy",
+        "img": "/assets/images/certification-badges/cisco-systems.png"
+    },
+    {
+        "time": "01/02/2020",
+        "title": "Introduction to IoT",
+        "certificationName": "Cisco Networking Academy",
+        "img": "/assets/images/certification-badges/cisco-systems.png"
+    },
+    {
+        "time": "01/02/2020",
+        "title": "CCNA R&S: Routing and Switching Essentials",
+        "certificationName": "Cisco Networking Academy",
+        "img": "/assets/images/certification-badges/cisco-systems.png"
+    },
+    {
+        "time": "09/12/2020",
+        "title": "Programa de Clases Espejo de Estructura de Datos",
+        "certificationName": "UTVCO - Universidad Continental de Perú",
+        "img": "/assets/images/certification-badges/continental.jpeg"
+    },
+    {
+        "time": "05/12/2019",
+        "title": "IT Essentials",
+        "certificationName": "Cisco Networking Academy",
+        "img": "/assets/images/certification-badges/cisco-systems.png"
+    },
+    {
+        "time": "01/12/2019",
+        "title": "Manejo de Procesos Digitales",
+        "certificationName": "CONOCER",
+        "img": "/assets/images/certification-badges/conocer.jpeg"
+    },
+    {
+        "time": "2019",
+        "title": "Habilidades y Competencias Clave para el Mundo Profesional",
+        "certificationName": "SANTANDER / ANUIES",
+        "img": "/assets/images/certification-badges/santander.jpeg"
+    },
+    {
+        "time": "01/12/2019",
+        "title": "Introducción a las Habilidades Digitales",
+        "certificationName": "SANTANDER / ANUIES",
+        "img": "/assets/images/certification-badges/santander.jpeg"
+    }
+]

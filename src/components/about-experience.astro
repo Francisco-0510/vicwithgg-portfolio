@@ -1,21 +1,41 @@
 ---
-const { logo, dates, role, company, description } = Astro.props;
+const { logo, dates, role, company, description, skills } = Astro.props;
 ---
 
 <div
-	class="relative flex flex-col justify-start pl-12 pb-10 border-l border-gray-200 dark:border-neutral-700">
-	<div
-		class="absolute top-0 left-0 z-40 flex items-center justify-center -translate-x-1/2 bg-white border rounded-full w-14 h-14 dark:bg-neutral-950 border-neutral-300 dark:border-neutral-700">
-		<img src={logo} alt={company} class="rounded-full" />
-	</div>
+  class="relative flex flex-col justify-start pl-12 pb-10 border-l border-gray-300 dark:border-neutral-700">
+  <div
+    class="absolute top-0 left-0 z-40 flex items-center justify-center -translate-x-1/2 bg-white border rounded-full w-14 h-14 dark:bg-neutral-950 border-neutral-300 dark:border-neutral-700">
+    <img src={logo} alt={company} class="rounded-md" />
+  </div>
 
-	<p
-		class="text-xs uppercase text-neutral-400 dark:text-neutral-500 trackign-widest">
-		{dates}
-	</p>
-	<h3 class="my-1 text-lg font-bold dark:text-neutral-100">{role}</h3>
-	<p class="mb-1 text-sm font-medium dark:text-neutral-300">{company}</p>
-	<p class="text-sm font-light text-neutral-600 dark:text-neutral-400">
-		{description}
-	</p>
+  <header class="mb-4 space-y-3">
+    <h3
+      class="text-pretty font-header text-lg font-bold transition duration-200 text-neutral-900 dark:text-neutral-50 lg:group-hover:text-primary">
+      <div
+        aria-label='Enlace a "Profesor de Programación para Niños y Adolescentes at Codelearn" (Se abrirá en una nueva pestaña)'
+        class="group">
+        <span>
+          <span class="absolute -inset-4 hidden rounded-lg lg:block"></span>
+          <span>
+            {role}
+          </span>
+        </span>
+      </div>
+    </h3>
+    <div
+      class="text-pretty text-base font-semibold dark:text-neutral-100 transition-colors duration-200">
+      <span>{company}</span>
+      <span class="opacity-50"> | </span>
+      <span>
+        <time>{dates}</time>
+      </span>
+    </div>
+  </header>
+  <div class="mb-4">
+    <p class="text-sm text-pretty dark:text-neutral-200">
+      {description}
+    </p>
+  </div>
+  <footer class="flex flex-wrap gap-2"></footer>
 </div>

@@ -1,77 +1,171 @@
 ---
 import experiences from '@collections/experiences.json';
 import AboutExperience from '@components/about-experience.astro';
-import PageHeading from '@components/Page-heading.astro';
-import Layout from '@layouts/Layout.astro';
+import Certificate from '@components/Certificate.astro';
+import Figma from '@components/icons/Figma.astro';
+import GitHub from '@components/icons/GitHub.astro';
+import Linkedin from '@components/icons/Linkedin.astro';
+import Briefcase from '@components/icons/Briefcase.astro';
+import UserIcon from '@components/icons/user.astro';
+import AcademicCap from '@components/icons/academic-cap.astro';
+import Education from '@components/Education.astro';
+import X from '@components/icons/X.astro';
 ---
 
-<Layout title="About Me">
-	<PageHeading
-		id="about"
-		title="About Me"
-		description="Hello 👋 I'm a backend engineer from Tashkent, Uzbekistan. I’m passionate about exploring new technologies and staying updated with tech news."
-	/>
-	<section class="relative z-20 max-w-2xl mx-auto my-12 px-7 lg:px-0">
-		<img
-			src="/assets/images/about.jpg"
-			class="relative z-30 w-full my-10 rounded-xl"
-		/>
+<!-- HEADER ABOUT ME -->
+<section class="mt-7">
+  <div
+    class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
+    <div class="flex max-w-xs flex-col gap-y-20 px-2.5 lg:max-w-none lg:pl-20">
+      <img
+        alt=""
+        loading="lazy"
+        decoding="async"
+        data-nimg="1"
+        class="aspect-square rotate-3 rounded-sm bg-zinc-100 object-cover dark:bg-zinc-800"
+        sizes="(min-width: 1024px) 20rem, 20rem"
+        src="/public/assets/Banner VicWithGG.png"
+        style="color: transparent;"
+      />
+    </div>
+    <div class="lg:order-first lg:row-span-2 items-start justify-between">
+      <h2
+        class="flex items-center text-3xl mt-1 md:my-3 font-bold leading-tight dark:text-white">
+        Hola 👋, Soy Francisco Victorico Aguirre Jiménez
+      </h2>
+      <!-- INFO CONTAINER -->
+      <div class="mb-4">
+        <p
+          class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400">
+          Soy Francisco Victorico Aguirre Jiménez, Diseñador UX/UI y
+          Desarrollador Web comprometido con crear experiencias digitales que
+          destacan. Equilibro las necesidades del usuario con los objetivos del
+          producto, utilizando metodologías ágiles, investigación y diseño
+          centrado en las personas.
+        </p>
+        <p
+          class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400">
+          Mi enfoque estratégico e intuitivo, junto con el dominio de
+          herramientas avanzadas, me permite convertir ideas en soluciones
+          innovadoras y efectivas. Siempre busco aprender, mejorar y superar
+          nuevos desafíos.
+        </p>
+      </div>
+      <div class="space-y-4">
+        <span
+          class="text-xs font-medium text-gray-800 uppercase dark:text-neutral-200"
+          >CONTACTAME POR:</span
+        >
+        <!-- BUTTOON GROUP COONTAINER -->
+        <div
+          class="flex items-center pb-10 sm:pb-0 px-5 gap-14 md:gap-8 text-xl text-gray-700 dark:text-gray-100">
+          <a href="https://github.com/Francisco-0510" target="_blank">
+            <GitHub />
+          </a>
+          <a href="https://www.linkedin.com/in/vicwith-gg/" target="_blank">
+            <Linkedin />
+          </a>
+          <a href="https://www.figma.com/@vicwithgg" target="_blank">
+            <Figma />
+          </a>
+          <a href="https://x.com/VicWithGG1" target="_blank">
+            <X />
+          </a>
+        </div>
+      </div>
+    </div>
 
-		<h2 class="mb-2 text-2xl font-bold dark:text-neutral-200">Short Bio</h2>
-		<p
-			class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg">
-			I love experimenting with new tech in software development and traveling
-			to new places. I enjoy dark coffee and have a taste for sci-fi movies.
-		</p>
+    <!-- LISTA SOCIAL ICONS -->
+  </div>
+</section>
+<section class="mt-32 scroll-mt-20 md:mt-7" id="experience">
+  <div class="grid grid-cols-1 gap-7 lg:grid-cols-[600px,1fr]">
+    <div
+      class="group relative mt-14 rounded-2xl border p-6 shadow transition duration-400 hover:shadow-lg dark:border-zinc-700/40">
+      <div class="absolute left-3 top-0 flex w-full justify-center">
+        <div
+          class="test left-0 h-[1px] rounded-full bg-gradient-to-r from-[rgba(17,17,17,0)] via-sky-500 to-[rgba(17,17,17,0)] transition-all group-hover:animate-border-width">
+        </div>
+      </div>
+      <h2 class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+        <UserIcon />
+        <span class="ml-3">Mi Experiencia</span>
+      </h2>
+      <div class="p-6">
+        {
+          experiences.map((experience, loop) => {
+            return (
+              <>
+                {loop == 0 || loop == 1 ? (
+                  <AboutExperience
+                    dates={experience.dates}
+                    role={experience.role}
+                    company={experience.company}
+                    description={experience.description}
+                    logo={experience.logo}
+                  />
+                ) : (
+                  <AboutExperience
+                    dates={experience.dates}
+                    role={experience.role}
+                    company={experience.company}
+                    description={experience.description}
+                    logo={experience.logo}
+                  />
+                )}
+              </>
+            );
+          })
+        }
+      </div>
+    </div>
 
-		<h2
-			class="mt-5 mb-2 text-2xl font-bold lg:mt-10 sm:mt-6 dark:text-neutral-200">
-			Experience
-		</h2>
-		<div class="px-5 py-10">
-			{
-				experiences.map((experience, loop) => {
-					return (
-						<>
-							{loop == 0 || loop == 1 ? (
-								<div class="pb-10 border-l border-gray-200 dark:border-neutral-700">
-									<AboutExperience
-										dates={experience.dates}
-										role={experience.role}
-										company={experience.company}
-										description={experience.description}
-										logo={experience.logo}
-									/>
-								</div>
-							) : (
-								<AboutExperience
-									dates={experience.dates}
-									role={experience.role}
-									company={experience.company}
-									description={experience.description}
-									logo={experience.logo}
-								/>
-							)}
-						</>
-					);
-				})
-			}
-		</div>
+    <div class="">
+      <div class="h-auto w-full space-y-10 lg:top-20">
+        <!-- CERTIFICATIONS CARD  -->
+        <div
+          class="group relative mt-14 rounded-2xl border p-6 shadow transition duration-400 hover:shadow-lg dark:border-zinc-700/40">
+          <div class="absolute left-3 top-0 flex w-full justify-center">
+            <div
+              class="test left-0 h-[1px] rounded-full bg-gradient-to-r from-[rgba(17,17,17,0)] via-sky-500 to-[rgba(17,17,17,0)] transition-all group-hover:animate-border-width">
+            </div>
+          </div>
+          <h2
+            class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+            <Briefcase />
+            <span class="ml-3">Certificaciones</span>
+          </h2>
+          <Certificate />
+        </div>
+        <!-- EDUCATION CARD -->
+        <div
+          class="group mt-14 rounded-2xl border p-6 shadow duration-400 dark:border-zinc-700/40 hover:shadow-lg">
+          <h2
+            class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+            <AcademicCap />
+            <span class="ml-3">Educación</span>
+          </h2>
+          <Education />
 
-		<h2
-			class="mt-5 mb-2 text-2xl font-bold lg:mt-10 sm:mt-6 dark:text-neutral-200">
-			Let's Connect
-		</h2>
-		<p
-			class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg">
-			If you want to stay up to date with my work be sure to <a
-				href="https://x.com/aliml92"
-				target="_blank"
-				class="text-indigo-600 underline">follow me on X</a
-			>, or you can send me an <a
-				href="mailto:alishermpr@gmail.com"
-				class="text-indigo-600 underline">email</a
-			> and I'll be sure to get back to you.
-		</p>
-	</section>
-</Layout>
+          <a
+            class="group/icon mt-6 inline-flex min-h-[40px] w-full items-center justify-center gap-2 rounded-md bg-zinc-50 px-3 py-2 text-sm font-medium text-zinc-900 outline-offset-2 transition hover:bg-zinc-100 active:bg-zinc-100 active:text-zinc-900/60 active:transition-none dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-800/50 dark:active:text-zinc-50/70"
+            href="/about"
+            ><span class="card-breakpoint:hidden">More about me</span><span
+              class="hidden card-breakpoint:inline">About me</span
+            ><svg
+              aria-hidden="true"
+              class="h-4 w-4 -rotate-90 stroke-zinc-400 transition group-hover/icon:translate-x-2 group-active/icon:stroke-zinc-600 dark:group-hover:stroke-zinc-50"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              ><path
+                d="M4.75 8.75 8 12.25m0 0 3.25-3.5M8 12.25v-8.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"></path></svg
+            >
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

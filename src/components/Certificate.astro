@@ -1,0 +1,40 @@
+---
+import certificates from '@collections/certificates.json';
+---
+
+{
+	certificates.map(({ time, title, certificationName, img }) => {
+		return (
+			<ol class="mt-6 space-y-5">
+				<li class="flex gap-4">
+					<div class="relative flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:ring-0 card-breakpoint:hidden">
+						<img
+							alt=""
+							class="h-7 w-7 rounded-full"
+							data-nimg="1"
+							decoding="async"
+							height="32"
+							loading="lazy"
+							src={img}
+							width="32"
+							style="color: transparent;"
+						/>
+					</div>
+					<dl class="flex flex-auto flex-wrap gap-x-2 text-black">
+						<dd class="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
+							{title}
+						</dd>
+						<dd class="text-xs text-black dark:text-neutral-200 card-breakpoint:hidden">
+							{certificationName}
+						</dd>
+						<dd
+							aria-label="2019 until Present"
+							class="ml-auto text-xs  text-neutral-600 dark:text-neutral-300 card-breakpoint:hidden card-breakpoint-2:hidden">
+							{time}
+						</dd>
+					</dl>
+				</li>
+			</ol>
+		);
+	})
+}

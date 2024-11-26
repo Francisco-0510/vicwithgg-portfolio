@@ -4,7 +4,17 @@
         "role": "Diseñador UX/UI",
         "company": "Profesional Independiente",
         "description": "Aumenté la satisfacción del usuario y la eficiencia operativa en proyectos web y móviles mediante diseños atractivos y funcionales, optimizando experiencias a través de sistemas de diseño cohesivos y personalización visual. Mejoré interfaces administrativas para una operatividad más fluida y creé un kit de diseño UI en Figma, con componentes reutilizables que incrementaron la eficiencia del flujo de trabajo.",
-        "logo": "assets/images/experiences/vgg-logo.svg"
+        "logo": "assets/images/experiences/vgg-logo.svg",
+        "skills": [
+            "HTML5",
+            "CSS3",
+            "JavaScript",
+            "React",
+            "Tailwind CSS",
+            "Figma",
+            "Git",
+            "Adobe XD"
+        ]
     },
     {
         "dates": "Actualidad",

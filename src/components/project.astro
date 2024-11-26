@@ -58,7 +58,16 @@ import GitHub from './icons/GitHub.astro';
 						<span class="text-sm text-neutral-600 dark:text-neutral-400">
 							{description}
 						</span>
-						<div class="flex  mt-4 mb-1 gap-2">
+						<ul class="flex flex-wrap gap-1">
+							{highlights.map((highlight) => {
+								return (
+									<li class="text-xs uppercase py-0.5 px-1 rounded bg-black/5 dark:bg-white/20 text-black/75 dark:text-white/75">
+										{highlight}
+									</li>
+								);
+							})}
+						</ul>
+						{/* <div class="flex  mt-4 mb-1 gap-2">
 							{highlights.map((highlight) => {
 								return (
 									<span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-white/10 dark:text-white">
@@ -66,7 +75,7 @@ import GitHub from './icons/GitHub.astro';
 									</span>
 								);
 							})}
-						</div>
+						</div> */}
 					</span>
 				</a>
 			);

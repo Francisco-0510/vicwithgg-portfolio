@@ -1,0 +1,146 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export type Props = HTMLAttributes<'section'> & {
+  // Enforce an id for the section
+  id: string;
+  order?: number;
+  title: string;
+};
+
+const { order = 1, title, ...props } = Astro.props;
+---
+
+<script>
+  type Section = {
+    order: number;
+    target: HTMLElement;
+    visible: boolean;
+  };
+
+  function compareSections(a: Element, b: Element) {
+    const aOrder = +a.getAttribute('data-observed-section')!;
+    const bOrder = +b.getAttribute('data-observed-section')!;
+
+    return aOrder - bOrder;
+  }
+
+  function getEntryInfo(entry: IntersectionObserverEntry) {
+    const order = +entry.target.getAttribute('data-observed-section')!;
+    const visible = entry.isIntersecting;
+
+    return { target: entry.target as HTMLElement, order, visible };
+  }
+
+  // Queremos la más reciente porque puede haber varias secciones visibles al mismo tiempo.
+  // La "actual" debe ser siempre la (visible) con el orden más alto (la más reciente en el documento).
+  function getLatestVisibleSection(sections: Section[]) {
+    const greaterOrder = -Infinity;
+    let latest = null;
+
+    for (const section of sections) {
+      if (section.order > greaterOrder && section.visible) {
+        latest = section;
+      }
+    }
+
+    return latest;
+  }
+
+  // Añade la clase "active" a los enlaces que apuntan a la sección visible en ese momento.
+  function updatePageLinks(currentlyVisibleSection: Section) {
+    const documentLinks = document.querySelectorAll("a[href^='#']");
+    for (const link of documentLinks) {
+      if (link instanceof HTMLAnchorElement) {
+        const [, target] = link.href.split('#');
+        link.classList.toggle(
+          'active',
+          target === currentlyVisibleSection.target.id
+        );
+      }
+    }
+    /* for (const link of documentLinks) {
+			const [, target] = link.href.split('#');
+			link.classList.toggle(
+				'active',
+				target === currentlyVisibleSection.target.id
+			);
+		} */
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    const sections = [...document.querySelectorAll('[data-observed-section]')];
+    sections.sort(compareSections);
+
+    const sectionStates: Record<string, Section> = {};
+    let lastVisibleSection: Section;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Actualizar el estado de cada sección.
+        for (const entry of entries) {
+          //El ID es un accesorio obligatorio, por lo que podemos asumir con seguridad que existe.
+          const id = entry.target.id;
+          sectionStates[id] = getEntryInfo(entry);
+        }
+
+        // Encuentra la ultima seccion visible
+        const newLast =
+          getLatestVisibleSection(Object.values(sectionStates)) ??
+          lastVisibleSection;
+
+        //Si hay una nueva seccion en la vista, actualiza los links correspondientes
+        if (newLast !== lastVisibleSection) {
+          lastVisibleSection = newLast;
+          updatePageLinks(lastVisibleSection);
+        }
+      },
+      {
+        threshold: 0.3,
+        rootMargin: getComputedStyle(document.documentElement).getPropertyValue(
+          '--header-height'
+        ),
+      }
+    );
+    for (const section of sections) {
+      observer.observe(section);
+    }
+  });
+</script>
+
+<section {...props} data-observed-section={order}>
+  <h2
+    class="my-12 ml-2 inline-flex w-full items-center text-pretty font-header text-3xl font-semibold opacity-85 sm:ml-0">
+    <span>{title}</span>
+    <span class="ml-[0.6em] mt-1 h-0.5 grow translate-y-full bg-muted"></span>
+  </h2>
+  <slot />
+</section>
+
+<style>
+  :global(main) {
+    counter-reset: section;
+  }
+
+  h2 {
+    position: relative;
+  }
+
+  h2 > span {
+    font-size: 0.9em;
+  }
+
+  h2::before {
+    @apply tabular-nums;
+
+    counter-increment: section;
+    content: '0' counter(section) '. ';
+    opacity: 0.9;
+
+    margin-top: 0.1em;
+    margin-right: 0.5em;
+
+    font-size: 0.8em;
+    font-family: theme('fontFamily.sans');
+  }
+</style>

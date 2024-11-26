@@ -6,98 +6,134 @@ import Figma from '@components/icons/Figma.astro';
 import GitHub from '@components/icons/GitHub.astro';
 ---
 
-<section class="">
-	<h2
-		class="text-2xl font-bold leading-10 tracking-tight text-neutral-900 dark:text-neutral-100">
-		My Projects
-	</h2>
-	<p class="mb-6 text-base text-neutral-600 dark:text-neutral-400">
-		Here are some of my recent projects. I'm always working on something new, so
-		check back often!
-	</p>
-	<div
-		class="grid items-stretch w-full sm:grid-cols-2 md:grid-cols-3 gap-7 mt-7">
-		{
-			projects.map(
-				({ name, description, highlights, image, link, figma, github }) => {
-					return (
-						<div class="flex flex-col group bg-white border  shadow-sm rounded-lg overflow-hidden hover:shadow-lg focus:outline-none duration-300 ease-out focus:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
-							<span class="block w-full">
-								<img
-									src={image}
-									class="w-full h-auto rounded-lg aspect-[16/9] group-hover:scale-105 group-focus:scale-105 transition-transform duration-500 ease-out"
-								/>
-							</span>
-							<div class="mt-4 p-2 md:p-5">
-								<div class="flex items-center justify-between ">
-									<div class="flex  items-center space-x-2">
-										<h3 class="text-base font-semibold tracking-tight">
-											<a
-												href=""
-												class="hover:underline  text-black dark:text-white">
-												{name}
-											</a>
-										</h3>
-										<svg
-											class="group-hover:translate-x-0 group-hover:translate-y-0 -rotate-45 translate-y-1 -translate-x-1 w-2.5 h-2.5 stroke-current ml-1 transition-all ease-in-out duration-200 transform"
-											viewBox="0 0 16 16"
-											version="1.1"
-											xmlns="http://www.w3.org/2000/svg"
-											xmlns:xlink="http://www.w3.org/1999/xlink">
-											<g
-												stroke="none"
-												stroke-width="1"
-												fill="none"
-												fill-rule="evenodd"
-												stroke-linecap="round"
-												stroke-linejoin="round">
-												<g
-													id="svg"
-													transform="translate(0.666667, 2.333333)"
-													stroke="currentColor"
-													stroke-width="2.4">
-													<g>
-														<polyline
-															class="transition-all duration-200 ease-out opacity-0 delay-0 group-hover:opacity-100"
-															points="5.33333333 0 10.8333333 5.5 5.33333333 11"
-														/>
-														<line
-															class="transition-all duration-200 ease-out transform -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:ml-0"
-															x1="10.8333333"
-															y1="5.5"
-															x2="0.833333333"
-															y2="5.16666667"
-														/>
-													</g>
-												</g>
-											</g>
-										</svg>
-									</div>
-									<div class="flex items-center justify-center gap-2">
-										<Figma />
-										<GitHub />
-									</div>
-								</div>
-								<p class=" z-10 mt-2 text-neutral-600 dark:text-neutral-400">
-									SandBox.tv is a platform for watching +10k content creators'
-									live streams on Twitch and YouTube simultaneously.
-								</p>
-								<div class="flex  mt-4 mb-1 gap-2">
-									{highlights.map((highlight) => {
-										return (
-											<span class="w-auto h-auto px-3 py-1.5 uppercase tracking-widest space-x-1 text-[0.6rem]   border rounded-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-50 left-0 md:ml-0 ml-5 md:left-1/2 border-neutral-100 dark:border-neutral-700 shadow-sm">
-												{highlight}
-											</span>
-										);
-									})}
-								</div>
-							</div>
-						</div>
-					);
-				}
-			)
-		}
-		<!-- {
+<section class="space-y-20">
+  <div class="max-w-2xl space-y-5">
+    <h3
+      class="text-3xl font-semibold tracking-tight dark:text-neutral-100 sm:text-3xl sm:font-semibold">
+      Algunos de <span class="text-blue-500 dark:text-neutral-100">
+        Mis Proyectos</span
+      >
+    </h3>
+    <p
+      class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400">
+      Estos son algunos de los proyectos que he hecho a lo largo de mi carrera
+      como Diseñador UX/UI y como Desarrollador Web. Si quieres descubrir más,
+      puedes echar un vistazo a mi perfil de <a
+        class="font-semibold text-[#0d6fff] hover:underline"
+        href="https://github.com/gothinkster/realworld"
+        target="_blank">GitHub</a
+      > y mi perfil de <a
+        class="font-semibold text-[#0d6fff] hover:underline"
+        href="https://github.com/gothinkster/realworld"
+        target="_blank">Conduit</a
+      >, donde tengo mis demás proyectos.
+    </p>
+  </div>
+
+  <div
+    class="grid items-stretch w-full sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+    {
+      projects.map(
+        ({ name, description, highlights, image, link, figma, github }) => {
+          return (
+            <div class="flex flex-col group bg-white border  border-neutral-300 shadow-sm rounded-sm overflow-hidden hover:shadow-md focus:outline-none duration-300 ease-out focus:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+              <span class="block w-full">
+                <img
+                  src={image}
+                  class="w-full h-auto  aspect-[16/9] group-hover:scale-105 hover: group-focus:scale-105 transition-transform duration-500 ease-out"
+                />
+              </span>
+              <div class=" px-7 py-5 gap-3 items-center">
+                <div class="flex flex-auto items-center justify-between ">
+                  <div class="flex  items-center space-x-2">
+                    <h3 class="text-base flex font-semibold tracking-tight">
+                      <a
+                        href=""
+                        class="flex flex-auto  items-center   text-black dark:text-white">
+                        {name}
+                        <svg
+                          class="group-hover:translate-x-0 group-hover:translate-y-0 -rotate-45 translate-y-1 -translate-x-1 w-3.5 h-3.5 stroke-current ml-1 transition-all ease-in-out duration-200 transform"
+                          viewBox="0 0 16 16"
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <g
+                            stroke="none"
+                            stroke-width="1"
+                            fill="none"
+                            fill-rule="evenodd"
+                            stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <g
+                              id="svg"
+                              transform="translate(0.666667, 2.333333)"
+                              stroke="currentColor"
+                              stroke-width="2.4">
+                              <g>
+                                <polyline
+                                  class="transition-all duration-200 ease-out opacity-0 delay-0 group-hover:opacity-100"
+                                  points="5.33333333 0 10.8333333 5.5 5.33333333 11"
+                                />
+                                <line
+                                  class="transition-all duration-200 ease-out transform -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:ml-0"
+                                  x1="10.8333333"
+                                  y1="5.5"
+                                  x2="0.833333333"
+                                  y2="5.16666667"
+                                />
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </a>
+                    </h3>
+                  </div>
+                  <div class="flex items-center justify-center ">
+                    {github && (
+                      <a
+                        class="text-neutral-900 dark:text-neutral-100 "
+                        href={github}
+                        target="_blank"
+                        title={`Ver código fuente del proyecto ${name}`}>
+                        <GitHub />
+                      </a>
+                    )}
+                    {figma && (
+                      <a
+                        class="figma-code-link"
+                        href={figma}
+                        target="_blank"
+                        title={`Ver archivo en  ${name}`}>
+                        <Figma />
+                      </a>
+                    )}
+                    {/* <Figma />
+										<GitHub /> */}
+                  </div>
+                </div>
+                <div class="items-center  space-y-6 mt-2">
+                  <p class="text-sm z-10  text-neutral-600 dark:text-neutral-400">
+                    {description}
+                  </p>
+                  <div class="w-full flex items-end ">
+                    <ul class="flex flex-wrap gap-2">
+                      {highlights.map((highlight) => {
+                        return (
+                          <li class="flex items-center justify-center gap-x-2 rounded-full border border-border px-4 py-1 text-xs bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 left-0 md:ml-0 ml-5 md:left-1/2 border-neutral-100 dark:border-neutral-700">
+                            {highlight}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+      )
+    }
+    <!-- {
 			projects.map(
 				({ name, description, highlights, image, link, figma, github }) => {
 					return (
@@ -168,9 +204,5 @@ import GitHub from '@components/icons/GitHub.astro';
 				}
 			)
 		} -->
-	</div>
-
-	<div class="flex items-center justify-center w-full py-5">
-		<Button text="View All My Projects" link="/projects" />
-	</div>
+  </div>
 </section>
