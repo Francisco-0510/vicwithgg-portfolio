@@ -6,27 +6,32 @@ import Layout from '../layouts/Layout.astro';
 import Header from '@components/Header.astro';
 import About from './about.astro';
 import { ViewTransitions } from 'astro:transitions';
+import SectionContainer from '@components/shared/SectionContainer.astro';
 ---
 
 <Layout title="Francisco Victorico Aguirre Jiménez">
-  <div class="relative z-20 w-full max-w-5xl mx-auto pt-16">
-    <section class="mx-auto px-7 lg:px-0 lg:space-y-12">
-      <Header />
-
-      <div class="w-full h-min justify-center items-center content-center">
-        <Separator text="Mi marco de trabajo" id="stack" />
-        <Stack />
-      </div>
-
-      <div>
-        <Separator text="Descubre mis trabajos" id="projects" />
-        <Projects />
-      </div>
-
-      <div>
-        <Separator text="VicWithGG" id="about" />
-        <About />
-      </div>
-    </section>
-  </div>
+  <SectionContainer class="mx-auto relative z-20 pt-16">
+    <Header />
+  </SectionContainer>
 </Layout>
+
+<div class="relative z-20 w-full max-w-5xl mx-auto pt-16">
+  <section class="mx-auto px-7 lg:px-0 lg:space-y-12">
+    <Header />
+
+    <div class="w-full h-min justify-center items-center content-center">
+      <Separator text="Mi marco de trabajo" id="stack" />
+      <Stack />
+    </div>
+
+    <div>
+      <Separator text="Descubre mis trabajos" id="projects" />
+      <Projects />
+    </div>
+
+    <div>
+      <Separator text="VicWithGG" id="about" />
+      <About />
+    </div>
+  </section>
+</div>

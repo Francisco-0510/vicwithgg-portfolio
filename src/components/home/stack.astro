@@ -33,13 +33,13 @@ const { id } = Astro.props;
     <!-- LANGUAGES SKILLS CONTAINER -->
     <div
       class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
-      <div class="grid grid-cols-1 gap-y-8 md:grid-cols-4">
+      <div class="grid max-w-4xl grid-cols-1 gap-y-8 md:grid-cols-4">
         <h2
           class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300">
-          Lneguajes
+          Lenguajes
         </h2>
         <div
-          class="flex flex-row flex-wrap gap-x-12 gap-y-14 md:col-span-3 md:gap-x-12">
+          class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12">
           {
             stack.languages.map((language) => {
               return (
@@ -83,7 +83,7 @@ const { id } = Astro.props;
           Frameworks
         </h2>
         <div
-          class="flex flex-row flex-wrap gap-x-12 gap-y-14 md:col-span-3 md:gap-x-12">
+          class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12">
           {
             stack.frontend.map((frontend) => {
               return (
