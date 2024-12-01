@@ -1,0 +1,111 @@
+---
+interface Props {
+  dates: string;
+  role: string;
+  company: string;
+  description: string;
+  logo: string;
+}
+
+const { dates, role, company, description, logo } = Astro.props;
+---
+
+<!-- 
+<div class="px-5 py-10">
+  <div
+    class="pb-10 border-l border-gray-200 last:border-l-0 dark:border-neutral-700">
+    <div class="relative flex flex-col justify-start pl-12">
+      <div
+        class="absolute top-0 left-0 z-40 flex items-center justify-center -translate-x-1/2 bg-white border rounded-full dark:bg-neutral-950 w-14 h-14 border-neutral-300 dark:border-neutral-700">
+        <img
+          src="/assets/images/experiences/fta.ico"
+          alt="Full Truck Alliance"
+          class="w-8 h-8"
+        />
+      </div>
+      <p
+        class="text-xs uppercase text-neutral-400 dark:text-neutral-500 trackign-widest">
+        June 2018 · Present
+      </p>
+      <h3 class="my-1 text-lg font-bold dark:text-neutral-100">
+        Front-end Engineer
+      </h3>
+      <p class="mb-1 text-sm font-medium dark:text-neutral-300">
+        Full Truck Alliance
+      </p>
+      <p class="text-sm font-light text-neutral-600 dark:text-neutral-400">
+        Responsible for customer service and CRM system front-end development.
+      </p>
+    </div>
+  </div>
+</div> --><!-- <div class="mt-8 flex w-full flex-col gap-y-10 overflow-hidden">
+  <ul class="relative flex flex-row gap-x-1 overflow-hidden">
+    <div class="z-10 w-10 shrink-0">
+      <div
+        class="relative flex h-10 w-10 flex-none items-center justify-center rounded-full">
+        <img
+          alt="logo of University of Maryland"
+          loading="lazy"
+          decoding="async"
+          data-nimg="1"
+          class="h-7 w-7 rounded-full border-2 border-border"
+          src={logo}
+          style="color: transparent;"
+        />
+      </div>
+    </div>
+    <div class="z-0 mt-2 flex flex-col">
+      <p
+        class="text-xs uppercase text-neutral-400 dark:text-neutral-500 trackign-widest">
+        {dates}
+      </p>
+      <li
+        class="group group relative mt-[10px] flex min-h-max max-w-3xl flex-col gap-y-1 border border-white/0 pb-8"
+        id="job role"
+        style="opacity: 1;">
+        <div class="flex gap-x-2">
+          <p class="text-base font-semibold">
+            {role}
+          </p>
+        </div>
+        <span class="text-sm">
+          {company}
+        </span>
+        <p class="text-sm text-muted-foreground">
+          {description}
+        </p>
+        <div
+          class="absolute -left-[calc((2.5rem/2)+6px)] bottom-[calc(100%+10px)] h-[1999px] border-l-2 border-border group-hover:z-50 group-hover:border-black dark:border-zinc-800 dark:group-hover:border-white"
+          id="threadline">
+        </div>
+        <div
+          class="absolute -left-[calc((2.5rem/2)+6px)] -top-[13px] z-50 h-[26px] w-[calc(2.5rem/2)] rounded-bl-2xl border-b-2 border-l-2 border-border group-hover:border-black dark:border-zinc-800 dark:group-hover:border-white"
+          id="threadline-curve">
+        </div>
+      </li>
+    </div>
+  </ul>
+</div>
+ -->
+<div
+  class="relative mx-12 pb-12 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-black/20 dark:before:border-white/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4]">
+  <div class="relative pb-12 md:col-span-2">
+    <div class="sticky top-0">
+      <span class="text-blue-500 -left-[42px] absolute rounded-full text-5xl"
+        >&bull;</span
+      >
+
+      <h3 class="text-xl font-bold dark:text-white">{role}</h3>
+      <p class="font-medium dark:text-white">
+        {company}
+      </p>
+      <time class="p-0 m-0 text-sm text-gray-600 dark:text-white/80"
+        >{dates}</time
+      >
+    </div>
+  </div>
+  <div
+    class="relative flex flex-col gap-2 pb-4 text-neutral-800 dark:text-neutral-300 md:col-span-3">
+    {description}
+  </div>
+</div>

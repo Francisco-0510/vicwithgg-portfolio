@@ -1,0 +1,247 @@
+---
+import Figma from '@components/icons/Figma.astro';
+import GitHub from '@components/icons/GitHub.astro';
+import React from '@components/icons/React.astro';
+import Tailwind from '@components/icons/Tailwind.astro';
+import { Image, Picture } from 'astro:assets';
+const TAGS = {
+  HTML5: {
+    name: 'HTML5',
+    class: 'bg-black text-white',
+    icon: Tailwind,
+  },
+  REACT: {
+    name: 'React',
+    class: 'bg-black text-white',
+    icon: React,
+  },
+};
+
+const PROJECTS = [
+  {
+    title: 'VicWithGG Portafolio Web',
+    description: 'Portafolio personal con Astro, Tailwind CSS y Vercel.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    link: '#',
+    image: 'assets/images/projects/vicwithgg-cover.webp',
+    github: 'https://github.com/Francisco-0510/vicwithgg-portfolio',
+  },
+  {
+    title: 'VGG Movies Search',
+    description:
+      'App para explorar y guardar películas favoritas, usando Firebase.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/vgg-movie.webp',
+    link: 'https://vgg-movie-search.vercel.app/',
+    github: 'https://github.com/Francisco-0510/movie-app-react',
+  },
+  {
+    title: 'CV Minimalista (Web y PDF)',
+    description: 'CV minimalista en Web y PDF, configurable con JSON.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/thumbnail-cv.webp',
+    link: 'https://vicwithgg.netlify.app/',
+    github: 'https://github.com/Francisco-0510/minimalist-portfolio',
+  },
+  {
+    title: 'VG Design UI Kit',
+    description: 'Kit de diseño UI/UX en Figma.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/thumbnail-vg.webp',
+    link: 'https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-10',
+    figma:
+      'https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-10',
+  },
+  {
+    title: 'Hospital Ángel de Mar',
+    description: 'Rediseño UI/UX e implementación en Webflow.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/thumbnail-ham.webp',
+    link: 'https://hospitalangeldelmar.com.mx/',
+  },
+  {
+    title: 'Seguridad Privada BETAJ',
+    description: 'Diseño de interfaces y desarrollo en Webflow.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/betaj.webp',
+    link: 'https://betaj.mx/',
+  },
+  {
+    title: 'Portafolio braquetes.com.mx',
+    description: 'Portafolio web para programador backend.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/coverBR.webp',
+    link: 'https://www.braquetes.com.mx/#/',
+  },
+  {
+    title: 'Diseño de Sistema Web de Gestión de Actividades',
+    description: 'Investigación y diseño UX/UI para sistema web.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+
+    image: '/projects/thumbnail-tutoriasDesign.webp',
+    link: 'https://www.figma.com/community/file/1205620325712950079',
+    figma: 'https://www.figma.com/community/file/1205620325712950079',
+  },
+  {
+    title: 'Desarrollo Front-end de Sistema Web de Gestion de Actividades',
+    description: 'Desarrollo frontend con Ionic para sistema UTVCO.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/thumbnail-tutoriasDev.webp',
+    link: 'https://github.com/Francisco-0510/plataformaEstadias',
+    github: 'https://github.com/Francisco-0510/plataformaEstadias',
+  },
+  {
+    title: 'Rediseño App HealthCheck',
+    description: 'Rediseño de app HealthCheck para dispositivos móviles.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/thumbnail-rediseño.jpg',
+    figma: 'https://www.figma.com/community/file/1283078639346112182',
+  },
+  {
+    title: 'App Healthcheck - Smartwatch y Mobile ',
+    description: 'App de seguimiento de salud para móviles y wearables.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/thumbnail-healtcheck.webp',
+    link: 'https://www.figma.com/community/file/1270644133161232117',
+    figma: 'https://www.figma.com/community/file/1270644133161232117',
+  },
+  {
+    title: 'Arquitectura y UX de app HealthCheck ',
+    description: 'Mapas de navegación y wireflows para HealthCheck.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/thumbnail-arqH.webp',
+    link: 'https://www.figma.com/community/file/1125658163306261422',
+    figma: 'https://www.figma.com/community/file/1125658163306261422',
+  },
+  {
+    title: 'BIT Tournament 2023',
+    description: 'Diseño UI y desarrollo frontend en Angular.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/thumbnail-BIT.webp',
+    link: 'https://github.com/Francisco-0510/BIT-TOURNAMENT-2023',
+    figma:
+      'https://www.figma.com/community/file/1165464149403530205/diseno-de-interfaces-bit-tournament-2023',
+    github: 'https://github.com/Francisco-0510/BIT-TOURNAMENT-2023',
+  },
+  {
+    title: 'User Story Mapping - BIT TOURNAMENT 2023',
+    description:
+      'Historias de usuario y mapas de navegación para BIT Tournament.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/thumbnail-storyBIT.webp',
+    link: 'https://www.figma.com/community/file/1183832840468301220/user-story-mapping-bit-tournament-2023',
+    figma:
+      'https://www.figma.com/community/file/1183832840468301220/user-story-mapping-bit-tournament-2023',
+  },
+  {
+    title: 'Sistema Venta de Boletos La Solteca',
+    description: 'Diseño y desarrollo de sistema de venta de boletos.',
+    tags: [TAGS.HTML5, TAGS.REACT],
+    image: '/projects/thumbnail-soltecaDesign.webp',
+    link: 'https://xd.adobe.com/view/5b7241f4-f464-4276-69b2-89a327b55523-2d43/',
+    github: 'https://github.com/Francisco-0510/Solteca',
+  },
+];
+---
+
+<div class="gap-y-16">
+  <!-- HEADER PROJECTS SECTION] -->
+  <div class="max-w-2xl space-y-5">
+    <h3
+      class="text-3xl font-semibold tracking-tight dark:text-neutral-100 sm:text-3xl sm:font-semibold">
+      Algunos de <span class="text-blue-500 dark:text-neutral-100">
+        Mis Proyectos</span
+      >
+    </h3>
+    <p
+      class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400">
+      Estos son algunos de los proyectos que he hecho a lo largo de mi carrera
+      como Diseñador UX/UI y como Desarrollador Web. Si quieres descubrir más,
+      puedes echar un vistazo a mi perfil de <a
+        class="font-semibold text-[#0d6fff] hover:underline"
+        href="https://www.figma.com/@vicwithgg"
+        target="_blank">Figma</a
+      > y mi perfil de <a
+        class="font-semibold text-[#0d6fff] hover:underline"
+        href="https://github.com/Francisco-0510"
+        target="_blank">GitHub</a
+      >, donde tengo mis demás proyectos.
+    </p>
+  </div>
+
+  <!-- container cards projects -->
+  <div
+    class="grid items-stretch w-full sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10 justify-center">
+    {PROJECTS}
+  </div>
+
+  <div class="flex flex-col gap-y-16">
+    {
+      PROJECTS.map(
+        ({ title, image, description, tags, link, github, figma }) => (
+          <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
+            <div class="w-full md:w-1/2">
+              <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+                <img
+                  alt="Recién llegado vs 5 años en Nueva Zelanda"
+                  class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
+                  src={image}
+                />
+                {/*  <img
+                  alt="Recién llegado vs 5 años en Nueva Zelanda"
+                  class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                  src={image}
+                /> */}
+              </div>
+            </div>
+
+            <div class="w-full md:w-1/2 md:max-w-lg">
+              <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                {title}
+              </h3>
+              <div class="flex flex-wrap mt-2">
+                <ul class="flex flex-row mb-2 gap-x-2">
+                  {tags.map((tag) => (
+                    <li>
+                      <span
+                        class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}>
+                        <tag.icon class="size-4" />
+                        {tag.name}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div class="mt-2 w-full text-gray-700 dark:text-gray-400">
+                  {description}
+                </div>
+                <footer class="flex items-end justify-start mt-4 gap-x-4">
+                  {github && (
+                    <a
+                      class=" dark:text-neutral-100 "
+                      href={github}
+                      target="_blank"
+                      title={`Ver código fuente del proyecto ${title}`}>
+                      <GitHub />
+                    </a>
+                  )}
+                  {figma && (
+                    <a
+                      class="figma-code-link dark:text-neutral-100"
+                      href={figma}
+                      target="_blank"
+                      title={`Ver archivo en  ${title}`}>
+                      <Figma />
+                    </a>
+                  )}
+                </footer>
+              </div>
+            </div>
+          </article>
+        )
+      )
+    }
+  </div>
+</div>

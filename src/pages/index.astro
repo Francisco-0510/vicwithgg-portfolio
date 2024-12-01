@@ -1,37 +1,66 @@
 ---
-import Stack from '@components/home/stack.astro';
-import Projects from '../components/home/projects.astro';
+/* import Stack from '@components/home/stack.astro';*/
 import Separator from '../components/home/separator.astro';
 import Layout from '../layouts/Layout.astro';
 import Header from '@components/Header.astro';
 import About from './about.astro';
 import { ViewTransitions } from 'astro:transitions';
 import SectionContainer from '@components/shared/SectionContainer.astro';
+import Experience from '@components/sections/Experience.astro';
+import Stack from '@components/sections/Stack.astro';
+import Projects from '@components/sections/Projects.astro';
 ---
 
-<Layout title="Francisco Victorico Aguirre Jiménez">
-  <SectionContainer class="mx-auto relative z-20 pt-16">
-    <Header />
-  </SectionContainer>
+<Layout
+  title="Portafolio de VicWithGG - Diseñador UX/UI y Desarrollador Web con más de 3 años de experiencia">
+  <main class="mx-auto px-4">
+    <!-- CONTAINER PARA HEADER Y NAVBAR -->
+    <SectionContainer class="mx-auto relative z-20 pt-16">
+      <Header />
+    </SectionContainer>
+
+    <!-- CONTAINER PARA LAS SECCIONES DE LA LANDING -->
+    <div class="space-y-24">
+      <!-- CONTAINER PARA STACK SECCION -->
+      <SectionContainer id="stack">
+        <Separator text="Mi marco de trabajo" />
+        <Stack />
+      </SectionContainer>
+
+      <!-- CONTAINER PARA SECCION EXPERIENCIA -->
+      <SectionContainer id="experience">
+        <Separator text="Mi experiencia" />
+        <Experience />
+      </SectionContainer>
+
+      <!-- CONTAINER PARA SECCION DE PROYECTOS -->
+      <SectionContainer id="projects">
+        <Separator text="Descubre mis trabajos" />
+        <Projects />
+      </SectionContainer>
+
+      <!-- CONTAINER PARA SECCION SOBRE MI -->
+      <SectionContainer id="aboutMe">
+        <Separator text="Sobre VicWithGG" />
+        <p>Proyectos</p>
+      </SectionContainer>
+    </div>
+  </main>
+
+  <div class="relative z-20 w-full max-w-5xl mx-auto pt-16">
+    <section class="mx-auto px-7 lg:px-0 lg:space-y-12">
+      <Header />
+      <div class="w-full h-min justify-center items-center content-center">
+        <Separator text="Mi marco de trabajo" id="stack" />
+        <Stack />
+      </div>
+      <div>
+        <Separator text="Descubre mis trabajos" id="projects" />
+      </div>
+      <div>
+        <Separator text="VicWithGG" id="about" />
+        <About />
+      </div>
+    </section>
+  </div>
 </Layout>
-
-<div class="relative z-20 w-full max-w-5xl mx-auto pt-16">
-  <section class="mx-auto px-7 lg:px-0 lg:space-y-12">
-    <Header />
-
-    <div class="w-full h-min justify-center items-center content-center">
-      <Separator text="Mi marco de trabajo" id="stack" />
-      <Stack />
-    </div>
-
-    <div>
-      <Separator text="Descubre mis trabajos" id="projects" />
-      <Projects />
-    </div>
-
-    <div>
-      <Separator text="VicWithGG" id="about" />
-      <About />
-    </div>
-  </section>
-</div>
