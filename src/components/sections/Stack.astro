@@ -1,5 +1,5 @@
 ---
-import stack from '@collections/stack.json';
+import stack from "@collections/stack.json";
 const { id } = Astro.props;
 ---
 
@@ -32,14 +32,17 @@ const { id } = Astro.props;
   <div class="my-16 space-y-28 sm:mt-20">
     <!-- LANGUAGES SKILLS CONTAINER -->
     <div
-      class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
+      class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
+    >
       <div class="grid max-w-4xl grid-cols-1 gap-y-8 md:grid-cols-4">
         <h2
-          class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300">
+          class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300"
+        >
           Lenguajes
         </h2>
         <div
-          class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12">
+          class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12"
+        >
           {
             stack.languages.map((language) => {
               return (
@@ -47,7 +50,8 @@ const { id } = Astro.props;
                   <article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
                     <div
                       id="overlay"
-                      class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 overflow-hidden">
+                      class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 overflow-hidden"
+                    >
                       <div
                         id="shadow-overlay"
                         class="absolute left-0 top-20 h-[40px] w-[40px] opacity-0 blur-2xl transition-opacity duration-200 ease-in-out group-hover:opacity-100 bg-gradient-to-r from-[#0d6fff] to-[#0d6fff]"
@@ -76,14 +80,17 @@ const { id } = Astro.props;
     </div>
     <!-- FRONTEND SKILLS CONTAINER -->
     <div
-      class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
+      class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
+    >
       <div class="grid max-w-4xl grid-cols-1 gap-y-8 md:grid-cols-4">
         <h2
-          class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300">
+          class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300"
+        >
           Frameworks
         </h2>
         <div
-          class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12">
+          class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12"
+        >
           {
             stack.frontend.map((frontend) => {
               return (
@@ -91,7 +98,8 @@ const { id } = Astro.props;
                   <article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
                     <div
                       id="overlay"
-                      class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 overflow-hidden">
+                      class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 overflow-hidden"
+                    >
                       <div
                         id="shadow-overlay"
                         class="absolute left-0 top-20 h-[40px] w-[40px] opacity-0 blur-2xl transition-opacity duration-200 ease-in-out group-hover:opacity-100 bg-gradient-to-r from-[#019ae9] to-[#00dfd8]"
@@ -120,14 +128,17 @@ const { id } = Astro.props;
     </div>
     <!-- TOOLS SKILLS CONTAINER -->
     <div
-      class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
+      class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40"
+    >
       <div class="grid max-w-4xl grid-cols-1 gap-y-8 md:grid-cols-4">
         <h2
-          class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300">
+          class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300"
+        >
           Herramientas
         </h2>
         <div
-          class="flex flex-row flex-wrap gap-x-12 gap-y-14 md:col-span-3 md:gap-x-12">
+          class="flex flex-row flex-wrap gap-x-12 gap-y-14 md:col-span-3 md:gap-x-12"
+        >
           {
             stack.tools.map((tools) => {
               return (
@@ -135,7 +146,8 @@ const { id } = Astro.props;
                   <article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
                     <div
                       id="overlay"
-                      class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:bg-slate-100/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100  sm:-inset-x-6 overflow-hidden">
+                      class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:bg-slate-100/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100  sm:-inset-x-6 overflow-hidden"
+                    >
                       <div
                         id="shadow-overlay"
                         class="absolute left-0 top-20 h-[40px] w-[40px] opacity-0 blur-2xl transition-opacity duration-200 ease-in-out group-hover:opacity-100 bg-gradient-to-r from-[#019ae9] to-[#00dfd8]"

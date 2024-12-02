@@ -3,34 +3,32 @@ import education from '@collections/education.json';
 ---
 
 {
-	education.map(({ time, title, EducationItem, logo }) => {
-		return (
-			<ol class="mt-6 space-y-5">
-				<li class="flex gap-4">
-					<div class="relative flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:ring-0 card-breakpoint:hidden">
-						<img
-							alt=""
-							class="h-18 w-18 rounded-full"
-							data-nimg="1"
-							decoding="async"
-							loading="lazy"
-							src={logo}
-							style="color: transparent;"
-						/>
-					</div>
-					<dl class="flex flex-auto flex-wrap gap-x-2 gap-y-1 text-black">
-						<dd class="text-xs  text-neutral-600 dark:text-neutral-300 trackign-widest">
-							{time}
-						</dd>
-						<p class="w-full flex-none text-xs font-medium text-zinc-900 dark:text-zinc-100">
-							{title}
-						</p>
-						<dd class="text-xs text-neutral-600 dark:text-neutral-200 card-breakpoint:hidden">
-							{EducationItem}
-						</dd>
-					</dl>
-				</li>
-			</ol>
-		);
-	})
+  education.map(({ time, title, EducationItem, logo }) => {
+    return (
+      <ol class="mt-6 space-y-5">
+        <li class="flex gap-4">
+          <div class="relative flex h-10 w-10 flex-none items-center justify-center rounded-lg   shadow-sm shadow-zinc-600/50 ring-1 ring-zinc-900/5 dark:ring-0 card-breakpoint:hidden">
+            <img
+              alt=""
+              class="h-18 w-18 rounded-full"
+              data-nimg="1"
+              decoding="async"
+              loading="lazy"
+              src={logo}
+              style="color: transparent;"
+            />
+          </div>
+          <div class="flex flex-col gap-x-2 gap-y-1">
+            <span class="text-xs  text-neutral-600 dark:text-neutral-300 trackign-widest">
+              {time}
+            </span>
+            <h6 class=" font-semibold tracking-tight">{title}</h6>
+            <p class="text-sm text-pretty text-neutral-600 dark:text-neutral-200 card-breakpoint:hidden">
+              {EducationItem}
+            </p>
+          </div>
+        </li>
+      </ol>
+    );
+  })
 }

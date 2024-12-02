@@ -12,7 +12,8 @@ const TAGS = {
   },
   REACT: {
     name: 'React',
-    class: 'bg-black text-white',
+    class:
+      'flex items-center justify-center gap-x-2 rounded-full border border-border px-2 py-1 text-xs dark:border-transparent bg-white text-black',
     icon: React,
   },
 };
@@ -23,7 +24,7 @@ const PROJECTS = [
     description: 'Portafolio personal con Astro, Tailwind CSS y Vercel.',
     tags: [TAGS.HTML5, TAGS.REACT],
     link: '#',
-    image: 'assets/images/projects/vicwithgg-cover.webp',
+    image: '/projects/vicwithgg-cover.webp',
     github: 'https://github.com/Francisco-0510/vicwithgg-portfolio',
   },
   {
@@ -94,7 +95,7 @@ const PROJECTS = [
     title: 'Rediseño App HealthCheck',
     description: 'Rediseño de app HealthCheck para dispositivos móviles.',
     tags: [TAGS.HTML5, TAGS.REACT],
-    image: '/projects/thumbnail-rediseño.jpg',
+    image: '/projects/thumbnail-rediseño.webp',
     figma: 'https://www.figma.com/community/file/1283078639346112182',
   },
   {
@@ -144,38 +145,113 @@ const PROJECTS = [
 ];
 ---
 
-<div class="gap-y-16">
+<div class="space-y-16">
   <!-- HEADER PROJECTS SECTION] -->
   <div class="max-w-2xl space-y-5">
     <h3
-      class="text-3xl font-semibold tracking-tight dark:text-neutral-100 sm:text-3xl sm:font-semibold">
+      class="text-3xl font-semibold tracking-tight dark:text-neutral-100 sm:text-3xl sm:font-semibold"
+    >
       Algunos de <span class="text-blue-500 dark:text-neutral-100">
         Mis Proyectos</span
       >
     </h3>
     <p
-      class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400">
+      class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400"
+    >
       Estos son algunos de los proyectos que he hecho a lo largo de mi carrera
       como Diseñador UX/UI y como Desarrollador Web. Si quieres descubrir más,
       puedes echar un vistazo a mi perfil de <a
         class="font-semibold text-[#0d6fff] hover:underline"
         href="https://www.figma.com/@vicwithgg"
-        target="_blank">Figma</a
+        target="_blank"
+        >Figma</a
       > y mi perfil de <a
         class="font-semibold text-[#0d6fff] hover:underline"
         href="https://github.com/Francisco-0510"
-        target="_blank">GitHub</a
+        target="_blank"
+        >GitHub</a
       >, donde tengo mis demás proyectos.
     </p>
   </div>
 
-  <!-- container cards projects -->
-  <div
-    class="grid items-stretch w-full sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10 justify-center">
-    {PROJECTS}
-  </div>
+  <!-- layout 1 cards projects -->
+  <section class="col-span-12 mt-28 gap-7 lg:col-span-9 ">
+    <ul class="grid gap-8 md:grid-cols-2 md:gap-6">
+      {
+        PROJECTS.map(
+          ({ title, image, description, tags, link, github, figma }) => (
+             <li>
+              <div
+                id="project-card"
+                class="group relative flex h-full flex-col overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700 bg-card pb-4 text-card-foreground transition-all duration-300 ease-out hover:shadow-lg gap-y-3 "
+              >
+                <!-- card header img -->
+                { <div class="z-10 block cursor-pointer">
+                  <img
+                    src={image}
+                    alt="Project Thumbnail"
+                    class="object-cover object-center w-full h-72 transition duration-500 md:h-40 md:object-top lg:h-44 md:scale-110 md:group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div> }
+                <div class="pointer-events-none z-10 flex flex-col gap-2 px-2 pt-3">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                      <h3 class="text-base font-semibold tracking-tight dark:text-white">{title}</h3>
+                      <div class="flex gap-1">
+                        {github && (
+                          <a
+                            href={github}
+                            rel="nonreferrer"
+                            target="_blank"
+                          >
+                            <GitHub />
+                          </a>
+                        )}
+                        {figma && (
+                          <a
+                            href={figma}
+                            rel="nonreferrer"
+                            target="_blank"
+                          >
+                            <Figma />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="z-10 line-clamp-3 max-w-full text-pretty text-base dark:text-neutral-200 text-muted-foreground"
+                  >
+                    <p>{description}</p>
+                  </div>
+                </div>
+                <!-- card footer tags -->
+                  <ul class="flex flex-wrap mt-auto gap-1 text-pretty px-2 pt-3 text-sm text-muted mb-2 gap-x-2">
+                        {tags.map((tag) => (
+                          <li>
+                            <span
+                              class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+                            >
+                              <tag.icon class="size-4" />
+                              {tag.name}
+                            </span>
+                          </li>
+                        ))}
+                  </ul>
+                <!-- a full card -->
+                <a href={link} class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-slate-900/5 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-700/50 sm:-inset-x-6 sm:rounded-2xl"></a>
+              </div>
+            </li>
+          )
+        )
+      }
+     
+    </ul>
+  </section>
 
-  <div class="flex flex-col gap-y-16">
+  <!-- layout 2 cards projects -->
+<!--   <div class="flex flex-col gap-y-16">
     {
       PROJECTS.map(
         ({ title, image, description, tags, link, github, figma }) => (
@@ -183,17 +259,11 @@ const PROJECTS = [
             <div class="w-full md:w-1/2">
               <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
                 <img
-                  alt="Recién llegado vs 5 años en Nueva Zelanda"
-                  class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
-                  src={image}
-                />
-                {/*  <img
-                  alt="Recién llegado vs 5 años en Nueva Zelanda"
+                  alt="Project Thumbnail"
                   class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
                   loading="lazy"
-                  decoding="async"
                   src={image}
-                /> */}
+                />
               </div>
             </div>
 
@@ -206,7 +276,186 @@ const PROJECTS = [
                   {tags.map((tag) => (
                     <li>
                       <span
-                        class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}>
+                        class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+                      >
+                        <tag.icon class="size-4" />
+                        {tag.name}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div class="mt-2 text-gray-700 dark:text-gray-400">
+                  {description}
+                </div>
+                <footer class="flex items-end justify-start mt-4 gap-x-4">
+                  {github && (
+                    <a
+                      href={github}
+                      rel="nonreferrer"
+                      target="_blank"
+                    >
+                      <GitHub />
+                    </a>
+                  )}
+                  {figma && (
+                    <a
+                      href={figma}
+                      rel="nonreferrer"
+                      target="_blank"
+                    >
+                      <Figma />
+                    </a>
+                  )}
+                </footer>
+              </div>
+            </div>
+          </article>
+        )
+      )
+    }
+  </div> -->
+
+  <!-- LAYOUT 1 DE CARDS PROYECTOS VERTICAL ES -->
+  <!-- <div class="py-8 space-y-12">
+    {
+      PROJECTS.map(
+        ({ title, image, description, tags, link, github, figma }) => {
+          return (
+            <article
+              class="group relative flex-initial overflow-hidden rounded-2xl shadow transition-shadow duration-400 hover:shadow-lg"
+              style="backdrop-filter: blur(4px); opacity: 1; transform: none;"
+            >
+              <div class="group/overlay relative flex h-auto overflow-hidden rounded-2xl border border-border p-8 transition dark:border-white/10 lg:h-[20rem]">
+                <div class="z-10 flex h-full w-full flex-col sm:group-odd:order-2 lg:justify-start">
+                  <div class="mt-4 flex gap-4 text-2xl font-semibold tracking-tight dark:text-zinc-100">
+                    <a
+                      href={link}
+                      class="hover:underline"
+                      rel="nonreferrer"
+                      target="_blank"
+                    >
+                      {title}
+                    </a>
+                    <div class="flex items-center justify-center gap-2">
+                      {github && (
+                        <a
+                          href={github}
+                          rel="nonreferrer"
+                          target="_blank"
+                        >
+                          <GitHub />
+                        </a>
+                      )}
+                      {figma && (
+                        <a
+                          href={figma}
+                          rel="nonreferrer"
+                          target="_blank"
+                        >
+                          <Figma />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <p
+                    class="relative z-10 mt-2 text-base leading-relaxed text-foreground dark:text-muted-foreground"
+                    style="opacity: 1;"
+                  >
+                    {description}
+                  </p>
+                  <ul class="flex flex-row mb-2 gap-x-2">
+                    {tags.map((tag) => (
+                      <li>
+                        <span
+                          class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+                        >
+                          <tag.icon class="size-4" />
+                          {tag.name}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="invisible z-20 hidden h-full w-[450px] flex-col gap-4 group-odd:justify-end sm:flex sm:flex-row">
+                  <span class="group/icon relative z-40 h-6 w-6 group-odd:order-2">
+                    <svg
+                      class="h-6 w-6 text-white group-hover/icon:text-zinc-400"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M2.27 19.27q-.518 0-.894-.377Q1 18.517 1 18h3.615q-.69 0-1.152-.462Q3 17.075 3 16.385V5.615q0-.69.463-1.152Q3.925 4 4.615 4h14.77q.69 0 1.152.463q.463.462.463 1.152v10.77q0 .69-.462 1.152q-.463.463-1.153.463H23q0 .517-.376.893t-.893.376zm9.73-.5q.252 0 .434-.182t.181-.434q0-.252-.181-.434q-.182-.182-.434-.182t-.434.182q-.181.182-.181.434t.181.434q.182.181.434.181M4.615 17h14.77q.23 0 .423-.192q.192-.193.192-.423V5.615q0-.23-.192-.423Q19.615 5 19.385 5H4.615q-.23 0-.423.192Q4 5.385 4 5.615v10.77q0 .23.192.423q.193.192.423.192M4 17V5z"
+                      />
+                    </svg>
+                  </span>
+                  <span>
+                    <svg
+                      viewBox="0 0 128 128"
+                      class="h-6 w-6 text-white"
+                    >
+                      <g fill="currentColor">
+                        <svg>
+                          <path
+                            clip-rule="evenodd"
+                            d="M64 5.103c-33.347 0-60.388 27.035-60.388 60.388 0 26.682 17.303 49.317 41.297 57.303 3.017.56 4.125-1.31 4.125-2.905 0-1.44-.056-6.197-.082-11.243-16.8 3.653-20.345-7.125-20.345-7.125-2.747-6.98-6.705-8.836-6.705-8.836-5.48-3.748.413-3.67.413-3.67 6.063.425 9.257 6.223 9.257 6.223 5.386 9.23 14.127 6.562 17.573 5.02.542-3.903 2.107-6.568 3.834-8.076-13.413-1.525-27.514-6.704-27.514-29.843 0-6.593 2.36-11.98 6.223-16.21-.628-1.52-2.695-7.662.584-15.98 0 0 5.07-1.623 16.61 6.19C53.7 35 58.867 34.327 64 34.304c5.13.023 10.3.694 15.127 2.033 11.526-7.813 16.59-6.19 16.59-6.19 3.287 8.317 1.22 14.46.593 15.98 3.872 4.23 6.215 9.617 6.215 16.21 0 23.194-14.127 28.3-27.574 29.796 2.167 1.874 4.097 5.55 4.097 11.183 0 8.08-.07 14.583-.07 16.572 0 1.607 1.088 3.49 4.148 2.897 23.98-7.994 41.263-30.622 41.263-57.294C124.388 32.14 97.35 5.104 64 5.104z"
+                            fill-rule="evenodd"
+                          />
+                          <path d="M26.484 91.806c-.133.3-.605.39-1.035.185-.44-.196-.685-.605-.543-.906.13-.31.603-.395 1.04-.188.44.197.69.61.537.91zm2.446 2.729c-.287.267-.85.143-1.232-.28-.396-.42-.47-.983-.177-1.254.298-.266.844-.14 1.24.28.394.426.472.984.17 1.255zM31.312 98.012c-.37.258-.976.017-1.35-.52-.37-.538-.37-1.183.01-1.44.373-.258.97-.025 1.35.507.368.545.368 1.19-.01 1.452zm3.261 3.361c-.33.365-1.036.267-1.552-.23-.527-.487-.674-1.18-.343-1.544.336-.366 1.045-.264 1.564.23.527.486.686 1.18.333 1.543zm4.5 1.951c-.147.473-.825.688-1.51.486-.683-.207-1.13-.76-.99-1.238.14-.477.823-.7 1.512-.485.683.206 1.13.756.988 1.237zm4.943.361c.017.498-.563.91-1.28.92-.723.017-1.308-.387-1.315-.877 0-.503.568-.91 1.29-.924.717-.013 1.306.387 1.306.88zm4.598-.782c.086.485-.413.984-1.126 1.117-.7.13-1.35-.172-1.44-.653-.086-.498.422-.997 1.122-1.126.714-.123 1.354.17 1.444.663zm0 0" />
+                        </svg>
+                      </g>
+                    </svg>
+                  </span>
+                </div>
+                <img
+                  alt="Project I worked on"
+                  loading="lazy"
+                  width="2816"
+                  height="1456"
+                  decoding="async"
+                  data-nimg="1"
+                  class="absolute -right-60 top-8 z-10 hidden w-[24.25rem] rounded-t-lg shadow-2xl transition group-odd:-left-[14rem] group-odd:right-[initial] group-hover:-translate-x-3 group-hover:translate-y-3 group-hover:-rotate-2 group-hover:scale-[1.04] group-odd:group-hover:translate-x-3 group-odd:group-hover:translate-y-3 group-odd:group-hover:rotate-2 sm:block lg:top-20 lg:w-[28.25rem]"
+                  src={image}
+                  style="color: transparent;"
+                />
+                <div class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-slate-900/5 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl" />
+              </div>
+            </article>
+          );
+        }
+      )
+    }
+  </div> -->
+
+  
+<!-- 
+  <div class="flex flex-col gap-y-16">
+    {
+      PROJECTS.map(
+        ({ title, image, description, tags, link, github, figma }) => (
+          <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
+            <div class="w-full md:w-1/2">
+              <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+                <img
+                  alt="Recién llegado vs 5 años en Nueva Zelanda"
+                  class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
+                  src={image}
+                />
+              </div>
+            </div>
+            <div class="w-full md:w-1/2 md:max-w-lg">
+              <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                {title}
+              </h3>
+              <div class="flex flex-wrap mt-2">
+                <ul class="flex flex-row mb-2 gap-x-2">
+                  {tags.map((tag) => (
+                    <li>
+                      <span
+                        class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+                      >
                         <tag.icon class="size-4" />
                         {tag.name}
                       </span>
@@ -223,7 +472,8 @@ const PROJECTS = [
                       class=" dark:text-neutral-100 "
                       href={github}
                       target="_blank"
-                      title={`Ver código fuente del proyecto ${title}`}>
+                      title={`Ver código fuente del proyecto ${title}`}
+                    >
                       <GitHub />
                     </a>
                   )}
@@ -232,7 +482,8 @@ const PROJECTS = [
                       class="figma-code-link dark:text-neutral-100"
                       href={figma}
                       target="_blank"
-                      title={`Ver archivo en  ${title}`}>
+                      title={`Ver archivo en  ${title}`}
+                    >
                       <Figma />
                     </a>
                   )}
@@ -243,5 +494,5 @@ const PROJECTS = [
         )
       )
     }
-  </div>
+  </div> -->
 </div>

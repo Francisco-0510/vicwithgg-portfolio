@@ -17,10 +17,23 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content="Astro description"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/favicon.svg"
+    />
+    <meta
+      name="generator"
+      content={Astro.generator}
+    />
     <title>{title}</title>
     <ViewTransitions />
     <!-- Used to add dark mode right away, adding here prevents any flicker -->
@@ -42,13 +55,26 @@ const { title } = Astro.props;
     <script src="../assets/css/main.css"></script>
   </head>
 
-  <body class="antialiased absolute h-full w-full bg-white dark:bg-slate-950">
+  <body
+    class="antialiased absolute h-full w-full bg-white dark:bg-black dark:text-white"
+  >
     <div
-      class="absolute bottom-0 right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]">
+      class="absolute bottom-0 right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
+    >
     </div>
     <div
-      class="absolute bottom-0 right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]">
+      class="absolute bottom-0 right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
+    >
     </div>
+    <!-- <body class="antialiased absolute h-full w-full bg-white dark:bg-slate-950">
+      <div
+      class="absolute bottom-0 right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
+    >
+    </div> -->
     <Navbar />
     <main>
       <slot />
@@ -58,10 +84,27 @@ const { title } = Astro.props;
   </body>
 </html>
 <style is:global>
+  /*  :root {
+    color-scheme: light dark;
+  } */
   html {
     font-family: 'Onest Variable', sans-serif;
     scroll-behavior: smooth;
   }
+  body {
+    overscroll-behavior: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* @media (prefers-color-scheme: dark) {
+    body {
+      color: rgba(255, 255, 255, 0.9);
+    }
+  } */
   /* :root {
 		--accent: 136, 58, 234;
 		--accent-light: 224, 204, 250;
