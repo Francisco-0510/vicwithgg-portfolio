@@ -1,20 +1,114 @@
 ---
 import Figma from '@components/icons/Figma.astro';
+import FIGMAICON from '@components/icons/FigmaIcon.astro';
 import GitHub from '@components/icons/GitHub.astro';
-import React from '@components/icons/React.astro';
-import Tailwind from '@components/icons/Tailwind.astro';
+import CHAKRAUI from '@components/icons/chakraui.astro';
+import REACT from '@components/icons/React.astro';
 import { Image, Picture } from 'astro:assets';
+import HTML from '@components/icons/HTML.astro';
+import ANGULAR from '@components/icons/angular.astro';
+import ASTRO from '@components/icons/Astro.astro';
+import BOOTSTRAP from '@components/icons/Bootstrap.astro';
+import IONIC from '@components/icons/Ionic.astro';
+import JS from '@components/icons/JS.astro';
+import NODE from '@components/icons/Node.astro';
+import TAILWINDCSS from '@components/icons/TailwindCSS.astro';
+import WEBFLOW from '@components/icons/Webflow.astro';
+import VERCEL from '@components/icons/vercel.astro';
+import TS from '@components/icons/typescript.astro';
+import CSS3 from '@components/icons/CSS3.astro';
+import FIREBASE from '@components/icons/firebase.astro';
+import ADOBEXD from '@components/icons/adobexd.astro';
+import RESPONSIVE from '@components/icons/responsive.astro';
+import NETLIFY from '@components/icons/netlify.astro';
+import FRONT from '@components/icons/frontend.astro';
+import UIUX from '@components/icons/UIUX.astro';
+import SYSTEM from '@components/icons/SYSTEM.astro';
+
 const TAGS = {
+  FIREBASE: {
+    name: 'Firebase',
+    icon: FIREBASE,
+  },
+  CHAKRAUI: {
+    name: 'Chakra UI',
+    icon: CHAKRAUI,
+  },
+  FIGMAICON: {
+    name: 'Figma',
+    icon: FIGMAICON,
+  },
+  GITHUB: {
+    name: 'GitHub',
+    icon: GitHub,
+  },
   HTML5: {
     name: 'HTML5',
-    class: 'bg-black text-white',
-    icon: Tailwind,
+    icon: HTML,
+  },
+  CSS3: {
+    name: 'CSS3',
+    icon: CSS3,
   },
   REACT: {
     name: 'React',
-    class:
-      'flex items-center justify-center gap-x-2 rounded-full border border-border px-2 py-1 text-xs dark:border-transparent bg-white text-black',
-    icon: React,
+    icon: REACT,
+  },
+  TAILWINDCSS: {
+    name: 'Tailwind CSS',
+    icon: TAILWINDCSS,
+  },
+  ANGULAR: {
+    name: 'Angular',
+    icon: ANGULAR,
+  },
+  ASTRO: {
+    name: 'ASTRO',
+    icon: ASTRO,
+  },
+  BOOTSTRAP: {
+    name: 'Bootstrap',
+    icon: BOOTSTRAP,
+  },
+  IONIC: {
+    name: 'Ionic',
+    icon: IONIC,
+  },
+  JS: {
+    name: 'JavaScript',
+    icon: JS,
+  },
+  NODE: {
+    name: 'NodeJS',
+    icon: NODE,
+  },
+  WEBFLOW: {
+    name: 'Webflow',
+    icon: WEBFLOW,
+  },
+  VERCEL: {
+    name: 'Vercel',
+    icon: VERCEL,
+  },
+  TS: {
+    name: 'TipeScript',
+    icon: TS,
+  },
+  DESIGNSYSTEM: {
+    name: 'Sistemas de Diseño',
+    icon: SYSTEM,
+  },
+  UXUI: {
+    name: 'Diseño UX/UI',
+    icon: UIUX,
+  },
+  FRONTEND: {
+    name: 'Frontend',
+    icon: FRONT,
+  },
+  RESPONSIVE: {
+    name: 'Diseño Responsivo',
+    icon: RESPONSIVE,
   },
 };
 
@@ -22,7 +116,14 @@ const PROJECTS = [
   {
     title: 'VicWithGG Portafolio Web',
     description: 'Portafolio personal con Astro, Tailwind CSS y Vercel.',
-    tags: [TAGS.HTML5, TAGS.REACT],
+    tags: [
+      TAGS.HTML5,
+      TAGS.REACT,
+      TAGS.ASTRO,
+      TAGS.TAILWINDCSS,
+      TAGS.VERCEL,
+      TAGS.GITHUB,
+    ],
     link: '#',
     image: '/projects/vicwithgg-cover.webp',
     github: 'https://github.com/Francisco-0510/vicwithgg-portfolio',
@@ -31,7 +132,7 @@ const PROJECTS = [
     title: 'VGG Movies Search',
     description:
       'App para explorar y guardar películas favoritas, usando Firebase.',
-    tags: [TAGS.HTML5, TAGS.REACT],
+    tags: [TAGS.REACT, TAGS.CHAKRAUI, TAGS.FIREBASE, TAGS.VERCEL, TAGS.GITHUB],
     image: '/projects/vgg-movie.webp',
     link: 'https://vgg-movie-search.vercel.app/',
     github: 'https://github.com/Francisco-0510/movie-app-react',
@@ -39,7 +140,7 @@ const PROJECTS = [
   {
     title: 'CV Minimalista (Web y PDF)',
     description: 'CV minimalista en Web y PDF, configurable con JSON.',
-    tags: [TAGS.HTML5, TAGS.REACT],
+    tags: [TAGS.FIGMAICON, TAGS.DESIGNSYSTEM, TAGS.UXUI, TAGS.RESPONSIVE],
     image: '/projects/thumbnail-cv.webp',
     link: 'https://vicwithgg.netlify.app/',
     github: 'https://github.com/Francisco-0510/minimalist-portfolio',
@@ -47,7 +148,7 @@ const PROJECTS = [
   {
     title: 'VG Design UI Kit',
     description: 'Kit de diseño UI/UX en Figma.',
-    tags: [TAGS.HTML5, TAGS.REACT],
+    tags: [TAGS.FIGMAICON, TAGS.DESIGNSYSTEM, TAGS.RESPONSIVE, TAGS.UXUI],
     image: '/projects/thumbnail-vg.webp',
     link: 'https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-10',
     figma:
@@ -56,7 +157,13 @@ const PROJECTS = [
   {
     title: 'Hospital Ángel de Mar',
     description: 'Rediseño UI/UX e implementación en Webflow.',
-    tags: [TAGS.HTML5, TAGS.REACT],
+    tags: [
+      TAGS.FIGMAICON,
+      TAGS.DESIGNSYSTEM,
+      TAGS.WEBFLOW,
+      TAGS.UXUI,
+      TAGS.RESPONSIVE,
+    ],
     image: '/projects/thumbnail-ham.webp',
     link: 'https://hospitalangeldelmar.com.mx/',
   },
@@ -64,7 +171,7 @@ const PROJECTS = [
     title: 'Seguridad Privada BETAJ',
     description: 'Diseño de interfaces y desarrollo en Webflow.',
     tags: [TAGS.HTML5, TAGS.REACT],
-    image: '/projects/betaj.webp',
+    image: '/projects/thumbnail-betaj.webp',
     link: 'https://betaj.mx/',
   },
   {
@@ -175,29 +282,98 @@ const PROJECTS = [
   </div>
 
   <!-- layout 1 cards projects -->
-  <section class="col-span-12 mt-28 gap-7 lg:col-span-9 ">
-    <ul class="grid gap-8 md:grid-cols-2 md:gap-6">
+  <section class="col-span-12 mt-28 gap-4 lg:col-span-9">
+    <ul
+      class="relative grid gap-4 container max-lg:p-4 grid-cols-1 md:grid-cols-2 lg:grid-col-3"
+    >
       {
         PROJECTS.map(
           ({ title, image, description, tags, link, github, figma }) => (
-             <li>
+            <li>
               <div
                 id="project-card"
-                class="group relative flex h-full flex-col overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700 bg-card pb-4 text-card-foreground transition-all duration-300 ease-out hover:shadow-lg gap-y-3 "
+                class="rounded-md group relative flex h-full flex-col overflow-hidden  border border-[#e4e4e7] dark:border-[#3f3f4666]
+                bg-[#ffffff] dark:bg-[#09090b]  text-card-foreground transition-all duration-300 ease-out hover:shadow-lg dark:hover:bg-zinc-800/50 group-hover:scale-100 group-hover:opacity-100 cursor-pointer "
               >
-                <!-- card header img -->
-                { <div class="z-10 block cursor-pointer">
-                  <img
-                    src={image}
-                    alt="Project Thumbnail"
-                    class="object-cover object-center w-full h-72 transition duration-500 md:h-40 md:object-top lg:h-44 md:scale-110 md:group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </div> }
-                <div class="pointer-events-none z-10 flex flex-col gap-2 px-2 pt-3">
+                {
+                  // CARD HEADER IMAGE
+                  <div class="z-10 block cursor-pointer">
+                    <img
+                      src={image}
+                      alt="Project Thumbnail"
+                      class="object-cover object-center w-full h-72 transition duration-500 md:h-40 md:object-top lg:h-44 md:scale-110 md:group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                }
+
+                <div class="flex flex-col justify-between space-y-1.5 p-6 pb-0">
+                  <a href={link}>
+                    <h3 class="max-md:text-lg font-semibold dark:text-white text-lg text-balance line-clamp-2 text-foreground leading-tight">
+                      {title}
+                    </h3>
+                  </a>
+
+                  <div class="flex gap-1">
+                    {github && (
+                      <a
+                        href={github}
+                        rel="nonreferrer"
+                        target="_blank"
+                      >
+                        <GitHub />
+                      </a>
+                    )}
+                    {figma && (
+                      <a
+                        href={figma}
+                        rel="nonreferrer"
+                        target="_blank"
+                      >
+                        <FIGMAICON />
+                      </a>
+                    )}
+                  </div>
+                  <p class="text-sm text-muted-foreground line-clamp-2 text-balance">
+                    {description}
+                  </p>
+                </div>
+
+                <div class="p-6 pt-0 flex justify-between items-center mt-2 w-full">
+                  <ul class="flex flex-row flex-wrap gap-2 ">
+                    {tags.map((tag) => (
+                      <li>
+                        <span
+                          class={`inline-flex items-center  rounded-full border-[1px] py-1 px-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2  bg-transparent text-foreground border-[#e2e8f0] dark:bg-border gap-2 dark:text-white`}
+                        >
+                          <tag.icon class="size-4" />
+                          {tag.name}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* 
+                   <ul class="flex flex-wrap mt-auto gap-1 text-pretty px-2 pt-3 text-sm text-muted mb-2 gap-x-2">
+                        {tags.map((tag) => (
+                          <li>
+                            <span
+                              class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+                            >
+                              <tag.icon class="size-4" />
+                              {tag.name}
+                            </span>
+                          </li>
+                        ))}
+                  </ul> */}
+                </div>
+
+                {/*    <div class="pointer-events-none z-10 flex flex-col gap-2 px-2 pt-3">
                   <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                      <h3 class="text-base font-semibold tracking-tight dark:text-white">{title}</h3>
+                      <h3 class="text-base font-semibold tracking-tight dark:text-white">
+                        {title}
+                      </h3>
                       <div class="flex gap-1">
                         {github && (
                           <a
@@ -220,38 +396,36 @@ const PROJECTS = [
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="z-10 line-clamp-3 max-w-full text-pretty text-base dark:text-neutral-200 text-muted-foreground"
-                  >
+                  <div class="z-10 line-clamp-3 max-w-full text-pretty text-base dark:text-neutral-200 text-muted-foreground">
                     <p>{description}</p>
                   </div>
                 </div>
-                <!-- card footer tags -->
-                  <ul class="flex flex-wrap mt-auto gap-1 text-pretty px-2 pt-3 text-sm text-muted mb-2 gap-x-2">
-                        {tags.map((tag) => (
-                          <li>
-                            <span
-                              class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
-                            >
-                              <tag.icon class="size-4" />
-                              {tag.name}
-                            </span>
-                          </li>
-                        ))}
-                  </ul>
-                <!-- a full card -->
-                <a href={link} class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-slate-900/5 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-700/50 sm:-inset-x-6 sm:rounded-2xl"></a>
+                <ul class="flex flex-wrap mt-auto gap-1 text-pretty px-2 pt-3 text-sm text-muted mb-2 gap-x-2">
+                  {tags.map((tag) => (
+                    <li>
+                      <span
+                        class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+                      >
+                        <tag.icon class="size-4" />
+                        {tag.name}
+                      </span>
+                    </li>
+                  ))}
+                </ul> */}
+                {/*   <a
+                  href={link}
+                  class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-slate-900/5 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 sm:rounded-2xl"
+                /> */}
               </div>
             </li>
           )
         )
       }
-     
     </ul>
   </section>
 
   <!-- layout 2 cards projects -->
-<!--   <div class="flex flex-col gap-y-16">
+  <!--   <div class="flex flex-col gap-y-16">
     {
       PROJECTS.map(
         ({ title, image, description, tags, link, github, figma }) => (
@@ -429,8 +603,7 @@ const PROJECTS = [
     }
   </div> -->
 
-  
-<!-- 
+  <!-- 
   <div class="flex flex-col gap-y-16">
     {
       PROJECTS.map(
@@ -496,3 +669,9 @@ const PROJECTS = [
     }
   </div> -->
 </div>
+<style>
+  h1 {
+    /*  background-color: #e4e4e7; */
+    background-color: #3f3f4666;
+  }
+</style>

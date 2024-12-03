@@ -1,29 +1,35 @@
 ---
-import stack from "@collections/stack.json";
+import stack from '@collections/stack.json';
 const { id } = Astro.props;
 ---
 
-<section class="w-full h-full" id={id}>
+<section
+  class="w-full h-full"
+  id={id}
+>
   <div class="max-w-2xl">
     <h3 class="text-pretty font-bold text-3xl dark:text-neutral-100">
       Mis <span class="text-[#1D64FF] dark:text-neutral-100">
         habilidades técnicas</span
-      > técnicas 🚀
+      > 🚀
     </h3>
     <p class="mt-8 text-base text-pretty text-black dark:text-white xs:text-lg">
       Como Diseñador UX/UI y Desarrollador Web, utilizo un stack versátil de
       <a
         class="font-medium text-blue-500 hover:text-blue-700 dark:hover:text-blue-600"
         href="https://github.com/gothinkster/realworld"
-        target="_blank">lenguajes</a
+        target="_blank"
+        >lenguajes</a
       >, <a
         class="font-medium text-blue-500 hover:text-blue-700 dark:hover:text-blue-600"
         href="https://github.com/gothinkster/realworld"
-        target="_blank">frameworks</a
+        target="_blank"
+        >frameworks</a
       > y <a
         class="font-medium text-blue-500 hover:text-blue-700 dark:hover:text-blue-600"
         href="https://github.com/gothinkster/realworld"
-        target="_blank">herramientas</a
+        target="_blank"
+        >herramientas</a
       > para crear experiencias digitales excepcionales, centradas en el usuario
       y optimizadas para cada proyecto.
     </p>
@@ -46,7 +52,10 @@ const { id } = Astro.props;
           {
             stack.languages.map((language) => {
               return (
-                <button data-state="closed" class="cursor-default">
+                <button
+                  data-state="closed"
+                  class="cursor-default"
+                >
                   <article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
                     <div
                       id="overlay"
@@ -94,7 +103,10 @@ const { id } = Astro.props;
           {
             stack.frontend.map((frontend) => {
               return (
-                <button data-state="closed" class="cursor-default">
+                <button
+                  data-state="closed"
+                  class="cursor-default"
+                >
                   <article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
                     <div
                       id="overlay"
@@ -142,7 +154,10 @@ const { id } = Astro.props;
           {
             stack.tools.map((tools) => {
               return (
-                <button data-state="closed" class="cursor-default">
+                <button
+                  data-state="closed"
+                  class="cursor-default"
+                >
                   <article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
                     <div
                       id="overlay"

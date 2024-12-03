@@ -1,15 +1,17 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import GitHub from "@components/icons/GitHub.astro";
-import Linkedin from "@components/icons/Linkedin.astro";
-import Figma from "@components/icons/Figma.astro";
-import Button from "../components/Button.astro";
-import Mail from "@components/icons/Mail.astro";
-import Download from "./icons/Download.astro";
-import ContactIcon from "./icons/ContactIcon.astro";
-import { Image } from "astro:assets";
-import meImage from "../assets/images/me.webp";
-import X from "./icons/X.astro";
+import Layout from '../layouts/Layout.astro';
+import GitHub from '@components/icons/GitHub.astro';
+import Linkedin from '@components/icons/Linkedin.astro';
+import Figma from '@components/icons/Figma.astro';
+import Button from '../components/Button.astro';
+import Mail from '@components/icons/Mail.astro';
+
+import Download from './icons/Download.astro';
+import ContactIcon from './icons/ContactIcon.astro';
+import { Image } from 'astro:assets';
+import meImage from '../assets/images/me.webp';
+import X from './icons/X.astro';
+import ProjectBrief from './icons/ProjectBrief.astro';
 ---
 
 <section class="relative flex h-100 justify-start flex-col h-[100dvh]">
@@ -29,16 +31,28 @@ import X from "./icons/X.astro";
           <div
             class="flex items-center pb-10 sm:pb-0 px-5 gap-14 md:gap-8 text-xl text-gray-700 dark:text-gray-100"
           >
-            <a href="https://github.com/Francisco-0510" target="_blank">
+            <a
+              href="https://github.com/Francisco-0510"
+              target="_blank"
+            >
               <GitHub />
             </a>
-            <a href="https://www.linkedin.com/in/vicwith-gg/" target="_blank">
+            <a
+              href="https://www.linkedin.com/in/vicwith-gg/"
+              target="_blank"
+            >
               <Linkedin />
             </a>
-            <a href="https://www.figma.com/@vicwithgg" target="_blank">
+            <a
+              href="https://www.figma.com/@vicwithgg"
+              target="_blank"
+            >
               <Figma />
             </a>
-            <a href="https://x.com/VicWithGG1" target="_blank">
+            <a
+              href="https://x.com/VicWithGG1"
+              target="_blank"
+            >
               <X />
             </a>
           </div>
@@ -94,26 +108,28 @@ import X from "./icons/X.astro";
   <!-- Buttons -->
   <div class="mt-7 gap-5 flex w-full sm:inline-flex">
     <a
-      href="/public/assets/CV _ AGUIRRE JIMENEZ FRANCISCO VICTORICO.pdf"
+      href="#projects"
       download="Francisco_Aguirre_CV.pdf"
-      class="relative overflow-hidden bg-blue-500 text-white px-6 py-3 rounded-lg font-medium transition duration-300 ease-in-out hover:bg-blue-600 hover:shadow-lg will-change-transform inline-flex justify-center items-center gap-x-2 focus:outline-none"
+      class="relative overflow-hidden bg-[#2563eb] text-white gap-2 px-8 rounded-lg font-medium text-sm h-11 transition duration-300 ease-in-out hover:bg-blue-600 hover:shadow-lg will-change-transform inline-flex justify-center items-center gap-x-2 focus:outline-none"
     >
-      Descargar CV
-      <Download />
+      <ProjectBrief />
+      Mis Trabajos
     </a>
     <a
-      href="mailto:vgg.designer.01@gmail.com"
-      class="py-3 hover:shadow-lg
-					backdrop-blur-sm
+      href="/public/assets/CV _ AGUIRRE JIMENEZ FRANCISCO VICTORICO.pdf"
+      target="_blank"
+      rel="noreferrer"
+      download="Francisco_Aguirre_CV.pdf"
+      class="hover:shadow-lg
+          h-11
 					duration-400
 					will-change-transform
 					md:text-base
 					transition-shadow
-					hover:bg-currentColor px-4 inline-flex justify-center items-center gap-x-2 text-base font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-      href="#"
+					hover:bg-currentColor px-8 inline-flex justify-center items-center gap-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-800 backdrop-blur"
     >
-      Conectemos
-      <ContactIcon />
+      <Download />
+      Descargar mi CV
     </a>
   </div>
   <!-- End Buttons -->
@@ -135,7 +151,8 @@ import X from "./icons/X.astro";
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="h-6 w-6"><path d="m6 9 6 6 6-6"></path></svg
+        class="h-6 w-6"
+        ><path d="m6 9 6 6 6-6"></path></svg
       ></a
     >
   </div>

@@ -3,7 +3,18 @@
 @tailwind utilities;
 
 /* Add Your Custom CSS Here */
-
+.bg-primary {
+  background-color: #2563eb;
+}
+.text-primary {
+  color: #2563eb;
+}
+.text-foreground {
+  color: #020817;
+}
+.text-muted-foreground {
+  color: #7a7a7a;
+}
 .prose img {
   border-radius: 30px;
 }
