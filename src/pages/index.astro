@@ -3,6 +3,7 @@
 import Separator from '../components/home/separator.astro';
 import Layout from '../layouts/Layout.astro';
 import Header from '@components/Header.astro';
+import AboutSection from '@components/sections/About.astro';
 import About from './about.astro';
 import { ViewTransitions } from 'astro:transitions';
 import SectionContainer from '@components/shared/SectionContainer.astro';
@@ -16,7 +17,7 @@ import Projects from '@components/sections/Projects.astro';
 >
   <main class="px-4">
     <!-- CONTAINER PARA HEADER Y NAVBAR -->
-    <SectionContainer class="mx-auto relative z-20 pt-16">
+    <SectionContainer class="mx-auto z-20 pt-16">
       <Header />
     </SectionContainer>
 
@@ -40,11 +41,16 @@ import Projects from '@components/sections/Projects.astro';
         <Projects />
       </SectionContainer>
 
-      <SectionContainer id="projects">
+      <SectionContainer id="about">
+        <Separator text="Sobre VicWithGG" />
+        <AboutSection />
+      </SectionContainer>
+
+      <!--  <SectionContainer id="projects">
         <Separator text="Sobre VicWithGG" />
         <About />
       </SectionContainer>
-
+ -->
       <!-- CONTAINER PARA SECCION SOBRE MI
       <SectionContainer id="aboutMe">
         <Separator text="Sobre VicWithGG" />

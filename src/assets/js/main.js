@@ -1,175 +1,111 @@
-// Add your javascript here
-
-window.darkMode = false;
-
-const stickyClasses = ["fixed", "h-14"];
-const unstickyClasses = ["absolute", "h-20"];
-const stickyClassesContainer = [
-  "border-neutral-300/50",
-  "bg-white/80",
-  "dark:border-neutral-600/40",
-  "dark:bg-neutral-900/60",
-  "backdrop-blur-2xl",
-];
-const unstickyClassesContainer = ["border-transparent"];
-let headerElement = null;
-
+window.darkMode = !1;
+const d = ["fixed", "h-14"],
+  s = ["absolute", "h-20"],
+  o = [
+    "border-neutral-300/50",
+    "bg-white/80",
+    "dark:border-neutral-600/40",
+    "dark:bg-neutral-900/60",
+    "backdrop-blur-2xl",
+  ],
+  l = ["border-transparent"];
+let n = null;
 document.addEventListener("DOMContentLoaded", () => {
-  headerElement = document.getElementById("header");
-
-  if (
+  (n = document.getElementById("header")),
     localStorage.getItem("dark_mode") &&
     localStorage.getItem("dark_mode") === "true"
-  ) {
-    window.darkMode = true;
-    showNight();
-  } else {
-    showDay();
-  }
-  stickyHeaderFuncionality();
-  applyMenuItemClasses();
-  evaluateHeaderPosition();
-  mobileMenuFunctionality();
+      ? ((window.darkMode = !0), m())
+      : i(),
+    stickyHeaderFuncionality(),
+    applyMenuItemClasses(),
+    evaluateHeaderPosition(),
+    a();
 });
-
-// window.toggleDarkMode = function(){
-//     document.documentElement.classList.toggle('dark');
-//     if(document.documentElement.classList.contains('dark')){
-//         localStorage.setItem('dark_mode', true);
-//         window.darkMode = true;
-//     } else {
-//         window.darkMode = false;
-//         localStorage.setItem('dark_mode', false);
-//     }
-// }
-
 window.stickyHeaderFuncionality = () => {
   window.addEventListener("scroll", () => {
     evaluateHeaderPosition();
   });
 };
-
 window.evaluateHeaderPosition = () => {
-  if (window.scrollY > 16) {
-    headerElement.firstElementChild.classList.add(...stickyClassesContainer);
-    headerElement.firstElementChild.classList.remove(
-      ...unstickyClassesContainer,
-    );
-    headerElement.classList.add(...stickyClasses);
-    headerElement.classList.remove(...unstickyClasses);
-    document.getElementById("menu").classList.add("top-[56px]");
-    document.getElementById("menu").classList.remove("top-[75px]");
-  } else {
-    headerElement.firstElementChild.classList.remove(...stickyClassesContainer);
-    headerElement.firstElementChild.classList.add(...unstickyClassesContainer);
-    headerElement.classList.add(...unstickyClasses);
-    headerElement.classList.remove(...stickyClasses);
-    document.getElementById("menu").classList.remove("top-[56px]");
-    document.getElementById("menu").classList.add("top-[75px]");
-  }
+  window.scrollY > 16
+    ? (n.firstElementChild.classList.add(...o),
+      n.firstElementChild.classList.remove(...l),
+      n.classList.add(...d),
+      n.classList.remove(...s),
+      document.getElementById("menu").classList.add("top-[56px]"),
+      document.getElementById("menu").classList.remove("top-[75px]"))
+    : (n.firstElementChild.classList.remove(...o),
+      n.firstElementChild.classList.add(...l),
+      n.classList.add(...s),
+      n.classList.remove(...d),
+      document.getElementById("menu").classList.remove("top-[56px]"),
+      document.getElementById("menu").classList.add("top-[75px]"));
 };
-
 document.getElementById("darkToggle").addEventListener("click", () => {
-  document.documentElement.classList.add("duration-300");
-
-  if (document.documentElement.classList.contains("dark")) {
-    localStorage.removeItem("dark_mode");
-    showDay(true);
-  } else {
-    localStorage.setItem("dark_mode", true);
-    showNight(true);
-  }
+  document.documentElement.classList.add("duration-300"),
+    document.documentElement.classList.contains("dark")
+      ? (localStorage.removeItem("dark_mode"), i(!0))
+      : (localStorage.setItem("dark_mode", !0), m(!0));
 });
-
-function showDay(animate) {
-  document.getElementById("sun").classList.remove("setting");
-  document.getElementById("moon").classList.remove("rising");
-
-  let timeout = 0;
-
-  if (animate) {
-    timeout = 500;
-
-    document.getElementById("moon").classList.add("setting");
-  }
-
-  setTimeout(() => {
-    document.getElementById("dayText").classList.remove("hidden");
-    document.getElementById("nightText").classList.add("hidden");
-
-    document.getElementById("moon").classList.add("hidden");
-    document.getElementById("sun").classList.remove("hidden");
-
-    if (animate) {
-      document.documentElement.classList.remove("dark");
-      document.getElementById("sun").classList.add("rising");
-    }
-  }, timeout);
+function i(t) {
+  document.getElementById("sun").classList.remove("setting"),
+    document.getElementById("moon").classList.remove("rising");
+  let e = 0;
+  t && ((e = 500), document.getElementById("moon").classList.add("setting")),
+    setTimeout(() => {
+      document.getElementById("dayText").classList.remove("hidden"),
+        document.getElementById("nightText").classList.add("hidden"),
+        document.getElementById("moon").classList.add("hidden"),
+        document.getElementById("sun").classList.remove("hidden"),
+        t &&
+          (document.documentElement.classList.remove("dark"),
+          document.getElementById("sun").classList.add("rising"));
+    }, e);
 }
-
-function showNight(animate) {
-  document.getElementById("moon").classList.remove("setting");
-  document.getElementById("sun").classList.remove("rising");
-
-  let timeout = 0;
-
-  if (animate) {
-    timeout = 500;
-
-    document.getElementById("sun").classList.add("setting");
-  }
-
-  setTimeout(() => {
-    document.getElementById("nightText").classList.remove("hidden");
-    document.getElementById("dayText").classList.add("hidden");
-
-    document.getElementById("sun").classList.add("hidden");
-    document.getElementById("moon").classList.remove("hidden");
-
-    if (animate) {
-      document.documentElement.classList.add("dark");
-      document.getElementById("moon").classList.add("rising");
-    }
-  }, timeout);
+function m(t) {
+  document.getElementById("moon").classList.remove("setting"),
+    document.getElementById("sun").classList.remove("rising");
+  let e = 0;
+  t && ((e = 500), document.getElementById("sun").classList.add("setting")),
+    setTimeout(() => {
+      document.getElementById("nightText").classList.remove("hidden"),
+        document.getElementById("dayText").classList.add("hidden"),
+        document.getElementById("sun").classList.add("hidden"),
+        document.getElementById("moon").classList.remove("hidden"),
+        t &&
+          (document.documentElement.classList.add("dark"),
+          document.getElementById("moon").classList.add("rising"));
+    }, e);
 }
-
 window.applyMenuItemClasses = () => {
-  const menuItems = document.querySelectorAll("#menu a");
-  for (let i = 0; i < menuItems.length; i++) {
-    if (menuItems[i].pathname === window.location.pathname) {
-      menuItems[i].classList.add("text-neutral-900", "dark:text-white");
-    }
-  }
-  //:class="{ 'text-neutral-900 dark:text-white': window.location.pathname == '{menu.url}', 'text-neutral-700 dark:text-neutral-400': window.location.pathname != '{menu.url}' }"
+  const t = document.querySelectorAll("#menu a");
+  for (let e = 0; e < t.length; e++)
+    t[e].pathname === window.location.pathname &&
+      t[e].classList.add("text-neutral-900", "dark:text-white");
 };
-
-function mobileMenuFunctionality() {
+function a() {
   document.getElementById("openMenu").addEventListener("click", () => {
     openMobileMenu();
-  });
-
-  document.getElementById("closeMenu").addEventListener("click", () => {
-    closeMobileMenu();
-  });
+  }),
+    document.getElementById("closeMenu").addEventListener("click", () => {
+      closeMobileMenu();
+    });
 }
-
 window.openMobileMenu = () => {
-  document.getElementById("openMenu").classList.add("hidden");
-  document.getElementById("closeMenu").classList.remove("hidden");
-  document.getElementById("menu").classList.remove("hidden");
-  document.getElementById("mobileMenuBackground").classList.add("opacity-0");
-  document.getElementById("mobileMenuBackground").classList.remove("hidden");
-
-  setTimeout(() => {
-    document
-      .getElementById("mobileMenuBackground")
-      .classList.remove("opacity-0");
-  }, 1);
+  document.getElementById("openMenu").classList.add("hidden"),
+    document.getElementById("closeMenu").classList.remove("hidden"),
+    document.getElementById("menu").classList.remove("hidden"),
+    document.getElementById("mobileMenuBackground").classList.add("opacity-0"),
+    document.getElementById("mobileMenuBackground").classList.remove("hidden"),
+    setTimeout(() => {
+      document
+        .getElementById("mobileMenuBackground")
+        .classList.remove("opacity-0");
+    }, 1);
 };
-
 window.closeMobileMenu = () => {
-  document.getElementById("closeMenu").classList.add("hidden");
-  document.getElementById("openMenu").classList.remove("hidden");
-  document.getElementById("menu").classList.add("hidden");
-  document.getElementById("mobileMenuBackground").classList.add("hidden");
+  document.getElementById("closeMenu").classList.add("hidden"),
+    document.getElementById("openMenu").classList.remove("hidden"),
+    document.getElementById("menu").classList.add("hidden"),
+    document.getElementById("mobileMenuBackground").classList.add("hidden");
 };

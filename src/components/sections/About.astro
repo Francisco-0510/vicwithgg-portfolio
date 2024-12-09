@@ -1,0 +1,146 @@
+---
+import Certificate from '@components/Certificate.astro';
+import Briefcase from '@components/icons/Briefcase.astro';
+import Education from '@components/Education.astro';
+import Linkedin from '@components/icons/Linkedin.astro';
+import GitHub from '@components/icons/GitHub.astro';
+import Figma from '@components/icons/Figma.astro';
+import X from '@components/icons/X.astro';
+---
+
+<div class="pb-16">
+  <div
+    class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12"
+  >
+    <div class="flex max-w-xs flex-col gap-y-20 px-2.5 lg:max-w-none lg:pl-20">
+      <img
+        alt=""
+        loading="lazy"
+        decoding="async"
+        data-nimg="1"
+        class="aspect-square rotate-3 rounded-sm bg-zinc-100 object-cover dark:bg-zinc-800"
+        sizes="(min-width: 1024px) 20rem, 20rem"
+        src="/public/assets/Banner VicWithGG.png"
+        style="color: transparent;"
+      />
+    </div>
+    <div class="lg:order-first lg:row-span-2 items-start justify-between">
+      <h2
+        class="flex items-center text-3xl mt-1 md:my-3 font-bold leading-tight dark:text-white"
+      >
+        Hola 👋, Soy Francisco Victorico Aguirre Jiménez
+      </h2>
+      <!-- INFO CONTAINER -->
+      <div class="mb-4">
+        <p
+          class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400"
+        >
+          Soy Francisco Victorico Aguirre Jiménez, Diseñador UX/UI y
+          Desarrollador Web comprometido con crear experiencias digitales que
+          destacan. Equilibro las necesidades del usuario con los objetivos del
+          producto, utilizando metodologías ágiles, investigación y diseño
+          centrado en las personas.
+        </p>
+        <p
+          class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400"
+        >
+          Mi enfoque estratégico e intuitivo, junto con el dominio de
+          herramientas avanzadas, me permite convertir ideas en soluciones
+          innovadoras y efectivas. Siempre busco aprender, mejorar y superar
+          nuevos desafíos.
+        </p>
+      </div>
+      <div class="space-y-4">
+        <span
+          class="text-xs font-medium text-gray-800 uppercase dark:text-neutral-200"
+          >CONTACTAME POR:</span
+        >
+        <!-- BUTTOON GROUP COONTAINER -->
+        <div
+          class="flex items-center pb-10 sm:pb-0 px-5 gap-14 md:gap-8 text-xl text-gray-700 dark:text-gray-100"
+        >
+          <a
+            href="https://github.com/Francisco-0510"
+            target="_blank"
+          >
+            <GitHub />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/vicwith-gg/"
+            target="_blank"
+          >
+            <Linkedin />
+          </a>
+          <a
+            href="https://www.figma.com/@vicwithgg"
+            target="_blank"
+          >
+            <Figma />
+          </a>
+          <a
+            href="https://x.com/VicWithGG1"
+            target="_blank"
+          >
+            <X />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- LISTA SOCIAL ICONS -->
+  </div>
+</div>
+<section class="col-span-12 gap-4 lg:col-span-9">
+  <div class="flex flex-col lg:flex-row relative">
+    <div
+      class="space-y-1.5 p-6 w-full pr-6 lg:pr-12 py-12 max-md:border-b lg:border-r flex flex-col gap-6"
+    >
+      <!-- Title -->
+      <h3
+        class="max-md:text-lg
+        text-2xl
+        font-semibold
+        leading-none"
+      >
+        Certificados
+      </h3>
+      <Certificate />
+    </div>
+    <div class="space-y-1.5 p-6 w-full pl-6 lg:pr-12 py-12 flex flex-col gap-6">
+      <!-- Title -->
+      <h3
+        class="max-md:text-lg
+        text-2xl
+        font-semibold
+        leading-none"
+      >
+        Educación
+      </h3>
+      <Education />
+    </div>
+  </div>
+</section>
+
+<!-- <div class="space-y-8">
+  <h3
+    class="text-3xl font-semibold tracking-tight dark:text-neutral-100 sm:text-3xl sm:font-semibold"
+  >
+    Certificados
+  </h3>
+  <Education />
+</div>
+<div
+  class="group relative mt-4 rounded-2xl border p-6 shadow transition duration-400 hover:shadow-lg dark:border-zinc-700/40"
+>
+  <div class="absolute left-3 top-0 flex w-full justify-center">
+    <div
+      class="test left-0 h-[1px] rounded-full bg-gradient-to-r from-[rgba(17,17,17,0)] via-sky-500 to-[rgba(17,17,17,0)] transition-all group-hover:animate-border-width"
+    >
+    </div>
+  </div>
+  <h2 class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+    <Briefcase />
+    <span class="ml-3">Certificaciones</span>
+  </h2>
+  <Certificate />
+</div> -->

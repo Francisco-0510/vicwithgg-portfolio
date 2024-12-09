@@ -91,25 +91,25 @@ const { dates, role, company, description, logo } = Astro.props;
   class="relative mx-12 pb-12 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-black/20 dark:before:border-white/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4]"
 >
   <div class="relative gap-4 md:col-span-2">
-    <div class="sticky top-0">
+    <div class="sticky top-0 pb-2">
       <span class="text-blue-500 -left-[42px] absolute rounded-full text-5xl"
         >&bull;</span
       >
 
       <h3 class="text-xl font-bold">{role}</h3>
-      <p class="font-medium text-sm py-1 text-primary leading-none">
+      <p class="font-medium text-sm text-primary text-pretty">
         {company}
       </p>
       <time
-        class="text-sm font-medium leading-none text-nowrap text-muted-foreground dark:text-white/80"
+        class="text-sm font-medium leading-none pb-2 text-nowrap text-muted-foreground dark:text-white/80"
         >{dates}</time
       >
     </div>
   </div>
-  <div
-    class="relative flex mt-2 tracking-normal flex-col gap-2300 md:col-span-3"
-  >
-    <p class="text-sm leading-normal font-normal text-muted-foreground">
+  <div class="relative flex tracking-normal flex-col gap-2 md:col-span-3">
+    <p
+      class="text-sm leading-normal font-normal text-foreground dark:text-white/80"
+    >
       {description}
     </p>
   </div>

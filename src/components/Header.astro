@@ -10,7 +10,152 @@ import X from './icons/X.astro';
 import ProjectBrief from './icons/ProjectBrief.astro';
 ---
 
-<section class="relative flex h-100 justify-start flex-col h-[100dvh]">
+<section class="min-h-svh flex flex-col items-center justify-between">
+  <div
+    class="text-center relative h-full space-y-4 max-lg:px-4 lg:m-4 flex flex-col items-center justify-center"
+  >
+    <!-- container avatar -->
+    <div class="flex flex-wrap justify-center gap-4">
+      <!-- avatar img -->
+      <!-- <div
+        class="aspect-square
+        size-20
+        overflow-clip
+        rounded-full
+        bg-white
+        object-cover
+        sm:mb-0
+        md:min-h-20
+        md:min-w-20
+        2xl:-mt-0
+        [@media(width
+      >
+        =37rem)]:mr-8"
+      >
+        <Image
+          src={meImage}
+          width={meImage.width / 2}
+          densities={[1.5, 2]}
+          alt="VicWithGG profile picture"
+          data-nimg="1"
+          decoding="async"
+          loading="lazy"
+          class="scale-110"
+        />
+      </div> -->
+      <!-- content avatar -->
+      <div class="flex flex-col gap-y-4">
+        <h2
+          class="flex text-pretty items-center text-2xl font-semibold dark:text-white"
+        >
+          ¡Hola! Soy Francisco V. Aguirre Jiménez
+        </h2>
+        <!--  <div
+          class="flex items-center pb-10 sm:pb-0 gap-14 md:gap-8 text-xl text-gray-700 dark:text-gray-100"
+        >
+          <a
+            href="https://github.com/Francisco-0510"
+            target="_blank"
+          >
+            <GitHub />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/vicwith-gg/"
+            target="_blank"
+          >
+            <Linkedin />
+          </a>
+          <a
+            href="https://www.figma.com/@vicwithgg"
+            target="_blank"
+          >
+            <Figma />
+          </a>
+          <a
+            href="https://x.com/VicWithGG1"
+            target="_blank"
+          >
+            <X />
+          </a>
+        </div> -->
+      </div>
+    </div>
+    <div>
+      <h1
+        class="scroll-m-20 text-5xl font-bold lg:text-7xl text-balance max-w-screen-lg bg-gradient-to-r via-56% inline-block bg-clip-text"
+      >
+        <span
+          class="animate-gradient-foreground-1 bg-gradient-to-r from-[#0d6fff] to-[#0d6fff] bg-clip-text text-transparent"
+          >Diseñador UX/UI
+        </span> & Desarrollador Web
+      </h1>
+    </div>
+    <!-- parrafo -->
+    <div>
+      <h4
+        class="scroll-m-20 max-w-[750px] text-balance text-xl text-black dark:text-white"
+      >
+        Apasionado <strong class="text-blue-600 dark:text-blue-500"
+          >Diseñador UX/UI</strong
+        > y <strong class="text-blue-600 dark:text-blue-500"
+          >Desarrollador Web</strong
+        > enfocado en crear experiencias digitales excepcionales. Mi objetivo es
+        lograr un equilibrio perfecto entre las necesidades de los usuarios y los
+        objetivos del producto.
+      </h4>
+    </div>
+    <!-- botones -->
+    <div class="flex items-center gap-2 mt-4">
+      <a
+        href="#projects"
+        class="relative overflow-hidden bg-[#2563eb] text-white gap-2 px-8 rounded-lg font-medium text-sm h-11 transition duration-300 ease-in-out hover:bg-blue-600 hover:shadow-lg will-change-transform inline-flex justify-center items-center gap-x-2 focus:outline-none"
+      >
+        <ProjectBrief />
+        Mis Trabajos
+      </a>
+      <a
+        href="/public/assets/CV _ AGUIRRE JIMENEZ FRANCISCO VICTORICO.pdf"
+        target="_blank"
+        rel="noreferrer"
+        download="Francisco_Aguirre_CV.pdf"
+        class="hover:shadow-lg
+          h-11
+					duration-400
+					will-change-transform
+					md:text-base
+					transition-shadow
+					hover:bg-currentColor px-8 inline-flex justify-center items-center gap-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-800 backdrop-blur"
+      >
+        <Download />
+        Descargar mi CV
+      </a>
+    </div>
+  </div>
+  <div
+    class="absolute bottom-0 left-[50%] right-[50%] -translate-x-[50%] -translate-y-[50%] md:block"
+  >
+    <a
+      class="inline-flex h-10 w-10 animate-bounce items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium dark:text-white ring-offset-background transition-colors dark:bg-zinc-800 hover:bg-zinc-800/5 dark:hover:bg-zinc-900/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+      href="#featured"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="h-6 w-6"
+        ><path d="m6 9 6 6 6-6"></path></svg
+      ></a
+    >
+  </div>
+</section>
+
+<!-- <section class="relative flex h-100 justify-start flex-col h-[100dvh]">
   <div class="h-auto items-center gap-8 mb-8">
     <header
       class="relative flex flex-row-reverse flex-wrap-reverse justify-end sm:flex-nowrap"
@@ -69,7 +214,6 @@ import ProjectBrief from './icons/ProjectBrief.astro';
         />
       </div>
     </header>
-    <!-- Avatar component Header Container -->
   </div>
   <div
     class="flex h-auto w-auto flex-wrap gap-x-5 gap-y-3 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100"
@@ -101,7 +245,6 @@ import ProjectBrief from './icons/ProjectBrief.astro';
     del producto.
   </p>
 
-  <!-- Buttons -->
   <div class="mt-7 gap-5 flex w-full sm:inline-flex">
     <a
       href="#projects"
@@ -128,7 +271,6 @@ import ProjectBrief from './icons/ProjectBrief.astro';
       Descargar mi CV
     </a>
   </div>
-  <!-- End Buttons -->
 
   <div
     class="absolute bottom-0 left-[50%] right-[50%] hidden -translate-x-[50%] -translate-y-[50%] md:block"
@@ -153,3 +295,4 @@ import ProjectBrief from './icons/ProjectBrief.astro';
     >
   </div>
 </section>
+ -->

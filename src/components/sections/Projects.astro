@@ -24,6 +24,7 @@ import NETLIFY from '@components/icons/netlify.astro';
 import FRONT from '@components/icons/frontend.astro';
 import UIUX from '@components/icons/UIUX.astro';
 import SYSTEM from '@components/icons/SYSTEM.astro';
+import PageHeading from '@components/Page-heading.astro';
 
 const TAGS = {
   FIREBASE: {
@@ -252,8 +253,13 @@ const PROJECTS = [
 ];
 ---
 
-<div class="space-y-16">
+<div class="space-y-8">
   <!-- HEADER PROJECTS SECTION] -->
+  <PageHeading
+    title="Algunos de mis Proyectos  "
+    description="Estos son algunos de los proyectos que he hecho a lo largo de mi carrera como Diseñador UX/UI y como Desarrollador Web."
+  />
+  <!-- 
   <div class="max-w-2xl space-y-5">
     <h3
       class="text-3xl font-semibold tracking-tight dark:text-neutral-100 sm:text-3xl sm:font-semibold"
@@ -279,12 +285,12 @@ const PROJECTS = [
         >GitHub</a
       >, donde tengo mis demás proyectos.
     </p>
-  </div>
+  </div> -->
 
   <!-- layout 1 cards projects -->
-  <section class="col-span-12 mt-28 gap-4 lg:col-span-9">
+  <section class="col-span-12 gap-4 lg:col-span-9">
     <ul
-      class="relative grid gap-4 container max-lg:p-4 grid-cols-1 md:grid-cols-2 lg:grid-col-3"
+      class="relative grid gap-4 container grid-cols-1 md:grid-cols-2 lg:grid-cols-2"
     >
       {
         PROJECTS.map(
@@ -306,54 +312,56 @@ const PROJECTS = [
                     />
                   </div>
                 }
+                <div class="flex flex-col p-6  pb-0 space-y-1.5">
+                  <div class="flex justify-between  ">
+                    <a
+                      href={link}
+                      class="hover:underline"
+                    >
+                      <h3 class="max-md:text-base font-semibold dark:text-white text-base text-balance line-clamp-2 text-foreground leading-tight ">
+                        {title}
+                      </h3>
+                    </a>
 
-                <div class="flex flex-col justify-between space-y-1.5 p-6 pb-0">
-                  <a href={link}>
-                    <h3 class="max-md:text-lg font-semibold dark:text-white text-lg text-balance line-clamp-2 text-foreground leading-tight">
-                      {title}
-                    </h3>
-                  </a>
-
-                  <div class="flex gap-1">
-                    {github && (
-                      <a
-                        href={github}
-                        rel="nonreferrer"
-                        target="_blank"
-                      >
-                        <GitHub />
-                      </a>
-                    )}
-                    {figma && (
-                      <a
-                        href={figma}
-                        rel="nonreferrer"
-                        target="_blank"
-                      >
-                        <FIGMAICON />
-                      </a>
-                    )}
+                    <div class="flex gap-1">
+                      {github && (
+                        <a
+                          href={github}
+                          rel="nonreferrer"
+                          target="_blank"
+                        >
+                          <GitHub />
+                        </a>
+                      )}
+                      {figma && (
+                        <a
+                          href={figma}
+                          rel="nonreferrer"
+                          target="_blank"
+                        >
+                          <FIGMAICON />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                  <p class="text-sm text-muted-foreground line-clamp-2 text-balance">
+                  <p class="text-xs  p-0 text-foreground line-clamp-2 dark:text-white/80">
                     {description}
                   </p>
-                </div>
+                  <div class=" px-0 pt-4 pb-3 flex justify-between items-center mt-2 w-full">
+                    <ul class="flex flex-row flex-wrap gap-2 ">
+                      {tags.map((tag) => (
+                        <li>
+                          <div
+                            class={`inline-flex items-center  rounded-full border-[1px] py-1 px-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2  bg-transparent text-foreground border-[#e2e8f0] dark:bg-border gap-1 dark:text-white`}
+                          >
+                            <tag.icon class="size-3" />
+                            <span>{tag.name}</span>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
 
-                <div class="p-6 pt-0 flex justify-between items-center mt-2 w-full">
-                  <ul class="flex flex-row flex-wrap gap-2 ">
-                    {tags.map((tag) => (
-                      <li>
-                        <span
-                          class={`inline-flex items-center  rounded-full border-[1px] py-1 px-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2  bg-transparent text-foreground border-[#e2e8f0] dark:bg-border gap-2 dark:text-white`}
-                        >
-                          <tag.icon class="size-4" />
-                          {tag.name}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* 
+                    {/* 
                    <ul class="flex flex-wrap mt-auto gap-1 text-pretty px-2 pt-3 text-sm text-muted mb-2 gap-x-2">
                         {tags.map((tag) => (
                           <li>
@@ -366,6 +374,7 @@ const PROJECTS = [
                           </li>
                         ))}
                   </ul> */}
+                  </div>
                 </div>
 
                 {/*    <div class="pointer-events-none z-10 flex flex-col gap-2 px-2 pt-3">
