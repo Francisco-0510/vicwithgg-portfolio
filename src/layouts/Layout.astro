@@ -46,7 +46,6 @@ const { title, description } = Astro.props; */
     />
     <title>{title}</title>
     <ViewTransitions />
-    <!-- Used to add dark mode right away, adding here prevents any flicker -->
     <script is:inline>
       if (typeof Storage !== 'undefined') {
         if (
@@ -72,23 +71,7 @@ const { title, description } = Astro.props; */
       class="absolute left-0 right-0 top-0 -z-10 hidden h-[1000px] w-full overflow-visible bg-[url('https://www.marval.xyz/bg-light.svg')] bg-cover shadow-[#030014]/50 dark:block"
     >
     </div>
-    <!--  <div
-      class="absolute bottom-0 right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
-    >
-    </div>
-    <div
-      class="absolute bottom-0 right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
-    >
-    </div> -->
-    <!-- <body class="antialiased absolute h-full w-full bg-white dark:bg-slate-950">
-      <div
-      class="absolute bottom-0 right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
-    >
-    </div>
-    <div
-      class="absolute bottom-0 right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
-    >
-    </div> -->
+
     <Navbar />
     <main>
       <slot />
