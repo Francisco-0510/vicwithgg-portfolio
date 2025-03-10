@@ -4,119 +4,38 @@ import '@fontsource-variable/onest';
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
 import { ViewTransitions } from 'astro:transitions';
-
-let metadata = {
-  title: 'VicWithGG Portfolio Web',
-  description:
-    'Apassionado Diseñadoor UX-UI y Desarrollador Web comprometido con crear experiencias digitales que destaquen.',
-  url: 'https://vicwithgg-designer.netlify.app/',
-  image: 'https://vicwithgg-designer.netlify.app/assets/images/me.jpg',
-  twitterHandle: '@VicWithGG1',
-  keywords:
-    'UX/UI Design, web development, web design, responsive design, frontend development, website creation, creative projects, freelance web developer, portfolio web design, digital design, custom web solutions, Francisco Victorico Aguirre Jimenez, VicWithGG, Francisco Aguirre Jimenez, Oaxaca',
-  author: 'Francisco Victorico Aguirre Jimenez',
-};
-/* interface Props {
-  title: string;
-  description: string;
+import MainHead from '@components/MainHead.astro';
+interface Props {
+  title?: string | undefined;
+  description?: string | undefined;
 }
-
-const { title, description } = Astro.props; */
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es" class="dark">
+<html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/iconVGG.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={metadata.description} />
-
-    <link rel="canonical" href={metadata.url} />
-    <meta property="og:title" content={metadata.title} />
-    <meta property="og:description" content={metadata.description} />
-    <meta property="og:url" content={metadata.url} />
-    <meta property="og:image" content={metadata.image} />
-    <meta name="twitter:site" content={metadata.twitterHandle} />
-    <meta name="twitter:title" content={metadata.title} />
-    <meta name="twitter:description" content={metadata.description} />
-    <meta name="twitter:image" content={metadata.image} />
-    <meta name="twitter:creator" content={metadata.twitterHandle} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:url"
-      content="https://vicwithgg-designer.netlify.app/"
-    />
-    <meta name="twitter:domain" content="vicwithgg-designer.netlify.app" />
-    <meta property="og:type" content="wensite" />
-    <meta property="og:site_name" content={metadata.title} />
-    <meta name="keywords" content={metadata.keywords} />
-    <meta name="author" content={metadata.author} />
-    <meta name="description" content={metadata.description} />
-
-    <title>{metadata.title}</title>
-
-    <ViewTransitions />
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Francisco Victorico Aguirre Jimenez",
-        "url": "https://vicwithgg-designer.netlify.app/",
-        "image": "/public/assets/images/me.jpg",
-        "sameAs": [
-          "https://vicwithgg-designer.netlify.app/"
-          "https://x.com/VicWithGG1",
-          "https://github.com/Francisco-0510",
-          "https://www.linkedin.com/in/vicwith-gg/",
-          "https://www.facebook.com/vicwithGG",
-          "https://www.tiktok.com/@vicwithgg",
-          "https://www.figma.com/@vicwithgg",
-          "https://www.instagram.com/vicwithgg/"
-        ]
-      }
-    </script>
-
-    <script is:inline>
-      if (typeof Storage !== 'undefined') {
-        if (
-          localStorage.getItem('dark_mode') &&
-          localStorage.getItem('dark_mode') == 'true'
-        ) {
-          document.documentElement.classList.add('dark');
-        }
-      }
-    </script>
-    <style>
-      .prose img {
-        border-radius: 20px;
-      }
-    </style>
-    <script src="../assets/css/main.css"></script>
+    <MainHead title={title} description={description} />
   </head>
-
   <body
     class="antialiased absolute h-full w-full bg-white dark:bg-black dark:text-white"
     ><!-- Google Tag Manager (noscript) -->
-    <noscript
+    <!--    <noscript
       ><iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-KPXH5MDJ"
         height="0"
         width="0"
         style="display:none;visibility:hidden"></iframe></noscript
-    >
+    > -->
     <!-- End Google Tag Manager (noscript) -->
     <div
-      class="absolute left-0 right-0 top-0 -z-10 hidden h-[1000px] w-full overflow-visible bg-[url('https://www.marval.xyz/bg-light.svg')] bg-cover shadow-[#030014]/50 dark:block"
-    >
+      class="absolute left-0 right-0 top-0 -z-10 hidden h-[1000px] w-full overflow-visible bg-[url('https://www.marval.xyz/bg-light.svg')] bg-cover shadow-[#030014]/50 dark:block">
     </div>
 
     <Navbar />
-    <main>
-      <slot />
-    </main>
+    <!-- <main> -->
+    <slot />
+    <!--   </main> -->
     <Footer />
     <script src="../assets/js/main.js"></script>
   </body>
@@ -137,25 +56,4 @@ const { title, description } = Astro.props; */
       scroll-behavior: auto;
     }
   }
-
-  /* @media (prefers-color-scheme: dark) {
-    body {
-      color: rgba(255, 255, 255, 0.9);
-    }
-  } */
-  /* :root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-	} */
 </style>
