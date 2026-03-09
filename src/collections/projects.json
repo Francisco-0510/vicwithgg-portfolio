@@ -1,5 +1,9 @@
 [
   {
+    "name": "Sistema de Control y Registro de Operaciones Aereas SiCROA",
+    "description": "Rediseño de Interfaces del sistema, Diseño de Sistema de Diseño Para SiCROA, y desarrollo frontend con React, TailwindCSS, ShadCN."
+  },
+  {
     "name": "Taaniilaaz y Muñeco de Chocolate",
     "description": "Rediseño completo de interfaz de usuario (UI/UX) y diseño de identidad visual.",
     "highlights": ["Figma", "UI/UX", "Identidad Visual", "Accesibilidad"],

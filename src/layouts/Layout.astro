@@ -1,11 +1,12 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import MainHead from '@components/MainHead.astro';
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
 
-// Fuentes variables para optimización de carga
-import '@fontsource-variable/inter';
-import '@fontsource-variable/onest';
+// Supports weights 100-900
+/* import '@fontsource-variable/inter';
+import '@fontsource-variable/onest'; */
 
 interface Props {
   title?: string;
@@ -19,63 +20,95 @@ const { title, description } = Astro.props;
 <html lang="es" class="scroll-smooth">
   <head>
     <MainHead title={title} description={description} />
+    <ClientRouter />
+
+    <script is:inline>
+      const theme = (() => {
+        if (
+          typeof localStorage !== 'undefined' &&
+          localStorage.getItem('dark_mode')
+        ) {
+          return localStorage.getItem('dark_mode') === 'true';
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      })();
+      document.documentElement.classList.toggle('dark', theme);
+    </script>
   </head>
   <body
-    class="relative antialiased min-h-screen w-full bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 transition-colors duration-300">
+    class="relative min-h-screen flex flex-col bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 antialiased transition-colors duration-300">
     <div
-      class="fixed inset-0 -z-10 hidden dark:block h-full w-full bg-[url('https://www.marval.xyz/bg-light.svg')] bg-cover opacity-20 pointer-events-none"
+      class="fixed inset-0 -z-10 hidden dark:block h-full w-full bg-[url('https://www.marval.xyz/bg-light.svg')] bg-cover opacity-10 pointer-events-none"
       aria-hidden="true">
     </div>
 
     <Navbar />
 
-    <main id="main-content" class="flex-grow">
+    <main id="main-content" class="flex-1 w-full mx-auto">
       <slot />
     </main>
 
     <Footer />
 
-    <script src="../assets/js/main.js"></script>
+    <script>
+      import '../assets/js/main.js';
+    </script>
   </body>
 </html>
 
 <style is:global>
   :root {
-    /* Definición de la fuente principal del portafolio */
-    font-family: 'Onest Variable', 'Inter Variable', system-ui, sans-serif;
+    font-family:
+      'Onest Variable',
+      'Inter Variable',
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
+
+  /* Mejora la experiencia de focus para usuarios de teclado */
+  :focus-visible {
+    @apply outline-none ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-neutral-950;
   }
 
   html {
-    /* Asegura que el scroll no "salte" al cambiar de sección */
-    scroll-behavior: smooth;
+    /* Evita el salto del scrollbar al cambiar entre páginas con distinto alto */
+    scrollbar-gutter: stable;
   }
 
   body {
-    /* Optimización de scroll en dispositivos móviles */
-    overscroll-behavior: none;
-    display: flex;
-    flex-direction: column;
+    font-family: 'Inter Variable', sans-serif;
+
+    /* Evita el efecto de rebote elástico en el header/footer en iOS */
+    overscroll-behavior-y: none;
   }
 
-  /* Respetar la preferencia de ahorro de batería o accesibilidad del sistema */
+  /* Reducir animaciones si el usuario lo prefiere a nivel sistema */
   @media (prefers-reduced-motion: reduce) {
     html {
-      scroll-behavior: auto;
+      scroll-behavior: auto !important;
+    }
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   }
 
-  /* Estilos para la barra de scroll (opcional para consistencia visual) */
+  /* Custom Scrollbar Corregida */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: transparent;
+    @apply bg-transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #525252;
-    border-radius: 10px;
+    @apply bg-neutral-300 dark:bg-neutral-800 rounded-full border-2 border-transparent bg-clip-content;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #3b82f6;
+    @apply bg-blue-500;
   }
 </style>

@@ -1,95 +1,90 @@
 ---
 import projects from '@collections/projects.json';
+import { Image } from 'astro:assets';
 ---
 
 {
-  projects.map(
-    ({ name, description, highlights, image, link, figma, github }) => {
-      return (
+  projects.map(({ name, description, highlights, image, link }, index) => {
+    return (
+      <article class="relative group">
         <a
-          href={link}
+          href={link || '#'}
           target="_blank"
-          class="relative flex flex-col items-stretch duration-300 ease-out px-2 py-1.5 sm:p-3 group h-100 border border-solid rounded-md border-neutral-300 dark:border-slate-700/30 group-hover:translate-x-1 group-hover:translate-y-1">
-          <span class="block w-full">
-            <img src={image} class="w-full h-auto rounded-lg aspect-[16/9]" />
+          rel="noopener noreferrer"
+          class="flex flex-col items-stretch h-full p-3 transition-all duration-300 ease-out border rounded-xl border-neutral-300 dark:border-slate-700/50 hover:border-blue-500/50 hover:shadow-md group-hover:-translate-y-1">
+          {/* Contenedor de Imagen */}
+          <span class="block w-full overflow-hidden rounded-lg aspect-video bg-neutral-100 dark:bg-neutral-800">
+            {image ? (
+              <Image
+                src={image}
+                alt={name}
+                width={600}
+                height={337}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            ) : (
+              <div class="flex items-center justify-center h-full text-neutral-400 text-xs">
+                Sin imagen
+              </div>
+            )}
           </span>
 
-          <span class="block w-full px-1 mt-5 mb-1 sm:mt-3">
-            <span class="flex items-center mb-0 text-base font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-              <span>{name}</span>
+          {/* Contenido */}
+          <span class="flex flex-col flex-grow mt-4">
+            <span class="flex items-center justify-between mb-1">
+              <span class="text-base font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+                {name}
+              </span>
+
+              {/* Icono de Flecha Optimizado */}
               <svg
-                class="group-hover:translate-x-0 group-hover:translate-y-0 -rotate-45 translate-y-1 -translate-x-1 w-2.5 h-2.5 stroke-current ml-1 transition-all ease-in-out duration-200 transform"
-                viewBox="0 0 13 15"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g
-                  stroke="none"
-                  stroke-width="1"
-                  fill="none"
-                  fill-rule="evenodd"
+                class="w-4 h-4 transition-all duration-300 transform -rotate-45 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-blue-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2.5">
+                <path
                   stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <g
-                    id="svg"
-                    transform="translate(0.666667, 2.333333)"
-                    stroke="currentColor"
-                    stroke-width="2.4">
-                    <g>
-                      <polyline
-                        class="transition-all duration-200 ease-out opacity-0 delay-0 group-hover:opacity-100"
-                        points="5.33333333 0 10.8333333 5.5 5.33333333 11"
-                      />
-                      <line
-                        class="transition-all duration-200 ease-out transform -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:ml-0"
-                        x1="10.8333333"
-                        y1="5.5"
-                        x2="0.833333333"
-                        y2="5.16666667"
-                      />
-                    </g>
-                  </g>
-                </g>
+                  stroke-linejoin="round"
+                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                />
               </svg>
             </span>
 
-            <span class="text-sm text-neutral-600 dark:text-neutral-400">
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2 mb-4">
               {description}
-            </span>
-            <ul class="flex flex-wrap gap-1">
-              {highlights.map((highlight) => {
-                return (
-                  <li class="text-xs uppercase py-0.5 px-1 rounded bg-black/5 dark:bg-white/20 text-black/75 dark:text-white/75">
-                    {highlight}
-                  </li>
-                );
-              })}
+            </p>
+
+            {/* Badges de Tecnologías */}
+            <ul class="flex flex-wrap gap-1.5 mt-auto">
+              {/* Verificamos que highlights exista y tenga elementos antes de renderizar la lista */}
+              {highlights && highlights.length > 0 && (
+                <ul class="flex flex-wrap gap-1.5 mt-auto pt-4">
+                  {highlights.map((highlight) => (
+                    <li class="text-[10px] uppercase tracking-wider font-bold py-0.5 px-2 rounded bg-neutral-100 dark:bg-white/10 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-white/5">
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </ul>
           </span>
         </a>
-      );
-    },
-  )
+      </article>
+    );
+  })
 }
 
 <style>
-  article header {
+  /* Optimizaciones de layout */
+  article {
+    height: 100%;
   }
 
-  .github-code-link .figma-code-link .web-code-link {
-    margin-left: 5px;
-  }
-
-  @media (width <= 700px) {
-    ul {
-      margin-inline: 0px;
-      gap: 1rem;
-    }
-
+  /* Ajustes para móviles */
+  @media (max-width: 640px) {
     article {
-      border: none;
-      box-shadow: 0 1px 1px #f2f2f2;
-      padding: 0 0 16px 0;
+      border-radius: 0;
     }
   }
 </style>
