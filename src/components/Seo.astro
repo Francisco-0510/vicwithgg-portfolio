@@ -1,4 +1,4 @@
----
+<!-- ---
 import siteData from '@data/siteData.json';
 
 const {
@@ -11,13 +11,11 @@ const {
 } = Astro.props;
 ---
 
-<!-- SEO -->
 <link
   rel="canonical"
   href={url}
 />
 
-<!-- Open Graph -->
 <meta
   property="og:site_name"
   content="My Astro Blog"
@@ -63,7 +61,6 @@ const {
   content={image?.alt || siteData.image.alt}
 />
 
-<!-- Twitter -->
 <meta
   name="twitter:title"
   content={title}
@@ -97,3 +94,4 @@ const {
     />
   )
 }
+ -->
