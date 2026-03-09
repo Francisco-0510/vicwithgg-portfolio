@@ -4,91 +4,100 @@
 
 @layer base {
   :root {
-    /* Variables de marca - Basadas en tu azul #2563eb */
+    /* Formato RGB puro para compatibilidad con opacidad de Tailwind */
     --color-primary: 37 99 235;
     --color-foreground: 2 8 23;
     --color-muted: 122 122 122;
+    color-scheme: light;
+  }
 
-    /* Configuración de scroll */
-    html {
-      @apply scroll-smooth antialiased;
-      color-scheme: light;
-    }
+  html.dark {
+    --color-foreground: 255 255 255;
+    color-scheme: dark;
+  }
 
-    html.dark {
-      --color-foreground: 255 255 255;
-      color-scheme: dark;
-    }
+  html {
+    @apply scroll-smooth antialiased;
   }
 
   body {
-    @apply bg-white text-neutral-900 dark:bg-black dark:text-neutral-100;
+    @apply bg-white text-neutral-900 dark:bg-black dark:text-neutral-100 transition-colors duration-500;
   }
 }
 
 @layer components {
-  /* Utilidades de color vinculadas a variables */
+  /* Registro de colores en el sistema de Tailwind */
   .text-primary {
-    color: rgb(var(--color-primary));
+    color: rgb(var(--color-primary) / var(--tw-text-opacity, 1));
   }
   .bg-primary {
-    background-color: rgb(var(--color-primary));
-  }
-
-  /* Estilos para el contenido de Markdown/Prose */
-  .prose img {
-    @apply rounded-[30px] shadow-md border border-neutral-200 dark:border-neutral-800;
+    background-color: rgb(var(--color-primary) / var(--tw-bg-opacity, 1));
   }
 
   /* --- Lógica del Dark Mode Toggle --- */
 
-  /* Contenedor de iconos */
   .horizon {
-    @apply relative overflow-hidden transition-colors duration-300;
+    @apply relative overflow-hidden flex items-center justify-center;
+    /* Evita que los iconos se salgan del radio del botón durante la animación */
+    isolation: isolate;
   }
 
   #sun,
   #moon {
-    @apply transition-transform duration-500 ease-out;
-    transform: translate3d(0, 0, 0);
+    /* Crucial: Posicionamiento absoluto para que se solapen perfectamente */
+    @apply absolute transition-all duration-500 ease-in-out;
+    backface-visibility: hidden;
+    pointer-events: none;
   }
 
-  /* Animación al hacer hover en el botón */
-  #darkToggle:hover #sun,
-  #darkToggle:hover #moon {
-    transform: translate3d(0, 4px, 0);
+  /* El icono que no es 'hidden' por JS se mantiene en el centro */
+  #sun:not(.hidden),
+  #moon:not(.hidden) {
+    @apply relative; /* El que está visible dicta el tamaño del contenedor */
   }
 
-  /* Clases de animación para el cambio de tema */
-  .horizon .setting {
-    animation: setting 0.6s ease forwards;
+  /* Efecto hover sutil */
+  #darkToggle:hover .horizon {
+    @apply border-blue-500/50 shadow-sm;
   }
 
-  .horizon .rising {
-    animation: rising 0.6s ease forwards;
+  /* Clases de Animación */
+  .setting {
+    animation: sunset 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .rising {
+    animation: sunrise 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 }
 
-/* --- Keyframes Optimizados --- */
+/* --- Keyframes --- */
 
-@keyframes setting {
+@keyframes sunset {
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translateY(0) scale(1);
     opacity: 1;
+    filter: blur(0px);
   }
   100% {
-    transform: translate3d(0, 20px, 0);
+    transform: translateY(20px) scale(0.8);
     opacity: 0;
+    filter: blur(4px);
   }
 }
 
-@keyframes rising {
+@keyframes sunrise {
   0% {
-    transform: translate3d(0, -20px, 0);
+    transform: translateY(-20px) scale(0.8);
     opacity: 0;
+    filter: blur(4px);
   }
   100% {
-    transform: translate3d(0, 0, 0);
+    transform: translateY(0) scale(1);
     opacity: 1;
+    filter: blur(0px);
   }
+}
+body {
+  font-family: "Inter Variable", sans-serif;
 }

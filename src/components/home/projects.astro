@@ -4,78 +4,97 @@ import Figma from '@components/icons/Figma.astro';
 import GitHub from '@components/icons/GitHub.astro';
 import PageHeading from '@components/Page-heading.astro';
 import { Image } from 'astro:assets';
+
+/**
+ * Nota: Asegúrate de que las rutas de las imágenes en projects.json
+ * sean compatibles con el componente Image de Astro.
+ */
 ---
 
-<section class="space-y-16">
-  <PageHeading
-    title="Algunos de Mis Proyectos"
-    description="Estos son algunos de los proyectos que he hecho a lo largo de mi carrera como Diseñador UX/UI y como Desarrollador Web. Puedes explorar más en mis perfiles oficiales."
-  />
+<section id="projects" class="py-16 space-y-12">
+  <div class="space-y-6">
+    <PageHeading
+      title="Proyectos Destacados"
+      description="Una selección de trabajos donde combino el diseño UX/UI con el desarrollo frontend para crear experiencias digitales funcionales."
+    />
 
-  <div class="flex gap-4 -mt-8">
-    <a
-      class="text-sm font-semibold text-blue-600 hover:underline dark:text-blue-400"
-      href="https://www.figma.com/@vicwithgg"
-      target="_blank"
-      rel="noreferrer">
-      Figma &rarr;
-    </a>
-    <a
-      class="text-sm font-semibold text-blue-600 hover:underline dark:text-blue-400"
-      href="https://github.com/Francisco-0510"
-      target="_blank"
-      rel="noreferrer">
-      GitHub &rarr;
-    </a>
+    <div class="flex gap-6 items-center">
+      <a
+        class="group flex items-center text-sm font-medium text-blue-600 dark:text-blue-400"
+        href="https://www.figma.com/@vicwithgg"
+        target="_blank"
+        rel="noopener noreferrer">
+        Explorar Figma
+        <span class="ml-1 transition-transform group-hover:translate-x-1"
+          >&rarr;</span
+        >
+      </a>
+      <a
+        class="group flex items-center text-sm font-medium text-blue-600 dark:text-blue-400"
+        href="https://github.com/Francisco-0510"
+        target="_blank"
+        rel="noopener noreferrer">
+        GitHub Perfil
+        <span class="ml-1 transition-transform group-hover:translate-x-1"
+          >&rarr;</span
+        >
+      </a>
+    </div>
   </div>
 
-  <div class="grid w-full gap-8 sm:grid-cols-2 lg:grid-cols-3 mt-4">
+  <div class="grid w-full gap-8 sm:grid-cols-2 lg:grid-cols-3">
     {
       projects.map(
-        ({ name, description, highlights, image, link, figma, github }) => (
-          <article class="group flex flex-col bg-white border border-neutral-200 shadow-sm rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg dark:bg-neutral-900/50 dark:border-neutral-800">
-            <div class="block w-full overflow-hidden aspect-[16/9]">
-              <Image
-                src={image}
-                alt={`Miniatura del proyecto ${name}`}
-                width={800}
-                height={450}
-                class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-              />
-            </div>
+        (
+          { name, description, highlights, image, link, figma, github },
+          index,
+        ) => (
+          <article class="group flex flex-col bg-white border border-neutral-200 shadow-sm rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 dark:bg-neutral-900/40 dark:border-neutral-800/60 dark:hover:bg-neutral-900/60">
+            {/* Contenedor de Imagen con Enlace */}
+            <a
+              href={link || '#'}
+              target="_blank"
+              class="block overflow-hidden aspect-video">
+              {/* Solo renderiza si existe la imagen */}
+              {image ? (
+                <Image
+                  src={image}
+                  alt={`Preview del proyecto ${name}`}
+                  width={800}
+                  height={450}
+                  format="webp"
+                  quality="mid"
+                  loading={index < 3 ? 'eager' : 'lazy'}
+                  class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+              ) : (
+                <div class="w-full h-full bg-neutral-200 dark:bg-neutral-800 flex items-center justify-center">
+                  <span class="text-neutral-400 text-xs">Sin vista previa</span>
+                </div>
+              )}
+            </a>
 
-            <div class="flex flex-col flex-grow p-5">
-              <header class="flex items-center justify-between gap-2">
-                <h3 class="text-lg font-bold tracking-tight text-neutral-900 dark:text-white">
-                  <a
-                    href={link || '#'}
-                    target="_blank"
-                    rel="noreferrer"
-                    class="flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    {name}
-                    <svg
-                      class="ml-1 w-4 h-4 transition-transform duration-300 -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2.5">
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                      />
-                    </svg>
-                  </a>
-                </h3>
+            <div class="flex flex-col flex-grow p-6">
+              <header class="flex items-start justify-between gap-4">
+                <div class="space-y-1">
+                  <h3 class="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">
+                    <a
+                      href={link || '#'}
+                      target="_blank"
+                      class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                      {name}
+                    </a>
+                  </h3>
+                </div>
 
-                <div class="flex items-center gap-3 text-neutral-500 dark:text-neutral-400">
+                <div class="flex items-center gap-3 pt-1">
                   {github && (
                     <a
                       href={github}
                       target="_blank"
-                      rel="noreferrer"
-                      title={`Ver código de ${name}`}
-                      class="hover:text-neutral-900 dark:hover:text-white">
+                      rel="noopener noreferrer"
+                      title="Ver repositorio"
+                      class="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
                       <GitHub class="w-5 h-5" />
                     </a>
                   )}
@@ -83,27 +102,27 @@ import { Image } from 'astro:assets';
                     <a
                       href={figma}
                       target="_blank"
-                      rel="noreferrer"
-                      title={`Ver diseño de ${name}`}
-                      class="hover:text-neutral-900 dark:hover:text-white">
+                      rel="noopener noreferrer"
+                      title="Ver prototipo"
+                      class="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
                       <Figma class="w-5 h-5" />
                     </a>
                   )}
                 </div>
               </header>
 
-              <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3">
+              <p class="mt-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 line-clamp-3">
                 {description}
               </p>
 
-              <footer class="mt-auto pt-6">
-                <ul class="flex flex-wrap gap-2">
-                  {highlights.map((tag) => (
-                    <li class="px-2.5 py-0.5 text-xs font-medium rounded-full bg-neutral-100 border border-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300">
+              <footer class="mt-auto pt-8">
+                <div class="flex flex-wrap gap-2">
+                  {highlights?.map((tag) => (
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-semibold tracking-wide uppercase bg-neutral-100 text-neutral-600 border border-neutral-200 dark:bg-neutral-800/50 dark:text-neutral-400 dark:border-neutral-700/50">
                       {tag}
-                    </li>
+                    </span>
                   ))}
-                </ul>
+                </div>
               </footer>
             </div>
           </article>

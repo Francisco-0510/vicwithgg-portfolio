@@ -3,7 +3,7 @@
  * Maneja: Sticky Header, Dark Mode, Menú Móvil y Back to Top
  */
 
-// --- Utilidad para alto rendimiento ---
+// --- Utilidad para alto rendimiento (Corregida) ---
 const throttle = (callback) => {
   let queuedCallback = null;
   return () => {
@@ -44,18 +44,21 @@ const init = () => {
     const isScroll = scrollY > 16;
     const headerInner = header.firstElementChild;
 
-    // 1. Manejo del Header
+    // 1. Manejo del Header (Uso de toggle para mayor seguridad)
     headerInner?.classList.toggle("border-transparent", !isScroll);
+
     if (isScroll) {
       headerInner?.classList.add(...HEADER_GLASS);
-      header.classList.replace("absolute", "fixed");
-      header.classList.replace("h-20", "h-14");
-      menu?.classList.replace("top-[75px]", "top-[56px]");
+      header.classList.add("fixed", "h-14");
+      header.classList.remove("absolute", "h-20");
+      menu?.classList.add("top-[56px]");
+      menu?.classList.remove("top-[75px]");
     } else {
       headerInner?.classList.remove(...HEADER_GLASS);
-      header.classList.replace("fixed", "absolute");
-      header.classList.replace("h-14", "h-20");
-      menu?.classList.replace("top-[56px]", "top-[75px]");
+      header.classList.add("absolute", "h-20");
+      header.classList.remove("fixed", "h-14");
+      menu?.classList.add("top-[75px]");
+      menu?.classList.remove("top-[56px]");
     }
 
     // 2. Manejo del Botón Volver Arriba
@@ -63,21 +66,11 @@ const init = () => {
       const projectsPosition = projectsSection.offsetTop;
       const isPastProjects = scrollY > projectsPosition - 100;
 
-      if (isPastProjects) {
-        backToTopBtn.classList.remove(
-          "opacity-0",
-          "translate-y-20",
-          "pointer-events-none",
-        );
-        backToTopBtn.classList.add("opacity-100", "translate-y-0");
-      } else {
-        backToTopBtn.classList.add(
-          "opacity-0",
-          "translate-y-20",
-          "pointer-events-none",
-        );
-        backToTopBtn.classList.remove("opacity-100", "translate-y-0");
-      }
+      backToTopBtn.classList.toggle("opacity-0", !isPastProjects);
+      backToTopBtn.classList.toggle("translate-y-20", !isPastProjects);
+      backToTopBtn.classList.toggle("pointer-events-none", !isPastProjects);
+      backToTopBtn.classList.toggle("opacity-100", isPastProjects);
+      backToTopBtn.classList.toggle("translate-y-0", isPastProjects);
     }
   };
 
@@ -85,36 +78,37 @@ const init = () => {
   const updateThemeUI = (isDark, animate = false) => {
     const sun = document.getElementById("sun");
     const moon = document.getElementById("moon");
-    const dayText = document.getElementById("dayText");
-    const nightText = document.getElementById("nightText");
 
     if (!sun || !moon) return;
 
-    [sun, moon].forEach((el) => el.classList.remove("setting", "rising"));
-    const delay = animate ? 500 : 0;
+    // Limpiar estados anteriores
+    sun.classList.remove("setting", "rising");
+    moon.classList.remove("setting", "rising");
 
     if (animate) {
       const exiting = isDark ? sun : moon;
-      exiting.classList.add("setting");
-    }
+      const entering = isDark ? moon : sun;
 
-    setTimeout(() => {
-      if (isDark) {
-        document.documentElement.classList.add("dark");
-        sun.classList.add("hidden");
-        moon.classList.remove("hidden");
-        if (animate) moon.classList.add("rising");
-        dayText?.classList.add("hidden");
-        nightText?.classList.remove("hidden");
-      } else {
-        document.documentElement.classList.remove("dark");
-        moon.classList.add("hidden");
-        sun.classList.remove("hidden");
-        if (animate) sun.classList.add("rising");
-        nightText?.classList.add("hidden");
-        dayText?.classList.remove("hidden");
-      }
-    }, delay);
+      // 1. Iniciar salida
+      exiting.classList.add("setting");
+
+      setTimeout(() => {
+        // 2. Intercambio de visibilidad
+        exiting.classList.add("hidden");
+        entering.classList.remove("hidden");
+
+        // 3. Iniciar entrada
+        entering.classList.add("rising");
+
+        // 4. Aplicar clase al HTML
+        document.documentElement.classList.toggle("dark", isDark);
+      }, 300); // Mitad de la duración de la animación
+    } else {
+      // Carga inicial sin animaciones
+      document.documentElement.classList.toggle("dark", isDark);
+      sun.classList.toggle("hidden", isDark);
+      moon.classList.toggle("hidden", !isDark);
+    }
   };
 
   // --- MOBILE MENU ---
@@ -125,10 +119,14 @@ const init = () => {
 
     if (isOpen) {
       mobileBg?.classList.remove("hidden");
-      setTimeout(() => mobileBg?.classList.remove("opacity-0"), 10);
+      // Forzar reflow para la transición de opacidad
+      void mobileBg?.offsetWidth;
+      mobileBg?.classList.remove("opacity-0");
       document.body.style.overflow = "hidden";
     } else {
-      mobileBg?.classList.add("hidden", "opacity-0");
+      mobileBg?.classList.add("opacity-0");
+      // Esperar a que termine la animación antes de ocultar
+      setTimeout(() => mobileBg?.classList.add("hidden"), 300);
       document.body.style.overflow = "auto";
     }
   };
@@ -136,7 +134,11 @@ const init = () => {
   // --- ACTIVE LINKS ---
   const highlightLinks = () => {
     document.querySelectorAll("#menu a").forEach((link) => {
-      const isCurrent = link.pathname === window.location.pathname;
+      // Ajuste para comparar rutas correctamente
+      const isCurrent =
+        link.getAttribute("href") === window.location.pathname ||
+        (link.getAttribute("href") === "/" && window.location.pathname === "");
+
       link.classList.toggle("text-blue-600", isCurrent);
       link.classList.toggle("dark:text-blue-400", isCurrent);
       link.classList.toggle("font-bold", isCurrent);
@@ -165,7 +167,14 @@ const init = () => {
   // Ejecuciones iniciales
   evaluateScroll();
   highlightLinks();
-  updateThemeUI(localStorage.getItem("dark_mode") === "true");
+
+  // Preferencia guardada o del sistema
+  const savedTheme = localStorage.getItem("dark_mode");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const shouldBeDark =
+    savedTheme === "true" || (savedTheme === null && prefersDark);
+
+  updateThemeUI(shouldBeDark);
 };
 
 // Reiniciar en cada navegación de Astro
