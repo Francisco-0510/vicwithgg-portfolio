@@ -1,18 +1,18 @@
 [
   {
-    "name": "Stack",
-    "url": "#stack"
+    "label": "Proyectos",
+    "href": "#projects"
   },
   {
-    "name": "Proyectos",
-    "url": "#projects"
+    "label": "Experiencia",
+    "href": "#experience"
   },
   {
-    "name": "Experiencia",
-    "url": "#experience"
+    "label": "Stack",
+    "href": "#stack"
   },
   {
-    "name": "VicWithGG",
-    "url": "#about"
+    "label": "Sobre mí",
+    "href": "#about"
   }
 ]

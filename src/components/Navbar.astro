@@ -1,98 +1,137 @@
 ---
-import menus from '../collections/menu.json';
+// Usamos los enlaces refactorizados para mantener la coherencia
 import Logo from '../components/logo.astro';
 import Sun from './icons/sun.astro';
 import Moon from './icons/Moon.astro';
-/* let navItems = [
-	{
-		name: 'Inicio',
-		href: '/',
-	},
-	{
-		name: 'Sobre Mí',
-		href: '/about',
-	},
-	{
-		name: 'Proyectos',
-		href: '/index#projects',
-	},
-	{
-		name: 'Contacto',
-		href: '/#contact',
-	},
-]; */
+// Definición local de los enlaces de navegación
+const NAV_LINKS = [
+  { label: 'Proyectos', href: '#projects' },
+  { label: 'Experiencia', href: '#experience' },
+  { label: 'Stack', href: '#stack' },
+  { label: 'Sobre mí', href: '#about' },
+];
 ---
 
-<!-- This is an invisible div with relative position so that it takes up the height of the menu (because menu is absolute/fixed) -->
 <div class="relative w-full h-20 opacity-30 pointer-events-none"></div>
-<header id="header" class="fixed top-0 z-50 w-full h-20">
+
+<header
+  id="header"
+  class="fixed top-0 z-50 w-full h-20 bg-white/80 dark:bg-black/80 backdrop-blur-md transition-colors duration-300">
   <div
-    class="flex items-center justify-between h-full max-w-5xl mx-auto border-b pr-4 pl-6 border-l-0 border-r-0 border-transparent select-none lg:border-r lg:border-l lg:rounded-b-xl">
+    class="flex items-center justify-between h-full max-w-5xl mx-auto px-6 border-b border-transparent dark:border-neutral-800 lg:rounded-b-xl">
     <Logo />
+
     <div
       id="mobileMenuBackground"
-      onclick="closeMobileMenu()"
-      class="fixed inset-0 z-20 hidden w-screen h-screen duration-300 ease-out bg-white/90 dark:bg-neutral-950/90">
+      class="fixed inset-0 z-20 hidden w-screen h-screen bg-white/90 dark:bg-neutral-950/90 backdrop-blur-sm transition-opacity duration-300">
     </div>
+
     <nav
-      class="relative z-30 flex flex-row-reverse justify-start w-full text-sm sm:justify-end text-neutral-500 dark:text-neutral-400 sm:flex-row">
-      <div
-        id="openMenu"
-        class="flex flex-col items-end justify-center w-6 h-6 ml-4 cursor-pointer sm:hidden">
+      class="relative z-30 flex items-center justify-end flex-grow text-sm font-medium">
+      <button
+        id="menuToggle"
+        aria-label="Abrir menú de navegación"
+        class="flex items-center justify-center w-8 h-8 ml-4 cursor-pointer sm:hidden text-neutral-600 dark:text-neutral-200">
         <svg
-          class="w-8 h-8 dark:text-neutral-200"
+          id="openIcon"
+          class="w-8 h-8"
           fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          stroke="currentColor"
           viewBox="0 0 24 24"
-          stroke="currentColor"><path d="M4 8h16M4 16h16"></path></svg
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 8h16M4 16h16"></path></svg
         >
-      </div>
-      <div
-        id="closeMenu"
-        class="flex-col items-end justify-center hidden w-6 h-6 ml-4 -translate-x-1 cursor-pointer sm:hidden">
         <svg
-          class="w-6 h-6 text-neutral-600 dark:text-neutral-200"
+          id="closeIcon"
+          class="hidden w-7 h-7"
           fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          stroke="currentColor"
           viewBox="0 0 24 24"
-          stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"></path></svg
         >
-      </div>
+      </button>
+
       <div
         id="menu"
-        class="fixed top-[75px] ease-out duration-300 sm:top-0 w-full sm:py-0 pt-7 pb-4 dm:mx-0 left-0 z-40 flex-col items-end justify-start hidden h-auto text-sm sm:h-auto sm:relative sm:flex-row sm:flex sm:text-sm sm:w-auto sm:pr-0 sm:pt-0">
-        <div
-          class="absolute inset-0 top-0 right-0 block w-full h-full px-3 sm:hidden">
-        </div>
+        class="fixed top-[80px] left-0 z-40 hidden w-full pb-6 flex-col items-center bg-white dark:bg-neutral-950 sm:relative sm:top-0 sm:flex sm:flex-row sm:w-auto sm:pb-0 sm:bg-transparent sm:dark:bg-transparent">
         {
-          menus.map((menu) => {
-            return (
-              <a
-                href={menu.url}
-                class="relative flex items-center justify-center w-full px-3 py-2 font-medium tracking-wide text-center duration-200 ease-out sm:py-0 sm:mb-0 md:w-auto  hover:text-neutral-900 dark:hover:text-white">
-                {menu.name}
-              </a>
-            );
-          })
+          NAV_LINKS.map((link) => (
+            <a
+              href={link.href}
+              class="nav-link relative w-full px-4 py-3 text-center transition-colors duration-200 sm:w-auto sm:py-0 text-neutral-500 hover:text-blue-600 dark:text-neutral-400 dark:hover:text-blue-400">
+              {link.label}
+            </a>
+          ))
         }
       </div>
-      <div
+
+      <button
         id="darkToggle"
-        class="relative flex items-center pl-6 ml-4 font-medium tracking-wide cursor-pointer text-neutral-800 group dark:text-white">
+        aria-label="Cambiar tema de color"
+        class="relative flex items-center ml-6 group focus:outline-none">
         <div
-          class="absolute left-0 flex items-center justify-center w-6 h-6 overflow-hidden border-b border-transparent horizon group-hover:border-neutral-600">
-          <Sun />
-          <Moon />
+          class="flex items-center justify-center w-9 h-9 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 transition-all hover:ring-2 hover:ring-blue-500">
+          <div id="sunIcon" class="hidden dark:block text-yellow-400">
+            <Sun />
+          </div>
+          <div id="moonIcon" class="block dark:hidden text-blue-600">
+            <Moon />
+          </div>
         </div>
-        <span class="hidden sm:inline-block">
-          <span id="dayText" class="ml-2">Modo Claro</span>
-          <span id="nightText" class="hidden ml-2">Modo Oscuro</span>
-        </span>
-      </div>
+      </button>
     </nav>
   </div>
 </header>
+
+<script>
+  function setupNavbar() {
+    const menuToggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('menu');
+    const bg = document.getElementById('mobileMenuBackground');
+    const openIcon = document.getElementById('openIcon');
+    const closeIcon = document.getElementById('closeIcon');
+    const darkToggle = document.getElementById('darkToggle');
+
+    // Lógica del Menú Móvil
+    const toggleMenu = () => {
+      const isHidden = menu?.classList.toggle('hidden');
+      bg?.classList.toggle('hidden');
+      openIcon?.classList.toggle('hidden');
+      closeIcon?.classList.toggle('hidden');
+      document.body.style.overflow = isHidden ? 'auto' : 'hidden';
+    };
+
+    menuToggle?.addEventListener('click', toggleMenu);
+    bg?.addEventListener('click', toggleMenu);
+
+    // Cerrar menú al hacer click en un link
+    document.querySelectorAll('.nav-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 640) toggleMenu();
+      });
+    });
+
+    // Lógica de Modo Oscuro sincronizada con Layout base
+    darkToggle?.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('dark_mode', isDark.toString());
+    });
+  }
+
+  // Ejecutar en carga inicial y después de cada transición de página
+  document.addEventListener('astro:page-load', setupNavbar);
+</script>
+
+<style>
+  /* Clase para resaltar el link activo (se gestiona desde SectionContainer.astro) */
+  .nav-link.active {
+    @apply text-blue-600 dark:text-blue-400 font-bold;
+  }
+</style>

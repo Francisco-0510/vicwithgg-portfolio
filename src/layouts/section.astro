@@ -1,147 +1,100 @@
 ---
-import type { HTMLAttributes } from "astro/types";
+import type { HTMLAttributes } from 'astro/types';
 
-export type Props = HTMLAttributes<"section"> & {
-  // Enforce an id for the section
-  id: string;
-  order?: number;
-  title: string;
-};
+// Usar 'export' es clave para que index.astro reconozca estos tipos
+export interface Props extends HTMLAttributes<'section'> {
+  id: string; // Identificador único para el anclaje
+  title?: string; // Título de la sección (opcional)
+  order?: number; // Número de orden para el ScrollSpy (opcional)
+}
 
-const { order = 1, title, ...props } = Astro.props;
+const { id, title, order, class: className, ...props } = Astro.props;
 ---
 
 <script>
-  type Section = {
+  type SectionState = {
     order: number;
     target: HTMLElement;
     visible: boolean;
   };
 
-  function compareSections(a: Element, b: Element) {
-    const aOrder = +a.getAttribute("data-observed-section")!;
-    const bOrder = +b.getAttribute("data-observed-section")!;
-
-    return aOrder - bOrder;
-  }
-
-  function getEntryInfo(entry: IntersectionObserverEntry) {
-    const order = +entry.target.getAttribute("data-observed-section")!;
-    const visible = entry.isIntersecting;
-
-    return { target: entry.target as HTMLElement, order, visible };
-  }
-
-  // Queremos la más reciente porque puede haber varias secciones visibles al mismo tiempo.
-  // La "actual" debe ser siempre la (visible) con el orden más alto (la más reciente en el documento).
-  function getLatestVisibleSection(sections: Section[]) {
-    const greaterOrder = -Infinity;
-    let latest = null;
-
-    for (const section of sections) {
-      if (section.order > greaterOrder && section.visible) {
-        latest = section;
-      }
-    }
-
-    return latest;
-  }
-
-  // Añade la clase "active" a los enlaces que apuntan a la sección visible en ese momento.
-  function updatePageLinks(currentlyVisibleSection: Section) {
+  const updatePageLinks = (activeId: string) => {
     const documentLinks = document.querySelectorAll("a[href^='#']");
-    for (const link of documentLinks) {
+    documentLinks.forEach((link) => {
       if (link instanceof HTMLAnchorElement) {
-        const [, target] = link.href.split("#");
-        link.classList.toggle(
-          "active",
-          target === currentlyVisibleSection.target.id,
-        );
+        const targetId = link.hash.slice(1);
+        // Sincronizamos con las clases de tu Navbar
+        const isActive = targetId === activeId;
+        link.classList.toggle('text-blue-600', isActive);
+        link.classList.toggle('dark:text-blue-400', isActive);
+        link.classList.toggle('font-bold', isActive);
       }
-    }
-    /* for (const link of documentLinks) {
-			const [, target] = link.href.split('#');
-			link.classList.toggle(
-				'active',
-				target === currentlyVisibleSection.target.id
-			);
-		} */
-  }
+    });
+  };
 
-  document.addEventListener("astro:page-load", () => {
-    const sections = [...document.querySelectorAll("[data-observed-section]")];
-    sections.sort(compareSections);
-
-    const sectionStates: Record<string, Section> = {};
-    let lastVisibleSection: Section;
+  document.addEventListener('astro:page-load', () => {
+    const observerSections = document.querySelectorAll(
+      '[data-observed-section]',
+    );
+    const sectionStates = new Map<string, SectionState>();
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // Actualizar el estado de cada sección.
-        for (const entry of entries) {
-          //El ID es un accesorio obligatorio, por lo que podemos asumir con seguridad que existe.
-          const id = entry.target.id;
-          sectionStates[id] = getEntryInfo(entry);
-        }
+        entries.forEach((entry) => {
+          sectionStates.set(entry.target.id, {
+            target: entry.target as HTMLElement,
+            order: Number(entry.target.getAttribute('data-observed-section')),
+            visible: entry.isIntersecting,
+          });
+        });
 
-        // Encuentra la ultima seccion visible
-        const newLast =
-          getLatestVisibleSection(Object.values(sectionStates)) ??
-          lastVisibleSection;
+        // Encontrar la sección visible con el orden más alto para el ScrollSpy
+        const latestVisible = Array.from(sectionStates.values())
+          .filter((s) => s.visible)
+          .reduce(
+            (prev, curr) => (curr.order > (prev?.order ?? -1) ? curr : prev),
+            null as SectionState | null,
+          );
 
-        //Si hay una nueva seccion en la vista, actualiza los links correspondientes
-        if (newLast !== lastVisibleSection) {
-          lastVisibleSection = newLast;
-          updatePageLinks(lastVisibleSection);
+        if (latestVisible) {
+          updatePageLinks(latestVisible.target.id);
         }
       },
       {
-        threshold: 0.3,
-        rootMargin: getComputedStyle(document.documentElement).getPropertyValue(
-          "--header-height",
-        ),
+        threshold: 0.2,
+        rootMargin: '-10% 0px -75% 0px',
       },
     );
-    for (const section of sections) {
-      observer.observe(section);
-    }
+
+    observerSections.forEach((section) => observer.observe(section));
   });
 </script>
 
-<section {...props} data-observed-section={order}>
-  <h2
-    class="my-12 ml-2 inline-flex w-full items-center text-pretty font-header text-3xl font-semibold opacity-85 sm:ml-0"
-  >
-    <span>{title}</span>
-    <span class="ml-[0.6em] mt-1 h-0.5 grow translate-y-full bg-muted"></span>
-  </h2>
-  <slot />
+<section
+  id={id}
+  data-observed-section={order}
+  class:list={[
+    'section scroll-m-20 w-full max-w-5xl mx-auto px-4 py-16 md:py-24',
+    className,
+  ]}
+  {...props}>
+  {
+    title && (
+      <header class="group mb-12 flex items-center gap-4">
+        <h2 class="flex items-center text-pretty font-header text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 md:text-3xl">
+          {order && (
+            <span class="mr-3 text-blue-600/80 dark:text-blue-400/80 font-mono text-xl md:text-2xl">
+              {String(order).padStart(2, '0')}.
+            </span>
+          )}
+          {title}
+        </h2>
+        <div class="h-px grow bg-neutral-200 dark:bg-neutral-800 mt-2" />
+      </header>
+    )
+  }
+
+  <div class="w-full">
+    <slot />
+  </div>
 </section>
-
-<style>
-  :global(main) {
-    counter-reset: section;
-  }
-
-  h2 {
-    position: relative;
-  }
-
-  h2 > span {
-    font-size: 0.9em;
-  }
-
-  h2::before {
-    @apply tabular-nums;
-
-    counter-increment: section;
-    content: "0" counter(section) ". ";
-    opacity: 0.9;
-
-    margin-top: 0.1em;
-    margin-right: 0.5em;
-
-    font-size: 0.8em;
-    font-family: theme("fontFamily.sans");
-  }
-</style>

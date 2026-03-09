@@ -1,59 +1,81 @@
 ---
-import '@fontsource-variable/inter';
-import '@fontsource-variable/onest';
+import MainHead from '@components/MainHead.astro';
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
-import { ViewTransitions } from 'astro:transitions';
-import MainHead from '@components/MainHead.astro';
+
+// Fuentes variables para optimización de carga
+import '@fontsource-variable/inter';
+import '@fontsource-variable/onest';
+
 interface Props {
-  title?: string | undefined;
-  description?: string | undefined;
+  title?: string;
+  description?: string;
 }
+
 const { title, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
   <head>
     <MainHead title={title} description={description} />
   </head>
   <body
-    class="antialiased absolute h-full w-full bg-white dark:bg-black dark:text-white"
-    ><!-- Google Tag Manager (noscript) -->
-    <!--    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-KPXH5MDJ"
-        height="0"
-        width="0"
-        style="display:none;visibility:hidden"></iframe></noscript
-    > -->
-    <!-- End Google Tag Manager (noscript) -->
+    class="relative antialiased min-h-screen w-full bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 transition-colors duration-300">
     <div
-      class="absolute left-0 right-0 top-0 -z-10 hidden h-[1000px] w-full overflow-visible bg-[url('https://www.marval.xyz/bg-light.svg')] bg-cover shadow-[#030014]/50 dark:block">
+      class="fixed inset-0 -z-10 hidden dark:block h-full w-full bg-[url('https://www.marval.xyz/bg-light.svg')] bg-cover opacity-20 pointer-events-none"
+      aria-hidden="true">
     </div>
 
     <Navbar />
-    <!-- <main> -->
-    <slot />
-    <!--   </main> -->
+
+    <main id="main-content" class="flex-grow">
+      <slot />
+    </main>
+
     <Footer />
+
     <script src="../assets/js/main.js"></script>
   </body>
 </html>
+
 <style is:global>
-  /*  :root {
-    color-scheme: light dark;
-  } */
+  :root {
+    /* Definición de la fuente principal del portafolio */
+    font-family: 'Onest Variable', 'Inter Variable', system-ui, sans-serif;
+  }
+
   html {
-    font-family: 'Onest Variable', sans-serif;
+    /* Asegura que el scroll no "salte" al cambiar de sección */
     scroll-behavior: smooth;
   }
+
   body {
+    /* Optimización de scroll en dispositivos móviles */
     overscroll-behavior: none;
+    display: flex;
+    flex-direction: column;
   }
+
+  /* Respetar la preferencia de ahorro de batería o accesibilidad del sistema */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
+  }
+
+  /* Estilos para la barra de scroll (opcional para consistencia visual) */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #525252;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
   }
 </style>
