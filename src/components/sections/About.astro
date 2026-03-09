@@ -1,43 +1,38 @@
 ---
 import Certificate from '@components/Certificate.astro';
-import Briefcase from '@components/icons/Briefcase.astro';
 import Education from '@components/Education.astro';
-import Linkedin from '@components/icons/Linkedin.astro';
-import GitHub from '@components/icons/GitHub.astro';
 import Figma from '@components/icons/Figma.astro';
+import GitHub from '@components/icons/GitHub.astro';
+import Linkedin from '@components/icons/Linkedin.astro';
 import X from '@components/icons/X.astro';
 import { Image } from 'astro:assets';
 ---
 
-<div class="pb-16">
+<section class="pb-16" id="about">
   <div
-    class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12"
-  >
+    class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
     <div class="flex max-w-xs flex-col gap-y-20 px-2.5 lg:max-w-none lg:pl-20">
       <Image
         src="/public/assets/images/me.jpg"
-        decoding="async"
+        alt="Fotografía de Francisco Victorico Aguirre Jiménez"
+        width={1117}
+        height={1117}
         loading="lazy"
-        width="1117"
-        height="1117"
-        alt="Victorico"
-        data-nimg="1"
+        decoding="async"
         sizes="(min-width: 1024px) 20rem, 20rem"
         class="object-cover aspect-square rotate-3 rounded-sm bg-zinc-100 dark:bg-zinc-800"
-        style="color: transparent;"
       />
     </div>
+
     <div class="lg:order-first lg:row-span-2 items-start justify-between">
       <h2
-        class="flex items-center text-3xl mt-1 md:my-3 font-bold leading-tight dark:text-white"
-      >
+        class="flex items-center text-3xl mt-1 md:my-3 font-bold leading-tight dark:text-white text-balance">
         Hola 👋, Soy Francisco Victorico Aguirre Jiménez
       </h2>
-      <!-- INFO CONTAINER -->
-      <div class="mb-4">
+
+      <div class="mb-4 mt-6">
         <p
-          class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400"
-        >
+          class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400">
           Soy Francisco Victorico Aguirre Jiménez, Diseñador UX/UI y
           Desarrollador Web comprometido con crear experiencias digitales que
           destacan. Equilibro las necesidades del usuario con los objetivos del
@@ -45,93 +40,75 @@ import { Image } from 'astro:assets';
           centrado en las personas.
         </p>
         <p
-          class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400"
-        >
+          class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400">
           Mi enfoque estratégico e intuitivo, junto con el dominio de
           herramientas avanzadas, me permite convertir ideas en soluciones
           innovadoras y efectivas. Siempre busco aprender, mejorar y superar
           nuevos desafíos.
         </p>
       </div>
+
       <div class="space-y-4">
         <span
-          class="text-xs font-medium text-gray-800 uppercase dark:text-neutral-200"
-          >CONTACTAME POR:</span
-        >
-        <!-- BUTTOON GROUP COONTAINER -->
+          class="text-xs font-medium text-gray-800 uppercase dark:text-neutral-200">
+          Contáctame por:
+        </span>
+
         <div
-          class="flex items-center pb-10 sm:pb-0 px-5 gap-14 md:gap-8 text-xl text-gray-700 dark:text-gray-100"
-        >
-          <a href="https://github.com/Francisco-0510" target="_blank">
+          class="flex items-center pb-10 sm:pb-0 gap-14 md:gap-8 text-xl text-gray-700 dark:text-gray-100 mt-2">
+          <a
+            href="https://github.com/Francisco-0510"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Perfil de GitHub">
             <GitHub />
           </a>
-          <a href="https://www.linkedin.com/in/vicwith-gg/" target="_blank">
+          <a
+            href="https://www.linkedin.com/in/vicwith-gg/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Perfil de LinkedIn">
             <Linkedin />
           </a>
-          <a href="https://www.figma.com/@vicwithgg" target="_blank">
+          <a
+            href="https://www.figma.com/@vicwithgg"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Perfil de Figma">
             <Figma />
           </a>
-          <a href="https://x.com/VicWithGG1" target="_blank">
+          <a
+            href="https://x.com/VicWithGG1"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Perfil de X (Twitter)">
             <X />
           </a>
         </div>
       </div>
     </div>
-
-    <!-- LISTA SOCIAL ICONS -->
   </div>
-</div>
-<section class="col-span-12 gap-4 lg:col-span-9">
+</section>
+
+<section
+  class="col-span-12 gap-4 lg:col-span-9 mt-8 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden bg-white/50 dark:bg-zinc-900/20">
   <div class="flex flex-col lg:flex-row relative">
     <div
-      class="space-y-1.5 p-6 w-full pr-6 lg:pr-12 py-12 max-md:border-b lg:border-r flex flex-col gap-6"
-    >
-      <!-- Title -->
+      class="space-y-1.5 p-6 w-full lg:w-1/2 lg:pr-12 py-12 max-lg:border-b lg:border-r border-zinc-200 dark:border-zinc-800 flex flex-col gap-6">
       <h3
-        class="max-md:text-lg
-        text-2xl
-        font-semibold
-        leading-none"
-      >
+        class="max-md:text-lg text-2xl font-semibold leading-none dark:text-white">
         Certificados
       </h3>
       <Certificate />
     </div>
-    <div class="space-y-1.5 p-6 w-full pl-6 lg:pr-12 py-12 flex flex-col gap-6">
-      <!-- Title -->
+
+    <div
+      class="space-y-1.5 p-6 w-full lg:w-1/2 lg:pl-12 py-12 flex flex-col gap-6">
       <h3
-        class="max-md:text-lg
-        text-2xl
-        font-semibold
-        leading-none"
-      >
+        class="max-md:text-lg text-2xl font-semibold leading-none dark:text-white">
         Educación
       </h3>
       <Education />
     </div>
   </div>
 </section>
-
-<!-- <div class="space-y-8">
-  <h3
-    class="text-3xl font-semibold tracking-tight dark:text-neutral-100 sm:text-3xl sm:font-semibold"
-  >
-    Certificados
-  </h3>
-  <Education />
-</div>
-<div
-  class="group relative mt-4 rounded-2xl border p-6 shadow transition duration-400 hover:shadow-lg dark:border-zinc-700/40"
->
-  <div class="absolute left-3 top-0 flex w-full justify-center">
-    <div
-      class="test left-0 h-[1px] rounded-full bg-gradient-to-r from-[rgba(17,17,17,0)] via-sky-500 to-[rgba(17,17,17,0)] transition-all group-hover:animate-border-width"
-    >
-    </div>
-  </div>
-  <h2 class="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-    <Briefcase />
-    <span class="ml-3">Certificaciones</span>
-  </h2>
-  <Certificate />
-</div> -->

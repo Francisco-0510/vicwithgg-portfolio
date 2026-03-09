@@ -1,9 +1,17 @@
 [
   {
-    "dates": "Actualidad",
+    "dates": "Agosto 2024 - Mayo 2025",
+    "role": "Diseñador y Desarrollador",
+    "company": "Visión Creativa",
+    "description": "Lideré el rediseño completo de la interfaz de usuario (UI/UX) para los proyectos Taaniilaaz y Muñeco de Chocolate, mejorando la usabilidad, navegación y accesibilidad para optimizar la experiencia del usuario[cite: 84]. [cite_start]Colaboré en la creación del sitio web comercial ValleMio.shop, participando en la arquitectura web[cite: 85]. [cite_start]Diseñé el logotipo oficial para el proyecto \"Muñeco de Chocolate\" [cite: 86] [cite_start]y contribuí en el área de servicio técnico de CELULOKO[cite: 87].",
+    "logo": "assets/images/experiences/vision-creativa.svg",
+    "skills": ["UI/UX", "Arquitectura Web", "Soporte Técnico"]
+  },
+  {
+    "dates": "2022 - Actualidad",
     "role": "Diseñador UX/UI",
-    "company": "Profesional Independiente",
-    "description": "Aumenté la satisfacción del usuario y la eficiencia operativa en proyectos web y móviles mediante diseños atractivos y funcionales, optimizando experiencias a través de sistemas de diseño cohesivos y personalización visual. Mejoré interfaces administrativas para una operatividad más fluida y creé un kit de diseño UI en Figma, con componentes reutilizables que incrementaron la eficiencia del flujo de trabajo.",
+    "company": "VGG Desarrollo y Diseño (Marca Personal)",
+    "description": "Diseñé y rediseñé interfaces de sistemas y sitios web, lo que resultó en una mejora significativa de la operatividad y experiencia de usuario a nivel empresarial[cite: 90]. [cite_start]Creé y documenté el sistema de diseño \"VG Design UI KIT\" en Figma, reduciendo los tiempos de entrega de interfaces en un 60% gracias a la implementación de componentes reutilizables y variables escalables[cite: 91]. [cite_start]Implementé sistemas de diseño cohesivos en múltiples productos web y móviles[cite: 92].",
     "logo": "assets/images/experiences/vgg-logo.svg",
     "skills": [
       "HTML5",
@@ -17,31 +25,31 @@
     ]
   },
   {
-    "dates": "Actualidad",
+    "dates": "2022 - Actualidad",
     "role": "Desarrollador Web",
-    "company": "Profesional Independiente",
-    "description": "Desarrollé sitios y aplicaciones web avanzadas con tecnologías como Webflow, React, Chakra UI, Firebase, y Astro, mejorando notablemente la experiencia del usuario. Destacan proyectos como una aplicación de películas y una réplica de servicio de música, donde implementé interfaces responsivas e intuitivas. También configuré un sistema de boletos en línea para “La Solteca” y desarrollé portafolios para programadores backend, integrando HTML5, CSS y GitHub.",
+    "company": "VGG Desarrollo y Diseño (Marca Personal)",
+    "description": "Desarrollé sitios web complejos y responsivos en Webflow[cite: 96]. [cite_start]Creé la aplicación web VGG Movies utilizando React, Chakra UI y Firebase[cite: 97]. [cite_start]Desarrollé una réplica funcional de Spotify con Astro, React, Svelte y TailwindCSS[cite: 98]. [cite_start]Construí un currículum web optimizado con Astro, priorizando la velocidad y la accesibilidad[cite: 99]. [cite_start]Participé en el desarrollo del frontend del sistema de venta de boletos para la empresa \"La Solteca\"[cite: 100].",
     "logo": "assets/images/experiences/vgg-logo.svg"
   },
   {
     "dates": "Octubre 2023 - Enero 2024",
     "role": "Diseñador UX/UI y Desarrollador Web",
     "company": "Grupo Empresarial NIREJ",
-    "description": "Lideré la implementación de metodologías ágiles en proyectos UI/UX, colaborando con equipos multidisciplinarios para diseñar soluciones personalizadas. Rediseñé el sitio web del Hospital Ángel del Mar y desarrollé los de “BETAJ” y “Taller de Innovación en Estrategia Comercial”, aplicando guías de estilo y Webflow. También creé plantillas de correo corporativo para mejorar la comunicación visual.",
+    "description": "Coordiné equipos multidisciplinarios en proyectos UI/UX, utilizando metodologías ágiles[cite: 106]. [cite_start]Lideré el rediseño del sitio web del Hospital Ángel del Mar a través de una investigación UX exhaustiva y procesos de diseño UI, para luego desarrollarlo en Webflow[cite: 107]. [cite_start]Desarrollé el sitio web de BETAJ y la landing page para el \"Taller de Innovación en Estrategia Comercial\"[cite: 108]. [cite_start]Diseñé plantillas de correo corporativo enfocadas en la marca[cite: 109].",
     "logo": "assets/images/experiences/nirej.png"
   },
   {
     "dates": "2019 - 2023",
     "role": "Diseñador UX/UI",
-    "company": "UTVCO Universidad Tecnológica de los Valles Centrales de Oaxaca",
-    "description": " Lideré proyectos de diseño UI/UX, destacando el rediseño de la app HealthCheck con Figma y Material Design, entregando resultados de alta calidad en tiempo y con foco en el usuario. Implementé estrategias de diseño efectivas, optimizando procesos y cumpliendo con altos estándares.",
+    "company": "Universidad Tecnológica de los Valles Centrales de Oaxaca (UTVCO)",
+    "description": "Lideré estrategias de diseño centradas en el usuario, resultando en entregas puntuales y con altos estándares visuales en proyectos institucionales[cite: 112]. [cite_start]Rediseñé la aplicación HealthCheck, enfocándome en mejorar la usabilidad en dispositivos móviles y wearables[cite: 113]. [cite_start]Diseñé la experiencia e interfaces del sistema para el BIT Tournament 2023[cite: 114].",
     "logo": "assets/images/experiences/utvco.jpg"
   },
   {
     "dates": "2019 - 2023",
     "role": "Desarrollador Web",
-    "company": "UTVCO Universidad Tecnológica de los Valles Centrales de Oaxaca",
-    "description": "Desarrollé interfaces front-end en Angular e IONIC, creando sistemas para la gestión cultural y deportiva de UTVCO. Implementé UI en el BIT Tournament 2023 y diseñé interfaces en Figma, logrando una experiencia de usuario intuitiva y funcional en cada proyecto.",
+    "company": "Universidad Tecnológica de los Valles Centrales de Oaxaca (UTVCO)",
+    "description": "Desarrollé el frontend del torneo BIT 2023 en Angular, con base en diseños de Figma, asegurando un alto rendimiento[cite: 115]. [cite_start]Implementé un sistema de gestión de actividades en IONIC, con un enfoque en la accesibilidad para asegurar que todos los usuarios pudieran navegar fácilmente por la aplicación[cite: 116].",
     "logo": "assets/images/experiences/utvco.jpg"
   },
   {

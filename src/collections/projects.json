@@ -1,5 +1,27 @@
 [
   {
+    "name": "Taaniilaaz y Muñeco de Chocolate",
+    "description": "Rediseño completo de interfaz de usuario (UI/UX) y diseño de identidad visual.",
+    "highlights": ["Figma", "UI/UX", "Identidad Visual", "Accesibilidad"],
+    "image": "/assets/images/projects/muneco-chocolate.webp",
+    "link": "#"
+  },
+  {
+    "name": "ValleMio.shop",
+    "description": "Creación de sitio web comercial, participando en la arquitectura web y diseño.",
+    "highlights": ["Arquitectura Web", "E-commerce", "Diseño UI"],
+    "image": "/assets/images/projects/vallemio.webp",
+    "link": "#"
+  },
+  {
+    "name": "Spotify Clone",
+    "description": "Réplica funcional de la interfaz de Spotify con tecnologías modernas.",
+    "highlights": ["Astro", "React", "Svelte", "TailwindCSS"],
+    "image": "/assets/images/projects/spotify-clone.webp",
+    "link": "#",
+    "github": "https://github.com/Francisco-0510"
+  },
+  {
     "name": "VicWithGG Portafolio Web",
     "description": "Portafolio personal con Astro, Tailwind CSS y Vercel.",
     "highlights": ["Astro", "Tailwind CSS", "Vercel"],
@@ -18,7 +40,7 @@
   {
     "name": "CV Minimalista (Web y PDF)",
     "description": "CV minimalista en Web y PDF, configurable con JSON.",
-    "highlights": ["Astro", "Typescript", "JSON", "Ninja Keys"],
+    "highlights": ["Astro", "TypeScript", "JSON", "Ninja Keys"],
     "image": "/assets/images/projects/thumbnail-cv.webp",
     "link": "https://vicwithgg.netlify.app/",
     "github": "https://github.com/Francisco-0510/minimalist-portfolio"
@@ -32,7 +54,7 @@
     "figma": "https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-10"
   },
   {
-    "name": "Hospital Ángel de Mar",
+    "name": "Hospital Ángel del Mar",
     "description": "Rediseño UI/UX e implementación en Webflow.",
     "highlights": ["Figma", "Webflow", "Diseño UX", "Diseño UI"],
     "image": "/assets/images/projects/Cover HAM.png",
@@ -57,7 +79,7 @@
     "description": "Investigación y diseño UX/UI para sistema web.",
     "highlights": [
       "Figma",
-      "Design Sytems",
+      "Design Systems",
       "Mobile Design",
       "Diseño UI",
       "Investigación UX"
@@ -67,7 +89,7 @@
     "figma": "https://www.figma.com/community/file/1205620325712950079"
   },
   {
-    "name": "Desarrollo Front-end de Sistema Web de Gestion de Actividades",
+    "name": "Desarrollo Front-end de Sistema Web de Gestión de Actividades",
     "description": "Desarrollo frontend con Ionic para sistema UTVCO.",
     "highlights": ["IONIC", "Bootstrap", "GitHub", "Frontend"],
     "image": "/assets/images/projects/thumbnail-tutoriasDev.png",
@@ -87,7 +109,7 @@
     "figma": "https://www.figma.com/community/file/1283078639346112182"
   },
   {
-    "name": "App Healthcheck - Smartwatch y Mobile ",
+    "name": "App Healthcheck - Smartwatch y Mobile",
     "description": "App de seguimiento de salud para móviles y wearables.",
     "highlights": ["Figma", "Mobile Design"],
     "image": "/assets/images/projects/thumbnail-healtcheck.png",
@@ -95,7 +117,7 @@
     "figma": "https://www.figma.com/community/file/1270644133161232117"
   },
   {
-    "name": "Arquitectura y UX de app HealthCheck ",
+    "name": "Arquitectura y UX de app HealthCheck",
     "description": "Mapas de navegación y wireflows para HealthCheck.",
     "highlights": ["Figma"],
     "image": "/assets/images/projects/thumbnail-arqH.png",

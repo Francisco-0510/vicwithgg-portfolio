@@ -2,44 +2,32 @@
 import certificates from '@collections/certificates.json';
 ---
 
-{
-  certificates.map(({ time, title, certificationName, img }) => {
-    return (
-      <ol class="mt-6 space-y-5">
-        <li class="flex gap-4">
-          <div class="relative flex h-10 w-10 flex-none items-center justify-center rounded-lg   shadow-sm shadow-zinc-600/50 ring-1 ring-zinc-900/5 dark:ring-0 card-breakpoint:hidden">
-            <img
-              alt=""
-              class="w-12 rounded-full"
-              data-nimg="1"
-              decoding="async"
-              loading="lazy"
-              src={img}
-              style="color: transparent;"
-            />
-          </div>
-          <div class="flex flex-col gap-y-1  ">
-            <span class="text-xs text-muted-foreground dark:text-neutral-300 trackign-widest">
-              {time}
-            </span>
-            <div class="">
-              <div class=" text-base font-semibold tracking-tight ">
-                {title}
-              </div>
-            </div>
-            {/* <dd class="w-full flex-none text-base font-medium text-zinc-900 dark:text-zinc-100">
-              {title}
-            </dd> */}
-            <div class="z-10   text-pretty text-sm text-primary font-medium">
-              <p>{certificationName}</p>
-            </div>
+<ol class="mt-6 space-y-5">
+  {
+    certificates.map(({ time, title, certificationName, img }) => (
+      <li class="flex gap-4">
+        <div class="relative flex h-10 w-10 flex-none items-center justify-center rounded-full bg-white shadow-sm shadow-zinc-600/50 ring-1 ring-zinc-900/5 dark:ring-neutral-800 dark:bg-neutral-900 overflow-hidden p-0.5">
+          <img
+            src={img}
+            alt={`Logo de certificación de ${certificationName}`}
+            class="h-full w-full object-contain rounded-full"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
 
-            {/*  <span class="text-sm text-black dark:text-neutral-200 card-breakpoint:hidden">
-              {certificationName}
-            </span> */}
+        <div class="flex flex-col gap-y-1">
+          <span class="text-xs text-neutral-500 dark:text-neutral-400 tracking-widest uppercase">
+            {time}
+          </span>
+          <div class="text-base font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+            {title}
           </div>
-        </li>
-      </ol>
-    );
-  })
-}
+          <div class="z-10 text-pretty text-sm font-medium text-blue-600 dark:text-blue-400">
+            {certificationName}
+          </div>
+        </div>
+      </li>
+    ))
+  }
+</ol>

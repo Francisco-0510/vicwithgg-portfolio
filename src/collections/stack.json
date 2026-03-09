@@ -14,6 +14,16 @@
       "name": "JavaScript",
       "image": "assets/images/stack/javascript.svg",
       "type": "Dev Language"
+    },
+    {
+      "name": "TypeScript",
+      "image": "assets/images/stack/typescript.svg",
+      "type": "Dev Language"
+    },
+    {
+      "name": "PHP",
+      "image": "assets/images/stack/php.svg",
+      "type": "Backend Language"
     }
   ],
   "frontend": [
@@ -30,7 +40,7 @@
     {
       "name": "React",
       "image": "assets/images/stack/react.svg",
-      "type": "Mobile Framework"
+      "type": "UI Library"
     },
     {
       "name": "Angular",
@@ -46,6 +56,11 @@
       "name": "Ionic",
       "image": "assets/images/stack/ionic.svg",
       "type": "Mobile Framework"
+    },
+    {
+      "name": "Laravel",
+      "image": "assets/images/stack/laravel.svg",
+      "type": "Backend Framework"
     }
   ],
   "tools": [
@@ -53,11 +68,6 @@
       "name": "Figma",
       "image": "assets/images/stack/figma.svg",
       "type": "Design Tool"
-    },
-    {
-      "name": "GitHub",
-      "image": "assets/images/stack/github.svg",
-      "type": "Version Control System"
     },
     {
       "name": "Adobe XD",
@@ -70,9 +80,14 @@
       "type": "Design Tool"
     },
     {
-      "name": "Node.js",
-      "image": "assets/images/stack/nodejs.svg",
-      "type": "Runtime Environment"
+      "name": "Illustrator",
+      "image": "assets/images/stack/illustrator.svg",
+      "type": "Design Tool"
+    },
+    {
+      "name": "Photoshop",
+      "image": "assets/images/stack/photoshop.svg",
+      "type": "Design Tool"
     },
     {
       "name": "VS Code",
@@ -80,9 +95,39 @@
       "type": "Code Editor"
     },
     {
+      "name": "Git",
+      "image": "assets/images/stack/git.svg",
+      "type": "Version Control"
+    },
+    {
+      "name": "GitHub",
+      "image": "assets/images/stack/github.svg",
+      "type": "Version Control System"
+    },
+    {
+      "name": "GitLab",
+      "image": "assets/images/stack/gitlab.svg",
+      "type": "Version Control System"
+    },
+    {
+      "name": "Node.js",
+      "image": "assets/images/stack/nodejs.svg",
+      "type": "Runtime Environment"
+    },
+    {
       "name": "NPM",
       "image": "assets/images/stack/npm.svg",
       "type": "Package Manager"
+    },
+    {
+      "name": "Jira",
+      "image": "assets/images/stack/jira.svg",
+      "type": "Project Management"
+    },
+    {
+      "name": "Trello",
+      "image": "assets/images/stack/trello.svg",
+      "type": "Project Management"
     }
   ]
 }

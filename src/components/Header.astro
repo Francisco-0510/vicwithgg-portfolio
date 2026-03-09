@@ -1,161 +1,116 @@
 ---
+import Figma from '@components/icons/Figma.astro';
 import GitHub from '@components/icons/GitHub.astro';
 import Linkedin from '@components/icons/Linkedin.astro';
-import Figma from '@components/icons/Figma.astro';
-
-import Download from './icons/Download.astro';
 import { Image } from 'astro:assets';
-import meImage from '../assets/images/me.webp';
-import X from './icons/X.astro';
+import Download from './icons/Download.astro';
 import ProjectBrief from './icons/ProjectBrief.astro';
+import X from './icons/X.astro';
 ---
 
-<section class="min-h-svh flex flex-col items-center justify-between">
-  <div
-    class="text-center relative h-full space-y-4 max-lg:px-4 lg:m-4 flex flex-col items-center justify-center"
-  >
-    <!-- container avatar -->
-    <div class="flex flex-wrap justify-center gap-4">
-      <!-- avatar img -->
-      <!-- <div
-        class="aspect-square
-        size-20
-        overflow-clip
-        rounded-full
-        bg-white
-        object-cover
-        sm:mb-0
-        md:min-h-20
-        md:min-w-20
-        2xl:-mt-0
-        [@media(width
-      >
-        =37rem)]:mr-8"
-      >
-        <Image
-          src={meImage}
-          width={meImage.width / 2}
-          densities={[1.5, 2]}
-          alt="VicWithGG profile picture"
-          data-nimg="1"
-          decoding="async"
-          loading="lazy"
-          class="scale-110"
-        />
-      </div> -->
-      <!-- content avatar -->
+<section class="relative min-h-full flex flex-col justify-center pt-14 pb-16">
+  <div class="max-w-4xl mx-auto w-full px-6 lg:px-8 flex flex-col gap-8">
+    <header
+      class="flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div class="flex flex-col gap-y-4">
         <h2
-          class="flex text-pretty items-center text-2xl font-semibold dark:text-white"
-        >
+          class="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white text-pretty">
           ¡Hola! Soy Francisco V. Aguirre Jiménez
         </h2>
-        <!--  <div
-          class="flex items-center pb-10 sm:pb-0 gap-14 md:gap-8 text-xl text-gray-700 dark:text-gray-100"
-        >
+
+        <div
+          class="flex items-center gap-6 text-neutral-600 dark:text-neutral-400">
           <a
             href="https://github.com/Francisco-0510"
             target="_blank"
-          >
-            <GitHub />
+            rel="noreferrer"
+            aria-label="Perfil de GitHub"
+            class="hover:text-neutral-900 dark:hover:text-white transition-colors">
+            <GitHub class="w-6 h-6" />
           </a>
           <a
             href="https://www.linkedin.com/in/vicwith-gg/"
             target="_blank"
-          >
-            <Linkedin />
+            rel="noreferrer"
+            aria-label="Perfil de LinkedIn"
+            class="hover:text-neutral-900 dark:hover:text-white transition-colors">
+            <Linkedin class="w-6 h-6" />
           </a>
           <a
             href="https://www.figma.com/@vicwithgg"
             target="_blank"
-          >
-            <Figma />
+            rel="noreferrer"
+            aria-label="Perfil de Figma"
+            class="hover:text-neutral-900 dark:hover:text-white transition-colors">
+            <Figma class="w-6 h-6" />
           </a>
           <a
             href="https://x.com/VicWithGG1"
             target="_blank"
-          >
-            <X />
+            rel="noreferrer"
+            aria-label="Perfil de X (Twitter)"
+            class="hover:text-neutral-900 dark:hover:text-white transition-colors">
+            <X class="w-6 h-6" />
           </a>
-        </div> -->
+        </div>
       </div>
+
+      <Image
+        src="/assets/images/me.jpg"
+        alt="Fotografía de Francisco Victorico Aguirre Jiménez"
+        width={96}
+        height={96}
+        loading="eager"
+        decoding="sync"
+        class="hidden md:block w-24 h-24 rounded-full bg-neutral-200 dark:bg-neutral-800 object-cover shadow-sm"
+      />
+    </header>
+
+    <div
+      class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-neutral-900 dark:text-white text-balance">
+      <span
+        class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+        Diseñador UX/UI
+      </span>
+      <br class="hidden sm:block" />
+      & Desarrollador Web
     </div>
-    <div>
-      <h1
-        class="scroll-m-20 text-5xl font-bold lg:text-7xl text-balance tracking-tight max-w-screen-lg bg-gradient-to-r via-56% inline-block bg-clip-text"
-      >
-        <span
-          class="animate-gradient-foreground-1 bg-gradient-to-r from-[#0d6fff] to-[#0d6fff] bg-clip-text text-transparent"
-          >Diseñador UX/UI
-        </span> & Desarrollador Web
-      </h1>
-    </div>
-    <!-- parrafo -->
-    <div>
-      <h4
-        class="scroll-m-20 max-w-[750px] text-balance text-xl text-black dark:text-white"
-      >
-        Apasionado <strong class="text-blue-600 dark:text-blue-500"
-          >Diseñador UX/UI</strong
-        > y <strong class="text-blue-600 dark:text-blue-500"
-          >Desarrollador Web</strong
-        > enfocado en crear experiencias digitales excepcionales. Mi objetivo es
-        lograr un equilibrio perfecto entre las necesidades de los usuarios y los
-        objetivos del producto.
-      </h4>
-    </div>
-    <!-- botones -->
-    <div class="flex items-center gap-2 mt-4">
-      <!-- <a
-        href="#projects"
-        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounden-lg text-sm font-medium bg-primary text-primary-foreground transition duration-300 ease-in-out hover:bg-blue-700 hover:shadow-lg will-change-transform
-focus:outline-none h-11 rounded-md px-8 group overflow-hidden"
-      >
-        <ProjectBrief /> Mis Trabajos
-      </a>
-      <a
-        href="/public/assets/CV _ AGUIRRE JIMENEZ FRANCISCO VICTORICO.pdf"
-        target="_blank"
-        rel="noreferrer"
-        download="Francisco_Aguirre_CV.pdf"
-        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounden-lg text-sm font-medium outline-none h-11 rounded-lg px-8 py-[0.8rem] w-full md:w-fit md:text-base hover:shadow-lg duration-400 will-change-transform transition-shadow hover:bg-currentColor
- border border-gray-200 bg-white text-gray-80
-0 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-800 backdrop-blur"
-      >
-        <Download /> Descargar CV
-      </a> -->
+
+    <p
+      class="max-w-[750px] text-lg sm:text-xl text-neutral-700 dark:text-neutral-300 text-pretty leading-relaxed">
+      Apasionado <strong class="text-blue-600 dark:text-blue-400 font-semibold"
+        >Diseñador UX/UI</strong
+      > y <strong class="text-blue-600 dark:text-blue-400 font-semibold"
+        >Desarrollador Web</strong
+      > enfocado en crear experiencias digitales excepcionales. Mi objetivo es lograr
+      un equilibrio perfecto entre las necesidades de los usuarios y los objetivos
+      del producto.
+    </p>
+
+    <div class="flex flex-wrap items-center gap-4 pt-4">
       <a
         href="#projects"
-        class="relative overflow-hidden bg-[#2563eb] text-white gap-2 px-8 rounded-lg font-medium md:text-base text-sm h-11 transition duration-300 ease-in-out hover:bg-blue-600 hover:shadow-lg will-change-transform inline-flex justify-center items-center gap-x-2 focus:outline-none"
-      >
-        <ProjectBrief />
+        class="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-blue-600 px-8 text-sm font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-950">
+        <ProjectBrief class="w-5 h-5" />
         Mis Trabajos
       </a>
       <a
-        href="/public/assets/CV _ AGUIRRE JIMENEZ FRANCISCO VICTORICO.pdf"
+        href="/assets/CV _ AGUIRRE JIMENEZ FRANCISCO VICTORICO.pdf"
         target="_blank"
         rel="noreferrer"
         download="Francisco_Aguirre_CV.pdf"
-        class="hover:shadow-lg
-          h-11
-					duration-400
-					will-change-transform
-					md:text-base
-					transition-shadow
-					hover:bg-currentColor px-8 inline-flex justify-center items-center gap-2 text-sm font-medium rounded-lg border border-gray-200 bg-gray-100/50 text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-800 backdrop-blur"
-      >
-        <Download />
+        class="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white/50 backdrop-blur px-8 text-sm font-medium text-neutral-900 transition-all duration-300 hover:bg-neutral-50 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:ring-offset-2 dark:border-neutral-800 dark:bg-neutral-900/50 dark:text-white dark:hover:bg-neutral-800 dark:focus:ring-neutral-800 dark:focus:ring-offset-neutral-950">
+        <Download class="w-5 h-5" />
         Descargar mi CV
       </a>
     </div>
   </div>
-  <div
-    class="absolute bottom-0 left-[50%] right-[50%] -translate-x-[50%] -translate-y-[50%] md:block"
-  >
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block">
     <a
-      class="inline-flex h-10 w-10 animate-bounce items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium dark:text-white ring-offset-background transition-colors dark:bg-zinc-800 hover:bg-zinc-800/5 dark:hover:bg-zinc-900/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
       href="#featured"
-    >
+      aria-label="Desplazarse a la siguiente sección"
+      class="inline-flex w-10 h-10 animate-bounce items-center justify-center rounded-full text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 transition-colors dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:focus:ring-neutral-800">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -166,150 +121,9 @@ focus:outline-none h-11 rounded-md px-8 group overflow-hidden"
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="h-6 w-6"><path d="m6 9 6 6 6-6"></path></svg
-      ></a
-    >
-  </div>
-</section>
-
-<!-- <section class="relative flex h-100 justify-start flex-col h-[100dvh]">
-  <div class="h-auto items-center gap-8 mb-8">
-    <header
-      class="relative flex flex-row-reverse flex-wrap-reverse justify-end sm:flex-nowrap"
-    >
-      <div>
-        <div
-          class="flex h-full w-full flex-col items-start gap-y-4 md:min-w-[350px] md:items-start"
-        >
-          <h2
-            class="flex text-pretty items-center text-2xl md:my-3 font-semibold dark:text-white"
-          >
-            ¡Hola! Soy Francisco V. Aguirre Jiménez
-          </h2>
-          <div
-            class="flex items-center pb-10 sm:pb-0 px-5 gap-14 md:gap-8 text-xl text-gray-700 dark:text-gray-100"
-          >
-            <a
-              href="https://github.com/Francisco-0510"
-              target="_blank"
-            >
-              <GitHub />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/vicwith-gg/"
-              target="_blank"
-            >
-              <Linkedin />
-            </a>
-            <a
-              href="https://www.figma.com/@vicwithgg"
-              target="_blank"
-            >
-              <Figma />
-            </a>
-            <a
-              href="https://x.com/VicWithGG1"
-              target="_blank"
-            >
-              <X />
-            </a>
-          </div>
-        </div>
-      </div>
-      <div
-        class="mt-2 mb-6 mr-10 aspect-square size-24 overflow-clip rounded-full bg-white object-cover sm:mb-0 md:min-h-28 md:min-w-28 lg:-mt-2 2xl:-mt-0 [@media(width>=37rem)]:mr-14"
-      >
-        <Image
-          src={meImage}
-          width={meImage.width / 2}
-          densities={[1.5, 2]}
-          alt="VicWithGG profile picture"
-          data-nimg="1"
-          decoding="async"
-          loading="lazy"
-          class="scale-110"
-        />
-      </div>
-    </header>
-  </div>
-  <div
-    class="flex h-auto w-auto flex-wrap gap-x-5 gap-y-3 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100"
-  >
-    <span
-      class="animate-gradient-foreground-1 bg-gradient-to-r from-[#0d6fff] to-[#0d6fff] bg-clip-text text-transparent"
-      >Diseñador UX/UI
-    </span>
-    <span class="shadow-1"> </span>
-    <span
-      data-content="& Desarrollador Web"
-      class="before:text-gradient-white relative block select-none before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-[110%] before:w-full before:animate-gradient-background-3 before:content-[attr(data-content)]"
-      ><span
-        class="animate-gradient-foreground-3 bg-gradient-to-r from-gradient-3-start to-gradient-3-end bg-clip-text text-transparent"
-        >& Desarrollador Web
-      </span>
-      <span class="shadow-3"></span>
-    </span>
-  </div>
-  <p
-    class="mt-8 max-w-[750px] text-pretty text-lg text-black dark:text-white xs:text-lg"
-  >
-    Apasionado <strong class="text-blue-600 dark:text-blue-500"
-      >Diseñador UX/UI</strong
-    > y <strong class="text-blue-600 dark:text-blue-500"
-      >Desarrollador Web</strong
-    > enfocado en crear experiencias digitales excepcionales. Mi objetivo es lograr
-    un equilibrio perfecto entre las necesidades de los usuarios y los objetivos
-    del producto.
-  </p>
-
-  <div class="mt-7 gap-5 flex w-full sm:inline-flex">
-    <a
-      href="#projects"
-      download="Francisco_Aguirre_CV.pdf"
-      class="relative overflow-hidden bg-[#2563eb] text-white gap-2 px-8 rounded-lg font-medium text-sm h-11 transition duration-300 ease-in-out hover:bg-blue-600 hover:shadow-lg will-change-transform inline-flex justify-center items-center gap-x-2 focus:outline-none"
-    >
-      <ProjectBrief />
-      Mis Trabajos
-    </a>
-    <a
-      href="/public/assets/CV _ AGUIRRE JIMENEZ FRANCISCO VICTORICO.pdf"
-      target="_blank"
-      rel="noreferrer"
-      download="Francisco_Aguirre_CV.pdf"
-      class="hover:shadow-lg
-          h-11
-					duration-400
-					will-change-transform
-					md:text-base
-					transition-shadow
-					hover:bg-currentColor px-8 inline-flex justify-center items-center gap-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-800 backdrop-blur"
-    >
-      <Download />
-      Descargar mi CV
+        class="w-6 h-6">
+        <path d="m6 9 6 6 6-6"></path>
+      </svg>
     </a>
   </div>
-
-  <div
-    class="absolute bottom-0 left-[50%] right-[50%] hidden -translate-x-[50%] -translate-y-[50%] md:block"
-  >
-    <a
-      class="inline-flex h-10 w-10 animate-bounce items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium dark:text-white ring-offset-background transition-colors dark:bg-zinc-800 hover:bg-zinc-800/5 dark:hover:bg-zinc-900/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-      href="#featured"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="h-6 w-6"
-        ><path d="m6 9 6 6 6-6"></path></svg
-      ></a
-    >
-  </div>
 </section>
- -->
