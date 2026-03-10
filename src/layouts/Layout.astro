@@ -3,10 +3,6 @@ import { ClientRouter } from 'astro:transitions';
 import MainHead from '@components/MainHead.astro';
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
-import polyfillsUrl from '../assets/js/polyfills.js?url';
-// Supports weights 100-900
-/* import '@fontsource-variable/inter';
-import '@fontsource-variable/onest'; */
 
 interface Props {
   title?: string;
@@ -16,7 +12,7 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<script is:inline src={polyfillsUrl}></script>
+<!doctype html>
 <html lang="es" class="scroll-smooth">
   <head>
     <MainHead title={title} description={description} />
@@ -34,20 +30,16 @@ const { title, description } = Astro.props;
       })();
       document.documentElement.classList.toggle('dark', theme);
     </script>
+
+    <script src="../assets/js/polyfills.js"></script>
   </head>
+
   <body
     class="relative min-h-screen flex flex-col bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 antialiased transition-colors duration-300">
-    <div
-      class="fixed inset-0 -z-10 hidden dark:block h-full w-full bg-[url('https://www.marval.xyz/bg-light.svg')] bg-cover opacity-10 pointer-events-none"
-      aria-hidden="true">
-    </div>
-
     <Navbar />
-
     <main id="main-content" class="flex-1 w-full mx-auto">
       <slot />
     </main>
-
     <Footer />
 
     <script>
@@ -55,60 +47,3 @@ const { title, description } = Astro.props;
     </script>
   </body>
 </html>
-
-<style is:global>
-  :root {
-    font-family:
-      'Onest Variable',
-      'Inter Variable',
-      system-ui,
-      -apple-system,
-      sans-serif;
-  }
-
-  /* Mejora la experiencia de focus para usuarios de teclado */
-  :focus-visible {
-    @apply outline-none ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-neutral-950;
-  }
-
-  html {
-    /* Evita el salto del scrollbar al cambiar entre páginas con distinto alto */
-    scrollbar-gutter: stable;
-  }
-
-  body {
-    font-family: 'Inter Variable', sans-serif;
-
-    /* Evita el efecto de rebote elástico en el header/footer en iOS */
-    overscroll-behavior-y: none;
-  }
-
-  /* Reducir animaciones si el usuario lo prefiere a nivel sistema */
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto !important;
-    }
-    *,
-    ::before,
-    ::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-
-  /* Custom Scrollbar Corregida */
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply bg-neutral-300 dark:bg-neutral-800 rounded-full border-2 border-transparent bg-clip-content;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-blue-500;
-  }
-</style>
