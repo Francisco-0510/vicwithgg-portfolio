@@ -5,28 +5,45 @@
 @layer base {
   :root {
     /* Formato RGB puro para compatibilidad con opacidad de Tailwind */
-    --color-primary: 37 99 235;
-    --color-foreground: 2 8 23;
-    --color-muted: 122 122 122;
+    --color-primary: 37 99 235; /* Blue 600 */
+
+    /* MEJORA DE CONTRASTE: neutral-900 para legibilidad máxima */
+    --color-foreground: 23 23 23;
+
+    /* MEJORA DE CONTRASTE: neutral-600 (Gris más oscuro) para texto secundario */
+    /* El anterior 122,122,122 fallaba en accesibilidad sobre blanco */
+    --color-muted: 82 82 82;
+
     color-scheme: light;
   }
 
   html.dark {
-    --color-foreground: 255 255 255;
+    /* MEJORA DE CONTRASTE: neutral-100 para modo oscuro */
+    --color-foreground: 245 245 245;
+
+    /* MEJORA DE CONTRASTE: neutral-400 para texto secundario en fondo oscuro */
+    --color-muted: 163 163 163;
+
     color-scheme: dark;
   }
 
   html {
     @apply scroll-smooth antialiased;
+    /* Aseguramos que la fuente se herede correctamente */
+    font-family: "Inter Variable", "Onest Variable", system-ui, sans-serif;
   }
 
   body {
+    /* bg-white y bg-black son valores seguros para CLS y Performance */
     @apply bg-white text-neutral-900 dark:bg-black dark:text-neutral-100 transition-colors duration-500;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 }
 
 @layer components {
-  /* Registro de colores en el sistema de Tailwind */
+  /* Registro de colores dinámicos */
   .text-primary {
     color: rgb(var(--color-primary) / var(--tw-text-opacity, 1));
   }
@@ -34,26 +51,29 @@
     background-color: rgb(var(--color-primary) / var(--tw-bg-opacity, 1));
   }
 
-  /* --- Lógica del Dark Mode Toggle --- */
+  /* Utilidad para texto muted accesible */
+  .text-muted {
+    color: rgb(var(--color-muted) / var(--tw-text-opacity, 1));
+  }
 
+  /* --- Lógica del Dark Mode Toggle --- */
   .horizon {
     @apply relative overflow-hidden flex items-center justify-center;
-    /* Evita que los iconos se salgan del radio del botón durante la animación */
     isolation: isolate;
   }
 
   #sun,
   #moon {
-    /* Crucial: Posicionamiento absoluto para que se solapen perfectamente */
     @apply absolute transition-all duration-500 ease-in-out;
     backface-visibility: hidden;
     pointer-events: none;
+    will-change: transform, opacity;
   }
 
-  /* El icono que no es 'hidden' por JS se mantiene en el centro */
+  /* Control de visibilidad por JS */
   #sun:not(.hidden),
   #moon:not(.hidden) {
-    @apply relative; /* El que está visible dicta el tamaño del contenedor */
+    @apply relative;
   }
 
   /* Efecto hover sutil */
@@ -61,7 +81,7 @@
     @apply border-blue-500/50 shadow-sm;
   }
 
-  /* Clases de Animación */
+  /* Clases de Animación con Bezier optimizado para 60fps */
   .setting {
     animation: sunset 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
@@ -71,8 +91,7 @@
   }
 }
 
-/* --- Keyframes --- */
-
+/* --- Keyframes (Performance: Uso de transform y opacity solamente) --- */
 @keyframes sunset {
   0% {
     transform: translateY(0) scale(1);
@@ -97,7 +116,4 @@
     opacity: 1;
     filter: blur(0px);
   }
-}
-body {
-  font-family: "Inter Variable", sans-serif;
 }

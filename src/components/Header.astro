@@ -2,72 +2,79 @@
 import Figma from '@components/icons/Figma.astro';
 import GitHub from '@components/icons/GitHub.astro';
 import Linkedin from '@components/icons/Linkedin.astro';
+import X from '@components/icons/X.astro';
 import { Image } from 'astro:assets';
 import Download from './icons/Download.astro';
 import ProjectBrief from './icons/ProjectBrief.astro';
-import X from './icons/X.astro';
+
+// IMPORTANTE: Importa la imagen para que Astro la optimice (Mejora Performance)
+import myProfileImage from 'public/assets/images/me.jpg';
 ---
 
-<section class="relative min-h-full flex flex-col justify-center pt-14 pb-16">
+<section
+  class="relative min-h-[90vh] flex flex-col justify-center pt-20 pb-16"
+  aria-label="Introducción">
   <div class="max-w-4xl mx-auto w-full px-6 lg:px-8 flex flex-col gap-8">
     <header
       class="flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div class="flex flex-col gap-y-4">
-        <h2
-          class="text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-white text-pretty">
+        <h1
+          class="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white text-pretty tracking-tight">
           ¡Hola! Soy Francisco Victorico Aguirre Jiménez
-        </h2>
+        </h1>
 
-        <div
-          class="flex items-center gap-6 text-neutral-600 dark:text-neutral-400">
+        <nav
+          class="flex items-center gap-6 text-neutral-600 dark:text-neutral-400"
+          aria-label="Redes sociales">
           <a
             href="https://github.com/Francisco-0510"
             target="_blank"
-            rel="noreferrer"
-            aria-label="Perfil de GitHub"
-            class="hover:text-neutral-900 dark:hover:text-white transition-colors">
+            rel="noopener noreferrer"
+            aria-label="Ir a mi perfil de GitHub"
+            class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             <GitHub class="w-6 h-6" />
           </a>
           <a
             href="https://www.linkedin.com/in/vicwith-gg/"
             target="_blank"
-            rel="noreferrer"
-            aria-label="Perfil de LinkedIn"
-            class="hover:text-neutral-900 dark:hover:text-white transition-colors">
+            rel="noopener noreferrer"
+            aria-label="Conectar en LinkedIn"
+            class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             <Linkedin class="w-6 h-6" />
           </a>
           <a
             href="https://www.figma.com/@vicwithgg"
             target="_blank"
-            rel="noreferrer"
-            aria-label="Perfil de Figma"
-            class="hover:text-neutral-900 dark:hover:text-white transition-colors">
+            rel="noopener noreferrer"
+            aria-label="Ver mis diseños en Figma"
+            class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             <Figma class="w-6 h-6" />
           </a>
           <a
             href="https://x.com/VicWithGG1"
             target="_blank"
-            rel="noreferrer"
-            aria-label="Perfil de X (Twitter)"
-            class="hover:text-neutral-900 dark:hover:text-white transition-colors">
+            rel="noopener noreferrer"
+            aria-label="Seguirme en X"
+            class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             <X class="w-6 h-6" />
           </a>
-        </div>
+        </nav>
       </div>
 
       <Image
-        src="/assets/images/me.jpg"
-        alt="Fotografía de Francisco Victorico Aguirre Jiménez"
-        width={96}
-        height={96}
+        src={myProfileImage}
+        alt="Retrato de Francisco Aguirre"
+        width={112}
+        height={112}
         loading="eager"
         decoding="sync"
-        class="hidden md:block w-24 h-24 rounded-full bg-neutral-200 dark:bg-neutral-800 object-cover shadow-sm"
+        fetchpriority="high"
+        class="hidden md:block w-28 h-28 rounded-2xl bg-neutral-100 dark:bg-neutral-800 object-cover shadow-md border-2 border-white dark:border-neutral-900"
       />
     </header>
 
     <div
-      class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-neutral-900 dark:text-white text-balance">
+      class="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter text-neutral-900 dark:text-white text-balance leading-[1.1]">
       <span
         class="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
         Diseñador UX/UI
@@ -77,52 +84,51 @@ import X from './icons/X.astro';
     </div>
 
     <p
-      class="max-w-[750px] text-lg sm:text-xl text-neutral-700 dark:text-neutral-300 text-pretty leading-relaxed">
-      Apasionado <strong class="text-blue-600 dark:text-blue-400 font-semibold"
+      class="max-w-[700px] text-lg sm:text-xl text-neutral-800 dark:text-neutral-300 text-pretty leading-relaxed">
+      Apasionado <strong class="text-blue-700 dark:text-blue-400 font-bold"
         >Diseñador UX/UI</strong
-      > y <strong class="text-blue-600 dark:text-blue-400 font-semibold"
+      > y
+      <strong class="text-blue-700 dark:text-blue-400 font-bold"
         >Desarrollador Web</strong
-      > enfocado en crear experiencias digitales excepcionales. Mi objetivo es lograr
-      un equilibrio perfecto entre las necesidades de los usuarios y los objetivos
-      del producto.
+      > enfocado en crear experiencias digitales excepcionales que equilibran las
+      necesidades del usuario con los objetivos de negocio.
     </p>
 
-    <div class="flex flex-wrap items-center gap-4 pt-4">
+    <div class="flex flex-wrap items-center gap-4 pt-6">
       <a
         href="#projects"
-        class="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-blue-600 px-8 text-sm font-medium text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-950">
-        <ProjectBrief class="w-5 h-5" />
-        Mis Trabajos
+        class="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-blue-600 px-8 text-sm font-bold text-white transition-all duration-300 hover:bg-blue-700 hover:shadow-xl hover:-translate-y-0.5 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-black">
+        <ProjectBrief class="w-5 h-5" aria-hidden="true" />
+        Ver Proyectos
       </a>
       <a
-        href="/assets/CV _ AGUIRRE JIMENEZ FRANCISCO VICTORICO.pdf"
+        href="/assets/CV_UXUI_Desarrollador-Aguirre_Jimenez_FV.pdf"
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         download="Francisco_Aguirre_CV.pdf"
-        class="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white/50 backdrop-blur px-8 text-sm font-medium text-neutral-900 transition-all duration-300 hover:bg-neutral-50 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:ring-offset-2 dark:border-neutral-800 dark:bg-neutral-900/50 dark:text-white dark:hover:bg-neutral-800 dark:focus:ring-neutral-800 dark:focus:ring-offset-neutral-950">
-        <Download class="w-5 h-5" />
-        Descargar mi CV
+        class="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white/50 backdrop-blur px-8 text-sm font-bold text-neutral-900 transition-all duration-300 hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900/50 dark:text-white dark:hover:bg-neutral-800 focus:ring-2 focus:ring-neutral-400 dark:focus:ring-offset-black">
+        <Download class="w-5 h-5" aria-hidden="true" />
+        Descargar CV
       </a>
     </div>
   </div>
 
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block">
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:block">
     <a
-      href="#featured"
-      aria-label="Desplazarse a la siguiente sección"
-      class="inline-flex w-10 h-10 animate-bounce items-center justify-center rounded-full text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 transition-colors dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:focus:ring-neutral-800">
+      href="#projects"
+      aria-label="Bajar a la sección de proyectos"
+      class="inline-flex w-10 h-10 animate-bounce items-center justify-center rounded-full text-neutral-400 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500">
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
+        class="w-6 h-6"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="w-6 h-6">
-        <path d="m6 9 6 6 6-6"></path>
+        viewBox="0 0 24 24"
+        aria-hidden="true">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="m6 9 6 6 6-6"></path>
       </svg>
     </a>
   </div>

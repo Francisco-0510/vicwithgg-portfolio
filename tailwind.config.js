@@ -8,7 +8,16 @@ export default {
       sans: ["Onest Variable", ...fontFamily.sans],
       serif: ["Onest Variable", "Inter", "Satoshi", "Arial", "serif"],
     },
-    extend: {},
+    extend: {
+      colors: {
+        // Ajustamos los grises para garantizar legibilidad
+        neutral: {
+          400: "#94a3b8", // Insuficiente para texto en blanco
+          500: "#737373", // Límite (Revisar)
+          600: "#525252", // Seguro para texto (Ratio > 4.5:1)
+        },
+      },
+    },
   },
   plugins: [require("@tailwindcss/typography")],
 };
