@@ -3,7 +3,8 @@ import '@app/styles/index.css';
 import 'tippy.js/animations/scale.css';
 import 'tippy.js/dist/tippy.css';
 
-import { ViewTransitions } from 'astro:transitions';
+// 1. Cambio de ViewTransitions a ClientRouter
+import { ClientRouter } from 'astro:transitions';
 import type { HTMLAttributes } from 'astro/types';
 
 export interface Props extends HTMLAttributes<'body'> {
@@ -27,6 +28,7 @@ const {
 
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    {/* Favicons y Manifest */}
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -35,8 +37,9 @@ const {
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="theme-color" content="#ffffff" />
 
+    {/* Bloqueador de Flash de Tema (Optimizado) */}
     <script is:inline>
-      const getTheme = () => {
+      const theme = (() => {
         if (
           typeof localStorage !== 'undefined' &&
           localStorage.getItem('dark_mode')
@@ -44,18 +47,17 @@ const {
           return localStorage.getItem('dark_mode') === 'true';
         }
         return window.matchMedia('(prefers-color-scheme: dark)').matches;
-      };
-
-      if (getTheme()) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      })();
+      document.documentElement.classList.toggle('dark', theme);
     </script>
 
+    {
+      /* Polyfills solo si es necesario (data-astro-rerun asegura que se ejecute en cada navegación) */
+    }
     <script is:inline data-astro-rerun src="/polyfills.js"></script>
 
-    {withViewTransitions && <ViewTransitions fallback="swap" />}
+    {/* 2. Uso de ClientRouter en lugar de ViewTransitions */}
+    {withViewTransitions && <ClientRouter fallback="swap" />}
 
     <slot name="head" />
   </head>
