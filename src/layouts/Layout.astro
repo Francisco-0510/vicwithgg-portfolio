@@ -3,7 +3,7 @@ import { ClientRouter } from 'astro:transitions';
 import MainHead from '@components/MainHead.astro';
 import Footer from '../components/Footer.astro';
 import Navbar from '../components/Navbar.astro';
-
+import polyfillsUrl from '../assets/js/polyfills.js?url';
 // Supports weights 100-900
 /* import '@fontsource-variable/inter';
 import '@fontsource-variable/onest'; */
@@ -16,7 +16,7 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<!doctype html>
+<script is:inline src={polyfillsUrl}></script>
 <html lang="es" class="scroll-smooth">
   <head>
     <MainHead title={title} description={description} />

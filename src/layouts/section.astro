@@ -1,95 +1,98 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
-// Usar 'export' es clave para que index.astro reconozca estos tipos
 export interface Props extends HTMLAttributes<'section'> {
-  id: string; // Identificador único para el anclaje
-  title?: string; // Título de la sección (opcional)
-  order?: number; // Número de orden para el ScrollSpy (opcional)
+  id: string;
+  title?: string;
+  order?: number;
 }
 
 const { id, title, order, class: className, ...props } = Astro.props;
+const headerId = `heading-${id}`;
 ---
 
 <script>
-  type SectionState = {
-    order: number;
-    target: HTMLElement;
-    visible: boolean;
-  };
-
-  const updatePageLinks = (activeId: string) => {
-    const documentLinks = document.querySelectorAll("a[href^='#']");
-    documentLinks.forEach((link) => {
-      if (link instanceof HTMLAnchorElement) {
-        const targetId = link.hash.slice(1);
-        // Sincronizamos con las clases de tu Navbar
-        const isActive = targetId === activeId;
-        link.classList.toggle('text-blue-600', isActive);
-        link.classList.toggle('dark:text-blue-400', isActive);
-        link.classList.toggle('font-bold', isActive);
-      }
-    });
-  };
-
-  document.addEventListener('astro:page-load', () => {
+  // Optimizamos el ScrollSpy para evitar tareas largas en el hilo principal
+  const setupScrollSpy = () => {
     const observerSections = document.querySelectorAll(
       '[data-observed-section]',
     );
-    const sectionStates = new Map<string, SectionState>();
+    const navLinks = Array.from(
+      document.querySelectorAll("a[href^='#']"),
+    ) as HTMLAnchorElement[];
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          sectionStates.set(entry.target.id, {
-            target: entry.target as HTMLElement,
-            order: Number(entry.target.getAttribute('data-observed-section')),
-            visible: entry.isIntersecting,
-          });
+    if (observerSections.length === 0 || navLinks.length === 0) return;
+
+    const updatePageLinks = (activeId: string) => {
+      navLinks.forEach((link) => {
+        const targetId = link.hash.slice(1);
+        const isActive = targetId === activeId;
+
+        // Sincronización con clases de diseño del Navbar
+        link.classList.toggle('text-blue-600', isActive);
+        link.classList.toggle('dark:text-blue-400', isActive);
+        link.classList.toggle('font-bold', isActive);
+        link.setAttribute('aria-current', isActive ? 'page' : 'false');
+      });
+    };
+
+    const observerOptions = {
+      root: null,
+      threshold: 0.25, // Un poco más de margen para evitar activaciones accidentales
+      rootMargin: '-10% 0px -70% 0px',
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      // Filtramos solo las que están entrando en el viewport
+      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+
+      if (visibleEntries.length > 0) {
+        // Si hay varias, tomamos la que tenga el data-order más alto (la más abajo en el scroll)
+        const sorted = visibleEntries.sort((a, b) => {
+          const orderA = Number(a.target.getAttribute('data-observed-section'));
+          const orderB = Number(b.target.getAttribute('data-observed-section'));
+          return orderB - orderA;
         });
 
-        // Encontrar la sección visible con el orden más alto para el ScrollSpy
-        const latestVisible = Array.from(sectionStates.values())
-          .filter((s) => s.visible)
-          .reduce(
-            (prev, curr) => (curr.order > (prev?.order ?? -1) ? curr : prev),
-            null as SectionState | null,
-          );
-
-        if (latestVisible) {
-          updatePageLinks(latestVisible.target.id);
-        }
-      },
-      {
-        threshold: 0.2,
-        rootMargin: '-10% 0px -75% 0px',
-      },
-    );
+        updatePageLinks(sorted[0].target.id);
+      }
+    }, observerOptions);
 
     observerSections.forEach((section) => observer.observe(section));
-  });
+  };
+
+  // Se ejecuta con el ClientRouter de Astro para persistir entre páginas
+  document.addEventListener('astro:page-load', setupScrollSpy);
 </script>
 
 <section
   id={id}
   data-observed-section={order}
+  aria-labelledby={title ? headerId : undefined}
   class:list={[
-    'section scroll-m-20 w-full max-w-5xl mx-auto px-4 py-16 md:py-24',
+    'section scroll-m-24 w-full max-w-5xl mx-auto px-6 py-16 md:py-24',
     className,
   ]}
   {...props}>
   {
     title && (
       <header class="group mb-12 flex items-center gap-4">
-        <h2 class="flex items-center text-pretty font-header text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 md:text-3xl">
+        <h2
+          id={headerId}
+          class="flex items-center text-pretty font-header text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 md:text-3xl">
           {order && (
-            <span class="mr-3 text-blue-600/80 dark:text-blue-400/80 font-mono text-xl md:text-2xl">
+            <span
+              class="mr-3 text-blue-600 dark:text-blue-400 font-mono text-xl md:text-2xl"
+              aria-hidden="true">
               {String(order).padStart(2, '0')}.
             </span>
           )}
           {title}
         </h2>
-        <div class="h-px grow bg-neutral-200 dark:bg-neutral-800 mt-2" />
+        <div
+          class="h-px grow bg-neutral-200 dark:bg-neutral-800 mt-2 opacity-60"
+          aria-hidden="true"
+        />
       </header>
     )
   }
