@@ -16,56 +16,58 @@ const skillCategories = [
       Mis <span class="text-[#1D64FF] dark:text-neutral-100">
         habilidades técnicas</span
       > 🚀
+      <!-- </h3> -->
+      <p
+        class="mt-8 text-base text-pretty text-black dark:text-white xs:text-lg">
+        Como Diseñador UX/UI y Desarrollador Web, utilizo un stack versátil de
+        <span class="font-medium text-blue-500">lenguajes</span>,
+        <span class="font-medium text-blue-500">frameworks</span> y
+        <span class="font-medium text-blue-500">herramientas</span> para crear experiencias
+        digitales excepcionales, centradas en el usuario y optimizadas para cada proyecto.
+      </p>
     </h3>
-    <p class="mt-8 text-base text-pretty text-black dark:text-white xs:text-lg">
-      Como Diseñador UX/UI y Desarrollador Web, utilizo un stack versátil de
-      <span class="font-medium text-blue-500">lenguajes</span>,
-      <span class="font-medium text-blue-500">frameworks</span> y
-      <span class="font-medium text-blue-500">herramientas</span> para crear experiencias
-      digitales excepcionales, centradas en el usuario y optimizadas para cada proyecto.
-    </p>
-  </div>
 
-  <div class="my-16 space-y-28 sm:mt-20">
-    {
-      skillCategories.map((category) => (
-        <div class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
-          <div class="grid max-w-4xl grid-cols-1 gap-y-8 md:grid-cols-4">
-            <h2 class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300">
-              {category.title}
-            </h2>
-            <div class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12">
-              {category.items.map((item) => (
-                <div class="cursor-default">
-                  <article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
-                    <div
-                      id="overlay"
-                      class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 overflow-hidden">
+    <div class="my-16 space-y-28 sm:mt-20">
+      {
+        skillCategories.map((category) => (
+          <div class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
+            <div class="grid max-w-4xl grid-cols-1 gap-y-8 md:grid-cols-4">
+              <h2 class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300">
+                {category.title}
+              </h2>
+              <div class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12">
+                {category.items.map((item) => (
+                  <div class="cursor-default">
+                    <article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
                       <div
-                        id="shadow-overlay"
-                        class="absolute left-0 top-20 h-[40px] w-[40px] opacity-0 blur-2xl transition-opacity duration-200 ease-in-out group-hover:opacity-100 bg-gradient-to-r from-[#019ae9] to-[#00dfd8]"
+                        id="overlay"
+                        class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 overflow-hidden">
+                        <div
+                          id="shadow-overlay"
+                          class="absolute left-0 top-20 h-[40px] w-[40px] opacity-0 blur-2xl transition-opacity duration-200 ease-in-out group-hover:opacity-100 bg-gradient-to-r from-[#019ae9] to-[#00dfd8]"
+                        />
+                      </div>
+                      <img
+                        src={item.image}
+                        alt={`Logo de ${item.name}`}
+                        class="h-10 w-10 duration-300 group-hover:-rotate-45"
                       />
-                    </div>
-                    <img
-                      src={item.image}
-                      alt={`Logo de ${item.name}`}
-                      class="h-10 w-10 duration-300 group-hover:-rotate-45"
-                    />
-                    <div class="z-10 flex flex-col">
-                      <p class="text-start text-sm font-bold text-black dark:text-neutral-50">
-                        {item.name}
-                      </p>
-                      <p class="text-start text-xs text-black dark:text-neutral-200">
-                        {item.type}
-                      </p>
-                    </div>
-                  </article>
-                </div>
-              ))}
+                      <div class="z-10 flex flex-col">
+                        <p class="text-start text-sm font-bold text-black dark:text-neutral-50">
+                          {item.name}
+                        </p>
+                        <p class="text-start text-xs text-black dark:text-neutral-200">
+                          {item.type}
+                        </p>
+                      </div>
+                    </article>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      ))
-    }
+        ))
+      }
+    </div>
   </div>
 </section>

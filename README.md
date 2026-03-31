@@ -1,84 +1,192 @@
-# 🚀 Análisis Técnico: Portafolio VicWithGG
+# 🚀 VicWithGG Portfolio
 
-Este proyecto es una aplicación web de alto rendimiento construida con Astro, diseñada bajo un enfoque modular, basado en datos y con una interfaz moderna y responsiva.
+Portafolio personal de **Francisco Victorico Aguirre Jiménez** - Diseñador UX/UI y Desarrollador Web especializado en crear experiencias digitales de alta calidad.
 
-## 🛠️ Tecnologías Principales
+![Astro](https://img.shields.io/badge/Astro-5.5-BC52EE?logo=astro)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?logo=tailwindcss)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
 
-- Framework: Astro (<https://astro.build/>) (v4+)
-- Estilos: Tailwind CSS (<https://tailwindcss.com/>)
-- Tipado: TypeScript
-- Iconografía: Componentes Astro de SVGs optimizados.
-- Fuentes: @fontsource-variable (Inter y Onest).
+## ✨ Características
 
-## 📂 Estructura de la Carpeta src/
+- ⚡ **Astro 5.5** - Framework web moderno y ultrarrápido
+- 🎨 **Tailwind CSS** - Estilos utilitarios con diseño personalizado
+- 📱 **Responsive** - Adaptable a todos los dispositivos
+- 🌙 **Tema oscuro** - Diseño elegante con paleta de colores cuidadosa
+- 🎭 **Animaciones** - Transiciones suaves y efectos de revelado
+- 🔍 **SEO optimizado** - Meta tags, Open Graph, Schema.org
+- ♿ **Accesible** - Cumple con estándares de accesibilidad
+- 📊 **Datos separados** - Fácil mantenimiento y actualización
 
-La arquitectura sigue el patrón de diseño de Astro, separando la lógica de datos, los componentes reutilizables y las páginas estáticas.
+## 🛠️ Tecnologías
 
-1. assets/ (Recursos Estáticos y Lógica de Cliente)
+- [Astro](https://astro.build/) - El framework web para sitios de contenido
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS utilitario
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript con tipos
+- [MDX](https://mdxjs.com/) - Markdown con componentes JSX
 
-- `css/main.css`: Configura Tailwind CSS. Define variables de marca (CSS Variables) para colores primarios y el esquema de color adaptativo (Light/Dark mode). Incluye animaciones personalizadas como rising y setting para el toggle de tema.
-- `js/main.js`: Contiene la lógica interactiva del lado del cliente. Implementa:
-- Sticky Header: Cambia estilos al hacer scroll.
-- Dark Mode: Sincronización con localStorage y preferencias del sistema.
-- Back to Top: Visibilidad vinculada a la posición del scroll.
-- Throttling: Optimización de rendimiento para eventos de scroll.
+## 📁 Estructura del Proyecto
 
-1. collections/ (Capa de Datos JSON)
-   El portafolio es data-driven. El contenido no está "hardcodeado" en el HTML, sino que se inyecta desde archivos JSON, lo que facilita el mantenimiento:
+```
+├── src/
+│   ├── components/          # Componentes reutilizables
+│   │   ├── ui/             # Componentes base (Button, Icon, Label, Card)
+│   │   └── sections/       # Componentes de sección (Hero, Projects, etc.)
+│   ├── data/               # Datos separados (JSON/TS)
+│   ├── layouts/            # Layouts de Astro
+│   ├── pages/              # Páginas
+│   ├── styles/             # Estilos globales
+│   ├── scripts/            # Scripts de cliente
+│   ├── types/              # Tipos TypeScript
+│   └── utils/              # Utilidades
+├── public/                 # Assets estáticos
+├── astro.config.mjs        # Configuración de Astro
+├── tailwind.config.mjs     # Configuración de Tailwind
+└── package.json            # Dependencias
+```
 
-- projects.json, experiences.json, stack.json, certificates.json, education.json.
-- Permite que los componentes de Astro mapeen estos arreglos para generar la interfaz dinámicamente.
+## 🚀 Instalación
 
-  1. components/ (Componentes de Interfaz)
-     Organizados por responsabilidad:
+### Requisitos previos
 
-- `icons/`: Una extensa librería de iconos (React, Astro, Tailwind, Figma, etc.) encapsulados como componentes Astro para manipulación directa de clases CSS.
-- `sections/`: Bloques principales de la página:
+- Node.js 20.0.0 o superior
+- npm 10.0.0 o superior
 
-  - About.astro: Biografía y contacto.
-  - Experience.astro: Línea de tiempo laboral.
-  - Projects.astro: Grid de proyectos con etiquetas tecnológicas.
-  - Stack.astro: Visualización de habilidades agrupadas por categorías.
-  - `home/`: Componentes específicos para la página de aterrizaje (Separadores, resúmenes).
-  - `shared/`: Utilidades globales como BackToTop.astro y SectionContainer.astro (que asegura un ancho máximo consistente).
-  - Atómicos: Button.astro, Card.astro, Badge.astro.
+### Pasos
 
-  1. layouts/ (Plantillas de Estructura)
+1. **Clonar el repositorio**
 
-  - `Layout.astro`: El contenedor principal. Gestiona el SEO (vía MainHead.astro), los scripts globales, la Navbar y el Footer.
-  - `section.astro`: Un layout especializado para secciones que implementa un ScrollSpy (vía IntersectionObserver) para resaltar automáticamente el enlace activo en la navegación mientras el usuario se desplaza.
+```bash
+git clone https://github.com/vicwithgg/vicwithgg-portfolio.git
+cd vicwithgg-portfolio
+```
 
-  1. pages/ (Rutas)
+1. **Instalar dependencias**
 
-  - `index.astro`: Punto de entrada principal. Orquesta todas las secciones del portafolio dentro del Layout, definiendo el orden y los metadatos SEO específicos de la Home.
+```bash
+npm install
+```
 
-  1. utils/ (Utilidades)
+1. **Iniciar servidor de desarrollo**
 
-  - `navigation.ts`: Centraliza los enlaces de la barra de navegación y las redes sociales.
-  - `ui.ts`: Maneja configuraciones menores de la interfaz (como strings de idiomas).
+```bash
+npm run dev
+```
 
-  ***
+1. **Abrir en el navegador**
 
-  ⚙️ Características Técnicas Destacadas
+Visita [http://localhost:4321](http://localhost:4321)
 
-  🌑 Dark Mode Avanzado
-  Implementado mediante una clase .dark en el <html>. Se evita el "flash" de contenido blanco mediante un script is:inline en el MainHead que verifica el tema antes de que se renderice el body.
+## 📜 Scripts disponibles
 
-  📊 SEO y Metadatos
-  El componente MainHead.astro centraliza la lógica de Open Graph, Twitter Cards y datos estructurados en formato JSON-LD, asegurando que el portafolio sea indexable y se comparta profesionalmente en redes sociales.  
-  El componente MainHead.astro centraliza la lógica de Open Graph, Twitter Cards y datos estructurados en formato JSON-LD, asegurando que el portafolio sea indexable y se comparta profesionalmente en redes sociales.
+| Comando              | Descripción                         |
+| -------------------- | ----------------------------------- |
+| `npm run dev`        | Inicia servidor de desarrollo       |
+| `npm run build`      | Compila para producción             |
+| `npm run preview`    | Previsualiza el build de producción |
+| `npm run lint`       | Ejecuta ESLint                      |
+| `npm run format`     | Formatea código con Prettier        |
+| `npm run type-check` | Verifica tipos de TypeScript        |
 
-  ⚡ Rendimiento (Performance)
-  ⚡ Rendimiento (Performance)
+## 📝 Personalización
 
-  - Uso de Astro Assets para la optimización de imágenes (.webp).
-  - Carga de fuentes variables para reducir peticiones HTTP.
-  - Mínimo uso de JavaScript en el cliente, priorizando el renderizado estático.
-  - Carga de fuentes variables para reducir peticiones HTTP.
-  - Mínimo uso de JavaScript en el cliente, priorizando el renderizado estático.
+### Actualizar información personal
 
-  - Mínimo uso de JavaScript en el cliente, priorizando el renderizado estático.
+Edita los archivos en `/src/data/`:
 
-  ***
+- `personal.ts` - Información personal y configuración del sitio
+- `projects.ts` - Proyectos del portafolio
+- `experience.ts` - Experiencia laboral
+- `skills.ts` - Habilidades técnicas
+- `certificates.ts` - Certificados
+- `education.ts` - Educación
+- `social.ts` - Redes sociales y contacto
 
-  Estado del Proyecto: Producción / Optimizado.
+### Modificar estilos
+
+Los tokens de diseño están en:
+
+- `tailwind.config.mjs` - Configuración de Tailwind
+- `src/styles/global.css` - Estilos globales y variables CSS
+- `src/styles/animations.css` - Animaciones personalizadas
+
+### Agregar nuevos proyectos
+
+En `src/data/projects.ts`, añade un nuevo objeto al array:
+
+```typescript
+{
+  id: 'mi-proyecto',
+  name: 'Mi Proyecto',
+  sector: 'Web App • React',
+  description: 'Descripción del proyecto...',
+  thumbnail: '/images/projects/mi-proyecto.jpg',
+  technologies: ['React', 'TypeScript', 'Tailwind'],
+  links: {
+    demo: 'https://demo.com',
+    github: 'https://github.com',
+  },
+}
+```
+
+## 🚀 Despliegue
+
+### Vercel (Recomendado)
+
+1. Conecta tu repositorio de GitHub a Vercel
+2. Selecciona el framework "Astro"
+3. ¡Listo! Se desplegará automáticamente
+
+### Netlify
+
+1. Conecta tu repositorio a Netlify
+2. Configura el build command: `npm run build`
+3. Directorio de publicación: `dist`
+
+### GitHub Pages
+
+1. Habilita GitHub Actions
+2. Usa el workflow incluido en `.github/workflows/deploy.yml`
+
+## 🔧 Configuración avanzada
+
+### Variables de entorno
+
+Crea un archivo `.env`:
+
+```env
+PUBLIC_SITE_URL=https://vicwithgg.com
+PUBLIC_GA_ID=G-XXXXXXXXXX
+```
+
+### Optimización de imágenes
+
+Las imágenes se optimizan automáticamente con el componente `<Image />` de Astro:
+
+```astro
+---
+import { Image } from "astro:assets";
+import myImage from "../assets/image.jpg";
+---
+
+<Image src={myImage} alt="Descripción" width={800} height={600} />
+```
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT. Ver [LICENSE](./LICENSE) para más detalles.
+
+## 👤 Autor
+
+**Francisco Victorico Aguirre Jiménez**
+
+- Website: [vicwithgg.com](https://vicwithgg.com)
+- LinkedIn: [@vicwithgg](https://linkedin.com/in/vicwithgg)
+- GitHub: [@vicwithgg](https://github.com/vicwithgg)
+- Email: <contacto@vicwithgg.com>
+
+---
+
+<p align="center">
+  Hecho con ❤️ y ☕ en Oaxaca, México
+</p>
