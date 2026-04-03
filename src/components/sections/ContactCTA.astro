@@ -1,0 +1,131 @@
+---
+// src/components/sections/ContactCTA.astro
+import { person } from '../../data/portfolio';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import Label from '../ui/Label.astro';
+---
+
+<section id="contacto-cta">
+  <div class="cta-accent" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="cta-inner">
+      <Label centered reveal>¿Listo para colaborar?</Label>
+      <h2 class="cta-h2 reveal reveal-delay-1">
+        Hablemos de tu <em>próximo proyecto</em>
+      </h2>
+      <p class="cta-body reveal reveal-delay-2">
+        Si buscas un profesional que combine pensamiento estratégico de diseño
+        con ejecución técnica de calidad, iniciemos la conversación.
+      </p>
+      <div class="contact-methods">
+        <Button
+          href={`mailto:${person.email}`}
+          variant="outline"
+          reveal
+          delay={3}>
+          <Icon slot="icon" name="mail" size={16} />
+          {person.email}
+        </Button>
+        {
+          person.social.linkedin && (
+            <Button
+              href={person.social.linkedin}
+              variant="outline"
+              target="_blank"
+              class="blue"
+              reveal
+              delay={4}>
+              <Icon slot="icon" name="linkedin" size={16} />
+              LinkedIn
+            </Button>
+          )
+        }
+        {
+          person.social.github && (
+            <Button
+              href={person.social.github}
+              variant="outline"
+              target="_blank"
+              reveal
+              delay={5}>
+              <Icon slot="icon" name="github" size={16} />
+              GitHub
+            </Button>
+          )
+        }
+      </div>
+      <p class="cta-disclaimer reveal reveal-delay-5">{person.availability}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  #contacto-cta {
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-2);
+    border-top: 1px solid var(--line);
+  }
+  .cta-accent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(217, 168, 78, 0.04) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .cta-h2 {
+    font-family: var(--f-display);
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.92;
+    color: var(--text);
+    margin: 20px 0 24px;
+  }
+  .cta-h2 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .cta-body {
+    font-size: 17px;
+    color: var(--text-2);
+    line-height: 1.75;
+    margin-bottom: 48px;
+  }
+  .contact-methods {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+  /* Bigger padding for CTA buttons */
+  .contact-methods :global(.btn--outline) {
+    padding: 14px 24px;
+  }
+  .cta-disclaimer {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+</style>

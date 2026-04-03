@@ -1,6 +1,72 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-*: initial;
+  --font-sans:
+    Onest Variable, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-serif: Onest Variable, Inter, Satoshi, Arial, serif;
+
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility text-primary {
+  /* Registro de colores dinámicos */
+  color: rgb(var(--color-primary) / var(--tw-text-opacity, 1));
+}
+
+@utility bg-primary {
+  background-color: rgb(var(--color-primary) / var(--tw-bg-opacity, 1));
+}
+
+@utility text-muted {
+  /* Utilidad para texto muted accesible */
+  color: rgb(var(--color-muted) / var(--tw-text-opacity, 1));
+}
+
+@utility horizon {
+  /* --- Lógica del Dark Mode Toggle --- */
+  @apply relative overflow-hidden flex items-center justify-center;
+  isolation: isolate;
+
+  /* Efecto hover sutil */
+  #darkToggle:hover & {
+    @apply border-blue-500/50 shadow-xs;
+  }
+}
+
+@utility setting {
+  /* Clases de Animación con Bezier optimizado para 60fps */
+  animation: sunset 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@utility rising {
+  animation: sunrise 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
 
 @layer base {
   :root {
@@ -43,24 +109,6 @@
 }
 
 @layer components {
-  /* Registro de colores dinámicos */
-  .text-primary {
-    color: rgb(var(--color-primary) / var(--tw-text-opacity, 1));
-  }
-  .bg-primary {
-    background-color: rgb(var(--color-primary) / var(--tw-bg-opacity, 1));
-  }
-
-  /* Utilidad para texto muted accesible */
-  .text-muted {
-    color: rgb(var(--color-muted) / var(--tw-text-opacity, 1));
-  }
-
-  /* --- Lógica del Dark Mode Toggle --- */
-  .horizon {
-    @apply relative overflow-hidden flex items-center justify-center;
-    isolation: isolate;
-  }
 
   #sun,
   #moon {
@@ -74,20 +122,6 @@
   #sun:not(.hidden),
   #moon:not(.hidden) {
     @apply relative;
-  }
-
-  /* Efecto hover sutil */
-  #darkToggle:hover .horizon {
-    @apply border-blue-500/50 shadow-sm;
-  }
-
-  /* Clases de Animación con Bezier optimizado para 60fps */
-  .setting {
-    animation: sunset 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-
-  .rising {
-    animation: sunrise 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 }
 

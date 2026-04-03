@@ -1,0 +1,257 @@
+---
+// src/layouts/ProjectLayout.astro
+// Used by MDX case study files in src/pages/proyectos/[slug].mdx
+import Footer from '../components/layout/Footer.astro';
+import Navbar from '../components/layout/Navbar.astro';
+import { projects } from '../data/portfolio';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  frontmatter: {
+    slug: string;
+    title?: string;
+    description?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+const slug = frontmatter?.slug;
+const project = projects.find((p) => p.slug === slug);
+if (!project) throw new Error(`Project "${slug}" not found in portfolio.ts`);
+---
+
+<BaseLayout
+  title={frontmatter.title ?? `${project.name} — VicWithGG`}
+  description={frontmatter.description ?? project.description}>
+  <Navbar />
+
+  <main>
+    <!-- Case study hero -->
+    <header class="case-hero">
+      <div class="wrap">
+        <div class="case-meta">
+          <div class="label">
+            <a href="/#projects" class="back-link">← Proyectos</a>
+          </div>
+          <div class="case-sector">{project.sector}</div>
+        </div>
+        <h1 class="case-h1">{project.name}</h1>
+        <p class="case-desc">{project.description}</p>
+
+        <div class="case-tech">
+          {project.tech.map((t) => <span class="tech-chip">{t}</span>)}
+        </div>
+
+        <div class="case-links">
+          {
+            project.links.live && (
+              <a
+                href={project.links.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-primary">
+                Ver live
+              </a>
+            )
+          }
+          {
+            project.links.figma && (
+              <a
+                href={project.links.figma}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-outline">
+                Ver en Figma
+              </a>
+            )
+          }
+          {
+            project.links.github && (
+              <a
+                href={project.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-ghost">
+                GitHub →
+              </a>
+            )
+          }
+        </div>
+      </div>
+
+      {
+        project.thumbnail && (
+          <div class="case-thumbnail-full">
+            <img
+              src={project.thumbnail}
+              alt={`Imagen de portada de ${project.name}`}
+              width="1240"
+              height="600"
+              loading="eager"
+            />
+          </div>
+        )
+      }
+    </header>
+
+    <!-- MDX content -->
+    <article class="case-content wrap prose">
+      <slot />
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .case-hero {
+    padding: 140px 0 80px;
+    background: var(--bg-1);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .case-meta {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .back-link {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    transition: color 0.2s;
+  }
+  .back-link:hover {
+    color: var(--text);
+  }
+
+  .case-sector {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .case-h1 {
+    font-family: var(--f-display);
+    font-size: clamp(48px, 8vw, 100px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    line-height: 0.92;
+    margin-bottom: 24px;
+  }
+  .case-desc {
+    font-size: 18px;
+    color: var(--text-2);
+    line-height: 1.75;
+    max-width: 640px;
+    margin-bottom: 32px;
+  }
+  .case-tech {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .case-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .case-thumbnail-full {
+    margin-top: 64px;
+    max-height: 600px;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+  }
+  .case-thumbnail-full img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    filter: brightness(0.9);
+  }
+
+  /* MDX prose content */
+  .case-content {
+    padding: 80px 40px;
+    max-width: 800px;
+  }
+  .case-content :global(h2) {
+    font-family: var(--f-display);
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin: 56px 0 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .case-content :global(h3) {
+    font-family: var(--f-display);
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text);
+    margin: 40px 0 16px;
+  }
+  .case-content :global(p) {
+    font-size: 16px;
+    color: var(--text-2);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .case-content :global(strong) {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .case-content :global(img) {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    margin: 32px 0;
+  }
+  .case-content :global(ul),
+  .case-content :global(ol) {
+    color: var(--text-2);
+    padding-left: 24px;
+    margin-bottom: 20px;
+    line-height: 1.8;
+  }
+  .case-content :global(code) {
+    font-family: var(--f-mono);
+    font-size: 13px;
+    background: var(--bg-card);
+    padding: 2px 6px;
+    border: 1px solid var(--line);
+    color: var(--accent);
+  }
+  .case-content :global(pre) {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: 24px;
+    overflow-x: auto;
+    margin: 24px 0;
+  }
+  .case-content :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text-2);
+  }
+  .case-content :global(blockquote) {
+    border-left: 2px solid var(--accent);
+    padding-left: 20px;
+    margin: 32px 0;
+    color: var(--text-2);
+    font-style: italic;
+  }
+</style>

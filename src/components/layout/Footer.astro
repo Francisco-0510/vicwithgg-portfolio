@@ -1,0 +1,190 @@
+---
+// src/components/layout/Footer.astro
+import { navLinks, person } from '../../data/portfolio';
+
+const year = new Date().getFullYear();
+
+const services = [
+  { label: 'Diseño UX/UI', href: '/#projects' },
+  { label: 'Desarrollo Web', href: '/#projects' },
+  { label: 'Design Systems', href: '/#projects' },
+  { label: 'Consultoría Técnica', href: `mailto:${person.email}` },
+];
+const legal = [
+  { label: 'Privacidad', href: '/privacidad' },
+  { label: 'Términos', href: '/terminos' },
+];
+---
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="footer-logo-main">{person.initials}</div>
+        <div class="footer-logo-sub">
+          {person.name.split(' ').slice(1, 3).join(' ')}
+        </div>
+        <p class="footer-tagline">
+          Diseñador UX/UI y Desarrollador Web creando experiencias digitales que
+          equilibran usuario y negocio.
+        </p>
+      </div>
+
+      <!-- Nav -->
+      <div class="footer-col">
+        <div class="footer-col-title">Navegación</div>
+        <ul class="footer-links" role="list">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="footer-col">
+        <div class="footer-col-title">Servicios</div>
+        <ul class="footer-links" role="list">
+          {
+            services.map((s) => (
+              <li>
+                <a href={s.href}>{s.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul class="footer-links" role="list">
+          {
+            legal.map((l) => (
+              <li>
+                <a href={l.href}>{l.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy"
+        >© {year} {person.handle}. Todos los derechos reservados.</span
+      >
+      <span class="footer-domain"
+        >{person.social.github.replace('https://', '')} — {
+          person.location
+        }</span
+      >
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    padding: 64px 0 32px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 56px;
+  }
+  @media (max-width: 900px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+  }
+  @media (max-width: 540px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .footer-logo-main {
+    font-family: var(--f-display);
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .footer-logo-sub {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .footer-tagline {
+    font-size: 13px;
+    color: var(--text-3);
+    line-height: 1.7;
+    max-width: 240px;
+  }
+
+  .footer-col-title {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 20px;
+  }
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-links a {
+    font-family: var(--f-body);
+    font-size: 14px;
+    color: var(--text-2);
+    transition: color 0.2s;
+  }
+  .footer-links a:hover {
+    color: var(--text);
+  }
+
+  .footer-bottom {
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-copy,
+  .footer-domain {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .footer-domain {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .footer-domain::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--text-3);
+  }
+</style>

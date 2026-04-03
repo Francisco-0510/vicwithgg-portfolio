@@ -1,0 +1,179 @@
+---
+/**
+ * Button — primitive UI component
+ *
+ * Usage:
+ *  <Button href="/cv.pdf" download="Mi_CV.pdf">Descargar CV</Button>
+ *   <Button href="/proyectos">Ver proyectos</Button>
+ *   <Button variant="ghost" href="#about">Sobre mí</Button>
+ *   <Button variant="outline" href="mailto:x">Contactar</Button>
+ *   <Button variant="primary" tag="button" type="submit">Enviar</Button>
+ *
+ * Slots:
+ *   default  — label text
+ *   icon     — optional SVG icon (rendered after label)
+ */
+
+type Variant = 'primary' | 'ghost' | 'outline';
+type Tag = 'a' | 'button';
+
+interface Props {
+  variant?: Variant;
+  tag?: Tag;
+  href?: string;
+  target?: string;
+  rel?: string;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  class?: string;
+  reveal?: boolean;
+  delay?: 0 | 1 | 2 | 3 | 4 | 5;
+  ariaLabel?: string;
+  download?: string | boolean;
+}
+
+const {
+  variant = 'primary',
+  tag = 'a',
+  href,
+  target,
+  rel,
+  type = 'button',
+  disabled = false,
+  class: extraClass = '',
+  reveal = false,
+  delay = 0,
+  ariaLabel,
+  download,
+} = Astro.props;
+
+const Tag = tag;
+
+const revealClass = reveal
+  ? `reveal${delay > 0 ? ` reveal-delay-${delay}` : ''}`
+  : '';
+
+const classes = [`btn btn--${variant}`, revealClass, extraClass]
+  .filter(Boolean)
+  .join(' ');
+
+// Lógica mejorada para manejar atributos de enlace y descarga
+const linkProps =
+  tag === 'a'
+    ? {
+        href,
+        target,
+        rel: target === '_blank' ? 'noopener noreferrer' : rel,
+        download: download, // Si es true o un string, se añade el atributo
+      }
+    : { type, disabled };
+---
+
+<Tag class={classes} aria-label={ariaLabel} {...linkProps}>
+  <slot />
+  <span class="btn__icon" aria-hidden="true">
+    <slot name="icon" />
+  </span>
+</Tag>
+
+<style>
+  /* ── Base ─────────────────────────────────────── */
+  .btn {
+    font-family: var(--f-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    border: none;
+    text-decoration: none;
+    transition:
+      opacity 0.2s,
+      transform 0.2s,
+      background 0.2s,
+      border-color 0.2s,
+      color 0.2s;
+  }
+  .btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .btn:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* Empty icon slot — hide the wrapper */
+  .btn__icon:empty {
+    display: none;
+  }
+  .btn__icon :global(svg) {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ── Primary ──────────────────────────────────── */
+  .btn--primary {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 16px 36px;
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .btn--primary:hover:not(:disabled) {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+
+  /* ── Ghost ────────────────────────────────────── */
+  .btn--ghost {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+    border: 1px solid var(--line);
+    padding: 14px 28px;
+  }
+
+  .btn--ghost:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+  /*   .btn--ghost:hover:not(:disabled) {
+    color: var(--text);
+  } */
+  .btn--ghost .btn__icon :global(svg) {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* ── Outline ──────────────────────────────────── */
+  .btn--outline {
+    font-size: 11px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--line-accent);
+    color: var(--accent);
+  }
+  .btn--outline:hover:not(:disabled) {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+  }
+
+  /* ── Outline blue variant (via extra class) ───── */
+  .btn--outline.blue {
+    border-color: rgba(58, 123, 213, 0.3);
+    color: var(--blue);
+  }
+  .btn--outline.blue:hover:not(:disabled) {
+    background: var(--blue-dim);
+    border-color: var(--blue);
+  }
+</style>

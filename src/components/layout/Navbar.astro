@@ -1,0 +1,245 @@
+---
+// src/components/layout/Navbar.astro
+import { navLinks, person } from '../../data/portfolio';
+---
+
+<nav id="navbar">
+  <div class="wrap">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="/" class="nav-logo" aria-label={`${person.handle} — Inicio`}>
+        <span class="nav-logo-main">{person.initials}</span>
+        <span class="nav-logo-sub"
+          >{person.name.split(' ').slice(1, 3).join(' ')}</span
+        >
+      </a>
+
+      <!-- Links -->
+      <ul class="nav-links" role="list">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- CTA -->
+      <a href={`mailto:${person.email}`} class="nav-cta"> Contactar </a>
+
+      <!-- Mobile toggle -->
+      <button
+        class="nav-menu-toggle"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        id="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile drawer (hidden by default) -->
+<div id="nav-drawer" class="nav-drawer" aria-hidden="true">
+  <ul role="list">
+    {
+      navLinks.map((link) => (
+        <li>
+          <a href={link.href} class="nav-drawer-link">
+            {link.label}
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <a
+        href={`mailto:${person.email}`}
+        class="btn-primary"
+        style="margin-top: 8px;">
+        Contactar
+      </a>
+    </li>
+  </ul>
+</div>
+
+<style>
+  /* ── Nav base ───────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 0;
+    transition:
+      background 0.4s,
+      padding 0.4s,
+      border-bottom 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(6, 8, 13, 0.96);
+    backdrop-filter: blur(12px);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  /* Logo */
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .nav-logo-main {
+    font-family: var(--f-display);
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text);
+    line-height: 1;
+  }
+  .nav-logo-sub {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* Links */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover {
+    color: var(--text);
+  }
+
+  /* CTA */
+  .nav-cta {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: 1px solid var(--line-accent);
+    color: var(--accent);
+    transition:
+      background 0.2s,
+      border-color 0.2s;
+  }
+  .nav-cta:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+  }
+
+  /* Mobile toggle */
+  .nav-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .nav-menu-toggle span {
+    width: 22px;
+    height: 1.5px;
+    background: var(--text-2);
+    transition: 0.3s;
+    display: block;
+  }
+
+  /* Mobile drawer */
+  .nav-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(6, 8, 13, 0.98);
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .nav-drawer.open {
+    transform: translateX(0);
+  }
+  .nav-drawer ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  .nav-drawer-link {
+    font-family: var(--f-display);
+    font-size: 42px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--text-2);
+    transition: color 0.2s;
+    display: block;
+    padding: 8px 0;
+  }
+  .nav-drawer-link:hover {
+    color: var(--text);
+  }
+
+  @media (max-width: 900px) {
+    .nav-links,
+    .nav-cta {
+      display: none;
+    }
+    .nav-menu-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const drawer = document.getElementById('nav-drawer');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = drawer?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    drawer?.setAttribute('aria-hidden', String(!isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Close on link click
+  drawer?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+</script>

@@ -1,0 +1,177 @@
+---
+/**
+ * Card — generic reusable card shell
+ *
+ * Variants:
+ *   default  — subtle border + hover background lift
+ *   flat     — no border, transparent bg
+ *   stat     — accent left-border, centered content
+ *   featured — gradient top accent line
+ *
+ * Usage:
+ *   <Card>...</Card>
+ *   <Card variant="stat" reveal delay={1}>
+ *     <span slot="num">12+</span>
+ *     <span slot="label">proyectos</span>
+ *   </Card>
+ *   <Card variant="featured" href="/proyectos/sicroa">...</Card>
+ */
+
+type Variant = 'default' | 'flat' | 'stat' | 'featured';
+
+interface Props {
+  variant?: Variant;
+  href?: string;
+  target?: string;
+  padding?: 'sm' | 'md' | 'lg' | 'none';
+  reveal?: boolean;
+  delay?: 0 | 1 | 2 | 3 | 4 | 5;
+  class?: string;
+}
+
+const {
+  variant = 'default',
+  href,
+  target,
+  padding = 'md',
+  reveal = false,
+  delay = 0,
+  class: extraClass = '',
+} = Astro.props;
+
+const Tag = href ? 'a' : 'div';
+
+const revealClass = reveal
+  ? `reveal${delay > 0 ? ` reveal-delay-${delay}` : ''}`
+  : '';
+
+const classes = [
+  'card',
+  `card--${variant}`,
+  `card--pad-${padding}`,
+  revealClass,
+  extraClass,
+]
+  .filter(Boolean)
+  .join(' ');
+
+const linkProps = href
+  ? {
+      href,
+      target,
+      rel: target === '_blank' ? 'noopener noreferrer' : undefined,
+    }
+  : {};
+---
+
+<Tag class={classes} {...linkProps}>
+  <!-- stat variant: num + label slots -->
+  {
+    variant === 'stat' && (
+      <div class="card__stat">
+        <div class="card__stat-num">
+          <slot name="num" />
+        </div>
+        <div class="card__stat-label">
+          <slot name="label" />
+        </div>
+      </div>
+    )
+  }
+
+  <!-- all other variants: default slot -->
+  {variant !== 'stat' && <slot />}
+</Tag>
+
+<style>
+  /* ── Base ─────────────────────────────────────── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    position: relative;
+    overflow: hidden;
+    transition:
+      background 0.3s,
+      border-color 0.3s;
+  }
+  a.card {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  a.card:hover {
+    background: var(--bg-card-h);
+  }
+  a.card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* ── Padding ──────────────────────────────────── */
+  .card--pad-none {
+    padding: 0;
+  }
+  .card--pad-sm {
+    padding: 16px;
+  }
+  .card--pad-md {
+    padding: 24px 28px;
+  }
+  .card--pad-lg {
+    padding: 32px;
+  }
+
+  /* ── Variants ─────────────────────────────────── */
+
+  /* default — slight lift on hover (already in base) */
+  .card--default {
+  }
+
+  /* flat — no bg, no border */
+  .card--flat {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  /* stat — accent left border */
+  .card--stat {
+    background: transparent;
+    border: none;
+    border-left: 1px solid var(--line-accent);
+    border-radius: 0;
+    padding-left: 20px;
+  }
+  .card__stat-num {
+    font-family: var(--f-display);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .card__stat-label {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  /* featured — bottom accent bar that scales in on hover */
+  .card--featured::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  a.card--featured:hover::after {
+    transform: scaleX(1);
+  }
+</style>

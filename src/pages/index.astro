@@ -1,50 +1,25 @@
 ---
-import Layout from '../layouts/Layout.astro';
-
-// Componentes de Estructura
-import Header from '@components/Header.astro';
-import Separator from '@components/home/separator.astro';
-import SectionContainer from '@components/shared/SectionContainer.astro';
-
-// Secciones de Contenido
-import AboutSection from '@components/sections/About.astro';
-import Experience from '@components/sections/Experience.astro';
-import Projects from '@components/sections/Projects.astro';
-import Stack from '@components/sections/Stack.astro';
-import BackToTop from '@components/shared/BackToTop.astro';
-
-// Metadatos centralizados para SEO
-const pageTitle =
-  'Portafolio de VicWithGG | Diseñador UX/UI y Desarrollador Web';
-const pageDescription =
-  'Portafolio profesional de Francisco Victorico Aguirre Jiménez, especialista en diseño de experiencias y desarrollo frontend con más de 3 años de trayectoria.';
+// src/pages/index.astro
+import Footer from '../components/layout/Footer.astro';
+import Navbar from '../components/layout/Navbar.astro';
+import About from '../components/sections/About.astro';
+import ContactCTA from '../components/sections/ContactCTA.astro';
+import Experience from '../components/sections/Experience.astro';
+import Hero from '../components/sections/Hero.astro';
+import Projects from '../components/sections/Projects.astro';
+import Stack from '../components/sections/Stack.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
-  <main class="space-y-12 md:space-y-20 px-4">
-    <SectionContainer id="home" order={0} class="pt-20 md:pt-32">
-      <Header />
-    </SectionContainer>
-
-    <SectionContainer id="projects" order={1} title="Proyectos destacados">
-      <Separator text="Descubre mis trabajos" />
-      <Projects />
-    </SectionContainer>
-
-    <SectionContainer id="experience" order={2} title="Trayectoria profesional">
-      <Separator text="Mi experiencia laboral" />
-      <Experience />
-    </SectionContainer>
-
-    <SectionContainer id="stack" order={3} title="Tecnologías y herramientas">
-      <Separator text="Mi marco de trabajo" />
-      <Stack />
-    </SectionContainer>
-
-    <SectionContainer id="about" order={4} title="Sobre VicWithGG">
-      <Separator text="Conoce mi enfoque" />
-      <AboutSection />
-    </SectionContainer>
+<BaseLayout>
+  <Navbar />
+  <main>
+    <Hero />
+    <Projects />
+    <Experience />
+    <Stack />
+    <About />
+    <ContactCTA />
   </main>
-  <BackToTop />
-</Layout>
+  <Footer />
+</BaseLayout>

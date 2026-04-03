@@ -1,0 +1,68 @@
+---
+/**
+ * Label — section eyebrow with decorative accent line
+ *
+ * Usage:
+ *   <Label>Trabajo seleccionado</Label>
+ *   <Label centered reveal delay={1}>Sobre mí</Label>
+ */
+
+interface Props {
+  centered?: boolean;
+  reveal?: boolean;
+  delay?: 0 | 1 | 2 | 3 | 4 | 5;
+  class?: string;
+  as?: 'div' | 'p' | 'span';
+}
+
+const {
+  centered = false,
+  reveal = false,
+  delay = 0,
+  class: extraClass = '',
+  as: Tag = 'div',
+} = Astro.props;
+
+const revealClass = reveal
+  ? `reveal${delay > 0 ? ` reveal-delay-${delay}` : ''}`
+  : '';
+
+const classes = [
+  'label',
+  centered && 'label--centered',
+  revealClass,
+  extraClass,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<Tag class={classes}>
+  <slot />
+</Tag>
+
+<style>
+  .label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .label--centered {
+    justify-content: center;
+  }
+</style>

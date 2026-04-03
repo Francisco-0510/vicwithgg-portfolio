@@ -1,73 +1,204 @@
 ---
-import stack from '@collections/stack.json';
-const { id } = Astro.props;
+// src/components/sections/Stack.astro
+import { stackCategories, techLogos } from '../../data/portfolio';
+import Label from '../ui/Label.astro';
+import Icon from '../ui/Icon.astro';
+import type { IconName } from '../ui/icon-types';
 
-// Agrupamos las categorías para iterarlas fácilmente y evitar código duplicado
-const skillCategories = [
-  { title: 'Lenguajes', items: stack.languages },
-  { title: 'Frameworks', items: stack.frontend },
-  { title: 'Herramientas', items: stack.tools },
-];
+const iconMap: Record<string, IconName> = {
+  design: 'design',
+  code: 'code',
+  data: 'database',
+  tools: 'tool',
+};
 ---
 
-<section class="w-full h-full" id={id}>
-  <div class="max-w-2xl">
-    <h3 class="text-pretty font-bold text-3xl dark:text-neutral-100">
-      Mis <span class="text-[#1D64FF] dark:text-neutral-100">
-        habilidades técnicas</span
-      > 🚀
-      <!-- </h3> -->
-      <p
-        class="mt-8 text-base text-pretty text-black dark:text-white xs:text-lg">
-        Como Diseñador UX/UI y Desarrollador Web, utilizo un stack versátil de
-        <span class="font-medium text-blue-500">lenguajes</span>,
-        <span class="font-medium text-blue-500">frameworks</span> y
-        <span class="font-medium text-blue-500">herramientas</span> para crear experiencias
-        digitales excepcionales, centradas en el usuario y optimizadas para cada proyecto.
+<section id="stack">
+  <div class="wrap">
+    <div class="skills-intro">
+      <Label centered reveal>Herramientas y tecnologías</Label>
+      <h2 class="stack-h2 reveal reveal-delay-1">Mi Stack</h2>
+      <p class="reveal reveal-delay-2">
+        Trabajo a lo largo de todo el pipeline de producto — desde la ideación y
+        prototipado en Figma hasta el desarrollo e implementación en producción.
       </p>
-    </h3>
-
-    <div class="my-16 space-y-28 sm:mt-20">
+    </div>
+    <div class="skills-grid">
       {
-        skillCategories.map((category) => (
-          <div class="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
-            <div class="grid max-w-4xl grid-cols-1 gap-y-8 md:grid-cols-4">
-              <h2 class="text-sm font-semibold capitalize text-neutral-600 dark:text-neutral-300">
-                {category.title}
-              </h2>
-              <div class="flex flex-row flex-wrap gap-x-8 gap-y-14 md:col-span-3 md:gap-x-12">
-                {category.items.map((item) => (
-                  <div class="cursor-default">
-                    <article class="group relative flex w-[150px] items-center gap-x-4 sm:min-w-[175px] sm:max-w-none">
-                      <div
-                        id="overlay"
-                        class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 rounded-2xl bg-slate-900/5 dark:opacity-0 transition group-hover:scale-100 group-hover:opacity-100 dark:bg-zinc-800/50 sm:-inset-x-6 overflow-hidden">
-                        <div
-                          id="shadow-overlay"
-                          class="absolute left-0 top-20 h-[40px] w-[40px] opacity-0 blur-2xl transition-opacity duration-200 ease-in-out group-hover:opacity-100 bg-gradient-to-r from-[#019ae9] to-[#00dfd8]"
-                        />
-                      </div>
-                      <img
-                        src={item.image}
-                        alt={`Logo de ${item.name}`}
-                        class="h-10 w-10 duration-300 group-hover:-rotate-45"
-                      />
-                      <div class="z-10 flex flex-col">
-                        <p class="text-start text-sm font-bold text-black dark:text-neutral-50">
-                          {item.name}
-                        </p>
-                        <p class="text-start text-xs text-black dark:text-neutral-200">
-                          {item.type}
-                        </p>
-                      </div>
-                    </article>
-                  </div>
-                ))}
-              </div>
+        stackCategories.map((cat, i) => (
+          <div class={`skill-category reveal reveal-delay-${i % 3}`}>
+            <div class="skill-category-title">
+              <Icon name={iconMap[cat.icon] ?? 'tool'} size={18} />
+              {cat.title}
             </div>
+            <ul class="skill-list" role="list">
+              {cat.skills.map((skill) => (
+                <li class="skill-item" role="listitem">
+                  <Icon name="check" size={14} />
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <div class="tech-logos">
+      {
+        techLogos.map((tech, i) => (
+          <div class={`tech-logo-item reveal reveal-delay-${i % 4}`}>
+            <img
+              src={tech.logo}
+              alt={tech.name}
+              width="40"
+              height="40"
+              loading="lazy"
+              onerror="this.style.opacity='0.2'"
+            />
+            <span class="tech-logo-name">{tech.name}</span>
+            <span class="tech-logo-type">{tech.type}</span>
           </div>
         ))
       }
     </div>
   </div>
 </section>
+
+<style>
+  #stack {
+    padding: 100px 0;
+  }
+  .skills-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 48px;
+  }
+  .stack-h2 {
+    font-family: var(--f-display);
+    font-size: clamp(38px, 4.5vw, 60px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin: 12px 0 16px;
+  }
+  .skills-intro p {
+    font-size: 16px;
+    color: var(--text-2);
+    line-height: 1.8;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--line);
+    margin-top: 40px;
+  }
+  @media (max-width: 900px) {
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .skill-category {
+    background: var(--bg);
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .skill-category-title {
+    font-family: var(--f-display);
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .skill-category-title :global(svg) {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .skill-item {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.2s;
+  }
+  .skill-item :global(svg) {
+    color: var(--blue);
+    flex-shrink: 0;
+    transition: color 0.2s;
+  }
+  .skill-item:hover {
+    color: var(--text-2);
+  }
+  .skill-item:hover :global(svg) {
+    color: var(--accent);
+  }
+  .tech-logos {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2px;
+    background: var(--line);
+    margin-top: 40px;
+  }
+  @media (max-width: 900px) {
+    .tech-logos {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .tech-logo-item {
+    background: var(--bg);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .tech-logo-item:hover {
+    background: var(--bg-card);
+  }
+  .tech-logo-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.5);
+    transition: filter 0.3s;
+  }
+  .tech-logo-item:hover img {
+    filter: grayscale(0%) opacity(1);
+  }
+  .tech-logo-name {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .tech-logo-type {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    opacity: 0.6;
+  }
+</style>

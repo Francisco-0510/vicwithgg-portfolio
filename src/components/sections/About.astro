@@ -1,114 +1,302 @@
 ---
-import Certificate from '@components/Certificate.astro';
-import Education from '@components/Education.astro';
-import Figma from '@components/icons/Figma.astro';
-import GitHub from '@components/icons/GitHub.astro';
-import Linkedin from '@components/icons/Linkedin.astro';
-import X from '@components/icons/X.astro';
-import { Image } from 'astro:assets';
+// src/components/sections/About.astro
+import { person, certificates, education } from '../../data/portfolio';
+import Label from '../ui/Label.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
 ---
 
-<section class="pb-16" id="about">
-  <div
-    class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
-    <div class="flex max-w-xs flex-col gap-y-20 px-2.5 lg:max-w-none lg:pl-20">
-      <Image
-        src="/public/assets/images/me.jpg"
-        alt="Fotografía de Francisco Victorico Aguirre Jiménez"
-        width={1117}
-        height={1117}
-        loading="lazy"
-        decoding="async"
-        sizes="(min-width: 1024px) 20rem, 20rem"
-        class="object-cover aspect-square rotate-3 rounded-sm bg-zinc-100 dark:bg-zinc-800"
-      />
-    </div>
+<section id="about">
+  <div class="wrap">
+    <div class="about-inner">
+      <!-- Sticky photo column -->
+      <div class="about-photo">
+        <div class="about-photo-frame">
+          <!--
+            NOTE: swap <img> for Astro's <Image /> once you add a real
+            local image to src/assets/images/vic-profile.jpg:
 
-    <div class="lg:order-first lg:row-span-2 items-start justify-between">
-      <h2
-        class="flex items-center text-3xl mt-1 md:my-3 font-bold leading-tight dark:text-white text-balance">
-        Hola 👋, Soy Francisco Victorico Aguirre Jiménez
-      </h2>
+            import { Image } from 'astro:assets';
+            import profileImg from '../../assets/images/vic-profile.jpg';
+            <Image src={profileImg} alt="Foto de Vic" width={400} height={400}
+              format="webp" quality={85} loading="eager" />
+          -->
+          <img
+            src={person.photo}
+            alt={`Foto de ${person.name}`}
+            width="400"
+            height="400"
+            loading="eager"
+            decoding="async"
+            onerror="this.style.display='none'"
+          />
+        </div>
 
-      <div class="mb-4 mt-6">
-        <p
-          class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400">
-          Soy Francisco Victorico Aguirre Jiménez, Diseñador UX/UI y
-          Desarrollador Web comprometido con crear experiencias digitales que
-          destacan. Equilibro las necesidades del usuario con los objetivos del
-          producto, utilizando metodologías ágiles, investigación y diseño
-          centrado en las personas.
-        </p>
-        <p
-          class="mb-6 text-base text-pretty text-neutral-900 dark:text-neutral-400">
-          Mi enfoque estratégico e intuitivo, junto con el dominio de
-          herramientas avanzadas, me permite convertir ideas en soluciones
-          innovadoras y efectivas. Siempre busco aprender, mejorar y superar
-          nuevos desafíos.
-        </p>
+        <div class="about-contact">
+          <p>Encuéntrame en</p>
+          <div class="about-social">
+            {
+              person.social.linkedin && (
+                <Button
+                  href={person.social.linkedin}
+                  variant="ghost"
+                  target="_blank">
+                  <Icon slot="icon" name="linkedin" size={14} />
+                  LinkedIn
+                </Button>
+              )
+            }
+            {
+              person.social.github && (
+                <Button
+                  href={person.social.github}
+                  variant="ghost"
+                  target="_blank">
+                  <Icon slot="icon" name="github" size={14} />
+                  GitHub
+                </Button>
+              )
+            }
+            <Button href={`mailto:${person.email}`} variant="ghost">
+              <Icon slot="icon" name="mail" size={14} />
+              Email
+            </Button>
+          </div>
+        </div>
       </div>
 
-      <div class="space-y-4">
-        <span
-          class="text-xs font-medium text-gray-800 uppercase dark:text-neutral-200">
-          Contáctame por:
-        </span>
+      <!-- Main content -->
+      <div class="about-content">
+        <Label reveal>Sobre mí</Label>
+        <h2 class="reveal reveal-delay-1">
+          Diseñador & Desarrollador<br />
+          <em>desde Oaxaca, México</em>
+        </h2>
+        {
+          person.bio.map((paragraph, i) => (
+            <p class={`reveal reveal-delay-${i + 2}`}>{paragraph}</p>
+          ))
+        }
 
-        <div
-          class="flex items-center pb-10 sm:pb-0 gap-14 md:gap-8 text-xl text-gray-700 dark:text-gray-100 mt-2">
-          <a
-            href="https://github.com/Francisco-0510"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Perfil de GitHub">
-            <GitHub />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/vicwith-gg/"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Perfil de LinkedIn">
-            <Linkedin />
-          </a>
-          <a
-            href="https://www.figma.com/@vicwithgg"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Perfil de Figma">
-            <Figma />
-          </a>
-          <a
-            href="https://x.com/VicWithGG1"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Perfil de X (Twitter)">
-            <X />
-          </a>
+        <!-- Certs & Education -->
+        <div class="certs-edu-grid">
+          <div class="certs-section">
+            <h3 class="reveal">Certificados</h3>
+            {
+              certificates.map((cert, i) => (
+                <div class={`cert-item reveal reveal-delay-${Math.min(i, 5)}`}>
+                  <div class="cert-logo">
+                    <img
+                      src={cert.logo}
+                      alt={cert.org}
+                      width="32"
+                      height="32"
+                      loading="lazy"
+                      onerror="this.style.opacity='0.3'"
+                    />
+                  </div>
+                  <div class="cert-info">
+                    <div class="cert-date">{cert.date}</div>
+                    <h4>{cert.title}</h4>
+                    <div class="cert-org">{cert.org}</div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <div class="edu-section">
+            <h3 class="reveal">Educación</h3>
+            {
+              education.map((edu, i) => (
+                <div class={`edu-item reveal reveal-delay-${Math.min(i, 5)}`}>
+                  <div class="edu-logo">
+                    <img
+                      src={edu.logo}
+                      alt={edu.school}
+                      width="32"
+                      height="32"
+                      loading="lazy"
+                      onerror="this.style.opacity='0.3'"
+                    />
+                  </div>
+                  <div class="edu-info">
+                    <div class="edu-date">{edu.period}</div>
+                    <h4>{edu.degree}</h4>
+                    <div class="edu-school">{edu.school}</div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section
-  class="col-span-12 gap-4 lg:col-span-9 mt-8 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden bg-white/50 dark:bg-zinc-900/20">
-  <div class="flex flex-col lg:flex-row relative">
-    <div
-      class="space-y-1.5 p-6 w-full lg:w-1/2 lg:pr-12 py-12 max-lg:border-b lg:border-r border-zinc-200 dark:border-zinc-800 flex flex-col gap-6">
-      <h3
-        class="max-md:text-lg text-2xl font-semibold leading-none dark:text-white">
-        Certificados
-      </h3>
-      <Certificate />
-    </div>
-
-    <div
-      class="space-y-1.5 p-6 w-full lg:w-1/2 lg:pl-12 py-12 flex flex-col gap-6">
-      <h3
-        class="max-md:text-lg text-2xl font-semibold leading-none dark:text-white">
-        Educación
-      </h3>
-      <Education />
-    </div>
-  </div>
-</section>
+<style>
+  #about {
+    padding: 100px 0;
+    background: var(--bg-1);
+    border-top: 1px solid var(--line);
+  }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 0.4fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .about-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+  .about-photo {
+    position: sticky;
+    top: 100px;
+  }
+  .about-photo-frame {
+    width: 100%;
+    aspect-ratio: 1;
+    border: 1px solid var(--line-accent);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-card);
+  }
+  .about-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .about-contact {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .about-contact > p {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 16px;
+  }
+  .about-social {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  /* Style ghost buttons in social context as bordered links */
+  .about-social :global(.btn--ghost) {
+    padding: 10px 16px;
+    border: 1px solid var(--line);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+  .about-social :global(.btn--ghost:hover) {
+    color: var(--text);
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .about-content h2 {
+    font-family: var(--f-display);
+    font-size: 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin: 12px 0 24px;
+  }
+  .about-content h2 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .about-content > p {
+    font-size: 16px;
+    color: var(--text-2);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .certs-edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 64px;
+  }
+  @media (max-width: 900px) {
+    .certs-edu-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .certs-section h3,
+  .edu-section h3 {
+    font-family: var(--f-display);
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    margin: 0 0 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .cert-item,
+  .edu-item {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    gap: 16px;
+  }
+  .cert-logo,
+  .edu-logo {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  .cert-logo img,
+  .edu-logo img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.6);
+  }
+  .cert-item:hover .cert-logo img,
+  .edu-item:hover .edu-logo img {
+    filter: grayscale(0%) opacity(1);
+  }
+  .cert-date,
+  .edu-date {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 4px;
+  }
+  .cert-info h4,
+  .edu-info h4 {
+    font-family: var(--f-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+  .cert-org,
+  .edu-school {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+</style>
