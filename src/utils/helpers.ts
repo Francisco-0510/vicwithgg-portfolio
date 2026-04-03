@@ -62,7 +62,7 @@ export function formatNumber(num: number): string {
  * Genera un ID único
  */
 export function generateId(prefix = ""): string {
-  return `${prefix}${Math.random().toString(36).substr(2, 9)}`;
+  return `${prefix}${Math.random().toString(36).slice(2, 11)}`;
 }
 
 /**
@@ -117,7 +117,8 @@ export function scrollToElement(selector: string, offset = 0): void {
   const element = document.querySelector(selector);
   if (element) {
     const top =
-      element.getBoundingClientRect().top + window.pageYOffset - offset;
+      /*       element.getBoundingClientRect().top + window.pageYOffset - offset; */
+      element.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top, behavior: "smooth" });
   }
 }

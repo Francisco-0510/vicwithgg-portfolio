@@ -129,7 +129,7 @@ export default {
 
   plugins: [
     // Custom plugin for additional utilities
-    function ({ addUtilities, theme }) {
+    function ({ addUtilities }) {
       addUtilities({
         ".text-stroke": {
           "-webkit-text-stroke": "1px rgba(237, 233, 224, 0.04)",
