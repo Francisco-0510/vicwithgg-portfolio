@@ -1,12 +1,17 @@
 ---
 // src/components/layout/Navbar.astro
 import { navLinks, person } from '../../data/portfolio';
+import Search from '../ui/Search.astro';
 ---
 
 <nav id="navbar">
   <div class="wrap">
     <div class="nav-inner">
       <!-- Logo -->
+      <a href="/" class="nav-logo" aria-label="VGG — VicWithGG, ir al inicio">
+        <span class="logo-abbr" aria-hidden="true">VGG</span>
+        <span class="logo-full" aria-hidden="true">Design & Dev</span>
+      </a>
       <a href="/" class="nav-logo" aria-label={`${person.handle} — Inicio`}>
         <span class="nav-logo-main">{person.initials}</span>
         <span class="nav-logo-sub"
@@ -26,6 +31,7 @@ import { navLinks, person } from '../../data/portfolio';
       </ul>
 
       <!-- CTA -->
+      <Search />
       <a href={`mailto:${person.email}`} class="nav-cta"> Contactar </a>
 
       <!-- Mobile toggle -->
@@ -43,7 +49,7 @@ import { navLinks, person } from '../../data/portfolio';
 </nav>
 
 <!-- Mobile drawer (hidden by default) -->
-<div id="nav-drawer" class="nav-drawer" aria-hidden="true">
+<div id="nav-drawer" class="nav-drawer" aria-hidden="true" inert>
   <ul role="list">
     {
       navLinks.map((link) => (
@@ -224,8 +230,9 @@ import { navLinks, person } from '../../data/portfolio';
 </style>
 
 <script>
-  const toggle = document.getElementById('nav-toggle');
   const drawer = document.getElementById('nav-drawer');
+  const trigger = document.getElementById('menu-trigger');
+  const toggle = document.getElementById('nav-toggle');
 
   toggle?.addEventListener('click', () => {
     const isOpen = drawer?.classList.toggle('open');

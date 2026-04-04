@@ -2,7 +2,18 @@
 
 /* ── TAILWIND v4 ─────────────────────────────────── */
 @import "tailwindcss";
-/* NOTE: Google Fonts loaded via <link> in BaseLayout.astro head — not here */
+
+/* ── SELF-HOSTED FONTS (font-display:swap elimina render-blocking) ──
+   Los archivos .woff2 deben estar en public/fonts/
+   Descarga con: https://google-webfonts-helper.herokuapp.com/
+   Barlow Condensed Bold 700
+   IBM Plex Mono Regular 400
+   Lora Regular 400 + Lora Medium 500 (para bold en body)
+   ──────────────────────────────────────────────────────────────── */
+@import "@fontsource/barlow-condensed/900.css";
+@import "@fontsource/barlow-condensed/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/lora/400.css";
 
 /* ── TAILWIND v4 THEME (replaces tailwind.config.js) */
 @theme {
@@ -14,14 +25,14 @@
   --color-blue: #3a7bd5;
   --color-text: #ede9e0;
   --color-text-2: #9299a6;
-  --color-text-3: #555c6a;
+  --color-text-3: #8b93a0;
 
   --font-display: "Barlow Condensed", sans-serif;
   --font-body: "Lora", serif;
   --font-mono: "IBM Plex Mono", monospace;
 }
 
-/* ── DESIGN TOKENS (CSS Custom Properties) ───────── */
+/* ── DESIGN TOKENS ────────────────────────────────── */
 :root {
   --bg: #06080d;
   --bg-1: #0b0f18;
@@ -38,7 +49,7 @@
 
   --text: #ede9e0;
   --text-2: #9299a6;
-  --text-3: #555c6a;
+  --text-3: #8b93a0;
 
   --line: rgba(237, 233, 224, 0.07);
   --line-accent: rgba(217, 168, 78, 0.22);
@@ -61,6 +72,8 @@
   }
   html {
     scroll-behavior: smooth;
+    /* Reduce CLS reservando espacio para fuentes antes de cargar */
+    font-size: 16px;
   }
   body {
     background: var(--bg);
@@ -70,6 +83,8 @@
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    /* min-height evita layout shifts en páginas cortas */
+    min-height: 100svh;
   }
   a {
     color: inherit;
@@ -78,12 +93,27 @@
   img {
     display: block;
     max-width: 100%;
+    /* Evita CLS: reservar espacio mientras carga */
+    height: auto;
+  }
+  /* Reducir motion para accesibilidad */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 }
 
 /* ── SHARED UTILITIES ────────────────────────────── */
 @layer components {
-  /* Layout wrapper */
   .wrap {
     max-width: 1240px;
     margin: 0 auto;
@@ -95,7 +125,11 @@
     }
   }
 
-  /* Section label — "── LABEL" style */
+  /* Anchor principal para skip link */
+  #main-content {
+    outline: none;
+  }
+
   .label {
     font-family: var(--f-mono);
     font-size: 11px;
@@ -116,7 +150,6 @@
     flex-shrink: 0;
   }
 
-  /* Grid background pattern */
   .grid-bg {
     position: absolute;
     inset: 0;
@@ -131,17 +164,20 @@
     opacity: 0.04;
   }
 
-  /* Reveal animation (JS-driven via IntersectionObserver) */
+  /* ── Reveal animation ─────────────────────────── */
   .reveal {
     opacity: 0;
     transform: translateY(28px);
     transition:
       opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
       transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+    /* Usar will-change solo cuando sea necesario para evitar layer explosions */
+    will-change: opacity, transform;
   }
   .reveal.visible {
     opacity: 1;
     transform: translateY(0);
+    will-change: auto;
   }
   .reveal-delay-1 {
     transition-delay: 0.1s;
@@ -159,7 +195,7 @@
     transition-delay: 0.5s;
   }
 
-  /* Shared button variants */
+  /* ── Botones compartidos ──────────────────────── */
   .btn-primary {
     font-family: var(--f-mono);
     font-size: 12px;
@@ -177,10 +213,15 @@
       transform 0.2s;
     border: none;
     cursor: pointer;
+    /* A11Y: contraste > 4.5:1 (#d9a84e sobre #06080d = 6.8:1 ✓) */
   }
   .btn-primary:hover {
     opacity: 0.88;
     transform: translateY(-1px);
+  }
+  .btn-primary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 
   .btn-ghost {
@@ -188,14 +229,24 @@
     font-size: 11px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
+    /* CONTRASTE MEJORADO: text-2 (#9299a6) → mínimo 4.5:1 sobre --bg ✓ */
     color: var(--text-2);
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    transition: color 0.2s;
+    transition:
+      color 0.2s,
+      border-color 0.2s;
+    border: 1px solid var(--line);
+    padding: 14px 28px;
   }
   .btn-ghost:hover {
     color: var(--text);
+    border-color: var(--accent);
+  }
+  .btn-ghost:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 
   .btn-outline {
@@ -204,6 +255,7 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     padding: 10px 20px;
+    background: transparent;
     border: 1px solid var(--line-accent);
     color: var(--accent);
     display: inline-flex;
@@ -217,8 +269,12 @@
     background: var(--accent-dim);
     border-color: var(--accent);
   }
+  .btn-outline:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
 
-  /* Tech chip (used in project cards) */
+  /* Tech chip */
   .tech-chip {
     font-family: var(--f-mono);
     font-size: 9px;
@@ -229,9 +285,24 @@
     border: 1px solid var(--line);
     color: var(--text-3);
   }
+
+  /* ── Pagefind search UI theming ───────────────── */
+  :where(.pagefind-ui) {
+    --pagefind-ui-scale: 0.8;
+    --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-text: var(--text);
+    --pagefind-ui-background: var(--bg-card);
+    --pagefind-ui-border: var(--line);
+    --pagefind-ui-tag: var(--bg-2);
+    --pagefind-ui-font: var(--f-mono);
+    --pagefind-ui-border-radius: 4px;
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-image-border-radius: 4px;
+    --pagefind-ui-image-box-ratio: 3/2;
+  }
 }
 
-/* ── SCROLL-PULSE ANIMATION ──────────────────────── */
+/* ── ANIMACIONES ─────────────────────────────────── */
 @keyframes scroll-pulse {
   0%,
   100% {

@@ -1,0 +1,274 @@
+---
+// src/components/ui/Search.astro
+// FIX: script is:inline evita que Rollup intente resolver /pagefind/pagefind-ui.js
+// en build-time. Pagefind genera esos archivos DESPUÉS del build (postbuild hook).
+---
+
+<!-- Botón trigger -->
+<button
+  id="search-trigger"
+  class="search-trigger"
+  aria-label="Buscar ⌘K"
+  aria-expanded="false"
+  aria-controls="search-modal">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    focusable="false">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+  <span aria-hidden="true">BUSCAR</span>
+  <kbd aria-hidden="true">⌘K</kbd>
+</button>
+
+<!-- Modal de búsqueda -->
+<div
+  id="search-modal"
+  class="search-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Buscar en el portfolio"
+  hidden>
+  <div class="search-modal-backdrop" id="search-backdrop"></div>
+  <div class="search-modal-inner">
+    <div class="search-modal-header">
+      <span class="search-modal-title">Buscar proyectos y experiencia</span>
+      <button
+        id="search-close"
+        aria-label="Cerrar búsqueda"
+        class="search-close">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+          focusable="false">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div id="pagefind-mount"></div>
+  </div>
+</div>
+
+<!--
+  CSS de Pagefind: carga no bloqueante (media=print → onload → all).
+  En dev dará 404 — correcto, pagefind solo existe después del build.
+-->
+<link
+  rel="stylesheet"
+  href="/pagefind/pagefind-ui.css"
+  media="print"
+  onload="this.media='all'"
+/>
+
+<style>
+  .search-trigger {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-2);
+    border: 1px solid var(--line);
+    padding: 8px 14px;
+    cursor: pointer;
+    background: transparent;
+    transition:
+      color 0.2s,
+      border-color 0.2s;
+    border-radius: 4px;
+  }
+  .search-trigger:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+  .search-trigger:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  kbd {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    padding: 2px 5px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    color: var(--text-3);
+  }
+  .search-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 10vh;
+  }
+  .search-modal[hidden] {
+    display: none;
+  }
+  .search-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(6, 8, 13, 0.85);
+    backdrop-filter: blur(4px);
+  }
+  .search-modal-inner {
+    position: relative;
+    z-index: 1;
+    width: min(680px, 90vw);
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .search-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .search-modal-title {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .search-close {
+    color: var(--text-2);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    border-radius: 4px;
+    transition: color 0.2s;
+  }
+  .search-close:hover {
+    color: var(--text);
+  }
+  .search-close:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  #pagefind-mount {
+    padding: 16px 20px 20px;
+    max-height: 65vh;
+    overflow-y: auto;
+  }
+</style>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  is:inline — CRÍTICO para que el build no falle                  ║
+  ║                                                                  ║
+  ║  Sin is:inline → Vite/Rollup intenta resolver el import()        ║
+  ║  dinámico de '/pagefind/pagefind-ui.js' durante el build,        ║
+  ║  no lo encuentra (aún no existe) y lanza el error que viste.     ║
+  ║                                                                  ║
+  ║  Con is:inline → el script se inyecta literalmente en el HTML    ║
+  ║  y el import() ocurre en runtime, cuando pagefind ya existe.     ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+<script is:inline>
+  (function () {
+    var _loaded = false;
+
+    async function loadPagefind() {
+      if (_loaded) return;
+      try {
+        var mod = await import('/pagefind/pagefind-ui.js');
+        new mod.PagefindUI({
+          element: '#pagefind-mount',
+          showImages: false,
+          showSubResults: true,
+          translations: {
+            placeholder: 'Buscar proyectos, tecnologías, experiencia…',
+            zero_results: 'Sin resultados para "[SEARCH_TERM]"',
+            many_results: '[COUNT] resultados para "[SEARCH_TERM]"',
+            one_result: '1 resultado para "[SEARCH_TERM]"',
+            alt_search: 'Buscando en su lugar "[SEARCH_TERM]"',
+            search_label: 'Buscar en el portfolio',
+            filters_label: 'Filtros',
+            load_more: 'Cargar más',
+          },
+        });
+        _loaded = true;
+      } catch (err) {
+        console.warn(
+          '[Search] Pagefind no disponible. Ejecuta npm run build primero.',
+          err,
+        );
+      }
+    }
+
+    function openModal() {
+      var modal = document.getElementById('search-modal');
+      var trigger = document.getElementById('search-trigger');
+      if (!modal || !trigger) return;
+      modal.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      loadPagefind().then(function () {
+        setTimeout(function () {
+          var input = document.querySelector(
+            '#pagefind-mount input[type="text"]',
+          );
+          if (input) input.focus();
+        }, 60);
+      });
+    }
+
+    function closeModal() {
+      var modal = document.getElementById('search-modal');
+      var trigger = document.getElementById('search-trigger');
+      if (!modal || !trigger) return;
+      modal.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      trigger.focus();
+    }
+
+    function init() {
+      var btn = document.getElementById('search-trigger');
+      var closeBtn = document.getElementById('search-close');
+      var backdrop = document.getElementById('search-backdrop');
+      if (btn) btn.addEventListener('click', openModal);
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (backdrop) backdrop.addEventListener('click', closeModal);
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        var modal = document.getElementById('search-modal');
+        if (modal && !modal.hidden) closeModal();
+        else openModal();
+      }
+      if (e.key === 'Escape') {
+        var modal = document.getElementById('search-modal');
+        if (modal && !modal.hidden) closeModal();
+      }
+    });
+
+    init();
+    document.addEventListener('astro:page-load', init);
+  })();
+</script>

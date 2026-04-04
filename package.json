@@ -6,16 +6,25 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
+    "build:fast": "astro build",
+    "postbuild": "npx pagefind --site dist --output-path dist/pagefind",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "fonts": "bash scripts/download-fonts.sh",
+    "lighthouse": "npx lighthouse http://localhost:4321 --output=html --output-path=./lighthouse-report.html --only-categories=performance,accessibility,best-practices,seo --preset=desktop",
+    "lighthouse:mobile": "npx lighthouse http://localhost:4321 --output=html --output-path=./lighthouse-mobile.html --only-categories=performance,accessibility,best-practices,seo"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
     "@astrojs/mdx": "^5.0.3",
     "@astrojs/react": "^5.0.2",
+    "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@fontsource-variable/inter": "^5.2.8",
     "@fontsource-variable/onest": "^5.2.11",
+    "@fontsource/barlow-condensed": "^5.2.8",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/lora": "^5.2.8",
     "@lucide/astro": "^1.7.0",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.2",
@@ -24,6 +33,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
+    "pagefind": "^1.4.0",
     "prettier": "^3.4.1",
     "prettier-plugin-astro": "^0.14.1"
   }

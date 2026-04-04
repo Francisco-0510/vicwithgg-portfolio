@@ -1,5 +1,6 @@
 ---
 // src/layouts/BaseLayout.astro
+// OPTIMIZADO: fuentes self-hosted, preload critico, CSP-friendly, aria
 import '../styles/global.css';
 import { site } from '../data/portfolio';
 import ClientRouter from 'astro/components/ClientRouter.astro';
@@ -24,6 +25,7 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#06080d" />
 
     <!-- SEO -->
     <title>{title}</title>
@@ -36,6 +38,7 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImage, site.url)} />
+    <meta property="og:locale" content="es_MX" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -45,71 +48,150 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
 
-    <!-- Fonts — preconnect + async load -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- RSS autodiscovery -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=IBM+Plex+Mono:wght@300;400;500&family=Lora:wght@400;500;600&display=swap"
-      rel="stylesheet"
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${site.title} — RSS`}
+      href="/rss.xml"
     />
 
-    <!-- Performance: prefetch visible links on hover (Astro built-in) -->
+    <!--
+      FUENTES SELF-HOSTED (elimina render-blocking de Google Fonts).
+      Coloca los archivos .woff2 en public/fonts/:
+        - barlow-condensed-700.woff2   (display / headings)
+        - ibm-plex-mono-400.woff2      (mono labels)
+        - lora-400.woff2               (body text)
+
+      Descarga con: npx fontsource-download o manualmente desde Google Fonts
+      usando https://google-webfonts-helper.herokuapp.com/
+    -->
+
+    <!-- Preload solo los subsets más usados (latin) -->
+    <!--   <link
+      rel="preload"
+      href="/fonts/barlow-condensed-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/ibm-plex-mono-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/lora-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    /> -->
+
+    <!-- Prefetch de página de proyectos (hover strategy en astro.config) -->
     <meta name="astro:prefetch" content="hover" />
 
-    <!-- Astro View Transitions / Client Router (cross-page fade) -->
+    <!-- Astro View Transitions -->
     <ClientRouter />
 
+    <!-- Pagefind UI styles (solo si la página tiene search) -->
     <slot name="head" />
   </head>
 
   <body>
-    <slot />
+    <!-- Skip to content (accesibilidad A11Y) -->
+    <a href="#main-content" class="skip-link">SALTAR AL CONTENIDO</a>
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
 
-    <!-- ── Global scripts ───────────────────────────────────── -->
+    <!-- ── Global scripts ─────────────────────────────────────── -->
     <script>
-      // Re-run on each View Transition page swap
+      // Re-run en cada View Transition
       function initPage() {
-        // Reveal on scroll — IntersectionObserver (fires once per element)
+        // ── Reveal on scroll ──────────────────────────────────────
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                (entry.target as HTMLElement).classList.add('visible');
                 observer.unobserve(entry.target);
               }
             });
           },
-          { threshold: 0.1, rootMargin: '0px 0px -80px 0px' },
+          { threshold: 0.08, rootMargin: '0px 0px -60px 0px' },
         );
         document
-          .querySelectorAll('.reveal:not(.visible)')
+          .querySelectorAll<HTMLElement>('.reveal:not(.visible)')
           .forEach((el) => observer.observe(el));
 
-        // Navbar scroll class
+        // ── Navbar scroll class ───────────────────────────────────
         const navbar = document.getElementById('navbar');
         if (navbar) {
-          const onScroll = () =>
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
+          let ticking = false;
+          const onScroll = () => {
+            if (!ticking) {
+              requestAnimationFrame(() => {
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+                ticking = false;
+              });
+              ticking = true;
+            }
+          };
           window.addEventListener('scroll', onScroll, { passive: true });
           onScroll();
         }
 
-        // Smooth scroll for anchor links
+        // ── Smooth scroll anchors ─────────────────────────────────
         document
           .querySelectorAll<HTMLAnchorElement>('a[href^="#"]')
           .forEach((anchor) => {
             anchor.addEventListener('click', (e) => {
+              const href = anchor.getAttribute('href');
+              if (!href || href === '#') return;
               e.preventDefault();
-              const id = anchor.getAttribute('href')!.slice(1);
-              document
-                .getElementById(id)
-                ?.scrollIntoView({ behavior: 'smooth' });
+              const id = href.slice(1);
+              const target = document.getElementById(id);
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Actualizar URL sin reload
+                history.pushState(null, '', href);
+              }
             });
           });
+
+        // ── Copy code blocks ──────────────────────────────────────
+        document.querySelectorAll('pre').forEach((pre) => {
+          if (pre.querySelector('.copy-btn')) return; // evitar duplicados
+          const btn = document.createElement('button');
+          btn.className = 'copy-btn';
+          btn.setAttribute('aria-label', 'Copiar código');
+          btn.setAttribute('title', 'Copiar al portapapeles');
+          btn.textContent = 'Copiar';
+          btn.addEventListener('click', async () => {
+            const code = pre.querySelector('code')?.textContent ?? '';
+            try {
+              await navigator.clipboard.writeText(code);
+              btn.textContent = '¡Copiado!';
+              btn.classList.add('copied');
+              setTimeout(() => {
+                btn.textContent = 'Copiar';
+                btn.classList.remove('copied');
+              }, 2000);
+            } catch {
+              btn.textContent = 'Error';
+            }
+          });
+          pre.style.position = 'relative';
+          pre.appendChild(btn);
+        });
       }
 
-      // Run on first load + after every View Transition
+      // Primera carga + cada View Transition
       initPage();
       document.addEventListener('astro:page-load', initPage);
     </script>
@@ -117,3 +199,58 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
     <slot name="scripts" />
   </body>
 </html>
+
+<style is:global>
+  /* Skip link — solo visible en foco de teclado */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 999;
+    padding: 0.5rem 1rem;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-weight: 700;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    transition: top 0.1s;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  /* ── Code block copy button ─────────────────────────── */
+  .copy-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    background: rgba(217, 168, 78, 0.12);
+    border: 1px solid rgba(217, 168, 78, 0.3);
+    color: var(--accent);
+    cursor: pointer;
+    border-radius: 3px;
+    transition:
+      background 0.2s,
+      border-color 0.2s,
+      color 0.2s;
+    line-height: 1.6;
+  }
+  .copy-btn:hover {
+    background: rgba(217, 168, 78, 0.22);
+    border-color: var(--accent);
+  }
+  .copy-btn.copied {
+    background: rgba(26, 188, 132, 0.15);
+    border-color: rgba(26, 188, 132, 0.5);
+    color: #1abc84;
+  }
+  .copy-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>

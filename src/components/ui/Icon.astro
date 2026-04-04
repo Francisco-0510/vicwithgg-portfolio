@@ -1,16 +1,15 @@
 ---
 /**
- * Icon — inline SVG icon system
+ * ACCESSIBILITY PATCH para Icon.astro
  *
- * All icons are rendered inline (no external sprite dependency).
- * Add new icons to the `icons` map below.
+ * Problema Lighthouse: `[aria-hidden="true"] elements contain focusable descendants`
+ * Causa: SVG sin aria-hidden="true" explícito en contextos donde actúa como decoración.
  *
- * Usage:
- *   <Icon name="arrow-right" />
- *   <Icon name="mail" size={20} color="var(--accent)" />
- *   <Icon name="github" class="icon--blue" />
+ * Cambios:
+ *  - aria-hidden="true" por defecto en todos los iconos decorativos (ariaHidden=true)
+ *  - role="img" + aria-label solo cuando ariaHidden=false (iconos informativos)
+ *  - focusable="false" en todos los SVG (IE11 compat, algunos navegadores lo necesitan)
  */
-
 import type { IconName } from './icon-types';
 
 interface Props {
@@ -27,11 +26,11 @@ const {
   size = 16,
   color,
   class: extraClass = '',
-  ariaHidden = true,
+  ariaHidden = true, // SIEMPRE true por defecto — iconos son decorativos
   ariaLabel,
 } = Astro.props;
 
-// ── Icon paths catalogue ────────────────────────────────────────
+// ── Icon paths catalogue ─────────────────────────────────────
 const icons: Record<
   IconName,
   { viewBox: string; path: string; fill?: boolean }
@@ -114,14 +113,20 @@ if (!icon)
   throw new Error(`Icon "${name}" not found. Add it to Icon.astro icons map.`);
 ---
 
+<!--
+  focusable="false" — previene que Safari antiguo y IE hagan el SVG focusable
+  aria-hidden="true" — por defecto en iconos decorativos (la mayoría)
+  role="img" + aria-label — solo en iconos informativos (ariaHidden=false)
+-->
 <svg
   viewBox={icon.viewBox}
   width={size}
   height={size}
   style={color ? `color: ${color};` : undefined}
   class={`icon icon--${name}${extraClass ? ` ${extraClass}` : ''}`}
+  focusable="false"
   aria-hidden={ariaHidden ? 'true' : undefined}
-  aria-label={!ariaHidden ? ariaLabel : undefined}
+  aria-label={!ariaHidden ? (ariaLabel ?? name) : undefined}
   role={!ariaHidden ? 'img' : undefined}
   set:html={icon.path}
 />
@@ -131,5 +136,7 @@ if (!icon)
     display: inline-block;
     flex-shrink: 0;
     vertical-align: middle;
+    /* Previene que el SVG sea clickable accidentalmente */
+    pointer-events: none;
   }
 </style>

@@ -31,7 +31,7 @@ export const person = {
   ], */
   availability:
     "Disponible para proyectos freelance, colaboraciones y oportunidades full-time",
-  photo: "/images/vic-profile.jpg", // replace with real photo
+  photo: "/images/me.jpg", // replace with real photo
   email: "hola@vicwithgg.com",
   social: {
     linkMe: "https://link.me/vicwithgg",
@@ -375,7 +375,7 @@ export const experience = [
   {
     role: "Diseñador UX/UI y Desarrollador Frontend",
     company: "Hangar Oficial, Gobierno de Oaxaca",
-    logo: "/images/experience/dghoge-logo.png",
+    logo: "/images/experience/hangar.jpg",
     period: "Octubre 2025 - Marzo 2026",
     description:
       "Lideré el rediseño integral UX/UI para simplificar procesos aeronáuticos de mantenimiento y despacho, transformando flujos complejos en interfaces intuitivas mediante prototipado de alta fidelidad. Arquitecté desde cero un sistema de diseño escalable con componentes y tokens visuales, optimizando los tiempos de entrega. En el área de ingeniería, comandé la implementación frontend con React 19, TypeScript y Vite bajo una arquitectura modular pixel-perfect. Además, robustecí la lógica de negocio mediante sistemas de navegación transversal y la refactorización de seguridad con RBAC y gestión de sesiones optimizada.",
@@ -414,7 +414,7 @@ export const experience = [
   {
     role: "Diseñador UX/UI y Desarrollador Web",
     company: "VGG Desarrollo y Diseño (Marca Personal)",
-    logo: "",
+    logo: "/images/experience/vgg-logo.png",
     period: "2022 - Presente",
     description:
       "Desde 2022, bajo mi marca personal en Oaxaca, México, me he especializado en la convergencia entre el diseño estratégico y el desarrollo de alto rendimiento. Optimicé drásticamente los flujos de trabajo mediante la creación del 'VG Design UI KIT' en Figma, logrando una reducción del 60% en tiempos de entrega. Mi enfoque técnico se centra en arquitecturas modernas y multi-framework; he desarrollado productos complejos como una réplica funcional de Spotify —integrando Astro, React y Svelte— y la plataforma VGG Movies con Firebase. Además, diseño soluciones empresariales orientadas a la conversión, desde sistemas de boletaje personalizados para clientes como 'La Solteca' hasta sitios de alto impacto visual en Webflow.",
@@ -435,7 +435,7 @@ export const experience = [
   {
     role: "Diseñador UX/UI y Desarrollador Web",
     company: "Grupo Empresarial NIREJ",
-    logo: "",
+    logo: "/images/experience/nirej.png",
     period: "Octubre 2023 - Enero 2024",
     description:
       "Coordiné equipos multidisciplinarios bajo metodologías ágiles para transformar necesidades de negocio en soluciones de diseño estratégico. Lideré el rediseño integral del Hospital Ángel del Mar, ejecutando desde la investigación UX hasta el desarrollo final en Webflow. Asimismo, impulsé la presencia digital de la marca mediante el desarrollo del sitio web de BETAJ, landing pages de alta conversión para talleres de innovación y la creación de sistemas de email marketing corporativo con un enfoque riguroso en la identidad de marca y compatibilidad multidispositivo.",
@@ -456,7 +456,7 @@ export const experience = [
     role: "Diseñador UX/UI y Desarrollador Web",
     company:
       "Universidad Tecnológica de los Valles Centrales de Oaxaca (UTVCO)",
-    logo: "",
+    logo: "/images/experience/utvco.jpg",
     period: "2019 - 2023",
     description:
       "Lideré estrategias de diseño centrado en el usuario (UCD) para proyectos institucionales de alto impacto, asegurando estándares visuales de excelencia y optimización de entregas. Destaco el rediseño integral de la plataforma HealthCheck, donde realicé el UX Research y la interfaz para ecosistemas móviles y wearables. Asimismo, diseñé y desarrollé el front-end del BIT Tournament 2023 utilizando Angular y Figma, priorizando la arquitectura de información y mapas de navegación. Además, implementé sistemas de gestión de actividades en Ionic, enfocándome en la accesibilidad y el rendimiento de las interfaces.",
@@ -554,7 +554,7 @@ export const techLogos = [
   { name: "Astro", type: "Framework", logo: "/images/stack/astro.svg" },
   { name: "Figma", type: "Design", logo: "/images/stack/figma.svg" },
   { name: "Tailwind CSS", type: "Styling", logo: "/images/stack/tailwind.svg" },
-  { name: "Vite", type: "Build Tool", logo: "/images/stack/vite.svg" },
+  { name: "Git", type: "Version Control", logo: "/images/stack/gi.svg" },
   { name: "Angular", type: "Framework", logo: "/images/stack/angular.svg" },
   { name: "Webflow", type: "No-Code", logo: "/images/stack/webflow.svg" },
 ] satisfies TechLogo[];
