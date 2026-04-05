@@ -1,199 +1,141 @@
 ---
 // src/components/ui/ProjectCard.astro
+import ArrowRight from '@lucide/astro/icons/arrow-right';
+import SquareArrowOutUpRight from '@lucide/astro/icons/square-arrow-out-up-right';
+import { Image } from 'astro:assets';
 import type { Project } from '../../data/portfolio';
+import Figma from '../icons/Figma.astro';
+import GitHub from '../icons/GitHub.astro';
 
 interface Props {
   project: Project;
   index?: number;
+  /** Permite cambiar el nivel del heading para mantener la jerarquía SEO */
+  headingLevel?: 'h2' | 'h3' | 'h4';
 }
 
-const { project, index = 0 } = Astro.props;
-const delay = index % 3; // cycle 0-1-2
+const { project, index = 0, headingLevel: Heading = 'h3' } = Astro.props;
+
+// 5. Fallback de enlace más explícito
+// Priorizamos 'live', luego 'github', luego 'figma'.
+// Si no hay ninguno, redirigimos a una página interna o detalle (ej: /projects/[slug])
+const mainHref =
+  project.links.live ||
+  project.links.github ||
+  project.links.figma ||
+  `/proyectos/${project.name.toLowerCase().replace(/\s+/g, '-')}`;
+const isExternal = mainHref.startsWith('http');
+
+// 4. Robustez en texto decorativo
+const bgText = project.name?.split(' ')[0] || 'PROJECT';
+
+const delayClass = `reveal-delay-${index % 3}`;
 ---
 
 <a
-  href={project.links.live || project.links.figma || project.links.github || '#'}
-  class={`project-card reveal reveal-delay-${delay}`}
-  target={project.links.live ? '_blank' : undefined}
-  rel={project.links.live ? 'noopener noreferrer' : undefined}
-  aria-label={`Ver proyecto: ${project.name}`}
->
-  <!-- Thumbnail -->
-  <div class="project-thumbnail">
-    <img
+  href={mainHref}
+  class:list={[
+    'group relative flex min-h-105 flex-col overflow-hidden bg-(--bg) transition-colors duration-300 hover:bg-(--bg-card)',
+    'reveal',
+    delayClass,
+  ]}
+  target={isExternal ? '_blank' : undefined}
+  rel={isExternal ? 'noopener noreferrer' : undefined}
+  aria-label={`Explorar proyecto: ${project.name}`}>
+  <div
+    class="absolute bottom-0 left-0 z-20 h-0.5 w-full origin-left scale-x-0 bg-(--accent) transition-transform duration-500 group-hover:scale-x-100">
+  </div>
+
+  <div
+    class="relative flex h-50 w-full items-center justify-center overflow-hidden bg-(--line)/10">
+    {
+      /* Usamos un div de fondo como fallback visual ("Skeleton") 
+      en lugar de inline JS 'onerror'. Si la imagen falla, 
+      el color de fondo de la caja madre (bg-line/10) será visible.
+    */
+    }
+    <Image
       src={project.thumbnail}
-      alt={`Thumbnail de ${project.name}`}
-      loading="lazy"
-      width="400"
-      height="200"
-      onerror="this.style.display='none'"
+      alt={`Captura de pantalla de ${project.name}`}
+      width={800}
+      height={400}
+      loading={index < 3 ? 'eager' : 'lazy'}
+      decoding="async"
+      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
     />
-    <div class="project-thumbnail-overlay"></div>
-    <div class="project-type-badge">{project.type}</div>
-  </div>
 
-  <!-- Content -->
-  <div class="project-content">
-    <div class="project-sector">{project.sector}</div>
-    <h3 class="project-name">{project.name}</h3>
-    <p class="project-desc">{project.description}</p>
-
-    <!-- Tech chips -->
-    <div class="project-tech" role="list" aria-label="Tecnologías">
-      {project.tech.map((t) => (
-        <span class="tech-chip" role="listitem">{t}</span>
-      ))}
+    <div
+      class="absolute inset-0 z-10 bg-linear-to-t from-(--bg) via-transparent to-transparent opacity-80">
     </div>
 
-    <!-- Links -->
-    <div class="project-links">
-      {project.links.live && (
-        <span class="project-link">
-          Live
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
-          </svg>
-        </span>
-      )}
-      {project.links.figma && (
-        <span class="project-link blue">
-          Figma
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </span>
-      )}
-      {project.links.github && (
-        <span class="project-link">
-          GitHub
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </span>
-      )}
+    <div
+      class="absolute right-3 top-3 z-20 border border-(--line) bg-(--bg)/80 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-(--text-3) backdrop-blur-sm">
+      {project.type}
     </div>
   </div>
 
-  <!-- Background decorative text -->
-  <div class="project-bg-text" aria-hidden="true">{project.name.split(' ')[0].toUpperCase()}</div>
+  <div class="relative z-20 flex flex-1 flex-col gap-3 p-7">
+    <header>
+      <span
+        class="font-mono text-[9px] uppercase tracking-[0.18em] text-(--accent)">
+        {project.sector}
+      </span>
+      {/* 6. Jerarquía de headings dinámica */}
+      <Heading
+        class="mt-1 font-display text-xl font-bold uppercase tracking-wide text-(--text) leading-tight">
+        {project.name}
+      </Heading>
+    </header>
+
+    <p class="line-clamp-3 flex-1 text-sm leading-relaxed text-(--text-2)">
+      {project.description}
+    </p>
+
+    <div
+      class="flex flex-wrap gap-1.5"
+      role="list"
+      aria-label="Tecnologías utilizadas">
+      {
+        project.tech.map((t) => (
+          <span
+            class="bg-(--line)/30 px-2 py-0.5 font-mono text-[10px] text-(--text-2)"
+            role="listitem">
+            {t}
+          </span>
+        ))
+      }
+    </div>
+
+    <div class="mt-2 flex gap-4">
+      {
+        project.links.live && (
+          <span class="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-(--accent) transition-all group-hover:gap-2">
+            Live <SquareArrowOutUpRight class="size-3" />
+          </span>
+        )
+      }
+      {
+        project.links.figma && (
+          <span class="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-blue-400 transition-all group-hover:gap-2">
+            Figma <Figma class="size-3" /> <ArrowRight class="size-3" />
+          </span>
+        )
+      }
+      {
+        project.links.github && (
+          <span class="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-(--text-2) transition-all group-hover:gap-2">
+            GitHub <GitHub class="size-3" />
+          </span>
+        )
+      }
+    </div>
+  </div>
+
+  {/* 4. Texto decorativo robusto */}
+  <div
+    class="absolute -bottom-2 right-2 z-10 select-none pointer-events-none font-display text-7xl font-black leading-none text-transparent opacity-5"
+    style={{ WebkitTextStroke: '1px var(--text)' }}
+    aria-hidden="true">
+    {bgText.toUpperCase()}
+  </div>
 </a>
-
-<style>
-  .project-card {
-    background: var(--bg);
-    display: flex;
-    flex-direction: column;
-    min-height: 420px;
-    transition: background 0.3s;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    text-decoration: none;
-  }
-  .project-card::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 100%; height: 2px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-    z-index: 2;
-  }
-  .project-card:hover { background: var(--bg-card); }
-  .project-card:hover::before { transform: scaleX(1); }
-
-  /* Thumbnail */
-  .project-thumbnail {
-    width: 100%; height: 200px;
-    background: var(--bg-card);
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden; position: relative;
-  }
-  .project-thumbnail img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-  .project-card:hover .project-thumbnail img { transform: scale(1.08); }
-
-  .project-thumbnail-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, var(--bg) 0%, transparent 70%);
-    opacity: 0.7; z-index: 1;
-  }
-
-  .project-type-badge {
-    position: absolute;
-    top: 12px; right: 12px;
-    font-family: var(--f-mono);
-    font-size: 9px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    background: rgba(6, 8, 13, 0.8);
-    border: 1px solid var(--line);
-    color: var(--text-3);
-    z-index: 2;
-    backdrop-filter: blur(4px);
-  }
-
-  /* Content */
-  .project-content {
-    padding: 24px 28px;
-    display: flex; flex-direction: column;
-    gap: 12px; flex: 1;
-    position: relative; z-index: 2;
-  }
-
-  .project-sector {
-    font-family: var(--f-mono);
-    font-size: 9px; letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  .project-name {
-    font-family: var(--f-display);
-    font-size: 20px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.03em;
-    color: var(--text); line-height: 1.1;
-  }
-  .project-desc {
-    font-size: 14px; color: var(--text-2);
-    line-height: 1.6; flex: 1;
-  }
-  .project-tech {
-    display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px;
-  }
-
-  /* Links */
-  .project-links {
-    display: flex; gap: 12px; margin-top: 8px;
-  }
-  .project-link {
-    font-family: var(--f-mono);
-    font-size: 10px; letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    display: inline-flex; align-items: center; gap: 4px;
-    transition: gap 0.2s, color 0.2s;
-  }
-  .project-link.blue { color: var(--blue); }
-  .project-card:hover .project-link { gap: 8px; }
-  .project-link svg { width: 12px; height: 12px; }
-
-  /* Decorative bg text */
-  .project-bg-text {
-    position: absolute;
-    bottom: -8px; right: 8px;
-    font-family: var(--f-display);
-    font-size: 64px; font-weight: 900;
-    line-height: 1; color: transparent;
-    -webkit-text-stroke: 1px rgba(237, 233, 224, 0.04);
-    pointer-events: none; user-select: none;
-    letter-spacing: -0.02em; z-index: 1;
-  }
-</style>

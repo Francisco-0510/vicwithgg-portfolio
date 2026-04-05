@@ -25,21 +25,19 @@ export const person = {
     "Soy Francisco Victorico Aguirre Jiménez, Diseñador UX/UI y Desarrollador Web comprometido con crear experiencias digitales que destacan. Equilibro las necesidades del usuario con los objetivos del producto, utilizando metodologías ágiles, investigación y diseño centrado en las personas.",
     "Mi enfoque estratégico e intuitivo, junto con el dominio de herramientas avanzadas, me permite convertir ideas en soluciones innovadoras y efectivas. Siempre busco aprender, mejorar y superar nuevos desafíos.",
   ],
-  /*  bio: [
-    "Combino pensamiento estratégico de diseño con ejecución técnica para construir productos digitales que equilibran usuario y negocio.",
-    "Con experiencia en sistemas de diseño, interfaces complejas y desarrollo frontend moderno, trabajo en todo el pipeline: de Figma a producción.",
-  ], */
+
   availability:
     "Disponible para proyectos freelance, colaboraciones y oportunidades full-time",
   photo: "/images/me.jpg", // replace with real photo
-  email: "hola@vicwithgg.com",
+  email: "vgg.designer.01@gmail.com",
   social: {
+    phone: "+52 1 951 391 5906",
     linkMe: "https://link.me/vicwithgg",
     figma: "https://www.figma.com/@vicwithgg",
-    github: "https://github.com/vicwithgg",
-    linkedin: "https://linkedin.com/in/vicwithgg",
+    github: "https://github.com/Francisco-0510",
+    linkedin: "https://www.linkedin.com/in/vicwith-gg/",
     x: "https://x.com/VicWithGG1",
-    instagram: "https://www.instagram.com/vicwithgg/",
+    instagram: "https://www.instagram.com/vicwithgg",
   },
 } as const;
 
@@ -58,48 +56,41 @@ export const projects = [
     sector: "Gobierno · Aeronáutica",
     description:
       "Sistema de seguimiento de operaciones aeronáuticas para el Hangar Oficial del Gobierno del Estado de Oaxaca. Módulos de personal, capacitaciones y documentos.",
-    thumbnail:
-      "https://placehold.co/600x400/0b0f18/d9a84e?text=SiCROA&font=roboto",
-    tech: ["React", "TypeScript", "TanStack Query", "Zod", "FSD"],
-    links: {
-      figma: "#",
-      github: "#",
-      live: "#",
-    },
+    thumbnail: "/images/projects/thumbnail-sicroa.png",
+    tech: [
+      "React",
+      "TypeScript",
+      "TanStack Query",
+      "ShadCN UI",
+      "Figma",
+      "Design Systems",
+    ],
+    links: {},
     featured: true,
     type: "app" as const,
   },
   {
-    slug: "altos-homepage",
-    name: "Altos Ingeniería",
-    sector: "Electricidad Industrial",
+    slug: "utvco-gestion-cultural-deportiva",
+    name: "Sistema Web Para La Gestión de Actividades Culturales y Deportivas / Frontend",
+    sector: "Educación / Gestión Académica",
     description:
-      "Homepage corporativa para Altos Ingeniería Eléctrica. Incluye paquete Wix Studio y style guide interactivo HTML para handoff.",
-    thumbnail:
-      "https://placehold.co/600x400/0b0f18/d9a84e?text=Altos+Ingeniería&font=roboto",
-    tech: ["Wix Studio", "HTML", "CSS", "Figma"],
+      "Plataforma web para optimizar el registro y seguimiento de actividades culturales y deportivas. Diseñada con enfoque UX/UI centrado en el usuario, reemplaza procesos manuales en Google Forms por un sistema automatizado con control de cupos, reportes en tiempo real y experiencia intuitiva para estudiantes y administradores.",
+    thumbnail: "/images/projects/thumbnail-sistema-utvco.png",
+    tech: [
+      "Design System",
+      "Frontend",
+      "TypeScript",
+      "Tailwind CSS",
+      "Figma",
+      "Ionic Framework",
+    ],
     links: {
-      figma: "",
-      github: "",
-      live: "https://altos.co",
+      live: "https://www.figma.com/deck/lUapPq3OwsMbiz6TfQqdSP",
+      github: "https://github.com/Francisco-0510/activity-management-system",
     },
     featured: true,
-    type: "web" as const,
+    type: "web",
   },
-  /*   {
-    slug: "altos-design-system",
-    name: "Altos Design System",
-    sector: "Design Systems",
-    description:
-      "Sistema de diseño completo en Figma con taxonomía Category/Role/Size para tokens tipográficos, variables semánticas y modo oscuro.",
-    thumbnail: "https://placehold.net/default.png",
-    tech: ["Figma", "Design Tokens", "Variables", "Auto Layout"],
-    links: {
-      figma: "",
-    },
-    featured: true,
-    type: "design" as const,
-  }, */
   {
     slug: "taaniilaaz-muneco-chocolate",
     name: "Taaniilaaz y Muñeco de Chocolate",
@@ -109,23 +100,22 @@ export const projects = [
     thumbnail:
       "https://placehold.co/600x400/0b0f18/3a7bd5?text=Taaniilaaz&font=roboto",
     tech: ["Figma", "UX/UI", "Responsive Design"],
-    links: {
-      live: "#",
-    },
+    links: {},
     featured: false,
     type: "design" as const,
   },
   {
-    slug: "vallemio-shop",
-    name: "ValleMio.shop",
+    slug: "AdvenTours Mex",
+    name: "AdvenTours Mex",
     sector: "E-commerce • Web",
     description:
       "Creación de sitio web comercial, participando en la arquitectura web y diseño UI.",
-    thumbnail:
-      "https://placehold.co/600x400/0b0f18/d9a84e?text=ValleMio&font=roboto",
+    thumbnail: "/images/projects/thumbnail-adven-tours.png",
     tech: ["Figma", "UX/UI", "Frontend"],
     links: {
-      live: "#",
+      live: "https://adventoursmex.com/",
+      figma:
+        "https://www.figma.com/community/file/1570939876630705647/diseno-web-para-agencia-de-viajes",
     },
     featured: false,
     type: "web" as const,
@@ -140,8 +130,7 @@ export const projects = [
       "https://placehold.co/600x400/0b0f18/3a7bd5?text=Spotify+Clone&font=roboto",
     tech: ["Astro", "React", "Tailwind CSS", "Frontend"],
     links: {
-      live: "#",
-      github: "https://github.com/Francisco-0510",
+      github: "https://github.com/Francisco-0510/spotify-clone",
     },
     featured: false,
     type: "app" as const,
@@ -151,10 +140,10 @@ export const projects = [
     name: "VicWithGG Portafolio Web",
     sector: "Portafolio • Web",
     description: "Portafolio personal con Astro, Tailwind CSS y Vercel.",
-    thumbnail: "/images/projects/vicwithgg-cover.webp",
+    thumbnail: "/images/projects/vicwithgg-cover.png",
     tech: ["HTML5", "React", "Astro", "Tailwind CSS", "Vercel", "GitHub"],
     links: {
-      live: "#",
+      live: "https://vicwithgg-designer.netlify.app/",
       github: "https://github.com/Francisco-0510/vicwithgg-portfolio",
     },
     featured: false,
@@ -194,12 +183,11 @@ export const projects = [
     name: "VG Design UI Kit",
     sector: "Design Systems • UI Kit",
     description: "Kit de diseño UI/UX en Figma.",
-    thumbnail: "/images/projects/thumbnail-vg.webp",
+    thumbnail: "/images/projects/thumbnail-vg-design-ui-kit.png",
     tech: ["Figma", "Design System", "Responsive Design", "UX/UI"],
     links: {
-      live: "https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-10",
       figma:
-        "https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-10",
+        "https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-2-0",
     },
     featured: false,
     type: "design" as const,
@@ -209,7 +197,7 @@ export const projects = [
     name: "Hospital Ángel del Mar",
     sector: "Salud • Web",
     description: "Rediseño UI/UX e implementación en Webflow.",
-    thumbnail: "/images/projects/thumbnail-ham.webp",
+    thumbnail: "/images/projects/thumbnail-ham.png",
     tech: ["Figma", "Design System", "Webflow", "UX/UI", "Responsive Design"],
     links: {
       live: "https://hospitalangeldelmar.com.mx/",
@@ -391,6 +379,7 @@ export const experience = [
       "Architecture",
     ],
   },
+
   // Vision Creativa
   {
     role: "Diseñador y Desarrollador Web",
@@ -472,15 +461,6 @@ export const experience = [
       "Front-end Development",
     ],
   },
-  // Zapotal
-  {
-    role: "",
-    company: "",
-    logo: "",
-    period: "",
-    description: "",
-    tags: [],
-  },
 ] satisfies ExperienceItem[];
 
 // ── TYPES ─────────────────────────────────────────────────────
@@ -554,7 +534,7 @@ export const techLogos = [
   { name: "Astro", type: "Framework", logo: "/images/stack/astro.svg" },
   { name: "Figma", type: "Design", logo: "/images/stack/figma.svg" },
   { name: "Tailwind CSS", type: "Styling", logo: "/images/stack/tailwind.svg" },
-  { name: "Git", type: "Version Control", logo: "/images/stack/gi.svg" },
+  { name: "Git", type: "Version Control", logo: "/images/stack/git.svg" },
   { name: "Angular", type: "Framework", logo: "/images/stack/angular.svg" },
   { name: "Webflow", type: "No-Code", logo: "/images/stack/webflow.svg" },
 ] satisfies TechLogo[];
@@ -714,12 +694,6 @@ export interface ExperienceItem {
   period: string;
   description: string;
   tags: string[];
-}
-
-export interface StackCategory {
-  title: string;
-  icon: string;
-  skills: string[];
 }
 
 export interface TechLogo {
