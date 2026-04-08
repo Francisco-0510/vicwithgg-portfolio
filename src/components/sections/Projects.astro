@@ -1,8 +1,15 @@
 ---
 // src/components/sections/Projects.astro
-import { projects } from '../../data/portfolio';
+import { getCollection } from 'astro:content';
 import Label from '../ui/Label.astro';
 import ProjectCard from '../ui/ProjectCard.astro';
+
+const allProjects = await getCollection('proyectos', ({ data }) => !data.draft);
+
+const projects = allProjects.sort((a, b) => {
+  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+  return (a.data.order ?? 99) - (b.data.order ?? 99);
+});
 ---
 
 <section id="projects">
@@ -30,7 +37,6 @@ import ProjectCard from '../ui/ProjectCard.astro';
     </div>
   </div>
 </section>
-
 <style>
   #projects {
     padding: 120px 0;

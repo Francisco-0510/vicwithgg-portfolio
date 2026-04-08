@@ -49,7 +49,7 @@ export const heroStats = [
 ] satisfies HeroStat[];
 
 // ── PROJECTS ─────────────────────────────────────────────────
-export const projects = [
+/* export const projects = [
   {
     slug: "sicroa",
     name: "SiCROA",
@@ -105,7 +105,7 @@ export const projects = [
     type: "design" as const,
   },
   {
-    slug: "AdvenTours Mex",
+    slug: "adventours-Mex",
     name: "AdvenTours Mex",
     sector: "E-commerce • Web",
     description:
@@ -347,7 +347,7 @@ export const projects = [
     type: "app" as const,
   },
 ] satisfies Project[];
-
+ */
 // ── EXPERIENCE ────────────────────────────────────────────────
 export const experience = [
   /* {

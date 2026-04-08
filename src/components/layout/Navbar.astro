@@ -8,15 +8,15 @@ import Search from '../ui/Search.astro';
   <div class="wrap">
     <div class="nav-inner">
       <!-- Logo -->
-      <a href="/" class="nav-logo" aria-label="VGG — VicWithGG, ir al inicio">
+      <!--   <a href="/" class="nav-logo" aria-label="VGG — VicWithGG, ir al inicio">
         <span class="logo-abbr" aria-hidden="true">VGG</span>
         <span class="logo-full" aria-hidden="true">Design & Dev</span>
-      </a>
+      </a> -->
       <a href="/" class="nav-logo" aria-label={`${person.handle} — Inicio`}>
         <span class="nav-logo-main">{person.initials}</span>
-        <span class="nav-logo-sub"
-          >{person.name.split(' ').slice(1, 3).join(' ')}</span
-        >
+        <span class="nav-logo-sub">
+          <span class="logo-full" aria-hidden="true">Design & Dev</span>
+        </span>
       </a>
 
       <!-- Links -->

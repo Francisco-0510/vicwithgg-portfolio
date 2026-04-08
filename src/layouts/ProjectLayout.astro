@@ -1,52 +1,43 @@
 ---
 // src/layouts/ProjectLayout.astro
-// Used by MDX case study files in src/pages/proyectos/[slug].mdx
+// Migrado a Astro Content Collections
+import type { CollectionEntry } from 'astro:content';
 import Footer from '../components/layout/Footer.astro';
 import Navbar from '../components/layout/Navbar.astro';
-import { projects } from '../data/portfolio';
 import BaseLayout from './BaseLayout.astro';
 
 interface Props {
-  frontmatter: {
-    slug: string;
-    title?: string;
-    description?: string;
-  };
+  project: CollectionEntry<'proyectos'>;
 }
 
-const { frontmatter } = Astro.props;
-const slug = frontmatter?.slug;
-const project = projects.find((p) => p.slug === slug);
-if (!project) throw new Error(`Project "${slug}" not found in portfolio.ts`);
+const { project } = Astro.props;
+const { name, sector, description, thumbnail, tech, links } = project.data;
 ---
 
-<BaseLayout
-  title={frontmatter.title ?? `${project.name} — VicWithGG`}
-  description={frontmatter.description ?? project.description}>
+<BaseLayout title={`${name} — VicWithGG`} description={description}>
   <Navbar />
 
   <main>
-    <!-- Case study hero -->
     <header class="case-hero">
       <div class="wrap">
         <div class="case-meta">
           <div class="label">
             <a href="/#projects" class="back-link">← Proyectos</a>
           </div>
-          <div class="case-sector">{project.sector}</div>
+          <div class="case-sector">{sector}</div>
         </div>
-        <h1 class="case-h1">{project.name}</h1>
-        <p class="case-desc">{project.description}</p>
+        <h1 class="case-h1">{name}</h1>
+        <p class="case-desc">{description}</p>
 
         <div class="case-tech">
-          {project.tech.map((t) => <span class="tech-chip">{t}</span>)}
+          {tech.map((t: unknown) => <span class="tech-chip">{t}</span>)}
         </div>
 
         <div class="case-links">
           {
-            project.links.live && (
+            links.live && (
               <a
-                href={project.links.live}
+                href={links.live}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn-primary">
@@ -55,9 +46,9 @@ if (!project) throw new Error(`Project "${slug}" not found in portfolio.ts`);
             )
           }
           {
-            project.links.figma && (
+            links.figma && (
               <a
-                href={project.links.figma}
+                href={links.figma}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn-outline">
@@ -66,9 +57,9 @@ if (!project) throw new Error(`Project "${slug}" not found in portfolio.ts`);
             )
           }
           {
-            project.links.github && (
+            links.github && (
               <a
-                href={project.links.github}
+                href={links.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn-ghost">
@@ -80,11 +71,11 @@ if (!project) throw new Error(`Project "${slug}" not found in portfolio.ts`);
       </div>
 
       {
-        project.thumbnail && (
+        thumbnail && (
           <div class="case-thumbnail-full">
             <img
-              src={project.thumbnail}
-              alt={`Imagen de portada de ${project.name}`}
+              src={thumbnail}
+              alt={`Imagen de portada de ${name}`}
               width="1240"
               height="600"
               loading="eager"
@@ -94,7 +85,6 @@ if (!project) throw new Error(`Project "${slug}" not found in portfolio.ts`);
       }
     </header>
 
-    <!-- MDX content -->
     <article class="case-content wrap prose">
       <slot />
     </article>

@@ -1,141 +1,206 @@
 ---
 // src/components/ui/ProjectCard.astro
+import { getProjectSlug } from '@/lib/collections';
 import ArrowRight from '@lucide/astro/icons/arrow-right';
 import SquareArrowOutUpRight from '@lucide/astro/icons/square-arrow-out-up-right';
 import { Image } from 'astro:assets';
-import type { Project } from '../../data/portfolio';
+import type { CollectionEntry } from 'astro:content';
 import Figma from '../icons/Figma.astro';
 import GitHub from '../icons/GitHub.astro';
 
 interface Props {
-  project: Project;
+  project: CollectionEntry<'proyectos'>;
   index?: number;
-  /** Permite cambiar el nivel del heading para mantener la jerarquía SEO */
   headingLevel?: 'h2' | 'h3' | 'h4';
 }
 
 const { project, index = 0, headingLevel: Heading = 'h3' } = Astro.props;
 
-// 5. Fallback de enlace más explícito
-// Priorizamos 'live', luego 'github', luego 'figma'.
-// Si no hay ninguno, redirigimos a una página interna o detalle (ej: /projects/[slug])
-const mainHref =
-  project.links.live ||
-  project.links.github ||
-  project.links.figma ||
-  `/proyectos/${project.name.toLowerCase().replace(/\s+/g, '-')}`;
-const isExternal = mainHref.startsWith('http');
+const slug = getProjectSlug(project.id);
+const { name, sector, description, thumbnail, tech, links, type } =
+  project.data;
 
-// 4. Robustez en texto decorativo
-const bgText = project.name?.split(' ')[0] || 'PROJECT';
-
+const projectHref = `/proyectos/${slug}/`;
+const bgText = name?.split(' ')[0] || 'PROJECT';
 const delayClass = `reveal-delay-${index % 3}`;
 ---
 
-<a
-  href={mainHref}
+<article
   class:list={[
     'group relative flex min-h-105 flex-col overflow-hidden bg-(--bg) transition-colors duration-300 hover:bg-(--bg-card)',
     'reveal',
     delayClass,
   ]}
-  target={isExternal ? '_blank' : undefined}
-  rel={isExternal ? 'noopener noreferrer' : undefined}
-  aria-label={`Explorar proyecto: ${project.name}`}>
+  aria-labelledby={`project-title-${slug}`}>
+  {/* Barra de hover accent */}
   <div
     class="absolute bottom-0 left-0 z-20 h-0.5 w-full origin-left scale-x-0 bg-(--accent) transition-transform duration-500 group-hover:scale-x-100">
   </div>
 
+  {/* Thumbnail + Área clicable principal */}
+  <a
+    href={projectHref}
+    class="block group/link"
+    aria-label={`Ver detalles del proyecto: ${name}`}>
+    <div
+      class="relative flex h-50 w-full items-center justify-center overflow-hidden bg-(--line)/10">
+      <Image
+        src={thumbnail}
+        alt={`Captura de pantalla de ${name}`}
+        width={800}
+        height={400}
+        loading={index < 3 ? 'eager' : 'lazy'}
+        decoding="async"
+        format="avif"
+        class="h-full w-full object-cover transition-transform duration-500 group-hover/link:scale-105"
+      />
+      <div
+        class="absolute inset-0 z-10 bg-linear-to-t from-(--bg) via-transparent to-transparent opacity-80">
+      </div>
+      <div
+        class="absolute right-3 top-3 z-20 border border-(--line) bg-(--bg)/80 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-(--text-3) backdrop-blur-sm">
+        {type}
+      </div>
+    </div>
+
+    {/* Contenido textual clicable */}
+    <div class="relative z-20 flex flex-1 flex-col gap-3 p-7">
+      <header>
+        <span
+          class="font-mono text-[9px] uppercase tracking-[0.18em] text-(--accent)"
+          >{sector}</span
+        >
+        <Heading
+          id={`project-title-${slug}`}
+          class="mt-1 font-display text-xl font-bold uppercase tracking-wide text-(--text) leading-tight group-hover/link:text-(--accent) transition-colors">
+          {name}
+        </Heading>
+      </header>
+
+      <p class="line-clamp-3 flex-1 text-sm leading-relaxed text-(--text-2)">
+        {description}
+      </p>
+
+      {/* Tech chips */}
+      <div
+        class="flex flex-wrap gap-1.5"
+        role="list"
+        aria-label="Tecnologías utilizadas">
+        {
+          tech.map((t: unknown) => (
+            <span
+              class="bg-(--line)/30 px-2 py-0.5 font-mono text-[10px] text-(--text-2)"
+              role="listitem">
+              {t}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </a>
+
+  {/* 🔗 Links externos: FUERA del <a> principal para evitar anidación */}
+  {
+    links && Object.keys(links).length > 0 && (
+      <div class="px-7 pb-7 pt-2 border-t border-(--line)/30">
+        <div class="flex flex-wrap gap-3">
+          {links.live && (
+            <a
+              href={links.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="external-link inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-(--text-2) transition-all hover:gap-2 hover:text-(--accent) focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-2 rounded px-1"
+              aria-label={`Ver sitio en vivo de ${name} (abre en nueva pestaña)`}>
+              Live <SquareArrowOutUpRight class="size-3" />
+            </a>
+          )}
+          {links.figma && (
+            <a
+              href={links.figma}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="external-link inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-blue-400 transition-all hover:gap-2 hover:text-blue-300 focus-visible:outline-2 focus-visible:outline-blue-400 focus-visible:outline-offset-2 rounded px-1"
+              aria-label={`Ver diseño en Figma de ${name} (abre en nueva pestaña)`}>
+              Figma <Figma class="size-3" />
+            </a>
+          )}
+          {links.github && (
+            <a
+              href={links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="external-link inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-(--text-2) transition-all hover:gap-2 hover:text-(--accent) focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-2 rounded px-1"
+              aria-label={`Ver código en GitHub de ${name} (abre en nueva pestaña)`}>
+              GitHub <GitHub class="size-3" />
+            </a>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  {/* Badge de "Ver detalles" en hover */}
   <div
-    class="relative flex h-50 w-full items-center justify-center overflow-hidden bg-(--line)/10">
-    {
-      /* Usamos un div de fondo como fallback visual ("Skeleton") 
-      en lugar de inline JS 'onerror'. Si la imagen falla, 
-      el color de fondo de la caja madre (bg-line/10) será visible.
-    */
-    }
-    <Image
-      src={project.thumbnail}
-      alt={`Captura de pantalla de ${project.name}`}
-      width={800}
-      height={400}
-      loading={index < 3 ? 'eager' : 'lazy'}
-      decoding="async"
-      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-    />
-
-    <div
-      class="absolute inset-0 z-10 bg-linear-to-t from-(--bg) via-transparent to-transparent opacity-80">
-    </div>
-
-    <div
-      class="absolute right-3 top-3 z-20 border border-(--line) bg-(--bg)/80 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-(--text-3) backdrop-blur-sm">
-      {project.type}
-    </div>
+    class="absolute bottom-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+    <span
+      class="inline-flex items-center gap-1.5 bg-(--accent) text-(--bg) px-3 py-1.5 rounded-full font-mono text-[10px] uppercase tracking-wider shadow-lg">
+      Ver detalles <ArrowRight class="size-3" />
+    </span>
   </div>
 
-  <div class="relative z-20 flex flex-1 flex-col gap-3 p-7">
-    <header>
-      <span
-        class="font-mono text-[9px] uppercase tracking-[0.18em] text-(--accent)">
-        {project.sector}
-      </span>
-      {/* 6. Jerarquía de headings dinámica */}
-      <Heading
-        class="mt-1 font-display text-xl font-bold uppercase tracking-wide text-(--text) leading-tight">
-        {project.name}
-      </Heading>
-    </header>
-
-    <p class="line-clamp-3 flex-1 text-sm leading-relaxed text-(--text-2)">
-      {project.description}
-    </p>
-
-    <div
-      class="flex flex-wrap gap-1.5"
-      role="list"
-      aria-label="Tecnologías utilizadas">
-      {
-        project.tech.map((t) => (
-          <span
-            class="bg-(--line)/30 px-2 py-0.5 font-mono text-[10px] text-(--text-2)"
-            role="listitem">
-            {t}
-          </span>
-        ))
-      }
-    </div>
-
-    <div class="mt-2 flex gap-4">
-      {
-        project.links.live && (
-          <span class="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-(--accent) transition-all group-hover:gap-2">
-            Live <SquareArrowOutUpRight class="size-3" />
-          </span>
-        )
-      }
-      {
-        project.links.figma && (
-          <span class="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-blue-400 transition-all group-hover:gap-2">
-            Figma <Figma class="size-3" /> <ArrowRight class="size-3" />
-          </span>
-        )
-      }
-      {
-        project.links.github && (
-          <span class="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-(--text-2) transition-all group-hover:gap-2">
-            GitHub <GitHub class="size-3" />
-          </span>
-        )
-      }
-    </div>
-  </div>
-
-  {/* 4. Texto decorativo robusto */}
+  {/* Texto decorativo */}
   <div
     class="absolute -bottom-2 right-2 z-10 select-none pointer-events-none font-display text-7xl font-black leading-none text-transparent opacity-5"
     style={{ WebkitTextStroke: '1px var(--text)' }}
     aria-hidden="true">
     {bgText.toUpperCase()}
   </div>
-</a>
+</article>
+
+<style>
+  .reveal {
+    opacity: 0;
+    transform: translateY(1rem);
+    animation: reveal 0.6s ease-out forwards;
+  }
+  .reveal-delay-0 {
+    animation-delay: 0ms;
+  }
+  .reveal-delay-1 {
+    animation-delay: 100ms;
+  }
+  .reveal-delay-2 {
+    animation-delay: 200ms;
+  }
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Links externos: estados de hover/focus */
+  .external-link {
+    position: relative;
+    padding: 2px 0;
+  }
+  .external-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.2s ease;
+  }
+  .external-link:hover::after,
+  .external-link:focus-visible::after {
+    width: 100%;
+  }
+
+  /* View Transitions */
+  @view-transition {
+    navigation: auto;
+  }
+</style>
