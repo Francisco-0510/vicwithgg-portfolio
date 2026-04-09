@@ -1,6 +1,5 @@
 ---
 // src/layouts/BaseLayout.astro
-// OPTIMIZADO: fuentes self-hosted, preload critico, CSP-friendly, aria
 import '../styles/global.css';
 import { site } from '../data/portfolio';
 import ClientRouter from 'astro/components/ClientRouter.astro';
@@ -26,10 +25,12 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#06080d" />
+    <meta name="robots" content="index, follow" />
+    <meta name="generator" content={Astro.generator} />
 
-    <Analytics />
     <!-- SEO -->
     <title>{title}</title>
+
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
@@ -58,29 +59,23 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
       title={`${site.title} — RSS`}
       href="/rss.xml"
     />
-
+    <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
     <!--
-      FUENTES SELF-HOSTED (elimina render-blocking de Google Fonts).
-      Coloca los archivos .woff2 en public/fonts/:
-        - barlow-condensed-700.woff2   (display / headings)
-        - ibm-plex-mono-400.woff2      (mono labels)
-        - lora-400.woff2               (body text)
+      FONTS SELF-HOSTED
+      Coloca los woff2 en public/fonts/ con nombres fijos (sin hashes):
+        public/fonts/barlow-condensed-900.woff2
+        public/fonts/barlow-condensed-700.woff2
+        public/fonts/lora-400.woff2
+        public/fonts/ibm-plex-mono-400.woff2
 
-      Descarga con: npx fontsource-download o manualmente desde Google Fonts
-      usando https://google-webfonts-helper.herokuapp.com/
+      Descarga desde: https://google-webfonts-helper.herokuapp.com/
+      O con fontsource: npm install @fontsource/barlow-condensed
     -->
 
-    <!-- Preload solo los subsets más usados (latin) -->
-    <!--   <link
-      rel="preload"
-      href="/fonts/barlow-condensed-700.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <!-- Preload solo fonts del above-the-fold (hero) -->
     <link
       rel="preload"
-      href="/fonts/ibm-plex-mono-400.woff2"
+      href="/fonts/barlow-condensed-900.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -91,28 +86,27 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
       as="font"
       type="font/woff2"
       crossorigin
-    /> -->
-
-    <!-- Prefetch de página de proyectos (hover strategy en astro.config) -->
-    <meta name="astro:prefetch" content="hover" />
+    />
 
     <!-- Astro View Transitions -->
     <ClientRouter />
 
-    <!-- Pagefind UI styles (solo si la página tiene search) -->
     <slot name="head" />
   </head>
 
   <body>
-    <!-- Skip to content (accesibilidad A11Y) -->
     <a href="#main-content" class="skip-link">SALTAR AL CONTENIDO</a>
+
     <main id="main-content" tabindex="-1">
       <slot />
     </main>
 
-    <!-- ── Global scripts ─────────────────────────────────────── -->
+    <!-- Analytics al final del body, nunca en el head -->
+    <!--    <script>
+      import('@vercel/analytics').then(({ inject }) => inject());
+    </script> -->
+
     <script>
-      // Re-run en cada View Transition
       function initPage() {
         // ── Reveal on scroll ──────────────────────────────────────
         const observer = new IntersectionObserver(
@@ -155,11 +149,9 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
               const href = anchor.getAttribute('href');
               if (!href || href === '#') return;
               e.preventDefault();
-              const id = href.slice(1);
-              const target = document.getElementById(id);
+              const target = document.getElementById(href.slice(1));
               if (target) {
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                // Actualizar URL sin reload
                 history.pushState(null, '', href);
               }
             });
@@ -167,7 +159,7 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
 
         // ── Copy code blocks ──────────────────────────────────────
         document.querySelectorAll('pre').forEach((pre) => {
-          if (pre.querySelector('.copy-btn')) return; // evitar duplicados
+          if (pre.querySelector('.copy-btn')) return;
           const btn = document.createElement('button');
           btn.className = 'copy-btn';
           btn.setAttribute('aria-label', 'Copiar código');
@@ -192,17 +184,17 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
         });
       }
 
-      // Primera carga + cada View Transition
       initPage();
       document.addEventListener('astro:page-load', initPage);
     </script>
 
     <slot name="scripts" />
+    <Analytics />
   </body>
 </html>
 
 <style is:global>
-  /* Skip link — solo visible en foco de teclado */
+  /* Skip link */
   .skip-link {
     position: absolute;
     top: -100%;
@@ -220,7 +212,34 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
     top: 1rem;
   }
 
-  /* ── Code block copy button ─────────────────────────── */
+  /* Evita focus ring visible en main al usar skip-link */
+  #main-content:focus {
+    outline: none;
+  }
+
+  /* Fallback font metrics — elimina CLS en Barlow Condensed */
+  @font-face {
+    font-family: 'Barlow Condensed Fallback';
+    src: local('Arial Narrow'), local('Arial');
+    size-adjust: 97%;
+    ascent-override: 90%;
+    descent-override: 22%;
+    line-gap-override: 0%;
+    font-display: swap;
+  }
+
+  /* Fallback font metrics — elimina CLS en Lora */
+  @font-face {
+    font-family: 'Lora Fallback';
+    src: local('Georgia'), local('Times New Roman');
+    size-adjust: 103%;
+    ascent-override: 88%;
+    descent-override: 24%;
+    line-gap-override: 0%;
+    font-display: swap;
+  }
+
+  /* Copy button */
   .copy-btn {
     position: absolute;
     top: 12px;

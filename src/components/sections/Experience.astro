@@ -1,5 +1,6 @@
 ---
 // src/components/sections/Experience.astro
+import { Image } from 'astro:assets';
 import { experience } from '../../data/portfolio';
 import Label from '../ui/Label.astro';
 ---
@@ -21,7 +22,8 @@ import Label from '../ui/Label.astro';
             <div class="timeline-role">{item.role}</div>
             <div class="timeline-company">
               {item.logo && (
-                <img
+                <Image
+                  format="webp"
                   src={item.logo}
                   alt={item.company}
                   width="24"

@@ -4,6 +4,7 @@ import { stackCategories, techLogos } from '../../data/portfolio';
 import Label from '../ui/Label.astro';
 import Icon from '../ui/Icon.astro';
 import type { IconName } from '../ui/icon-types';
+import { Image } from 'astro:assets';
 
 const iconMap: Record<string, IconName> = {
   design: 'design',
@@ -47,7 +48,8 @@ const iconMap: Record<string, IconName> = {
       {
         techLogos.map((tech, i) => (
           <div class={`tech-logo-item reveal reveal-delay-${i % 4}`}>
-            <img
+            <Image
+              format="webp"
               src={tech.logo}
               alt={tech.name}
               width="40"

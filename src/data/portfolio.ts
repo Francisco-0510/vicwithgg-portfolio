@@ -9,7 +9,7 @@ export const site = {
   title: "VicWithGG | Diseñador UX/UI y Desarrollador Web",
   description:
     "Portfolio de Francisco Victorico Aguirre Jiménez — Diseñador UX/UI y Desarrollador Web especializado en experiencias digitales de alta calidad.",
-  url: "https://vicwithgg.com",
+  url: "https://vicwithgg-portfolio.vercel.app/",
   locale: "es",
 } as const;
 

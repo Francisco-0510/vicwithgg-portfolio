@@ -2,18 +2,45 @@
 
 /* ── TAILWIND v4 ─────────────────────────────────── */
 @import "tailwindcss";
+/* src/styles/fonts.css */
 
-/* ── SELF-HOSTED FONTS (font-display:swap elimina render-blocking) ──
-   Los archivos .woff2 deben estar en public/fonts/
-   Descarga con: https://google-webfonts-helper.herokuapp.com/
-   Barlow Condensed Bold 700
-   IBM Plex Mono Regular 400
-   Lora Regular 400 + Lora Medium 500 (para bold en body)
-   ──────────────────────────────────────────────────────────────── */
-@import "@fontsource/barlow-condensed/900.css";
-@import "@fontsource/barlow-condensed/700.css";
-@import "@fontsource/ibm-plex-mono/400.css";
-@import "@fontsource/lora/400.css";
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/barlow-condensed-900.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/barlow-condensed-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lora";
+  src: url("/fonts/lora-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --f-display: "Barlow Condensed", "Barlow Condensed Fallback", sans-serif;
+  --f-body: "Lora", "Lora Fallback", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
 
 /* ── TAILWIND v4 THEME (replaces tailwind.config.js) */
 @theme {

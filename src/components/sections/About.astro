@@ -4,6 +4,7 @@ import { person, certificates, education } from '../../data/portfolio';
 import Label from '../ui/Label.astro';
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
+import { Image } from 'astro:assets';
 ---
 
 <section id="about">
@@ -21,13 +22,14 @@ import Icon from '../ui/Icon.astro';
             <Image src={profileImg} alt="Foto de Vic" width={400} height={400}
               format="webp" quality={85} loading="eager" />
           -->
-          <img
+          <Image
             src={person.photo}
             alt={`Foto de ${person.name}`}
             width="400"
             height="400"
-            loading="eager"
+            loading="lazy"
             decoding="async"
+            format="webp"
             onerror="this.style.display='none'"
           />
         </div>
@@ -86,7 +88,8 @@ import Icon from '../ui/Icon.astro';
               certificates.map((cert, i) => (
                 <div class={`cert-item reveal reveal-delay-${Math.min(i, 5)}`}>
                   <div class="cert-logo">
-                    <img
+                    <Image
+                      format="webp"
                       src={cert.logo}
                       alt={cert.org}
                       width="32"
@@ -111,7 +114,8 @@ import Icon from '../ui/Icon.astro';
               education.map((edu, i) => (
                 <div class={`edu-item reveal reveal-delay-${Math.min(i, 5)}`}>
                   <div class="edu-logo">
-                    <img
+                    <Image
+                      format="webp"
                       src={edu.logo}
                       alt={edu.school}
                       width="32"

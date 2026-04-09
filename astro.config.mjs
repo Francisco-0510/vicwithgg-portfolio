@@ -5,6 +5,7 @@ import { defineConfig } from "astro/config";
 
 export default defineConfig({
   site: "https://vicwithgg-portfolio.vercel.app/",
+  compressHTML: true, // ← Habilitar compresión HTML
 
   // ── Integrations ──────────────────────────────────────────────
   integrations: [
@@ -35,14 +36,15 @@ export default defineConfig({
   build: {
     assets: "_assets",
     inlineStylesheets: "auto",
-    concurrency: 2,
+    concurrency: 4,
     format: "file",
   },
+  // Para compresión Brotli/Gzip en producción:
 
   // ── Prefetch ──────────────────────────────────────────────────
   prefetch: {
     prefetchAll: false,
-    defaultStrategy: "hover",
+    defaultStrategy: "viewport",
   },
 
   // ── Image (una sola vez, consolidado) ─────────────────────────
@@ -52,7 +54,8 @@ export default defineConfig({
     service: {
       entrypoint: "astro/assets/services/sharp",
       config: {
-        limitInputPixels: false,
+        limitInputPixels: 100_000_000,
+        formats: ["avif", "webp"],
       },
     },
   },
@@ -63,8 +66,6 @@ export default defineConfig({
       theme: "github-dark-dimmed",
       wrap: true,
     },
-    remarkPlugins: [],
-    rehypePlugins: [],
     gfm: true,
   },
 
@@ -87,6 +88,7 @@ export default defineConfig({
       },
       cssCodeSplit: true,
       minify: "esbuild",
+      sourcemap: false,
     },
     optimizeDeps: {
       exclude: ["@astrojs/rss"],
