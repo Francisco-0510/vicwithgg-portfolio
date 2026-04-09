@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://vicwithgg-designer.netlify.app",
+  site: "https://vicwithgg-portfolio.vercel.app/",
 
   // ── Integrations ──────────────────────────────────────────────
   integrations: [
@@ -21,7 +21,7 @@ export default defineConfig({
         if (item.url.includes("/proyectos/")) {
           return { ...item, changefreq: "monthly", priority: 0.8 };
         }
-        if (item.url === "https://vicwithgg-designer.netlify.app/") {
+        if (item.url === "https://vicwithgg-portfolio.vercel.app/") {
           return { ...item, changefreq: "weekly", priority: 1.0 };
         }
         return { ...item, changefreq: "monthly", priority: 0.6 };
