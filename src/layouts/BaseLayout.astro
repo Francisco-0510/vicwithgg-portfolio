@@ -4,6 +4,8 @@ import '../styles/global.css';
 import { site } from '../data/portfolio';
 import ClientRouter from 'astro/components/ClientRouter.astro';
 import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
+
 interface Props {
   title?: string;
   description?: string;
@@ -92,6 +94,7 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
     <ClientRouter />
 
     <slot name="head" />
+    <SpeedInsights />
   </head>
 
   <body>
