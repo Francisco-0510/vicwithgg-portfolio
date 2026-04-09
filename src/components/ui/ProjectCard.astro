@@ -38,7 +38,10 @@ const delayClass = `reveal-delay-${index % 3}`;
   </div>
 
   {/* Thumbnail + Área clicable principal */}
-  <a href={projectHref} class="block group/link">
+  <a
+    href={projectHref}
+    class="block group/link"
+    aria-label={`Ver detalles del proyecto: ${name}`}>
     <div
       class="relative flex h-50 w-full items-center justify-center overflow-hidden bg-(--line)/10">
       <Image
@@ -48,7 +51,7 @@ const delayClass = `reveal-delay-${index % 3}`;
         height={400}
         loading={index < 3 ? 'eager' : 'lazy'}
         decoding="async"
-        format="webp"
+        format="avif"
         class="h-full w-full object-cover transition-transform duration-500 group-hover/link:scale-105"
       />
       <div
