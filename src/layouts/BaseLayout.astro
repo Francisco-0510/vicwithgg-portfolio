@@ -4,7 +4,7 @@
 import '../styles/global.css';
 import { site } from '../data/portfolio';
 import ClientRouter from 'astro/components/ClientRouter.astro';
-
+import Analytics from '@vercel/analytics/astro';
 interface Props {
   title?: string;
   description?: string;
@@ -27,6 +27,7 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#06080d" />
 
+    <Analytics />
     <!-- SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
