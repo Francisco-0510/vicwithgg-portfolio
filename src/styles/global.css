@@ -38,7 +38,9 @@
 
 :root {
   --f-display: "Barlow Condensed", "Barlow Condensed Fallback", sans-serif;
-  --f-body: "Lora", "Lora Fallback", serif;
+  /*   --f-body: "Lora", "Lora Fallback", serif;*/
+  --f-body: "Open Sans", sans-serif;
+
   --f-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
@@ -55,7 +57,9 @@
   --color-text-3: #8b93a0;
 
   --font-display: "Barlow Condensed", sans-serif;
-  --font-body: "Lora", serif;
+
+  /* --font-body: "Lora", serif; */
+  --font-body: "Open Sans", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
 }
 
@@ -84,7 +88,9 @@
   --r: 4px;
 
   --f-display: "Barlow Condensed", sans-serif;
-  --f-body: "Lora", serif;
+
+  /* --f-body: "Lora", serif; */
+  --f-body: "Open Sans", sans-serif;
   --f-mono: "IBM Plex Mono", monospace;
 }
 
