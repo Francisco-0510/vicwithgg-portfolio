@@ -3,5 +3,12 @@
   "outputDirectory": "dist",
   "framework": "astro",
   "regions": ["sin1"],
-  "redirects": []
+  "redirects": [],
+  "headers": [
+    {
+      "source": "/robots.txt",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+    }
+  ],
+  "rewrites": [{ "source": "/((?!pagefind/).*)", "destination": "/index.html" }]
 }

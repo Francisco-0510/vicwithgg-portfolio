@@ -1,3 +1,5 @@
+// public/robots.txt  ← crear este archivo si no existe
 User-agent: *
 Allow: /
+
 Sitemap: https://vicwithgg-portfolio.vercel.app/sitemap-index.xml

@@ -41,7 +41,7 @@ export default {
       // Typography
       fontFamily: {
         display: ['"Barlow Condensed"', "sans-serif"],
-        body: ["Lora", "serif"],
+        body: ["Open Sans", "sans-serif"],
         mono: ['"IBM Plex Mono"', "monospace"],
       },
 

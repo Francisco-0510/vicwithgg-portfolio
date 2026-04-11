@@ -68,7 +68,6 @@
   CSS de Pagefind: carga no bloqueante (media=print → onload → all).
   En dev dará 404 — correcto, pagefind solo existe después del build.
 -->
-<link rel="stylesheet" href="/pagefind/pagefind-ui.css" media="print" />
 
 <style>
   .search-trigger {
@@ -189,6 +188,13 @@
     async function loadPagefind() {
       if (_loaded) return;
       try {
+        if (!document.querySelector('link[href*="pagefind-ui.css"]')) {
+          var link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = '/pagefind/pagefind-ui.css';
+          document.head.appendChild(link);
+        }
+
         var mod = await import('/pagefind/pagefind-ui.js');
         new mod.PagefindUI({
           element: '#pagefind-mount',

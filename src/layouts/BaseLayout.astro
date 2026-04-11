@@ -61,19 +61,11 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
       title={`${site.title} — RSS`}
       href="/rss.xml"
     />
-    <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
-    <!--
-      FONTS SELF-HOSTED
-      Coloca los woff2 en public/fonts/ con nombres fijos (sin hashes):
-        public/fonts/barlow-condensed-900.woff2
-        public/fonts/barlow-condensed-700.woff2
-        public/fonts/lora-400.woff2
-        public/fonts/ibm-plex-mono-400.woff2
+    <link rel="preconnect" href="https://va.vercel-scripts.com" crossorigin />
+    <!-- Astro View Transitions -->
+    <ClientRouter />
 
-      Descarga desde: https://google-webfonts-helper.herokuapp.com/
-      O con fontsource: npm install @fontsource/barlow-condensed
-    -->
-
+    <slot name="head" />
     <!-- Preload solo fonts del above-the-fold (hero) -->
     <link
       rel="preload"
@@ -82,19 +74,44 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
       type="font/woff2"
       crossorigin
     />
+
     <link
       rel="preload"
-      href="/fonts/lora-400.woff2"
+      href="/fonts/barlow-condensed-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/ibm-plex-mono-400.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
 
-    <!-- Astro View Transitions -->
-    <ClientRouter />
-
-    <slot name="head" />
-    <SpeedInsights />
+    <style>
+      @font-face {
+        font-family: 'Barlow Condensed';
+        src: url('/fonts/barlow-condensed-900.woff2') format('woff2');
+        font-weight: 900;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Barlow Condensed';
+        src: url('/fonts/barlow-condensed-700.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'IBM Plex Mono';
+        src: url('/fonts/ibm-plex-mono-400.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
   </head>
 
   <body>
@@ -103,11 +120,6 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
     <main id="main-content" tabindex="-1">
       <slot />
     </main>
-
-    <!-- Analytics al final del body, nunca en el head -->
-    <!--    <script>
-      import('@vercel/analytics').then(({ inject }) => inject());
-    </script> -->
 
     <script>
       function initPage() {
@@ -193,6 +205,7 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
 
     <slot name="scripts" />
     <Analytics />
+    <SpeedInsights />
   </body>
 </html>
 
@@ -221,26 +234,6 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
   }
 
   /* Fallback font metrics — elimina CLS en Barlow Condensed */
-  @font-face {
-    font-family: 'Barlow Condensed Fallback';
-    src: local('Arial Narrow'), local('Arial');
-    size-adjust: 97%;
-    ascent-override: 90%;
-    descent-override: 22%;
-    line-gap-override: 0%;
-    font-display: swap;
-  }
-
-  /* Fallback font metrics — elimina CLS en Lora */
-  @font-face {
-    font-family: 'Lora Fallback';
-    src: local('Georgia'), local('Times New Roman');
-    size-adjust: 103%;
-    ascent-override: 88%;
-    descent-override: 24%;
-    line-gap-override: 0%;
-    font-display: swap;
-  }
 
   /* Copy button */
   .copy-btn {

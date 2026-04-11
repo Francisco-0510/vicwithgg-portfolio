@@ -23,6 +23,7 @@ const { name, sector, description, thumbnail, tech, links, type } =
 const projectHref = `/proyectos/${slug}/`;
 const bgText = name?.split(' ')[0] || 'PROJECT';
 const delayClass = `reveal-delay-${index % 3}`;
+const isLCP = index === 0;
 ---
 
 <article
@@ -38,10 +39,7 @@ const delayClass = `reveal-delay-${index % 3}`;
   </div>
 
   {/* Thumbnail + Área clicable principal */}
-  <a
-    href={projectHref}
-    class="block group/link"
-    aria-label={`Ver detalles del proyecto: ${name}`}>
+  <a href={projectHref} class="block group/link" aria-label={name}>
     <div
       class="relative flex h-50 w-full items-center justify-center overflow-hidden bg-(--line)/10">
       <Image
@@ -49,9 +47,10 @@ const delayClass = `reveal-delay-${index % 3}`;
         alt={`Captura de pantalla de ${name}`}
         width={800}
         height={400}
-        loading={index < 3 ? 'eager' : 'lazy'}
-        decoding="async"
-        format="avif"
+        quality={80}
+        loading={isLCP ? 'eager' : 'lazy'}
+        decoding={isLCP ? 'sync' : 'async'}
+        fetchpriority={isLCP ? 'high' : 'auto'}
         class="h-full w-full object-cover transition-transform duration-500 group-hover/link:scale-105"
       />
       <div
@@ -110,7 +109,7 @@ const delayClass = `reveal-delay-${index % 3}`;
               target="_blank"
               rel="noopener noreferrer"
               class="external-link inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-(--text-2) transition-all hover:gap-2 hover:text-(--accent) focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-2 rounded px-1"
-              aria-label={`Ver sitio en vivo de ${name} (abre en nueva pestaña)`}>
+              aria-label={`Ver sitio en vivo de ${name}`}>
               Live <SquareArrowOutUpRight class="size-3" />
             </a>
           )}
@@ -120,7 +119,7 @@ const delayClass = `reveal-delay-${index % 3}`;
               target="_blank"
               rel="noopener noreferrer"
               class="external-link inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-blue-400 transition-all hover:gap-2 hover:text-blue-300 focus-visible:outline-2 focus-visible:outline-blue-400 focus-visible:outline-offset-2 rounded px-1"
-              aria-label={`Ver diseño en Figma de ${name} (abre en nueva pestaña)`}>
+              aria-label={`Ver diseño en Figma de ${name}`}>
               Figma <Figma class="size-3" />
             </a>
           )}
@@ -130,7 +129,7 @@ const delayClass = `reveal-delay-${index % 3}`;
               target="_blank"
               rel="noopener noreferrer"
               class="external-link inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-(--text-2) transition-all hover:gap-2 hover:text-(--accent) focus-visible:outline-2 focus-visible:outline-(--accent) focus-visible:outline-offset-2 rounded px-1"
-              aria-label={`Ver código en GitHub de ${name} (abre en nueva pestaña)`}>
+              aria-label={`Ver código en GitHub de ${name}`}>
               GitHub <GitHub class="size-3" />
             </a>
           )}
