@@ -1,4 +1,3 @@
-// public/robots.txt  ← crear este archivo si no existe
 User-agent: *
 Allow: /
 
