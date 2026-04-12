@@ -128,19 +128,23 @@ import Label from '../ui/Label.astro';
     bottom: 0;
     width: 55%;
     pointer-events: none;
-    color: var(--text);
-    opacity: 0.06;
+    opacity: 1; 
+    color: rgba(237, 233, 224, 0.06); 
   }
   .hero-bg-num {
     position: absolute;
     bottom: -40px;
+    view-transition-name: hero-bg-number;
     right: -10px;
     font-family: var(--f-display);
-    font-size: clamp(200px, 30vw, 420px);
+    /* Min: 200px, Max: 420px, Escala: 13.75vw + 156px */
+    font-size: clamp(200px, 13.75vw + 156px, 420px);
     font-weight: 900;
     line-height: 1;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(217, 168, 78, 0.06);
+    -webkit-text-stroke: 1px rgba(217, 168, 78, 0.15);
+    will-change: transform; 
+    contain: paint;
     pointer-events: none;
     letter-spacing: -0.02em;
     user-select: none;
@@ -224,5 +228,13 @@ import Label from '../ui/Label.astro';
     font-size: 9px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
+  }
+  @media (max-width: 480px) {
+    .hero-bg-num {
+      /* Ajustamos el mínimo para evitar que el número ocupe toda la pantalla */
+      font-size: clamp(140px, 40vw, 200px);
+      left: 50%;
+      transform: translateX(-50%); /* Centrado óptico en móvil */
+    }
   }
 </style>
