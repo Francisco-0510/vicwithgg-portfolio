@@ -24,7 +24,9 @@ const proyectos = defineCollection({
     type: z.enum(["app", "web", "design"]),
     order: z.number().optional(),
     draft: z.boolean().default(false),
-    date: z.coerce.date().optional(),
+    publishedDate: z.string().optional(), // ISO: "2025-10-01"
+    updatedDate: z.string().optional(),
+    //date: z.coerce.date().optional(),
   }),
 });
 

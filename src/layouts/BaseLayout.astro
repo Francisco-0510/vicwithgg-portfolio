@@ -1,7 +1,7 @@
 ---
 // src/layouts/BaseLayout.astro
 import '../styles/global.css';
-import { site } from '../data/portfolio';
+import { getSameAs, person, site } from '../data/portfolio';
 import ClientRouter from 'astro/components/ClientRouter.astro';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
@@ -10,15 +10,98 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  ogType?: 'werbsite' | 'article';
+  keywords?: string[];
+  publishedDate?: string; // ISO 8601, solo para case studies
+  //modifiedDate?: string;
 }
 
 const {
   title = site.title,
   description = site.description,
-  ogImage = '/og-image.jpg',
+  ogImage = '/public/og-image.jpg',
+  ogType = 'website',
+  keywords = [],
+  publishedDate,
+  //modifiedDate,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, site.url);
+const ogImageURL = new URL(ogImage, site.url).toString();
+
+// Keywords base + especificas
+const defaultKeywords = [
+  'Diseñador UX/UI',
+  'Desarrollador Web',
+  'Oaxaca',
+  'México',
+  'Francisco Victorico',
+  'VicWithGG',
+  'Astro',
+  'React',
+  'Figma',
+  'Design Systems',
+];
+const allKeywords = [...new Set([...defaultKeywords, ...keywords])].join(', ');
+
+// JSON-LD: Person + WebSite en la homepage, WebPage en subpáginas
+const isHome = Astro.url.pathname === '/';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: person.name,
+  alternateName: person.handle,
+  url: site.url,
+  image: new URL(person.photo, site.url).toString(),
+  jobTitle: person.roles.join(' y '),
+  email: person.email,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Oaxaca de Juárez',
+    addressRegion: 'Oaxaca',
+    addressCountry: 'MX',
+  },
+  sameAs: getSameAs(), // ← automático desde portfolio.ts
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.title,
+  url: site.url,
+  author: { '@type': 'Person', name: 'Francisco Victorico Aguirre Jiménez' },
+  inLanguage: 'es-MX',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${site.url}/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+};
+// Para case studies (artículos/proyectos)
+const articleSchema =
+  !isHome && publishedDate
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        description,
+        image: ogImageURL,
+        author: {
+          '@type': 'Person',
+          name: 'Francisco Victorico Aguirre Jiménez',
+          url: site.url,
+        },
+        publisher: {
+          '@type': 'Person',
+          name: 'Francisco Victorico Aguirre Jiménez',
+          url: site.url,
+        },
+        datePublished: publishedDate,
+        url: canonicalURL.toString(),
+        mainEntityOfPage: canonicalURL.toString(),
+      }
+    : null;
 ---
 
 <!doctype html>
@@ -29,90 +112,142 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
     <meta name="theme-color" content="#06080d" />
     <meta name="robots" content="index, follow" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="author" content="Francisco Victorico Aguirre Jiménez" />
+    <meta name="keywords" content={allKeywords} />
 
     <!-- SEO -->
     <title>{title}</title>
-
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
+    <!-- Sitemap autodiscovery -->
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImage, site.url)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${title} — VicWithGG Portfolio`} />
     <meta property="og:locale" content="es_MX" />
+    <meta property="og:site_name" content="VicWithGG" />
+    {
+      publishedDate && (
+        <meta property="article:published_time" content={publishedDate} />
+      )
+    }
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(ogImage, site.url)} />
+    <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:image:alt" content={`${title} — VicWithGG Portfolio`} />
+    {site.twitter && <meta name="twitter:creator" content={site.twitter} />}
+    {site.twitter && <meta name="twitter:site" content={site.twitter} />}
 
-    <!-- Favicon -->
+    <!-- JSON-LD Structured Data -->
+    {
+      isHome && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(personSchema)}
+        />
+      )
+    }
+    {
+      isHome && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(websiteSchema)}
+        />
+      )
+    }
+    {
+      articleSchema && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(articleSchema)}
+        />
+      )
+    }
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- RSS autodiscovery -->
     <link
       rel="alternate"
       type="application/rss+xml"
       title={`${site.title} — RSS`}
       href="/rss.xml"
     />
-    <link rel="preconnect" href="https://va.vercel-scripts.com" crossorigin />
-    <!-- Astro View Transitions -->
-    <ClientRouter />
-
-    <slot name="head" />
-    <!-- Preload solo fonts del above-the-fold (hero) -->
     <link
-      rel="preload"
-      href="/fonts/barlow-condensed-900.woff2"
-      as="font"
-      type="font/woff2"
+      rel="preconnect"
+      href="https://va.vercel-scripts.com"
       crossorigin
-    />
+    /></head
+  >
 
-    <link
-      rel="preload"
-      href="/fonts/barlow-condensed-700.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/ibm-plex-mono-400.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+  <!-- Favicon -->
 
-    <style>
-      @font-face {
-        font-family: 'Barlow Condensed';
-        src: url('/fonts/barlow-condensed-900.woff2') format('woff2');
-        font-weight: 900;
-        font-display: swap;
-      }
-      @font-face {
-        font-family: 'Barlow Condensed';
-        src: url('/fonts/barlow-condensed-700.woff2') format('woff2');
-        font-weight: 700;
-        font-style: normal;
-        font-display: swap;
-      }
-      @font-face {
-        font-family: 'IBM Plex Mono';
-        src: url('/fonts/ibm-plex-mono-400.woff2') format('woff2');
-        font-weight: 400;
-        font-style: normal;
-        font-display: swap;
-      }
-    </style>
-  </head>
+  <!-- RSS autodiscovery -->
+
+  <!-- Astro View Transitions -->
+  <ClientRouter />
+
+  <slot name="head" />
+  <!-- Preload solo fonts del above-the-fold (hero) -->
+  <link
+    rel="preload"
+    href="/fonts/barlow-condensed-900.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+
+  <link
+    rel="preload"
+    href="/fonts/barlow-condensed-700.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    href="/fonts/ibm-plex-mono-400.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+
+  <style>
+    @font-face {
+      font-family: 'Barlow Condensed';
+      src: url('/fonts/barlow-condensed-900.woff2') format('woff2');
+      font-weight: 900;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Barlow Condensed';
+      src: url('/fonts/barlow-condensed-700.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url('/fonts/ibm-plex-mono-400.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
 
   <body>
     <a href="#main-content" class="skip-link">SALTAR AL CONTENIDO</a>
@@ -207,66 +342,68 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
     <Analytics />
     <SpeedInsights />
   </body>
+
+  <style is:global>
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      z-index: 999;
+      padding: 0.5rem 1rem;
+      background: var(--color-bg);
+      color: var(--color-fg);
+      font-weight: 700;
+      border: 2px solid currentColor;
+      border-radius: 4px;
+      transition: top 0.1s;
+    }
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    /* Evita focus ring visible en main al usar skip-link */
+    #main-content:focus {
+      outline: none;
+    }
+
+    /* Fallback font metrics — elimina CLS en Barlow Condensed */
+
+    /* Copy button */
+    .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: rgba(217, 168, 78, 0.12);
+      border: 1px solid rgba(217, 168, 78, 0.3);
+      color: var(--accent);
+      cursor: pointer;
+      border-radius: 3px;
+      transition:
+        background 0.2s,
+        border-color 0.2s,
+        color 0.2s;
+      line-height: 1.6;
+    }
+    .copy-btn:hover {
+      background: rgba(217, 168, 78, 0.22);
+      border-color: var(--accent);
+    }
+    .copy-btn.copied {
+      background: rgba(26, 188, 132, 0.15);
+      border-color: rgba(26, 188, 132, 0.5);
+      color: #1abc84;
+    }
+    .copy-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  </style>
+
+
 </html>
-
-<style is:global>
-  /* Skip link */
-  .skip-link {
-    position: absolute;
-    top: -100%;
-    left: 1rem;
-    z-index: 999;
-    padding: 0.5rem 1rem;
-    background: var(--color-bg);
-    color: var(--color-fg);
-    font-weight: 700;
-    border: 2px solid currentColor;
-    border-radius: 4px;
-    transition: top 0.1s;
-  }
-  .skip-link:focus {
-    top: 1rem;
-  }
-
-  /* Evita focus ring visible en main al usar skip-link */
-  #main-content:focus {
-    outline: none;
-  }
-
-  /* Fallback font metrics — elimina CLS en Barlow Condensed */
-
-  /* Copy button */
-  .copy-btn {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    font-family: var(--f-mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    background: rgba(217, 168, 78, 0.12);
-    border: 1px solid rgba(217, 168, 78, 0.3);
-    color: var(--accent);
-    cursor: pointer;
-    border-radius: 3px;
-    transition:
-      background 0.2s,
-      border-color 0.2s,
-      color 0.2s;
-    line-height: 1.6;
-  }
-  .copy-btn:hover {
-    background: rgba(217, 168, 78, 0.22);
-    border-color: var(--accent);
-  }
-  .copy-btn.copied {
-    background: rgba(26, 188, 132, 0.15);
-    border-color: rgba(26, 188, 132, 0.5);
-    color: #1abc84;
-  }
-  .copy-btn:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-</style>

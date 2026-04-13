@@ -8,10 +8,25 @@
 export const site = {
   title: "VicWithGG | Diseñador UX/UI y Desarrollador Web",
   description:
-    "Portfolio de Francisco Victorico Aguirre Jiménez — Diseñador UX/UI y Desarrollador Web especializado en experiencias digitales de alta calidad.",
-  url: "https://vicwithgg-portfolio.vercel.app/",
+    "Portfolio de Francisco Victorico Aguirre Jiménez — Diseñador UX/UI y Desarrollador Web en Oaxaca, México. Especializado en sistemas de diseño, React, Astro y experiencias digitales de alta calidad.",
+  url: "https://vicwithgg-portfolio.vercel.app",
   locale: "es",
+  twitter: "@VicWithGG1",
+  ogImage: "/public/og-image.jpg",
 } as const;
+
+// Helper: construye el array sameAs para JSON-LD desde person.social
+// Úsalo en BaseLayout: sameAs: getSameAs()
+export function getSameAs(): string[] {
+  return [
+    person.social.linkedin,
+    person.social.github,
+    person.social.figma,
+    person.social.x,
+    person.social.instagram,
+    person.social.linkMe,
+  ].filter(Boolean);
+}
 
 // ── PERSONAL INFO ─────────────────────────────────────────────
 export const person = {
@@ -19,6 +34,7 @@ export const person = {
   handle: "VicWithGG",
   initials: "VGG",
   location: "Oaxaca, MX",
+  locationFull: "Oaxaca de Juárez, Oaxaca, México", // para JSON-LD y schema
   roles: ["Diseñador UX/UI", "Desarrollador Frontend"],
   tagline: "Diseño que razona. Código que respira.",
   bio: [
@@ -28,7 +44,7 @@ export const person = {
 
   availability:
     "Disponible para proyectos freelance, colaboraciones y oportunidades full-time",
-  photo: "/images/me.jpg", // replace with real photo
+  photo: "/images/me.jpg",
   email: "vgg.designer.01@gmail.com",
   social: {
     phone: "+52 1 951 391 5906",
@@ -48,323 +64,17 @@ export const heroStats = [
   { num: "2", label: "disciplinas: diseño + dev" },
 ] satisfies HeroStat[];
 
-// ── PROJECTS ─────────────────────────────────────────────────
-/* export const projects = [
-  {
-    slug: "sicroa",
-    name: "SiCROA",
-    sector: "Gobierno · Aeronáutica",
-    description:
-      "Sistema de seguimiento de operaciones aeronáuticas para el Hangar Oficial del Gobierno del Estado de Oaxaca. Módulos de personal, capacitaciones y documentos.",
-    thumbnail: "/images/projects/thumbnail-sicroa.png",
-    tech: [
-      "React",
-      "TypeScript",
-      "TanStack Query",
-      "ShadCN UI",
-      "Figma",
-      "Design Systems",
-    ],
-    links: {},
-    featured: true,
-    type: "app" as const,
-  },
-  {
-    slug: "utvco-gestion-cultural-deportiva",
-    name: "Sistema Web Para La Gestión de Actividades Culturales y Deportivas / Frontend",
-    sector: "Educación / Gestión Académica",
-    description:
-      "Plataforma web para optimizar el registro y seguimiento de actividades culturales y deportivas. Diseñada con enfoque UX/UI centrado en el usuario, reemplaza procesos manuales en Google Forms por un sistema automatizado con control de cupos, reportes en tiempo real y experiencia intuitiva para estudiantes y administradores.",
-    thumbnail: "/images/projects/thumbnail-sistema-utvco.png",
-    tech: [
-      "Design System",
-      "Frontend",
-      "TypeScript",
-      "Tailwind CSS",
-      "Figma",
-      "Ionic Framework",
-    ],
-    links: {
-      live: "https://www.figma.com/deck/lUapPq3OwsMbiz6TfQqdSP",
-      github: "https://github.com/Francisco-0510/activity-management-system",
-    },
-    featured: true,
-    type: "web",
-  },
-  {
-    slug: "taaniilaaz-muneco-chocolate",
-    name: "Taaniilaaz y Muñeco de Chocolate",
-    sector: "UI/UX Design • Branding",
-    description:
-      "Rediseño completo de interfaz de usuario (UI/UX) y diseño de identidad visual.",
-    thumbnail:
-      "https://placehold.co/600x400/0b0f18/3a7bd5?text=Taaniilaaz&font=roboto",
-    tech: ["Figma", "UX/UI", "Responsive Design"],
-    links: {},
-    featured: false,
-    type: "design" as const,
-  },
-  {
-    slug: "adventours-Mex",
-    name: "AdvenTours Mex",
-    sector: "E-commerce • Web",
-    description:
-      "Creación de sitio web comercial, participando en la arquitectura web y diseño UI.",
-    thumbnail: "/images/projects/thumbnail-adven-tours.png",
-    tech: ["Figma", "UX/UI", "Frontend"],
-    links: {
-      live: "https://adventoursmex.com/",
-      figma:
-        "https://www.figma.com/community/file/1570939876630705647/diseno-web-para-agencia-de-viajes",
-    },
-    featured: false,
-    type: "web" as const,
-  },
-  {
-    slug: "spotify-clone",
-    name: "Spotify Clone",
-    sector: "Web App • Clone",
-    description:
-      "Réplica funcional de la interfaz de Spotify con tecnologías modernas.",
-    thumbnail:
-      "https://placehold.co/600x400/0b0f18/3a7bd5?text=Spotify+Clone&font=roboto",
-    tech: ["Astro", "React", "Tailwind CSS", "Frontend"],
-    links: {
-      github: "https://github.com/Francisco-0510/spotify-clone",
-    },
-    featured: false,
-    type: "app" as const,
-  },
-  {
-    slug: "vicwithgg-portfolio",
-    name: "VicWithGG Portafolio Web",
-    sector: "Portafolio • Web",
-    description: "Portafolio personal con Astro, Tailwind CSS y Vercel.",
-    thumbnail: "/images/projects/vicwithgg-cover.png",
-    tech: ["HTML5", "React", "Astro", "Tailwind CSS", "Vercel", "GitHub"],
-    links: {
-      live: "https://vicwithgg-designer.netlify.app/",
-      github: "https://github.com/Francisco-0510/vicwithgg-portfolio",
-    },
-    featured: false,
-    type: "web" as const,
-  },
-  {
-    slug: "vgg-movies-search",
-    name: "VGG Movies Search",
-    sector: "Web App • Entretenimiento",
-    description:
-      "App para explorar y guardar películas favoritas, usando Firebase.",
-    thumbnail: "/images/projects/vgg-movie.webp",
-    tech: ["React", "Chakra UI", "Firebase", "Vercel", "GitHub"],
-    links: {
-      live: "https://vgg-movie-search.vercel.app/",
-      github: "https://github.com/Francisco-0510/movie-app-react",
-    },
-    featured: false,
-    type: "app" as const,
-  },
-  {
-    slug: "cv-minimalista",
-    name: "CV Minimalista (Web y PDF)",
-    sector: "Web • Herramienta",
-    description: "CV minimalista en Web y PDF, configurable con JSON.",
-    thumbnail: "/images/projects/thumbnail-cv.webp",
-    tech: ["Figma", "Design System", "UX/UI", "Responsive Design"],
-    links: {
-      live: "https://vicwithgg.netlify.app/",
-      github: "https://github.com/Francisco-0510/minimalist-portfolio",
-    },
-    featured: false,
-    type: "web" as const,
-  },
-  {
-    slug: "vg-design-ui-kit",
-    name: "VG Design UI Kit",
-    sector: "Design Systems • UI Kit",
-    description: "Kit de diseño UI/UX en Figma.",
-    thumbnail: "/images/projects/thumbnail-vg-design-ui-kit.png",
-    tech: ["Figma", "Design System", "Responsive Design", "UX/UI"],
-    links: {
-      figma:
-        "https://www.figma.com/community/file/1273539501651863397/vg-design-ui-kit-v1-2-0",
-    },
-    featured: false,
-    type: "design" as const,
-  },
-  {
-    slug: "hospital-angel-del-mar",
-    name: "Hospital Ángel del Mar",
-    sector: "Salud • Web",
-    description: "Rediseño UI/UX e implementación en Webflow.",
-    thumbnail: "/images/projects/thumbnail-ham.png",
-    tech: ["Figma", "Design System", "Webflow", "UX/UI", "Responsive Design"],
-    links: {
-      live: "https://hospitalangeldelmar.com.mx/",
-    },
-    featured: false,
-    type: "web" as const,
-  },
-  {
-    slug: "seguridad-privada-betaj",
-    name: "Seguridad Privada BETAJ",
-    sector: "Corporativo • Web",
-    description: "Diseño de interfaces y desarrollo en Webflow.",
-    thumbnail: "/images/projects/thumbnail-betaj.webp",
-    tech: ["HTML5", "React", "Webflow"],
-    links: {
-      live: "https://betaj.mx/",
-    },
-    featured: false,
-    type: "web" as const,
-  },
-  {
-    slug: "portafolio-braquetes",
-    name: "Portafolio braquetes.com.mx",
-    sector: "Portafolio • Web",
-    description: "Portafolio web para programador backend.",
-    thumbnail: "/images/projects/coverBR.webp",
-    tech: ["HTML5", "Bootstrap"],
-    links: {
-      live: "https://www.braquetes.com.mx/#/",
-    },
-    featured: false,
-    type: "web" as const,
-  },
-  {
-    slug: "diseno-sistema-gestion-actividades",
-    name: "Diseño de Sistema Web de Gestión de Actividades",
-    sector: "UI/UX Design • Educación",
-    description: "Investigación y diseño UX/UI para sistema web.",
-    thumbnail: "/images/projects/thumbnail-tutoriasDesign.webp",
-    tech: ["Figma", "UX/UI", "Design System"],
-    links: {
-      live: "https://www.figma.com/community/file/1205620325712950079",
-      figma: "https://www.figma.com/community/file/1205620325712950079",
-    },
-    featured: false,
-    type: "design" as const,
-  },
-  {
-    slug: "desarrollo-sistema-gestion-actividades",
-    name: "Desarrollo Front-end de Sistema Web de Gestión de Actividades",
-    sector: "Web App • Educación",
-    description: "Desarrollo frontend con Ionic para sistema UTVCO.",
-    thumbnail: "/images/projects/thumbnail-tutoriasDev.webp",
-    tech: ["HTML5", "Ionic", "TypeScript"],
-    links: {
-      live: "https://github.com/Francisco-0510/plataformaEstadias",
-      github: "https://github.com/Francisco-0510/plataformaEstadias",
-    },
-    featured: false,
-    type: "app" as const,
-  },
-  {
-    slug: "rediseño-app-healthcheck",
-    name: "Rediseño App HealthCheck",
-    sector: "UI/UX Design • Salud",
-    description: "Rediseño de app HealthCheck para dispositivos móviles.",
-    thumbnail: "/images/projects/thumbnail-rediseño.webp",
-    tech: ["Figma", "UX/UI", "Design System"],
-    links: {
-      figma: "https://www.figma.com/community/file/1283078639346112182",
-    },
-    featured: false,
-    type: "design" as const,
-  },
-  {
-    slug: "app-healthcheck-smartwatch",
-    name: "App Healthcheck - Smartwatch y Mobile",
-    sector: "UI/UX Design • Wearables",
-    description: "App de seguimiento de salud para móviles y wearables.",
-    thumbnail: "/images/projects/thumbnail-healtcheck.webp",
-    tech: ["Figma", "UX/UI"],
-    links: {
-      live: "https://www.figma.com/community/file/1270644133161232117",
-      figma: "https://www.figma.com/community/file/1270644133161232117",
-    },
-    featured: false,
-    type: "design" as const,
-  },
-  {
-    slug: "arquitectura-ux-healthcheck",
-    name: "Arquitectura y UX de app HealthCheck",
-    sector: "Arquitectura de Información • UX",
-    description: "Mapas de navegación y wireflows para HealthCheck.",
-    thumbnail: "/images/projects/thumbnail-arqH.webp",
-    tech: ["Figma", "UX/UI"],
-    links: {
-      live: "https://www.figma.com/community/file/1125658163306261422",
-      figma: "https://www.figma.com/community/file/1125658163306261422",
-    },
-    featured: false,
-    type: "design" as const,
-  },
-  {
-    slug: "bit-tournament-2023",
-    name: "BIT Tournament 2023",
-    sector: "Web App • Esports",
-    description: "Diseño UI y desarrollo frontend en Angular.",
-    thumbnail: "/images/projects/thumbnail-BIT.webp",
-    tech: ["Angular", "TypeScript", "Frontend"],
-    links: {
-      live: "https://github.com/Francisco-0510/BIT-TOURNAMENT-2023",
-      figma:
-        "https://www.figma.com/community/file/1165464149403530205/diseno-de-interfaces-bit-tournament-2023",
-      github: "https://github.com/Francisco-0510/BIT-TOURNAMENT-2023",
-    },
-    featured: false,
-    type: "app" as const,
-  },
-  {
-    slug: "user-story-mapping-bit-tournament",
-    name: "User Story Mapping - BIT TOURNAMENT 2023",
-    sector: "UX Research • Agile",
-    description:
-      "Historias de usuario y mapas de navegación para BIT Tournament.",
-    thumbnail: "/images/projects/thumbnail-storyBIT.webp",
-    tech: ["Figma", "UX/UI"],
-    links: {
-      live: "https://www.figma.com/community/file/1183832840468301220/user-story-mapping-bit-tournament-2023",
-      figma:
-        "https://www.figma.com/community/file/1183832840468301220/user-story-mapping-bit-tournament-2023",
-    },
-    featured: false,
-    type: "design" as const,
-  },
-  {
-    slug: "sistema-boletos-solteca",
-    name: "Sistema Venta de Boletos La Solteca",
-    sector: "Web App • Transporte",
-    description: "Diseño y desarrollo de sistema de venta de boletos.",
-    thumbnail: "/images/projects/thumbnail-soltecaDesign.webp",
-    tech: ["Angular", "TypeScript", "UX/UI"],
-    links: {
-      live: "https://xd.adobe.com/view/5b7241f4-f464-4276-69b2-89a327b55523-2d43/",
-      github: "https://github.com/Francisco-0510/Solteca",
-    },
-    featured: false,
-    type: "app" as const,
-  },
-] satisfies Project[];
- */
 // ── EXPERIENCE ────────────────────────────────────────────────
 export const experience = [
-  /* {
-    role: "UX/UI Designer & Frontend Developer",
-    company: "Altos Ingeniería Eléctrica",
-    logo: "/images/experience/altos-logo.png",
-    period: "2023 — Presente",
-    description:
-      "Diseño y desarrollo del sistema de identidad digital, design system y productos web de la empresa. Responsable del pipeline completo Figma → producción.",
-    tags: ["Design Systems", "React", "Astro", "Figma"],
-  }, */
   // SiCROA
   {
     role: "Diseñador UX/UI y Desarrollador Frontend",
     company: "Hangar Oficial, Gobierno de Oaxaca",
     logo: "/images/experience/hangar.jpg",
     period: "Octubre 2025 - Marzo 2026",
+    // Fechas ISO para JSON-LD y ordenamiento programático
+    startDate: "2025-10-01",
+    endDate: "2026-03-31",
     description:
       "Lideré el rediseño integral UX/UI para simplificar procesos aeronáuticos de mantenimiento y despacho, transformando flujos complejos en interfaces intuitivas mediante prototipado de alta fidelidad. Arquitecté desde cero un sistema de diseño escalable con componentes y tokens visuales, optimizando los tiempos de entrega. En el área de ingeniería, comandé la implementación frontend con React 19, TypeScript y Vite bajo una arquitectura modular pixel-perfect. Además, robustecí la lógica de negocio mediante sistemas de navegación transversal y la refactorización de seguridad con RBAC y gestión de sesiones optimizada.",
     tags: [
@@ -386,6 +96,8 @@ export const experience = [
     company: "Visión Creativa",
     logo: "",
     period: "Agosto 2024 - Mayo 2025",
+    startDate: "2024-08-01",
+    endDate: "2025-05-31",
     description:
       "Lideré la estrategia digital y el rediseño UX/UI para marcas comerciales como Taaniilaaz y Muñeco de Chocolate, optimizando la arquitectura de información y la navegación para maximizar la retención de usuarios. Mi rol integró la conceptualización de identidades visuales con el desarrollo técnico de plataformas, colaborando activamente en la creación del e-commerce ValleMío.shop, donde alineé la estética de marca con funcionalidades orientadas a la conversión y ventas online.",
     tags: [
@@ -405,6 +117,8 @@ export const experience = [
     company: "VGG Desarrollo y Diseño (Marca Personal)",
     logo: "/images/experience/vgg-logo.png",
     period: "2022 - Presente",
+    startDate: "2022-01-01",
+    endDate: null, // null = trabajo actual
     description:
       "Desde 2022, bajo mi marca personal en Oaxaca, México, me he especializado en la convergencia entre el diseño estratégico y el desarrollo de alto rendimiento. Optimicé drásticamente los flujos de trabajo mediante la creación del 'VG Design UI KIT' en Figma, logrando una reducción del 60% en tiempos de entrega. Mi enfoque técnico se centra en arquitecturas modernas y multi-framework; he desarrollado productos complejos como una réplica funcional de Spotify —integrando Astro, React y Svelte— y la plataforma VGG Movies con Firebase. Además, diseño soluciones empresariales orientadas a la conversión, desde sistemas de boletaje personalizados para clientes como 'La Solteca' hasta sitios de alto impacto visual en Webflow.",
     tags: [
@@ -426,6 +140,8 @@ export const experience = [
     company: "Grupo Empresarial NIREJ",
     logo: "/images/experience/nirej.png",
     period: "Octubre 2023 - Enero 2024",
+    startDate: "2023-10-01",
+    endDate: "2024-01-31",
     description:
       "Coordiné equipos multidisciplinarios bajo metodologías ágiles para transformar necesidades de negocio en soluciones de diseño estratégico. Lideré el rediseño integral del Hospital Ángel del Mar, ejecutando desde la investigación UX hasta el desarrollo final en Webflow. Asimismo, impulsé la presencia digital de la marca mediante el desarrollo del sitio web de BETAJ, landing pages de alta conversión para talleres de innovación y la creación de sistemas de email marketing corporativo con un enfoque riguroso en la identidad de marca y compatibilidad multidispositivo.",
     tags: [
@@ -447,6 +163,8 @@ export const experience = [
       "Universidad Tecnológica de los Valles Centrales de Oaxaca (UTVCO)",
     logo: "/images/experience/utvco.jpg",
     period: "2019 - 2023",
+    startDate: "2019-09-01",
+    endDate: "2023-06-30",
     description:
       "Lideré estrategias de diseño centrado en el usuario (UCD) para proyectos institucionales de alto impacto, asegurando estándares visuales de excelencia y optimización de entregas. Destaco el rediseño integral de la plataforma HealthCheck, donde realicé el UX Research y la interfaz para ecosistemas móviles y wearables. Asimismo, diseñé y desarrollé el front-end del BIT Tournament 2023 utilizando Angular y Figma, priorizando la arquitectura de información y mapas de navegación. Además, implementé sistemas de gestión de actividades en Ionic, enfocándome en la accesibilidad y el rendimiento de las interfaces.",
     tags: [
@@ -464,17 +182,6 @@ export const experience = [
 ] satisfies ExperienceItem[];
 
 // ── TYPES ─────────────────────────────────────────────────────
-export interface StackCategory {
-  title: string;
-  icon: string;
-  skills: string[];
-}
-
-export interface TechLogo {
-  name: string;
-  type: string;
-  logo: string;
-}
 
 // ── STACK / SKILLS ────────────────────────────────────────────
 export const stackCategories = [
@@ -538,56 +245,6 @@ export const techLogos = [
   { name: "Angular", type: "Framework", logo: "/images/stack/angular.svg" },
   { name: "Webflow", type: "No-Code", logo: "/images/stack/webflow.svg" },
 ] satisfies TechLogo[];
-
-// ── STACK / SKILLS ────────────────────────────────────────────
-/* export const stackCategories = [
-  {
-    title: "Diseño",
-    icon: "design",
-    skills: [
-      "Figma",
-      "Design Systems",
-      "UX Research",
-      "Prototyping",
-      "Variables & Tokens",
-    ],
-  },
-  {
-    title: "Frontend",
-    icon: "code",
-    skills: ["React", "TypeScript", "Astro", "TailwindCSS", "HTML / CSS"],
-  },
-  {
-    title: "Data & Forms",
-    icon: "data",
-    skills: [
-      "TanStack Query",
-      "React Hook Form",
-      "Zod",
-      "REST APIs",
-      "OpenAPI",
-    ],
-  },
-  {
-    title: "Tooling",
-    icon: "tools",
-    skills: ["Obsidian", "Git / GitHub", "Vite", "Wix Studio", "Netlify"],
-  },
-] satisfies StackCategory[];
-
-export const techLogos = [
-  { name: "React", type: "Frontend", logo: "/images/stack/react.svg" },
-  {
-    name: "TypeScript",
-    type: "Language",
-    logo: "/images/stack/typescript.svg",
-  },
-  { name: "Astro", type: "Framework", logo: "/images/stack/astro.svg" },
-  { name: "Figma", type: "Design", logo: "/images/stack/figma.svg" },
-  { name: "Tailwind", type: "Styling", logo: "/images/stack/tailwind.svg" },
-  { name: "Zod", type: "Validation", logo: "/images/stack/zod.svg" },
-] satisfies TechLogo[];
- */
 
 // ── CERTIFICATES ──────────────────────────────────────────────
 export const certificates = [
@@ -674,25 +331,26 @@ export interface HeroStat {
   num: string;
   label: string;
 }
+export interface StackCategory {
+  title: string;
+  icon: string;
+  skills: string[];
+}
 
-export interface Project {
-  slug: string;
+export interface TechLogo {
   name: string;
-  sector: string;
-  description: string;
-  thumbnail: string;
-  tech: string[];
-  links: { figma?: string; github?: string; live?: string };
-  featured: boolean;
-  type: "app" | "web" | "design";
+  type: string;
+  logo: string;
 }
 
 export interface ExperienceItem {
   role: string;
   company: string;
-  logo: string;
+  logo?: string;
   period: string;
   description: string;
+  startDate: string; // ISO 8601: "2025-10-01"
+  endDate: string | null; // null = trabajo actual
   tags: string[];
 }
 

@@ -15,86 +15,89 @@ const { project } = Astro.props;
 const { name, sector, description, thumbnail, tech, links } = project.data;
 ---
 
-<BaseLayout title={`${name} — VicWithGG`} description={description}>
-  <Navbar />
+<BaseLayout
+  title={`${name} — VicWithGG`}
+  description={description}
+  ogImage={thumbnail ? thumbnail : undefined}
+/>
+<Navbar />
 
-  <main>
-    <header class="case-hero">
-      <div class="wrap">
-        <div class="case-meta">
-          <div class="label">
-            <a href="/#projects" class="back-link">← Proyectos</a>
-          </div>
-          <div class="case-sector">{sector}</div>
+<main>
+  <header class="case-hero">
+    <div class="wrap">
+      <div class="case-meta">
+        <div class="label">
+          <a href="/#projects" class="back-link">← Proyectos</a>
         </div>
-        <h1 class="case-h1">{name}</h1>
-        <p class="case-desc">{description}</p>
+        <div class="case-sector">{sector}</div>
+      </div>
+      <h1 class="case-h1">{name}</h1>
+      <p class="case-desc">{description}</p>
 
-        <div class="case-tech">
-          {tech.map((t: unknown) => <span class="tech-chip">{t}</span>)}
-        </div>
-
-        <div class="case-links">
-          {
-            links.live && (
-              <a
-                href={links.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-primary">
-                Ver live
-              </a>
-            )
-          }
-          {
-            links.figma && (
-              <a
-                href={links.figma}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-outline">
-                Ver en Figma
-              </a>
-            )
-          }
-          {
-            links.github && (
-              <a
-                href={links.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-ghost">
-                GitHub →
-              </a>
-            )
-          }
-        </div>
+      <div class="case-tech">
+        {tech.map((t: unknown) => <span class="tech-chip">{t}</span>)}
       </div>
 
-      {
-        thumbnail && (
-          <div class="case-thumbnail-full">
-            <Image
-              format="webp"
-              src={thumbnail}
-              alt={`Captura de pantalla del proyecto ${name}`}
-              width="1600"
-              height="900"
-              decoding="async"
-              loading="lazy"
-            />
-          </div>
-        )
-      }
-    </header>
+      <div class="case-links">
+        {
+          links.live && (
+            <a
+              href={links.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-primary">
+              Ver live
+            </a>
+          )
+        }
+        {
+          links.figma && (
+            <a
+              href={links.figma}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-outline">
+              Ver en Figma
+            </a>
+          )
+        }
+        {
+          links.github && (
+            <a
+              href={links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-ghost">
+              GitHub →
+            </a>
+          )
+        }
+      </div>
+    </div>
 
-    <article class="case-content wrap prose">
-      <slot />
-    </article>
-  </main>
+    {
+      thumbnail && (
+        <div class="case-thumbnail-full">
+          <Image
+            format="webp"
+            src={thumbnail}
+            alt={`Captura de pantalla del proyecto ${name}`}
+            width="1600"
+            height="900"
+            decoding="async"
+            loading="lazy"
+          />
+        </div>
+      )
+    }
+  </header>
 
-  <Footer />
-</BaseLayout>
+  <article class="case-content wrap prose">
+    <slot />
+  </article>
+</main>
+
+<Footer />
 
 <style>
   .case-hero {

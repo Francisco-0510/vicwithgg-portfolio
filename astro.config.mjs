@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 import { defineConfig } from "astro/config";
 export default defineConfig({
-  site: "https://vicwithgg-portfolio.vercel.app/",
+  site: "https://vicwithgg-portfolio.vercel.app",
   compressHTML: true, // ← Habilitar compresión HTML
 
   // ── Integrations ──────────────────────────────────────────────
@@ -18,15 +18,35 @@ export default defineConfig({
     }),
     sitemap({
       filter: (page) =>
-        !page.includes("/privacidad") && !page.includes("/terminos"),
+        !page.includes("/privacidad") &&
+        !page.includes("/terminos") & !page.includes("/terminos") &&
+        !page.includes("/draft/") &&
+        !page.includes("/admin/"),
       serialize(item) {
-        if (item.url.includes("/proyectos/")) {
-          return { ...item, changefreq: "monthly", priority: 0.8 };
-        }
+        // Homepage
         if (item.url === "https://vicwithgg-portfolio.vercel.app/") {
-          return { ...item, changefreq: "weekly", priority: 1.0 };
+          return {
+            ...item,
+            changefreq: "weekly",
+            priority: 1.0,
+            lastmod: new Date().toISOString().split("T")[0], // YYYY-MM-DD
+          };
         }
-        return { ...item, changefreq: "monthly", priority: 0.6 };
+        // Case studies
+        if (item.url.includes("/proyectos/")) {
+          return {
+            ...item,
+            changefreq: "monthly",
+            priority: 0.8,
+            lastmod: new Date().toISOString().split("T")[0],
+          };
+        }
+        // Resto
+        return {
+          ...item,
+          changefreq: "monthly",
+          priority: 0.6,
+        };
       },
     }),
     tailwindcss(),
@@ -45,7 +65,7 @@ export default defineConfig({
   // ── Prefetch ──────────────────────────────────────────────────
   prefetch: {
     prefetchAll: false,
-    defaultStrategy: "viewport",
+    defaultStrategy: "hover",
   },
 
   // ── Image (una sola vez, consolidado) ─────────────────────────
