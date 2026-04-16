@@ -29,7 +29,6 @@ export default defineConfig({
             ...item,
             changefreq: "weekly",
             priority: 1.0,
-            lastmod: new Date().toISOString().split("T")[0], // YYYY-MM-DD
           };
         }
         // Case studies
@@ -37,8 +36,7 @@ export default defineConfig({
           return {
             ...item,
             changefreq: "monthly",
-            priority: 0.8,
-            lastmod: new Date().toISOString().split("T")[0],
+            priority: 0.9,
           };
         }
         // Resto

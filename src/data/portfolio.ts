@@ -8,11 +8,11 @@
 export const site = {
   title: "VicWithGG | Diseñador UX/UI y Desarrollador Web",
   description:
-    "Portfolio de Francisco Victorico Aguirre Jiménez — Diseñador UX/UI y Desarrollador Web en Oaxaca, México. Especializado en sistemas de diseño, React, Astro y experiencias digitales de alta calidad.",
+    "Diseñador UX/UI y Desarrollador Frontend en Oaxaca, México. Creo experiencias digitales modernas, accesibles y optimizadas para rendimiento y conversión. Especializado en diseño web, UX y desarrollo frontend.",
   url: "https://vicwithgg-portfolio.vercel.app",
-  locale: "es",
+  locale: "es-MX",
   twitter: "@VicWithGG1",
-  ogImage: "/public/og-image.jpg",
+  ogImage: "/og-image.jpg",
 } as const;
 
 // Helper: construye el array sameAs para JSON-LD desde person.social
@@ -35,8 +35,12 @@ export const person = {
   initials: "VGG",
   location: "Oaxaca, MX",
   locationFull: "Oaxaca de Juárez, Oaxaca, México", // para JSON-LD y schema
-  roles: ["Diseñador UX/UI", "Desarrollador Frontend"],
-  tagline: "Diseño que razona. Código que respira.",
+  roles: [
+    "Diseñador UX/UI en México",
+    "Desarrollador Frontend especializado en rendimiento",
+  ],
+  tagline:
+    "Diseñador UX/UI y Desarrollador Frontend enfocado en crear experiencias digitales modernas y optimizadas",
   bio: [
     "Soy Francisco Victorico Aguirre Jiménez, Diseñador UX/UI y Desarrollador Web comprometido con crear experiencias digitales que destacan. Equilibro las necesidades del usuario con los objetivos del producto, utilizando metodologías ágiles, investigación y diseño centrado en las personas.",
     "Mi enfoque estratégico e intuitivo, junto con el dominio de herramientas avanzadas, me permite convertir ideas en soluciones innovadoras y efectivas. Siempre busco aprender, mejorar y superar nuevos desafíos.",
