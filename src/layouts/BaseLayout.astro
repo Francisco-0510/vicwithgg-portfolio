@@ -186,7 +186,19 @@ const articleSchema =
       href="/rss.xml"
     />
     <link rel="preconnect" href="https://va.vercel-scripts.com" crossorigin />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-06Y0L16P02"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-06Y0L16P02');
+    </script>
   </head>
+  <!-- Google tag (gtag.js) -->
 
   <ClientRouter />
 
@@ -393,6 +405,4 @@ const articleSchema =
       outline-offset: 2px;
     }
   </style>
-
-
 </html>
