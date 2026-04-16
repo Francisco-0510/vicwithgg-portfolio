@@ -1,7 +1,7 @@
 ---
 // src/components/sections/Hero.astro
 import { ArrowRight, Download, Mouse } from '@lucide/astro';
-import { heroStats, person } from '../../data/portfolio';
+import { heroStats } from '../../data/portfolio';
 import Button from '../ui/Button.astro';
 import Card from '../ui/Card.astro';
 import Label from '../ui/Label.astro';
@@ -58,16 +58,24 @@ import Label from '../ui/Label.astro';
   <div class="wrap">
     <div class="hero-content">
       <div class="hero-left">
-        <Label reveal class="hero-label">Disponible para proyectos</Label>
+        <Label reveal class="hero-label">
+          Disponible para proyectos UX/UI y desarrollo web
+        </Label>
         <h1 class="hero-h1 reveal reveal-delay-1">
-          Diseñador <em>UX/UI</em><br />& Desarrollador
+          Diseñador <em>UX/UI</em> y Desarrollador Frontend
         </h1>
+        <h2 class="sr-only">
+          Portafolio de Diseñador UX/UI y Desarrollador Frontend en México
+          especializado en diseño web y experiencia de usuario
+        </h2>
         <p class="hero-desc reveal reveal-delay-2">
-          ¡Hola! Soy <strong
-            >{person.name.split(' ')[0]} {person.name.split(' ')[1]}</strong
-          >. Apasionado Diseñador UX/UI y Desarrollador Web enfocado en crear
-          experiencias digitales excepcionales que equilibran las necesidades
-          del usuario con los objetivos de negocio.
+          ¡Hola! Soy <strong itemprop="name"
+            >Francisco Victorico Aguirre Jiménez</strong
+          >. Diseñador UX/UI y Desarrollador Web especializado en la creación de
+          experiencias digitales centradas en el usuario. Desarrollo interfaces
+          modernas, accesibles y optimizadas en rendimiento, aplicando buenas
+          prácticas de desarrollo, diseño centrado en el usuario y tecnologías
+          web actuales.
         </p>
         <div class="hero-actions reveal reveal-delay-3">
           <Button href="/#projects" variant="primary">
@@ -128,8 +136,8 @@ import Label from '../ui/Label.astro';
     bottom: 0;
     width: 55%;
     pointer-events: none;
-    opacity: 1; 
-    color: rgba(237, 233, 224, 0.06); 
+    opacity: 1;
+    color: rgba(237, 233, 224, 0.06);
   }
   .hero-bg-num {
     position: absolute;
@@ -143,7 +151,7 @@ import Label from '../ui/Label.astro';
     line-height: 1;
     color: transparent;
     -webkit-text-stroke: 1px rgba(217, 168, 78, 0.15);
-    will-change: transform; 
+    will-change: transform;
     contain: paint;
     pointer-events: none;
     letter-spacing: -0.02em;
