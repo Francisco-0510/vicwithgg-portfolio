@@ -5,6 +5,8 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Footer from '../components/layout/Footer.astro';
 import Navbar from '../components/layout/Navbar.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import { person, site } from '../data/portfolio';
 import BaseLayout from './BaseLayout.astro';
 
 interface Props {
@@ -13,93 +15,226 @@ interface Props {
 
 const { project } = Astro.props;
 const { name, sector, description, thumbnail, tech, links } = project.data;
+
+// SEO optimizado
+const seoTitle = `${name} | Proyecto de ${person.name}`;
+const seoDescription = description;
+const seoKeywords = [
+  ...tech,
+  name,
+  sector,
+  'proyecto',
+  'portafolio',
+  'diseño',
+  'desarrollo',
+];
+
+// Breadcrumbs para SEO
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Proyectos', url: '/#projects' },
+  { name: name, url: `/proyectos/${project.id}` },
+];
+
+// Structured Data
+const structuredDataProject = {
+  type: 'CreativeWork',
+  data: {
+    name: name,
+    description: description,
+    image: thumbnail,
+    url: `${site.url}proyectos/${project.id}`,
+    keywords: seoKeywords,
+    creator: {
+      name: person.name,
+      url: site.url,
+    },
+    technologies: tech,
+  },
+};
 ---
 
 <BaseLayout
-  title={`${name} — VicWithGG`}
-  description={description}
+  title={seoTitle}
+  description={seoDescription}
   ogImage={thumbnail ? thumbnail : undefined}
-/>
-<Navbar />
+  keywords={seoKeywords}
+  structuredData={{
+    type: 'Project',
+    data: structuredDataProject.data,
+  }}>
+  <Navbar />
 
-<main>
-  <header class="case-hero">
-    <div class="wrap">
-      <div class="case-meta">
-        <div class="label">
-          <a href="/#projects" class="back-link">← Proyectos</a>
+  <main>
+    <!-- Hero Section con SEO -->
+    <header class="case-hero">
+      <div class="wrap">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs-container">
+          <Breadcrumbs items={breadcrumbs} />
         </div>
-        <div class="case-sector">{sector}</div>
-      </div>
-      <h1 class="case-h1">{name}</h1>
-      <p class="case-desc">{description}</p>
 
-      <div class="case-tech">
-        {tech.map((t: unknown) => <span class="tech-chip">{t}</span>)}
-      </div>
-
-      <div class="case-links">
-        {
-          links.live && (
-            <a
-              href={links.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-primary">
-              Ver live
-            </a>
-          )
-        }
-        {
-          links.figma && (
-            <a
-              href={links.figma}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-outline">
-              Ver en Figma
-            </a>
-          )
-        }
-        {
-          links.github && (
-            <a
-              href={links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-ghost">
-              GitHub →
-            </a>
-          )
-        }
-      </div>
-    </div>
-
-    {
-      thumbnail && (
-        <div class="case-thumbnail-full">
-          <Image
-            format="webp"
-            src={thumbnail}
-            alt={`Captura de pantalla del proyecto ${name}`}
-            width="1600"
-            height="900"
-            decoding="async"
-            loading="lazy"
-          />
+        <div class="case-meta">
+          <div class="label">
+            <a href="/#projects" class="back-link">← Proyectos</a>
+          </div>
+          <div class="case-sector" itemprop="keywords">{sector}</div>
         </div>
-      )
+
+        <h1 class="case-h1" itemprop="name">{name}</h1>
+        <p class="case-desc" itemprop="description">{description}</p>
+
+        <!-- Tech Stack con Schema.org -->
+        <div class="case-tech" role="list" aria-label="Tecnologías utilizadas">
+          {
+            tech.map((t: unknown) => (
+              <span
+                class="tech-chip"
+                role="listitem"
+                itemprop="keywords"
+                itemscope
+                itemtype="https://schema.org/Thing">
+                <meta itemprop="name" content={String(t)} />
+                {t}
+              </span>
+            ))
+          }
+        </div>
+
+        <!-- Links CTA con SEO -->
+        <div class="case-links">
+          {
+            links.live && (
+              <a
+                href={links.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-primary"
+                aria-label={`Ver proyecto ${name} en vivo`}
+                itemscope
+                itemtype="https://schema.org/URL">
+                <meta itemprop="url" content={links.live} />
+                Ver live
+              </a>
+            )
+          }
+          {
+            links.figma && (
+              <a
+                href={links.figma}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-outline"
+                aria-label={`Ver diseño de ${name} en Figma`}
+                itemscope
+                itemtype="https://schema.org/URL">
+                <meta itemprop="url" content={links.figma} />
+                Ver en Figma
+              </a>
+            )
+          }
+          {
+            links.github && (
+              <a
+                href={links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-ghost"
+                aria-label={`Ver código de ${name} en GitHub`}
+                itemscope
+                itemtype="https://schema.org/URL">
+                <meta itemprop="url" content={links.github} />
+                GitHub →
+              </a>
+            )
+          }
+        </div>
+      </div>
+
+      <!-- Thumbnail con SEO -->
+      {
+        thumbnail && (
+          <div class="case-thumbnail-full">
+            <Image
+              format="webp"
+              src={thumbnail}
+              alt={`Captura de pantalla del proyecto ${name} - ${sector}`}
+              width="1600"
+              height="900"
+              decoding="async"
+              loading="lazy"
+              itemprop="image"
+              quality={80}
+            />
+          </div>
+        )
+      }
+    </header>
+
+    <!-- Content con Schema.org -->
+    <article
+      class="case-content wrap prose"
+      itemscope
+      itemtype="https://schema.org/BlogPosting">
+      <!-- Meta información para Schema.org -->
+      <meta itemprop="headline" content={name} />
+      <meta itemprop="description" content={description} />
+      {thumbnail && <meta itemprop="image" content={thumbnail} />}
+      <meta itemprop="datePublished" content={new Date().toISOString()} />
+      <meta itemprop="author" content={person.name} />
+
+      <!-- Autor structurado -->
+      <div
+        itemprop="author"
+        itemscope
+        itemtype="https://schema.org/Person"
+        style="display:none">
+        <meta itemprop="name" content={person.name} />
+        <meta itemprop="url" content={site.url} />
+      </div>
+
+      <slot />
+    </article>
+
+    <!-- Related Projects Section (SEO bonus) -->
+    <section class="related-projects wrap" aria-label="Proyectos relacionados">
+      <h2>Más proyectos</h2>
+      <p>Explora otros trabajos en mi portafolio</p>
+      <a href="/#projects" class="view-all-link">Ver todos los proyectos →</a>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<!-- JSON-LD Estructura completa -->
+<script is:inline type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": "https://vicwithgg-portfolio.vercel.app/proyectos/{project.slug}",
+    "name": "{name}",
+    "description": "{description}",
+    "image": "{thumbnail}",
+    "url": "https://vicwithgg-portfolio.vercel.app/proyectos/{project.slug}",
+    "creator": {
+      "@type": "Person",
+      "name": "{person.name}",
+      "url": "{site.url}"
+    },
+    "keywords": "{tech.join(', ')}",
+    "mentions": {
+      "@type": "Thing",
+      "name": "{sector}"
     }
-  </header>
-
-  <article class="case-content wrap prose">
-    <slot />
-  </article>
-</main>
-
-<Footer />
+  }
+</script>
 
 <style>
+  .breadcrumbs-container {
+    margin-bottom: 2rem;
+  }
+
   .case-hero {
     padding: 140px 0 80px;
     background: var(--bg-1);
@@ -113,6 +248,7 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
     margin-bottom: 32px;
     flex-wrap: wrap;
   }
+
   .back-link {
     font-family: var(--f-mono);
     font-size: 11px;
@@ -121,6 +257,7 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
     color: var(--text-2);
     transition: color 0.2s;
   }
+
   .back-link:hover {
     color: var(--text);
   }
@@ -143,6 +280,7 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
     line-height: 0.92;
     margin-bottom: 24px;
   }
+
   .case-desc {
     font-size: 18px;
     color: var(--text-2);
@@ -150,16 +288,83 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
     max-width: 640px;
     margin-bottom: 32px;
   }
+
   .case-tech {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
     margin-bottom: 40px;
   }
+
+  .tech-chip {
+    padding: 6px 12px;
+    background: var(--accent-dim);
+    border: 1px solid var(--line-accent);
+    border-radius: 4px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    transition: all 0.2s;
+  }
+
+  .tech-chip:hover {
+    background: var(--accent);
+    color: var(--bg-1);
+  }
+
   .case-links {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
+  }
+
+  .btn-primary,
+  .btn-outline,
+  .btn-ghost {
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg-1);
+    border: 1px solid var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+
+  .btn-outline:hover {
+    background: var(--accent-dim);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-2);
+    border: 1px solid var(--line);
+  }
+
+  .btn-ghost:hover {
+    color: var(--accent);
+    border-color: var(--accent);
   }
 
   .case-thumbnail-full {
@@ -168,11 +373,12 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
     overflow: hidden;
     border-top: 1px solid var(--line);
   }
+
   .case-thumbnail-full img {
-    /* width: 100%;
-    height: 600px; */
     object-fit: cover;
     filter: brightness(0.9);
+    width: 100%;
+    height: auto;
   }
 
   /* MDX prose content */
@@ -180,6 +386,7 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
     padding: 80px 40px;
     max-width: 800px;
   }
+
   .case-content :global(h2) {
     font-family: var(--f-display);
     font-size: 32px;
@@ -191,6 +398,7 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--line);
   }
+
   .case-content :global(h3) {
     font-family: var(--f-display);
     font-size: 22px;
@@ -199,22 +407,26 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
     color: var(--text);
     margin: 40px 0 16px;
   }
+
   .case-content :global(p) {
     font-size: 16px;
     color: var(--text-2);
     line-height: 1.8;
     margin-bottom: 20px;
   }
+
   .case-content :global(strong) {
     color: var(--text);
     font-weight: 500;
   }
+
   .case-content :global(image) {
     width: 100%;
     border-radius: 4px;
     border: 1px solid var(--line);
     margin: 32px 0;
   }
+
   .case-content :global(ul),
   .case-content :global(ol) {
     color: var(--text-2);
@@ -222,6 +434,7 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
     margin-bottom: 20px;
     line-height: 1.8;
   }
+
   .case-content :global(code) {
     font-family: var(--f-mono);
     font-size: 13px;
@@ -230,6 +443,7 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
     border: 1px solid var(--line);
     color: var(--accent);
   }
+
   .case-content :global(pre) {
     background: var(--bg-card);
     border: 1px solid var(--line);
@@ -237,17 +451,79 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
     overflow-x: auto;
     margin: 24px 0;
   }
+
   .case-content :global(pre code) {
     background: none;
     border: none;
     padding: 0;
     color: var(--text-2);
   }
+
   .case-content :global(blockquote) {
     border-left: 2px solid var(--accent);
     padding-left: 20px;
     margin: 32px 0;
     color: var(--text-2);
     font-style: italic;
+  }
+
+  /* Related Projects Section */
+  .related-projects {
+    padding: 80px 40px;
+    text-align: center;
+    border-top: 1px solid var(--line);
+    margin-top: 60px;
+  }
+
+  .related-projects h2 {
+    font-family: var(--f-display);
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .related-projects p {
+    font-size: 16px;
+    color: var(--text-2);
+    margin-bottom: 24px;
+  }
+
+  .view-all-link {
+    display: inline-block;
+    padding: 12px 24px;
+    border: 1px solid var(--line-accent);
+    border-radius: 4px;
+    color: var(--accent);
+    text-decoration: none;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .view-all-link:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+  }
+
+  @media (max-width: 900px) {
+    .case-content {
+      padding: 60px 20px;
+    }
+
+    .case-h1 {
+      font-size: clamp(32px, 6vw, 60px);
+    }
+
+    .case-desc {
+      font-size: 16px;
+    }
+
+    .related-projects {
+      padding: 60px 20px;
+    }
   }
 </style>

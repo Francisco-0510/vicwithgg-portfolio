@@ -1,5 +1,6 @@
 ---
 // src/pages/index.astro
+import { pagesMeta } from '@/data/portfolio';
 import Footer from '../components/layout/Footer.astro';
 import Navbar from '../components/layout/Navbar.astro';
 import About from '../components/sections/About.astro';
@@ -9,9 +10,17 @@ import Hero from '../components/sections/Hero.astro';
 import Projects from '../components/sections/Projects.astro';
 import Stack from '../components/sections/Stack.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+const meta = pagesMeta.home;
 ---
 
-<BaseLayout>
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  keywords={[...meta.keywords]}
+  ogType="website"
+  structuredData={{
+    type: 'Person',
+  }}>
   <Navbar />
   <main>
     <Hero />

@@ -5,16 +5,472 @@
 // ═══════════════════════════════════════════════════════════════
 
 // ── SITE META ────────────────────────────────────────────────
-export const site = {
-  title: "VicWithGG | Diseñador UX/UI y Desarrollador Web",
+/* export const site = {
+  title: "Diseñador UX/UI y Desarrollador Web | VicWithGG",
   description:
     "Diseñador UX/UI y Desarrollador Frontend en Oaxaca, México. Creo experiencias digitales modernas, accesibles y optimizadas para rendimiento y conversión. Especializado en diseño web, UX y desarrollo frontend.",
   url: "https://vicwithgg-portfolio.vercel.app",
   locale: "es-MX",
   twitter: "@VicWithGG1",
   ogImage: "/og-image.jpg",
+} as const; */
+
+// ── SITE META ────────────────────────────────────────────────
+export const site = {
+  title: "Diseñador UX/UI y Desarrollador Web | VicWithGG",
+  description:
+    "Soy Francisco Victorico, diseñador UX/UI y desarrollador frontend especializado en experiencias digitales de alto rendimiento. +4 años de experiencia.",
+  seoTitle: "Diseñador UX/UI y Desarrollador Web | VicWithGG - Oaxaca",
+  seoDescription:
+    "Portafolio de Francisco Victorico Aguirre. Especialista en diseño UX/UI, React, Astro. +4 años de experiencia. Disponible para proyectos freelance.",
+  seoKeywords: [
+    "diseñador UX/UI",
+    "desarrollador web",
+    "frontend developer",
+    "react developer",
+    "astro",
+    "figma designer",
+    "oaxaca mexico",
+    "web design",
+    "ui ux design",
+    "freelance web developer",
+  ],
+  url: "https://vicwithgg-portfolio.vercel.app/",
+  locale: "es",
 } as const;
 
+// ── PERSONAL INFO ─────────────────────────────────────────────
+export const person = {
+  name: "Francisco Victorico Aguirre Jiménez",
+  handle: "VicWithGG",
+  initials: "VGG",
+  location: "Oaxaca, México",
+  roles: ["Diseñador UX/UI", "Desarrollador Frontend"],
+  tagline: "Diseño que razona. Código que respira.",
+  bio: [
+    "Soy Francisco Victorico Aguirre Jiménez, Diseñador UX/UI y Desarrollador Web comprometido con crear experiencias digitales que destacan. Equilibro las necesidades del usuario con los objetivos de negocio para entregar soluciones que generan impacto real.",
+    "Mi enfoque estratégico e intuitivo, junto con el dominio de herramientas avanzadas, me permite convertir ideas en soluciones innovadoras y efectivas. Siempre busco aprender, mejorar y superar expectativas en cada proyecto.",
+  ],
+  availability:
+    "Disponible para proyectos freelance, colaboraciones y oportunidades full-time",
+  photo: "/images/me.jpg",
+  email: "vgg.designer.01@gmail.com",
+  social: {
+    phone: "+52 1 951 391 5906",
+    linkMe: "https://link.me/vicwithgg",
+    figma: "https://www.figma.com/@vicwithgg",
+    github: "https://github.com/Francisco-0510",
+    linkedin: "https://www.linkedin.com/in/vicwith-gg/",
+    x: "https://x.com/VicWithGG1",
+    instagram: "https://www.instagram.com/vicwithgg",
+  },
+} as const;
+
+// ── PAGE META INFORMATION ──────────────────────────────────────
+export const pagesMeta = {
+  home: {
+    title: "Diseñador UX/UI y Desarrollador Web | VicWithGG - Oaxaca",
+    description:
+      "Francisco Victorico - Diseñador UX/UI y desarrollador frontend especializado en React, Astro y Figma. +4 años de experiencia creando experiencias digitales impactantes.",
+    keywords: [
+      "diseñador UX/UI",
+      "desarrollador web",
+      "frontend developer",
+      "portafolio",
+      "oaxaca",
+    ],
+  },
+  projects: {
+    title: "Proyectos de Diseño y Desarrollo Web | VicWithGG",
+    description:
+      "Galería de proyectos en UX/UI Design, desarrollo web con React/Astro y Design Systems. Trabajos en e-commerce, startups y sector público.",
+    keywords: [
+      "proyectos web",
+      "diseño UI",
+      "desarrollo frontend",
+      "react projects",
+      "astro projects",
+      "case studies",
+    ],
+  },
+  services: {
+    title: "Servicios de Diseño Web y Desarrollo Frontend | VicWithGG",
+    description:
+      "Ofrezco servicios de diseño UX/UI, desarrollo web con React/Astro, design systems y consultoría de estrategia digital.",
+    keywords: [
+      "servicios diseño web",
+      "desarrollo web",
+      "UX/UI design",
+      "design systems",
+      "consultoría",
+    ],
+  },
+  about: {
+    title: "Sobre Francisco Victorico | Diseñador UX/UI & Developer",
+    description:
+      "Conoce mi trayectoria, experiencia en diseño y desarrollo, y cómo puedo ayudarte con tu proyecto digital.",
+    keywords: [
+      "sobre mi",
+      "experiencia",
+      "educación",
+      "skills",
+      "certificaciones",
+    ],
+  },
+} as const;
+
+// ── HERO STATS ────────────────────────────────────────────────
+export const heroStats = [
+  { num: "4+", label: "años de experiencia" },
+  { num: "12+", label: "proyectos entregados" },
+  { num: "2", label: "disciplinas: diseño + dev" },
+] satisfies HeroStat[];
+
+// ── SERVICES ──────────────────────────────────────────────────
+export const services = [
+  {
+    id: "ux-ui-design",
+    title: "Diseño UX/UI",
+    description:
+      "Diseño centrado en el usuario con investigación, wireframes y prototipos de alta fidelidad en Figma.",
+    features: [
+      "UX Research & User Testing",
+      "Design Systems & Atomic Design",
+      "Prototipos Interactivos",
+      "Responsive Design",
+      "Accesibilidad (WCAG)",
+    ],
+  },
+  {
+    id: "frontend-development",
+    title: "Desarrollo Frontend",
+    description:
+      "Desarrollo web moderno con React, Astro y TypeScript. Enfoque en performance y experiencia de usuario.",
+    features: [
+      "React & Astro",
+      "TypeScript & Modern JS",
+      "Tailwind CSS & Styled Components",
+      "SEO Optimized",
+      "Performance Focused",
+    ],
+  },
+  {
+    id: "design-systems",
+    title: "Design Systems",
+    description:
+      "Creación de sistemas de diseño escalables que alinean diseño y desarrollo para mayor eficiencia.",
+    features: [
+      "Component Libraries",
+      "Design Tokens",
+      "Documentation",
+      "Figma ↔ Code Sync",
+      "Brand Guidelines",
+    ],
+  },
+] as const;
+
+// ── EXPERIENCE ────────────────────────────────────────────────
+export const experience = [
+  {
+    role: "Diseñador UX/UI y Desarrollador Frontend",
+    company: "Hangar Oficial, Gobierno de Oaxaca",
+    logo: "/images/experience/hangar.jpg",
+    period: "Octubre 2025 - Marzo 2026",
+    description:
+      "Lideré el rediseño integral UX/UI para simplificar procesos aeronáuticos de mantenimiento y despacho, transformando flujos complejos en interfaces intuitivas mediante prototipado de alta fidelidad en Figma e implementación en React 19.",
+    tags: [
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Design Systems",
+      "RBAC",
+      "UX/UI Design",
+      "Figma",
+      "Aeronautical Software",
+      "Architecture",
+    ],
+  },
+  {
+    role: "Diseñador y Desarrollador Web",
+    company: "Visión Creativa",
+    logo: "",
+    period: "Agosto 2024 - Mayo 2025",
+    description:
+      "Lideré la estrategia digital y el rediseño UX/UI para marcas comerciales como Taaniilaaz y Muñeco de Chocolate, optimizando la arquitectura de información y la navegación para maximizar conversiones.",
+    tags: [
+      "E-commerce",
+      "UX/UI Design",
+      "Brand Identity",
+      "Information Architecture",
+      "Digital Strategy",
+      "User Retention",
+      "Shopify / Webflow",
+      "Visual Design",
+    ],
+  },
+  {
+    role: "Diseñador UX/UI y Desarrollador Web",
+    company: "VGG Desarrollo y Diseño (Marca Personal)",
+    logo: "/images/experience/vgg-logo.png",
+    period: "2022 - Presente",
+    description:
+      "Desde 2022, bajo mi marca personal en Oaxaca, México, me he especializado en la convergencia entre el diseño estratégico y el desarrollo de alto rendimiento. Optimicé drásticamente los tiempos de entrega con metodologías ágiles y herramientas modernas.",
+    tags: [
+      "Astro",
+      "React",
+      "Svelte",
+      "Figma",
+      "Design Systems",
+      "Firebase",
+      "TypeScript",
+      "UX/UI Design",
+      "Webflow",
+      "Performance Optimization",
+    ],
+  },
+  {
+    role: "Diseñador UX/UI y Desarrollador Web",
+    company: "Grupo Empresarial NIREJ",
+    logo: "/images/experience/nirej.png",
+    period: "Octubre 2023 - Enero 2024",
+    description:
+      "Coordiné equipos multidisciplinarios bajo metodologías ágiles para transformar necesidades de negocio en soluciones de diseño estratégico. Lideré el rediseño integral del Hospital Ángel del Mar y coordiné implementación en Webflow.",
+    tags: [
+      "UX Research",
+      "UI Design",
+      "Webflow",
+      "Agile",
+      "Project Coordination",
+      "Landing Pages",
+      "Email Design",
+      "Responsive Design",
+      "Strategy",
+    ],
+  },
+  {
+    role: "Diseñador UX/UI y Desarrollador Web",
+    company:
+      "Universidad Tecnológica de los Valles Centrales de Oaxaca (UTVCO)",
+    logo: "/images/experience/utvco.jpg",
+    period: "2019 - 2023",
+    description:
+      "Lideré estrategias de diseño centrado en el usuario (UCD) para proyectos institucionales de alto impacto. Desarrollé aplicaciones con Angular e Ionic, asegurando estándares visuales de excelencia y optimización de entregas.",
+    tags: [
+      "Angular",
+      "Ionic",
+      "UX Research",
+      "Wearables",
+      "Mobile Design",
+      "UCD",
+      "Figma",
+      "Accessibility",
+      "Front-end Development",
+    ],
+  },
+] satisfies ExperienceItem[];
+
+// ── STACK / SKILLS ────────────────────────────────────────────
+export const stackCategories = [
+  {
+    title: "Diseño de Producto (UX/UI)",
+    icon: "design",
+    skills: [
+      "Figma (Advanced)",
+      "Design Systems & Atomic Design",
+      "UX Research & Heuristics",
+      "Prototyping (High-Fidelity)",
+      "Design Tokens & Variables",
+    ],
+  },
+  {
+    title: "Ingeniería Frontend",
+    icon: "code",
+    skills: [
+      "React 19 & Next.js",
+      "Astro (Performance Focus)",
+      "TypeScript (Advanced)",
+      "Tailwind CSS & PostCSS",
+      "Angular & Ionic",
+    ],
+  },
+  {
+    title: "Estrategia & Gestión",
+    icon: "strategy",
+    skills: [
+      "Agile (Scrum/Kanban)",
+      "Product Thinking",
+      "Information Architecture",
+      "Bridge Role (Design-Dev)",
+      "Technical Documentation",
+    ],
+  },
+  {
+    title: "Tooling & Cloud",
+    icon: "tools",
+    skills: [
+      "Vite & Node.js",
+      "Git (GitHub/GitLab)",
+      "Firebase & REST APIs",
+      "Webflow & Shopify",
+      "Jira / Asana",
+    ],
+  },
+] satisfies StackCategory[];
+
+export const techLogos = [
+  { name: "React 19", type: "Library", logo: "/images/stack/react.svg" },
+  {
+    name: "TypeScript",
+    type: "Language",
+    logo: "/images/stack/typescript.svg",
+  },
+  { name: "Astro", type: "Framework", logo: "/images/stack/astro.svg" },
+  { name: "Figma", type: "Design", logo: "/images/stack/figma.svg" },
+  { name: "Tailwind CSS", type: "Styling", logo: "/images/stack/tailwind.svg" },
+  { name: "Git", type: "Version Control", logo: "/images/stack/git.svg" },
+  { name: "Angular", type: "Framework", logo: "/images/stack/angular.svg" },
+  { name: "Webflow", type: "No-Code", logo: "/images/stack/webflow.svg" },
+] satisfies TechLogo[];
+
+// ── CERTIFICATES ──────────────────────────────────────────────
+export const certificates = [
+  {
+    title: "Certificado profesional de Diseño de experiencia del usuario (UX)",
+    org: "Google",
+    date: "Noviembre 2024",
+    logo: "/images/certs/google.png",
+    url: "",
+  },
+  {
+    title: "Figma Avanzado: Sistemas de Diseño y Prototipado",
+    org: "LinkedIn Learning",
+    date: "Noviembre 2024",
+    logo: "/images/certs/linkedin.png",
+    url: "",
+  },
+  {
+    title: "Certificación Profesional de Scrum Foundation - SFPC™",
+    org: "CertiProf",
+    date: "Octubre 2024",
+    logo: "/images/certs/certiprof.png",
+    url: "",
+  },
+  {
+    title: "Introducción a la Ciberseguridad",
+    org: "Cisco Networking Academy",
+    date: "Septiembre 2021",
+    logo: "/images/certs/cisco.png",
+    url: "",
+  },
+  {
+    title: "CCNA R&S: Fundamentos de enrutamiento y conmutación",
+    org: "Cisco Networking Academy",
+    date: "Diciembre 2020",
+    logo: "/images/certs/cisco.png",
+    url: "",
+  },
+  {
+    title: "Introducción al IoT",
+    org: "Cisco Networking Academy",
+    date: "Septiembre 2020",
+    logo: "/images/certs/cisco.png",
+    url: "",
+  },
+  {
+    title: "Fundamentos de TI: hardware y software de PC",
+    org: "Cisco Networking Academy",
+    date: "Agosto 2020",
+    logo: "/images/certs/cisco.png",
+    url: "",
+  },
+] satisfies Certificate[];
+
+// ── EDUCATION ─────────────────────────────────────────────────
+export const education = [
+  {
+    degree: "Ingeniería en Desarrollo y Gestión de Software Multiplataforma",
+    school: "Universidad Tecnológica de los Valles Centrales de Oaxaca (UTVCO)",
+    period: "2021 — 2023",
+    logo: "/images/edu/utvco.png",
+  },
+  {
+    degree:
+      "Técnico Superior Universitario (T.S.U) en Tecnologías de la Información",
+    school: "Universidad Tecnológica de los Valles Centrales de Oaxaca (UTVCO)",
+    period: "2019 — 2021",
+    logo: "/images/edu/utvco.png",
+  },
+] satisfies EducationItem[];
+
+// ── NAVIGATION ────────────────────────────────────────────────
+export const navLinks = [
+  { label: "Proyectos", href: "/#projects" },
+  { label: "Experiencia", href: "/#experience" },
+  { label: "Stack", href: "/#stack" },
+  { label: "Sobre mí", href: "/#about" },
+] as const;
+
+// ═══════════════════════════════════════════════════════════════
+//  TYPE DEFINITIONS
+// ═══════════════════════════════════════════════════════════════
+export interface HeroStat {
+  num: string;
+  label: string;
+}
+
+export interface Project {
+  slug: string;
+  name: string;
+  sector: string;
+  description: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string[];
+  thumbnail: string;
+  ogImage?: string;
+  tech: string[];
+  links: { figma?: string; github?: string; live?: string };
+  featured: boolean;
+  type: "app" | "web" | "design";
+}
+
+export interface ExperienceItem {
+  role: string;
+  company: string;
+  logo: string;
+  period: string;
+  description: string;
+  tags: string[];
+}
+
+export interface TechLogo {
+  name: string;
+  type: string;
+  logo: string;
+}
+
+export interface Certificate {
+  title: string;
+  org: string;
+  date: string;
+  logo: string;
+  url: string;
+}
+
+export interface EducationItem {
+  degree: string;
+  school: string;
+  period: string;
+  logo: string;
+}
+
+export interface StackCategory {
+  title: string;
+  icon: string;
+  skills: string[];
+}
+
+/* 
 // Helper: construye el array sameAs para JSON-LD desde person.social
 // Úsalo en BaseLayout: sameAs: getSameAs()
 export function getSameAs(): string[] {
@@ -378,3 +834,4 @@ export interface EducationItem {
   period: string;
   logo: string;
 }
+ */

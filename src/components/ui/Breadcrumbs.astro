@@ -1,0 +1,78 @@
+---
+// src/components/Breadcrumbs.astro
+interface Breadcrumb {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  items: Breadcrumb[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    {
+      items.map((item, index) => (
+        <li
+          itemprop="itemListElement"
+          itemscope
+          itemtype="https://schema.org/ListItem"
+          class={index === items.length - 1 ? 'active' : ''}>
+          {index !== items.length - 1 ? (
+            <a itemprop="item" href={item.url}>
+              <span itemprop="name">{item.name}</span>
+            </a>
+          ) : (
+            <span itemprop="name">{item.name}</span>
+          )}
+          <meta itemprop="position" content={String(index + 1)} />
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs {
+    font-size: 0.875rem;
+    margin: 1rem 0;
+  }
+
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+  }
+
+  li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-text-secondary, #888);
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+
+  li.active {
+    color: var(--color-text-secondary, #888);
+  }
+</style>

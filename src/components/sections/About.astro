@@ -7,21 +7,12 @@ import Icon from '../ui/Icon.astro';
 import { Image } from 'astro:assets';
 ---
 
-<section id="about">
+<section id="about" itemscope itemtype="https://schema.org/Person">
   <div class="wrap">
     <div class="about-inner">
       <!-- Sticky photo column -->
       <div class="about-photo">
         <div class="about-photo-frame">
-          <!--
-            NOTE: swap <img> for Astro's <Image /> once you add a real
-            local image to src/assets/images/vic-profile.jpg:
-
-            import { Image } from 'astro:assets';
-            import profileImg from '../../assets/images/vic-profile.jpg';
-            <Image src={profileImg} alt="Foto de Vic" width={400} height={400}
-              format="webp" quality={85} loading="eager" />
-          -->
           <Image
             src={person.photo}
             alt={`Foto de ${person.name}`}
@@ -30,6 +21,8 @@ import { Image } from 'astro:assets';
             loading="lazy"
             decoding="async"
             format="webp"
+            quality={85}
+            itemprop="image"
             onerror="this.style.display='none'"
           />
         </div>
@@ -42,7 +35,9 @@ import { Image } from 'astro:assets';
                 <Button
                   href={person.social.linkedin}
                   variant="ghost"
-                  target="_blank">
+                  target="_blank"
+                  aria-label={`${person.name} en LinkedIn`}
+                  rel="noopener noreferrer">
                   <Icon slot="icon" name="linkedin" size={14} />
                   LinkedIn
                 </Button>
@@ -53,13 +48,31 @@ import { Image } from 'astro:assets';
                 <Button
                   href={person.social.github}
                   variant="ghost"
-                  target="_blank">
+                  target="_blank"
+                  aria-label={`${person.name} en GitHub`}
+                  rel="noopener noreferrer">
                   <Icon slot="icon" name="github" size={14} />
                   GitHub
                 </Button>
               )
             }
-            <Button href={`mailto:${person.email}`} variant="ghost">
+            {
+              person.social.x && (
+                <Button
+                  href={person.social.x}
+                  variant="ghost"
+                  target="_blank"
+                  aria-label={`${person.name} en Twitter/X`}
+                  rel="noopener noreferrer">
+                  <Icon slot="icon" name="external-link" size={14} />
+                  Twitter
+                </Button>
+              )
+            }
+            <Button
+              href={`mailto:${person.email}`}
+              variant="ghost"
+              aria-label={`Enviar email a ${person.name}`}>
               <Icon slot="icon" name="mail" size={14} />
               Email
             </Button>
@@ -74,9 +87,19 @@ import { Image } from 'astro:assets';
           Diseñador & Desarrollador<br />
           <em>desde Oaxaca, México</em>
         </h2>
+
+        <!-- Structured Data Meta Tags -->
+        <meta itemprop="name" content={person.name} />
+        <meta itemprop="jobTitle" content={person.roles.join(', ')} />
+        <meta itemprop="email" content={person.email} />
+        <meta itemprop="telephone" content={person.social.phone} />
+        <meta itemprop="url" content={Astro.site?.toString()} />
+
         {
           person.bio.map((paragraph, i) => (
-            <p class={`reveal reveal-delay-${i + 2}`}>{paragraph}</p>
+            <p class={`reveal reveal-delay-${i + 2}`} itemprop="description">
+              {paragraph}
+            </p>
           ))
         }
 
@@ -86,7 +109,10 @@ import { Image } from 'astro:assets';
             <h3 class="reveal">Certificados</h3>
             {
               certificates.map((cert, i) => (
-                <div class={`cert-item reveal reveal-delay-${Math.min(i, 5)}`}>
+                <div
+                  class={`cert-item reveal reveal-delay-${Math.min(i, 5)}`}
+                  itemscope
+                  itemtype="https://schema.org/EducationalOccupationalCredential">
                   <div class="cert-logo">
                     <Image
                       format="webp"
@@ -95,13 +121,18 @@ import { Image } from 'astro:assets';
                       width="32"
                       height="32"
                       loading="lazy"
+                      itemprop="image"
                       onerror="this.style.opacity='0.3'"
                     />
                   </div>
                   <div class="cert-info">
-                    <div class="cert-date">{cert.date}</div>
-                    <h4>{cert.title}</h4>
-                    <div class="cert-org">{cert.org}</div>
+                    <div class="cert-date">
+                      <time itemprop="dateSigned">{cert.date}</time>
+                    </div>
+                    <h4 itemprop="name">{cert.title}</h4>
+                    <div class="cert-org" itemprop="issuingOrganization">
+                      {cert.org}
+                    </div>
                   </div>
                 </div>
               ))
@@ -112,7 +143,10 @@ import { Image } from 'astro:assets';
             <h3 class="reveal">Educación</h3>
             {
               education.map((edu, i) => (
-                <div class={`edu-item reveal reveal-delay-${Math.min(i, 5)}`}>
+                <div
+                  class={`edu-item reveal reveal-delay-${Math.min(i, 5)}`}
+                  itemscope
+                  itemtype="https://schema.org/EducationalOccupationalCredential">
                   <div class="edu-logo">
                     <Image
                       format="webp"
@@ -121,13 +155,18 @@ import { Image } from 'astro:assets';
                       width="32"
                       height="32"
                       loading="lazy"
+                      itemprop="image"
                       onerror="this.style.opacity='0.3'"
                     />
                   </div>
                   <div class="edu-info">
-                    <div class="edu-date">{edu.period}</div>
-                    <h4>{edu.degree}</h4>
-                    <div class="edu-school">{edu.school}</div>
+                    <div class="edu-date">
+                      <time itemprop="dateSigned">{edu.period}</time>
+                    </div>
+                    <h4 itemprop="name">{edu.degree}</h4>
+                    <div class="edu-school" itemprop="issuingOrganization">
+                      {edu.school}
+                    </div>
                   </div>
                 </div>
               ))
@@ -138,6 +177,40 @@ import { Image } from 'astro:assets';
     </div>
   </div>
 </section>
+
+<!-- Structured Data JSON-LD -->
+<script is:inline type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://vicwithgg-portfolio.vercel.app/#about",
+    "name": "Francisco Victorico Aguirre Jiménez",
+    "alternateName": "VicWithGG",
+    "url": "https://vicwithgg-portfolio.vercel.app/",
+    "image": "https://vicwithgg-portfolio.vercel.app/images/me.jpg",
+    "description": "Diseñador UX/UI y Desarrollador Frontend especializado en React, Astro y Figma con más de 4 años de experiencia.",
+    "jobTitle": ["Diseñador UX/UI", "Desarrollador Frontend"],
+    "email": "vgg.designer.01@gmail.com",
+    "telephone": "+52 1 951 391 5906",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Oaxaca",
+      "addressCountry": "MX"
+    },
+    "sameAs": [
+      "https://github.com/Francisco-0510",
+      "https://www.linkedin.com/in/vicwith-gg/",
+      "https://x.com/VicWithGG1",
+      "https://www.figma.com/@vicwithgg",
+      "https://www.instagram.com/vicwithgg"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "VGG Design & Dev",
+      "url": "https://vicwithgg-portfolio.vercel.app/"
+    }
+  }
+</script>
 
 <style>
   #about {

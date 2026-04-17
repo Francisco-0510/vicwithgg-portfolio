@@ -1,0 +1,224 @@
+---
+// src/pages/servicios.astro
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Footer from '../components/layout/Footer.astro';
+import Navbar from '../components/layout/Navbar.astro';
+import { pagesMeta, services } from '../data/portfolio';
+
+const meta = pagesMeta.services;
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Servicios', url: '/servicios' },
+];
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  keywords={[...meta.keywords]}
+  ogType="website"
+  structuredData={{
+    type: 'Organization',
+  }}>
+  <Navbar />
+  <main>
+    <section class="hero-services">
+      <Breadcrumbs items={breadcrumbs} />
+      <div class="container">
+        <h1>Servicios de Diseño y Desarrollo Web</h1>
+        <p class="lead">
+          Soluciones completas de diseño UX/UI y desarrollo frontend para llevar
+          tu visión digital a realidad
+        </p>
+      </div>
+    </section>
+
+    <section class="services-grid">
+      <div class="container">
+        <div class="grid">
+          {
+            services.map((service) => (
+              <article class="service-card">
+                <h2>{service.title}</h2>
+                <p>{service.description}</p>
+                <ul>
+                  {service.features.map((feature) => (
+                    <li>{feature}</li>
+                  ))}
+                </ul>
+                <a href="/#contact" class="cta-button">
+                  Solicitar Presupuesto
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="why-me">
+      <div class="container">
+        <h2>¿Por qué trabajar conmigo?</h2>
+        <ul>
+          <li>
+            <strong>Enfoque integral:</strong> Combino diseño y desarrollo en un solo
+            profesional
+          </li>
+          <li>
+            <strong>Performance First:</strong> Sitios web rápidos y optimizados
+          </li>
+          <li>
+            <strong>Experiencia probada:</strong> +4 años trabajando con marcas y
+            startups
+          </li>
+          <li>
+            <strong>Metodología ágil:</strong> Entregas rápidas sin sacrificar calidad
+          </li>
+          <li>
+            <strong>Comunicación clara:</strong> Te mantendré informado en cada paso
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .hero-services {
+    padding: 4rem 2rem;
+    background: linear-gradient(
+      135deg,
+      var(--color-bg) 0%,
+      var(--color-surface) 100%
+    );
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin: 2rem 0 1rem;
+    line-height: 1.1;
+  }
+
+  .lead {
+    font-size: 1.25rem;
+    opacity: 0.8;
+    margin-bottom: 0;
+  }
+
+  .services-grid {
+    padding: 4rem 2rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .service-card {
+    padding: 2rem;
+    background: var(--color-surface);
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .service-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+
+  .service-card p {
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .service-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-card li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .service-card li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--accent);
+    color: var(--color-bg);
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+
+  .cta-button:hover {
+    opacity: 0.9;
+  }
+
+  .why-me {
+    padding: 4rem 2rem;
+    background: var(--color-surface);
+  }
+
+  .why-me h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .why-me ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.5rem;
+    max-width: 800px;
+  }
+
+  .why-me li {
+    padding: 1rem;
+    background: var(--color-bg);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+  }
+
+  .why-me strong {
+    color: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+
+    .lead {
+      font-size: 1rem;
+    }
+  }
+</style>

@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
+Disallow: /.vercel/
+Disallow: /.astro/
+Disallow: /admin/
 
+# Rastreadores específicos
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap
 Sitemap: https://vicwithgg-portfolio.vercel.app/sitemap-index.xml

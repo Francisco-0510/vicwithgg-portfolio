@@ -1,0 +1,98 @@
+---
+// src/components/StructuredData.astro
+import { person, site } from '../data/portfolio';
+
+interface Props {
+  type?: 'Person' | 'Organization' | 'BreadcrumbList' | 'Project';
+  data?: Record<string, any>;
+}
+
+const { type = 'Person', data = {} } = Astro.props;
+
+let structuredData: Record<string, any> = {};
+
+if (type === 'Person') {
+  structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': site.url,
+    name: person.name,
+    url: site.url,
+    image: new URL(person.photo, site.url),
+    description: site.description,
+    jobTitle: person.roles,
+    worksFor: {
+      '@type': 'Organization',
+      name: 'VGG Design & Dev',
+      url: site.url,
+    },
+    sameAs: [
+      person.social.github,
+      person.social.linkedin,
+      person.social.x,
+      person.social.figma,
+      person.social.instagram,
+    ],
+    email: person.email,
+    telephone: person.social.phone,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Oaxaca',
+      addressCountry: 'MX',
+    },
+  };
+}
+
+if (type === 'Organization') {
+  structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'VGG Design & Dev',
+    url: site.url,
+    logo: new URL('/og-image.jpg', site.url),
+    description: site.description,
+    founder: {
+      '@type': 'Person',
+      name: person.name,
+    },
+    sameAs: [person.social.github, person.social.linkedin, person.social.x],
+  };
+}
+
+if (type === 'BreadcrumbList' && data.items) {
+  structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: data.items.map((item: any, index: number) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: new URL(item.url, site.url),
+    })),
+  };
+}
+
+if (type === 'Project' && data.name) {
+  structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: data.name,
+    description: data.description,
+    image: new URL(data.image || '/og-image.jpg', site.url),
+    url: data.url || site.url,
+    creator: {
+      '@type': 'Person',
+      name: person.name,
+    },
+    keywords: data.keywords?.join(', ') || '',
+    dateCreated: data.dateCreated,
+    dateModified: data.dateModified,
+  };
+}
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(structuredData)}
+/>

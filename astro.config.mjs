@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 import { defineConfig } from "astro/config";
 export default defineConfig({
-  site: "https://vicwithgg-portfolio.vercel.app",
+  site: "https://vicwithgg-portfolio.vercel.app/",
   compressHTML: true, // ← Habilitar compresión HTML
 
   // ── Integrations ──────────────────────────────────────────────
@@ -18,33 +18,19 @@ export default defineConfig({
     }),
     sitemap({
       filter: (page) =>
-        !page.includes("/privacidad") &&
-        !page.includes("/terminos") & !page.includes("/terminos") &&
-        !page.includes("/draft/") &&
-        !page.includes("/admin/"),
+        !page.includes("/privacidad") && !page.includes("/terminos"),
       serialize(item) {
-        // Homepage
-        if (item.url === "https://vicwithgg-portfolio.vercel.app/") {
-          return {
-            ...item,
-            changefreq: "weekly",
-            priority: 1.0,
-          };
+        // Aumentar prioridad de servicios
+        if (item.url.includes("/servicios")) {
+          return { ...item, changefreq: "monthly", priority: 0.9 };
         }
-        // Case studies
         if (item.url.includes("/proyectos/")) {
-          return {
-            ...item,
-            changefreq: "monthly",
-            priority: 0.9,
-          };
+          return { ...item, changefreq: "monthly", priority: 0.8 };
         }
-        // Resto
-        return {
-          ...item,
-          changefreq: "monthly",
-          priority: 0.6,
-        };
+        if (item.url === "https://vicwithgg-portfolio.vercel.app/") {
+          return { ...item, changefreq: "weekly", priority: 1.0 };
+        }
+        return { ...item, changefreq: "monthly", priority: 0.6 };
       },
     }),
     tailwindcss(),
