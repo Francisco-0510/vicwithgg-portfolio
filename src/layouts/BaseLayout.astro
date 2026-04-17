@@ -197,54 +197,58 @@ const articleSchema =
 
       gtag('config', 'G-06Y0L16P02');
     </script>
-    <link
-      rel="preload"
-      href="/fonts/barlow-condensed-900.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/barlow-condensed-700.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    /><link
-      rel="preload"
-      href="/fonts/ibm-plex-mono-400.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <style>
-      @font-face {
-        font-family: 'Barlow Condensed';
-        src: url('/fonts/barlow-condensed-900.woff2') format('woff2');
-        font-weight: 900;
-        font-display: swap;
-      }
-      @font-face {
-        font-family: 'Barlow Condensed';
-        src: url('/fonts/barlow-condensed-700.woff2') format('woff2');
-        font-weight: 700;
-        font-style: normal;
-        font-display: swap;
-      }
-      @font-face {
-        font-family: 'IBM Plex Mono';
-        src: url('/fonts/ibm-plex-mono-400.woff2') format('woff2');
-        font-weight: 400;
-        font-style: normal;
-        font-display: swap;
-      }
-    </style>
-    <ClientRouter />
-    <slot name="head" />
   </head>
   <!-- Google tag (gtag.js) -->
 
+  <ClientRouter />
+
+  <slot name="head" />
   <!-- Preload solo fonts del above-the-fold (hero) -->
+  <link
+    rel="preload"
+    href="/fonts/barlow-condensed-900.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+
+  <link
+    rel="preload"
+    href="/fonts/barlow-condensed-700.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    href="/fonts/ibm-plex-mono-400.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  />
+
+  <style>
+    @font-face {
+      font-family: 'Barlow Condensed';
+      src: url('/fonts/barlow-condensed-900.woff2') format('woff2');
+      font-weight: 900;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Barlow Condensed';
+      src: url('/fonts/barlow-condensed-700.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url('/fonts/ibm-plex-mono-400.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
 
   <body>
     <a href="#main-content" class="skip-link">SALTAR AL CONTENIDO</a>
@@ -338,7 +342,9 @@ const articleSchema =
     <slot name="scripts" />
     <Analytics />
     <SpeedInsights />
-  </body><style is:global>
+  </body>
+
+  <style is:global>
     /* Skip link */
     .skip-link {
       position: absolute;

@@ -17,10 +17,9 @@ export default defineConfig({
       },
     }),
     sitemap({
-      // ✅ Correcto
       filter: (page) =>
         !page.includes("/privacidad") &&
-        !page.includes("/terminos") &&
+        !page.includes("/terminos") & !page.includes("/terminos") &&
         !page.includes("/draft/") &&
         !page.includes("/admin/"),
       serialize(item) {
