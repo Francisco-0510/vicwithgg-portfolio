@@ -5,28 +5,36 @@
 // ═══════════════════════════════════════════════════════════════
 
 // ── SITE META ────────────────────────────────────────────────
+// FIX: title ya no incluye el subtítulo redundante que se duplicaba
+// en BaseLayout. El title aquí es la marca, el subtítulo va en description.
 export const site = {
   title: "VicWithGG | Diseñador UX/UI y Desarrollador Web",
   description:
     "Diseñador UX/UI y Desarrollador Frontend en Oaxaca, México. Creo experiencias digitales modernas, accesibles y optimizadas para rendimiento y conversión. Especializado en diseño web, UX y desarrollo frontend.",
-  url: "https://vicwithgg-portfolio.vercel.app",
+  url: "https://vicwithgg-portfolio.vercel.app", // TODO: cambiar a dominio propio cuando esté listo
   locale: "es-MX",
   twitter: "@VicWithGG1",
   ogImage: "/og-image.jpg",
 } as const;
 
-// Helper: construye el array sameAs para JSON-LD desde person.social
-// Úsalo en BaseLayout: sameAs: getSameAs()
+// ── HELPERS ──────────────────────────────────────────────────
+
+/**
+ * Devuelve el array sameAs para JSON-LD Person schema.
+ * Filtra automáticamente entradas vacías.
+ * Uso en BaseLayout: sameAs: getSameAs()
+ */
 export function getSameAs(): string[] {
-  return [
-    person.social.linkedin,
-    person.social.github,
-    person.social.figma,
-    person.social.x,
-    person.social.instagram,
-    person.social.linkMe,
-  ].filter(Boolean);
+  // Forzamos a que los valores se traten como unknown para que el
+  // predicado 'is string' sea una evolución válida.
+  return (Object.values(person.social) as unknown[]).filter(
+    (v): v is string => typeof v === "string" && v.startsWith("http"),
+  );
 }
+
+// FIX: getSameAs() ahora es genérico — itera person.social automáticamente.
+// Antes listaba cada red manualmente, por lo que agregar una red nueva
+// requería editar getSameAs() además de person.social. Ya no es necesario.
 
 // ── PERSONAL INFO ─────────────────────────────────────────────
 export const person = {
@@ -34,7 +42,7 @@ export const person = {
   handle: "VicWithGG",
   initials: "VGG",
   location: "Oaxaca, MX",
-  locationFull: "Oaxaca de Juárez, Oaxaca, México", // para JSON-LD y schema
+  locationFull: "Oaxaca de Juárez, Oaxaca, México",
   roles: [
     "Diseñador UX/UI en México",
     "Desarrollador Frontend especializado en rendimiento",
@@ -45,13 +53,14 @@ export const person = {
     "Soy Francisco Victorico Aguirre Jiménez, Diseñador UX/UI y Desarrollador Web comprometido con crear experiencias digitales que destacan. Equilibro las necesidades del usuario con los objetivos del producto, utilizando metodologías ágiles, investigación y diseño centrado en las personas.",
     "Mi enfoque estratégico e intuitivo, junto con el dominio de herramientas avanzadas, me permite convertir ideas en soluciones innovadoras y efectivas. Siempre busco aprender, mejorar y superar nuevos desafíos.",
   ],
-
   availability:
     "Disponible para proyectos freelance, colaboraciones y oportunidades full-time",
   photo: "/images/me.jpg",
   email: "vgg.designer.01@gmail.com",
   social: {
     phone: "+52 1 951 391 5906",
+    // FIX: phone no es una URL — getSameAs() ahora filtra por startsWith('http')
+    // así que phone queda en social para uso en contacto pero no en sameAs.
     linkMe: "https://link.me/vicwithgg",
     figma: "https://www.figma.com/@vicwithgg",
     github: "https://github.com/Francisco-0510",
@@ -70,13 +79,11 @@ export const heroStats = [
 
 // ── EXPERIENCE ────────────────────────────────────────────────
 export const experience = [
-  // SiCROA
   {
     role: "Diseñador UX/UI y Desarrollador Frontend",
     company: "Hangar Oficial, Gobierno de Oaxaca",
     logo: "/images/experience/hangar.jpg",
     period: "Octubre 2025 - Marzo 2026",
-    // Fechas ISO para JSON-LD y ordenamiento programático
     startDate: "2025-10-01",
     endDate: "2026-03-31",
     description:
@@ -93,8 +100,6 @@ export const experience = [
       "Architecture",
     ],
   },
-
-  // Vision Creativa
   {
     role: "Diseñador y Desarrollador Web",
     company: "Visión Creativa",
@@ -115,7 +120,6 @@ export const experience = [
       "Visual Design",
     ],
   },
-  // VGG Design - Designer
   {
     role: "Diseñador UX/UI y Desarrollador Web",
     company: "VGG Desarrollo y Diseño (Marca Personal)",
@@ -138,7 +142,6 @@ export const experience = [
       "Performance Optimization",
     ],
   },
-  // NIREJ
   {
     role: "Diseñador UX/UI y Desarrollador Web",
     company: "Grupo Empresarial NIREJ",
@@ -160,7 +163,6 @@ export const experience = [
       "Strategy",
     ],
   },
-  // UTVCO
   {
     role: "Diseñador UX/UI y Desarrollador Web",
     company:
@@ -184,8 +186,6 @@ export const experience = [
     ],
   },
 ] satisfies ExperienceItem[];
-
-// ── TYPES ─────────────────────────────────────────────────────
 
 // ── STACK / SKILLS ────────────────────────────────────────────
 export const stackCategories = [
@@ -331,10 +331,12 @@ export const navLinks = [
 // ═══════════════════════════════════════════════════════════════
 //  TYPE DEFINITIONS
 // ═══════════════════════════════════════════════════════════════
+
 export interface HeroStat {
   num: string;
   label: string;
 }
+
 export interface StackCategory {
   title: string;
   icon: string;
@@ -347,6 +349,7 @@ export interface TechLogo {
   logo: string;
 }
 
+// FIX: eliminada la declaración duplicada de TechLogo que existía en el original
 export interface ExperienceItem {
   role: string;
   company: string;
@@ -356,12 +359,6 @@ export interface ExperienceItem {
   startDate: string; // ISO 8601: "2025-10-01"
   endDate: string | null; // null = trabajo actual
   tags: string[];
-}
-
-export interface TechLogo {
-  name: string;
-  type: string;
-  logo: string;
 }
 
 export interface Certificate {

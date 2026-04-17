@@ -19,7 +19,7 @@ export default defineConfig({
     sitemap({
       filter: (page) =>
         !page.includes("/privacidad") &&
-        !page.includes("/terminos") & !page.includes("/terminos") &&
+        !page.includes("/terminos") &&
         !page.includes("/draft/") &&
         !page.includes("/admin/"),
       serialize(item) {
@@ -47,7 +47,6 @@ export default defineConfig({
         };
       },
     }),
-    tailwindcss(),
   ],
 
   // ── Output ────────────────────────────────────────────────────
