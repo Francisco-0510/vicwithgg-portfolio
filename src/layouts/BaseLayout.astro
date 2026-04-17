@@ -69,80 +69,87 @@ const {
     <!-- Astro View Transitions -->
     <ClientRouter />
 
-   {/* Structured Data JSON-LD */}
-    {structuredData && structuredData.type === 'Person' && (
-      <script is:inline type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Person",
-          "@id": site.url,
-          "name": "Francisco Victorico Aguirre Jiménez",
-          "alternateName": "VicWithGG",
-          "url": site.url,
-          "image": new URL('/images/me.jpg', site.url).href,
-          "description": description,
-          "jobTitle": ["Diseñador UX/UI", "Desarrollador Frontend"],
-          "email": "vgg.designer.01@gmail.com",
-          "telephone": "+52 1 951 391 5906",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Oaxaca",
-            "addressCountry": "MX"
-          },
-          "sameAs": [
-            "https://github.com/Francisco-0510",
-            "https://www.linkedin.com/in/vicwith-gg/",
-            "https://x.com/VicWithGG1",
-            "https://www.figma.com/@vicwithgg"
-          ]
-        })}
-      </script>
-    )}
+    {
+      structuredData && structuredData.type === 'Person' && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            '@id': site.url,
+            name: 'Francisco Victorico Aguirre Jiménez',
+            alternateName: 'VicWithGG',
+            url: site.url,
+            image: `${site.url.replace(/\/$/, '')}/images/me.jpg`,
+            description: description,
+            jobTitle: ['Diseñador UX/UI', 'Desarrollador Frontend'],
+            email: 'vgg.designer.01@gmail.com',
+            telephone: '+52 1 951 391 5906',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Oaxaca',
+              addressCountry: 'MX',
+            },
+            sameAs: [
+              'https://github.com/Francisco-0510',
+              'https://www.linkedin.com/in/vicwith-gg/',
+              'https://x.com/VicWithGG1',
+              'https://www.figma.com/@vicwithgg',
+            ],
+          })}
+        />
+      )
+    }
 
-    {structuredData && structuredData.type === 'Organization' && (
-      <script is:inline type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "VGG Design & Dev",
-          "url": site.url,
-          "description": description,
-          "founder": {
-            "@type": "Person",
-            "name": "Francisco Victorico Aguirre Jiménez"
-          },
-          "sameAs": [
-            "https://github.com/Francisco-0510",
-            "https://www.linkedin.com/in/vicwith-gg/",
-            "https://x.com/VicWithGG1",
-            "https://www.figma.com/@vicwithgg"
-          ]
-        })}
-      </script>
-    )}
+    {
+      structuredData && structuredData.type === 'Organization' && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'VGG Design & Dev',
+            url: site.url,
+            description: description,
+            founder: {
+              '@type': 'Person',
+              name: 'Francisco Victorico Aguirre Jiménez',
+            },
+            sameAs: [
+              'https://github.com/Francisco-0510',
+              'https://www.linkedin.com/in/vicwith-gg/',
+              'https://x.com/VicWithGG1',
+              'https://www.figma.com/@vicwithgg',
+            ],
+          })}
+        />
+      )
+    }
 
-    {!structuredData && (
-      <script is:inline type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "VGG Design & Dev",
-          "url": site.url,
-          "description": description,
-          "founder": {
-            "@type": "Person",
-            "name": "Francisco Victorico Aguirre Jiménez"
-          },
-          "sameAs": [
-            "https://github.com/Francisco-0510",
-            "https://www.linkedin.com/in/vicwith-gg/",
-            "https://x.com/VicWithGG1",
-            "https://www.figma.com/@vicwithgg"
-          ]
-        })}
-      </script>
-    )}
-
+    {
+      !structuredData && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'VGG Design & Dev',
+            url: site.url,
+            description: description,
+            founder: {
+              '@type': 'Person',
+              name: 'Francisco Victorico Aguirre Jiménez',
+            },
+            sameAs: [
+              'https://github.com/Francisco-0510',
+              'https://www.linkedin.com/in/vicwith-gg/',
+              'https://x.com/VicWithGG1',
+              'https://www.figma.com/@vicwithgg',
+            ],
+          })}
+        />
+      )
+    }
     <slot name="head" />
 
     <!-- Preload critical fonts -->
