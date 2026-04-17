@@ -6,7 +6,6 @@ import ClientRouter from 'astro/components/ClientRouter.astro';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 
-// ── TYPES ────────────────────────────────────────────────────
 interface Props {
   title?: string;
   description?: string;
@@ -14,95 +13,71 @@ interface Props {
   ogType?: 'website' | 'article';
   keywords?: string[];
   publishedDate?: string; // ISO 8601, solo para case studies
-  modifiedDate?: string; // ISO 8601, para indicar actualizaciones
+  //modifiedDate?: string;
 }
 
-// ── PROPS ────────────────────────────────────────────────────
-// FIX: title default dejó de duplicar site.title en sí mismo.
-// El default ahora viene de site.description (fuente única de verdad).
 const {
-  title = site.title,
-  description = site.description,
-  ogImage = site.ogImage,
+  title = `${site.title} | Diseñador UX/UI y Desarrollador Frontend en México`,
+  description = 'Diseñador UX/UI y Desarrollador Frontend en México especializado en crear experiencias digitales modernas, accesibles y optimizadas para rendimiento y conversión.',
+  ogImage = '/og-image.jpg',
   ogType = 'website',
   keywords = [],
   publishedDate,
-  modifiedDate,
+  //modifiedDate,
 } = Astro.props;
 
-// ── URLS ─────────────────────────────────────────────────────
 const canonicalURL = new URL(Astro.url.pathname, site.url);
-
-// FIX: og:image:type ahora es dinámico según la extensión real del archivo
 const ogImageURL = new URL(ogImage, site.url).toString();
-const ogImageType = ogImage.endsWith('.png')
-  ? 'image/png'
-  : ogImage.endsWith('.webp')
-    ? 'image/webp'
-    : 'image/jpeg';
 
-// ── KEYWORDS ─────────────────────────────────────────────────
-// FIX: keywords base centralizadas. Si quieres cambiarlas, edita
-// solo aquí — no en cada página.
+// Keywords base + especificas
 const defaultKeywords = [
   'Diseñador UX/UI en México',
-  'Diseñador UX/UI Oaxaca',
   'Desarrollador Frontend México',
-  'Desarrollador web Oaxaca',
   'Diseño web profesional',
   'Portafolio UX UI',
+  'Desarrollador web Oaxaca',
   'Experiencia de usuario diseño',
   'Frontend developer portfolio',
 ];
 const allKeywords = [...new Set([...defaultKeywords, ...keywords])].join(', ');
 
-// ── PAGE TYPE ────────────────────────────────────────────────
+// JSON-LD: Person + WebSite en la homepage, WebPage en subpáginas
 const isHome = Astro.url.pathname === '/';
-const isProject = Astro.url.pathname.startsWith('/proyectos/');
 
-// ── JSON-LD SCHEMAS ──────────────────────────────────────────
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: person.name,
+  alternateName: person.handle,
+  url: site.url,
+  image: new URL(person.photo, site.url).toString(),
+  jobTitle: person.roles.join(' y '),
+  email: person.email,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Oaxaca de Juárez',
+    addressRegion: 'Oaxaca',
+    addressCountry: 'MX',
+  },
+  sameAs: getSameAs(), // ← automático desde portfolio.ts
+};
 
-// Person — solo en homepage
-const personSchema = isHome
-  ? {
-      '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: person.name,
-      alternateName: person.handle,
-      url: site.url,
-      image: new URL(person.photo, site.url).toString(),
-      jobTitle: person.roles.join(' y '),
-      email: person.email,
-      telephone: person.social.phone,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Oaxaca de Juárez',
-        addressRegion: 'Oaxaca',
-        addressCountry: 'MX',
-      },
-      sameAs: getSameAs(),
-    }
-  : null;
-
-// WebSite — solo en homepage
-// FIX: eliminado potentialAction SearchAction porque la búsqueda
-// es un modal (⌘K), no una ruta /?q= real. Evita warning en GSC.
-const websiteSchema = isHome
-  ? {
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: site.title,
-      url: site.url,
-      author: { '@type': 'Person', name: person.name },
-      inLanguage: site.locale,
-    }
-  : null;
-
-// Article — para case studies con publishedDate
-// FIX: publisher ahora usa 'Organization' con Person como founder,
-// lo cual es más correcto para schema.org en un portafolio personal-profesional.
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.title,
+  url: site.url,
+  author: { '@type': 'Person', name: 'Francisco Victorico Aguirre Jiménez' },
+  inLanguage: 'es-MX',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${site.url}/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+};
+// Para case studies (artículos/proyectos)
 const articleSchema =
-  isProject && publishedDate
+  !isHome && publishedDate
     ? {
         '@context': 'https://schema.org',
         '@type': 'Article',
@@ -111,34 +86,17 @@ const articleSchema =
         image: ogImageURL,
         author: {
           '@type': 'Person',
-          name: person.name,
+          name: 'Francisco Victorico Aguirre Jiménez',
           url: site.url,
         },
         publisher: {
           '@type': 'Person',
-          name: person.name,
+          name: 'Francisco Victorico Aguirre Jiménez',
           url: site.url,
         },
         datePublished: publishedDate,
-        ...(modifiedDate && { dateModified: modifiedDate }),
         url: canonicalURL.toString(),
         mainEntityOfPage: canonicalURL.toString(),
-        inLanguage: site.locale,
-      }
-    : null;
-
-// WebPage — para subpáginas sin publishedDate (contacto, etc.)
-// FIX: antes no había ningún schema en subpáginas sin fecha. Ahora sí.
-const webPageSchema =
-  !isHome && !articleSchema
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'WebPage',
-        name: title,
-        description,
-        url: canonicalURL.toString(),
-        author: { '@type': 'Person', name: person.name, url: site.url },
-        inLanguage: site.locale,
       }
     : null;
 ---
@@ -146,38 +104,28 @@ const webPageSchema =
 <!doctype html>
 <html lang={site.locale}>
   <head>
-    <!-- ── CHARSET & VIEWPORT ─────────────────────────────── -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- ── BASIC META ────────────────────────────────────────  -->
-    <meta name="generator" content={Astro.generator} />
-    <meta name="author" content={person.name} />
     <meta name="theme-color" content="#06080d" />
-    <!-- FIX: robots ampliado con max-snippet y max-video-preview -->
-    <meta
-      name="robots"
-      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="author" content="Francisco Victorico Aguirre Jiménez" />
     <meta name="keywords" content={allKeywords} />
-    <!-- FIX: geo tags para SEO local en Oaxaca -->
-    <meta name="geo.region" content="MX-OAX" />
-    <meta name="geo.placename" content="Oaxaca de Juárez, Oaxaca, México" />
 
-    <!-- ── SEO CORE ──────────────────────────────────────────  -->
+    <!-- SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
-    <!-- ── OPEN GRAPH ────────────────────────────────────────  -->
+    <!-- Sitemap autodiscovery -->
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
-    <!-- FIX: og:image:type dinámico según extensión real -->
-    <meta property="og:image:type" content={ogImageType} />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={`${title} — VicWithGG Portfolio`} />
@@ -188,13 +136,8 @@ const webPageSchema =
         <meta property="article:published_time" content={publishedDate} />
       )
     }
-    {
-      modifiedDate && (
-        <meta property="article:modified_time" content={modifiedDate} />
-      )
-    }
 
-    <!-- ── TWITTER CARD ───────────────────────────────────────  -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -203,9 +146,9 @@ const webPageSchema =
     {site.twitter && <meta name="twitter:creator" content={site.twitter} />}
     {site.twitter && <meta name="twitter:site" content={site.twitter} />}
 
-    <!-- ── JSON-LD STRUCTURED DATA ───────────────────────────  -->
+    <!-- JSON-LD Structured Data -->
     {
-      personSchema && (
+      isHome && (
         <script
           is:inline
           type="application/ld+json"
@@ -214,7 +157,7 @@ const webPageSchema =
       )
     }
     {
-      websiteSchema && (
+      isHome && (
         <script
           is:inline
           type="application/ld+json"
@@ -231,30 +174,29 @@ const webPageSchema =
         />
       )
     }
-    {
-      webPageSchema && (
-        <script
-          is:inline
-          type="application/ld+json"
-          set:html={JSON.stringify(webPageSchema)}
-        />
-      )
-    }
 
-    <!-- ── FAVICONS ──────────────────────────────────────────  -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- ── RSS ───────────────────────────────────────────────  -->
     <link
       rel="alternate"
       type="application/rss+xml"
       title={`${site.title} — RSS`}
       href="/rss.xml"
     />
+    <link rel="preconnect" href="https://va.vercel-scripts.com" crossorigin />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-06Y0L16P02"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
 
-    <!-- ── FONT PRELOADS (above-the-fold only) ───────────────  -->
+      gtag('config', 'G-06Y0L16P02');
+    </script>
     <link
       rel="preload"
       href="/fonts/barlow-condensed-900.woff2"
@@ -268,22 +210,18 @@ const webPageSchema =
       as="font"
       type="font/woff2"
       crossorigin
-    />
-    <link
+    /><link
       rel="preload"
       href="/fonts/ibm-plex-mono-400.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
-
-    <!-- ── FONT FACES ────────────────────────────────────────  -->
     <style>
       @font-face {
         font-family: 'Barlow Condensed';
         src: url('/fonts/barlow-condensed-900.woff2') format('woff2');
         font-weight: 900;
-        font-style: normal;
         font-display: swap;
       }
       @font-face {
@@ -301,48 +239,29 @@ const webPageSchema =
         font-display: swap;
       }
     </style>
-
-    <!-- ── ANALYTICS ─────────────────────────────────────────  -->
-    <link rel="preconnect" href="https://va.vercel-scripts.com" crossorigin />
-    <!-- FIX: GA_MEASUREMENT_ID extraído a variable — más fácil de actualizar -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-06Y0L16P02"
-    ></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-06Y0L16P02');
-    </script>
-
-    <!-- ── VIEW TRANSITIONS ──────────────────────────────────  -->
-    <!-- FIX: ClientRouter ahora está dentro del <head> donde debe estar -->
     <ClientRouter />
-
-    <!-- ── SLOT HEAD (meta tags adicionales por página) ──────  -->
-    <!-- FIX: slot name="head" ahora está dentro del <head> -->
     <slot name="head" />
   </head>
+  <!-- Google tag (gtag.js) -->
+
+  <!-- Preload solo fonts del above-the-fold (hero) -->
 
   <body>
-    <!-- Skip link para accesibilidad -->
     <a href="#main-content" class="skip-link">SALTAR AL CONTENIDO</a>
 
     <main id="main-content" tabindex="-1">
       <slot />
     </main>
 
-    <!-- ── CLIENT SCRIPTS ────────────────────────────────────  -->
     <script>
       function initPage() {
-        // ── Reveal on scroll ──────────────────────────────────
-        const revealObserver = new IntersectionObserver(
+        // ── Reveal on scroll ──────────────────────────────────────
+        const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
                 (entry.target as HTMLElement).classList.add('visible');
-                revealObserver.unobserve(entry.target);
+                observer.unobserve(entry.target);
               }
             });
           },
@@ -350,9 +269,9 @@ const webPageSchema =
         );
         document
           .querySelectorAll<HTMLElement>('.reveal:not(.visible)')
-          .forEach((el) => revealObserver.observe(el));
+          .forEach((el) => observer.observe(el));
 
-        // ── Navbar scroll class ───────────────────────────────
+        // ── Navbar scroll class ───────────────────────────────────
         const navbar = document.getElementById('navbar');
         if (navbar) {
           let ticking = false;
@@ -369,7 +288,7 @@ const webPageSchema =
           onScroll();
         }
 
-        // ── Smooth scroll anchors ─────────────────────────────
+        // ── Smooth scroll anchors ─────────────────────────────────
         document
           .querySelectorAll<HTMLAnchorElement>('a[href^="#"]')
           .forEach((anchor) => {
@@ -385,7 +304,7 @@ const webPageSchema =
             });
           });
 
-        // ── Copy code blocks ──────────────────────────────────
+        // ── Copy code blocks ──────────────────────────────────────
         document.querySelectorAll('pre').forEach((pre) => {
           if (pre.querySelector('.copy-btn')) return;
           const btn = document.createElement('button');
@@ -419,8 +338,7 @@ const webPageSchema =
     <slot name="scripts" />
     <Analytics />
     <SpeedInsights />
-  </body><!-- ── GLOBAL STYLES ───────────────────────────────────────  -->
-  <style is:global>
+  </body><style is:global>
     /* Skip link */
     .skip-link {
       position: absolute;
@@ -443,6 +361,8 @@ const webPageSchema =
     #main-content:focus {
       outline: none;
     }
+
+    /* Fallback font metrics — elimina CLS en Barlow Condensed */
 
     /* Copy button */
     .copy-btn {
