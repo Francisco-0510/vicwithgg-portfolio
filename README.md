@@ -8,27 +8,36 @@ Un portafolio profesional moderno, rápido y visualmente cautivador construido c
 
 ## 📋 Descripción General
 
-**VicWithGG Portfolio** es un sitio web personal de portafolio profesional que integra diseño de experiencia de usuario con desarrollo frontend de alto rendimiento. El proyecto está optimizado para velocidad, accesibilidad y SEO, utilizando generación de contenido estático con Astro y estilos modernos con Tailwind CSS v4.
+**VicWithGG Portfolio** es un sitio web personal de portafolio profesional que integra diseño de experiencia de usuario con desarrollo frontend de alto rendimiento. El proyecto está optimizado para velocidad, accesibilidad y SEO técnico avanzado, utilizando generación de contenido estático con Astro y estilos modernos con Tailwind CSS v4.
 
 **Propósito:** Presentar de manera profesional y atractiva los proyectos, experiencia y competencias de un diseñador UX/UI y desarrollador frontend, permitiendo a potenciales clientes o empleadores conocer la propuesta de valor y contactar directamente.
 
 **Público objetivo:** Clientes potenciales, reclutadores, colaboradores y empresas interesadas en servicios de diseño UX/UI y desarrollo web.
 
+### 🆕 Novedades Recientes (Abril 2026)
+
+- **SEO Técnico Mejorado:** Implementación completa de meta tags, JSON-LD structured data, sitemap optimizado y canonical URLs
+- **Nuevo Caso de Estudio:** Sistema de Gestión de Actividades Culturales y Deportivas UTVCO
+- **Headers de Seguridad:** Configuración de headers HTTP seguros (X-Frame-Options, X-Content-Type-Options, Referrer-Policy)
+- **Optimización de Build:** Code splitting, compresión HTML y optimización de assets
+- **Requisito Node.js 22+:** Actualizado para aprovechar las últimas características de Node.js
+
 ---
 
 ## ✨ Características Principales
 
-- **Renderizado Estático Optimizado**: Generación de sitios completamente estáticos con Astro para máximo rendimiento
+- **Renderizado Estático Optimizado (SSG)**: Generación de sitios completamente estáticos con Astro para máximo rendimiento
 - **Diseño Responsivo**: Interfaz adaptativa que se ve perfecta en desktop, tablet y móvil
 - **Tema Oscuro Personalizado**: Paleta de colores sofisticada con acentos dorados y azules
 - **Animaciones Fluidas**: Transiciones y animaciones sutiles usando Tailwind CSS y JavaScript vanilla
-- **Tipografía Premium**: Fuentes personalizadas auto-hospedadas (Barlow Condensed, Lora, IBM Plex Mono)
-- **SEO Optimizado**: Meta tags, Open Graph, Twitter Cards y sitemap automático generado
+- **Tipografía Premium**: Fuentes personalizadas auto-hospedadas (Barlow Condensed, Inter, Onest, IBM Plex Mono)
+- **SEO Técnico Avanzado**: Meta tags dinámicos, Open Graph, Twitter Cards, JSON-LD structured data, sitemap optimizado y canonical URLs
 - **RSS Feed**: Feed RSS automático de proyectos destacados usando `@astrojs/rss`
-- **Analytics Integrado**: Seguimiento de rendimiento con Vercel Analytics
-- **Busca de Contenido**: Búsqueda en el sitio mediante Pagefind
-- **Accesibilidad (a11y)**: Etiquetas ARIA, navegación por teclado y contraste adecuado
-- **Rendimiento**: Optimización de imágenes, code splitting, minificación y compresión HTML
+- **Analytics & Insights**: Vercel Analytics y Speed Insights para seguimiento de rendimiento
+- **Búsqueda de Contenido**: Búsqueda estática en el sitio mediante Pagefind (generado en post-build)
+- **Accesibilidad (a11y)**: Etiquetas ARIA, navegación por teclado, skip links y contraste WCAG AA
+- **Rendimiento**: Optimización de imágenes (AVIF/WebP), code splitting, minificación y compresión HTML
+- **Seguridad**: Headers HTTP de seguridad configurados (CSP, X-Frame-Options, etc.)
 
 ---
 
@@ -38,7 +47,7 @@ Un portafolio profesional moderno, rápido y visualmente cautivador construido c
 
 - **[Astro](https://astro.build/)** `^6.1.2` — Framework SSG para sitios estáticos ultra-rápidos
 - **[Vite](https://vitejs.dev/)** — Build tool moderno incluido en Astro
-- **[Node.js](https://nodejs.org/)** `20.x` (especificado en `.nvmrc`)
+- **[Node.js](https://nodejs.org/)** `22.x` (especificado en `.nvmrc`)
 
 ### Estilos y Diseño
 
@@ -88,8 +97,10 @@ Un portafolio profesional moderno, rápido y visualmente cautivador construido c
 
 ### Requisitos Previos
 
-- Node.js 20.x o superior
+- **Node.js 22.x o superior** (verificación automática al instalar)
 - npm, pnpm o yarn como gestor de paquetes
+
+> ⚠️ **Nota:** El proyecto requiere Node.js 22+. El script `preinstall` verifica automáticamente la versión y mostrará un error si no cumple el requisito.
 
 ### Pasos de Instalación
 
@@ -163,6 +174,8 @@ Build rápido sin type checking (desarrollo):
 npm run build:fast
 ```
 
+> 💡 **Sugerencia:** Consulta `AGENTS.md` para ver los comandos de desarrollo más utilizados y notas importantes sobre la arquitectura.
+
 ### Preview de Producción
 
 Visualiza el build de producción localmente:
@@ -210,34 +223,43 @@ vicwithgg-portfolio/
 ├── .github/                          # Configuración de GitHub (workflows, etc.)
 ├── .vscode/                          # Configuración de VS Code
 ├── .vercel/                          # Configuración de Vercel
+├── dist/                             # Build output (ignorar)
 ├── public/                           # Archivos estáticos
 │   ├── fonts/                        # Fuentes auto-hospedadas
 │   ├── images/                       # Imágenes estáticas
+│   ├── .well-known/security.txt      # Security.txt (security policy)
 │   ├── favicon.svg                   # Favicon
 │   └── og-image.jpg                  # Open Graph default image
+├── scripts/
+│   └── download-fonts.sh             # Script para descargar fuentes locales
 ├── src/
 │   ├── components/                   # Componentes Astro reutilizables
+│   │   ├── SEO.astro                 # Componente SEO con meta tags dinámicos
+│   │   ├── StructuredData.astro      # JSON-LD structured data
+│   │   ├── icons/                    # Iconos personalizados
 │   │   ├── layout/
 │   │   │   ├── Navbar.astro          # Barra de navegación
 │   │   │   ├── Footer.astro          # Pie de página
 │   │   │   └── ClientRouter.astro    # Router de vistas
-│   │   ├── sections/
+│   │   ├── sections/                 # Secciones de página
 │   │   │   ├── Hero.astro            # Sección hero/introducción
 │   │   │   ├── Projects.astro        # Galería de proyectos
 │   │   │   ├── Experience.astro      # Experiencia laboral
 │   │   │   ├── Stack.astro           # Stack tecnológico
 │   │   │   ├── About.astro           # Sección sobre mí
+│   │   │   ├── Services.astro        # Página de servicios
 │   │   │   └── ContactCTA.astro      # Llamada a acción de contacto
-│   │   └── ui/
+│   │   └── ui/                       # Componentes UI reutilizables
 │   │       ├── Button.astro          # Componente botón
 │   │       ├── Card.astro            # Componente tarjeta
 │   │       ├── Label.astro           # Componente etiqueta
 │   │       ├── Icon.astro            # Componente icono
-│   │       ├── ProjectCard.astro     # Tarjeta de proyecto
-│   │       └── icon-types.ts         # Tipos para iconos
+│   │       └── ProjectCard.astro     # Tarjeta de proyecto
 │   ├── content/                      # Content Collections
 │   │   └── proyectos/                # Colección de proyectos (archivos .mdx)
-│   │       └── sicroa.mdx            # Ejemplo: proyecto SiCROA
+│   │       ├── sicroa.mdx            # Ejemplo: proyecto SiCROA
+│   │       └── ...                   # Más proyectos
+│   ├── content.config.ts             # Configuración de Content Collections
 │   ├── data/
 │   │   └── portfolio.ts              # Data única del portafolio (SSOT)
 │   ├── layouts/
@@ -251,21 +273,20 @@ vicwithgg-portfolio/
 │   │   └── fonts.css                 # Definiciones de fuentes
 │   ├── pages/                        # Rutas automáticas (file-based routing)
 │   │   ├── index.astro               # Página principal (/)
-│   │   ├── [...slug].astro           # Páginas de proyectos dinámicas
+│   │   ├── servicios.astro           # Página de servicios
+│   │   ├── proyectos/
+│   │   │   └── [...slug].astro       # Páginas de proyectos dinámicas
 │   │   └── rss.xml.ts                # Feed RSS
-│   ├── env.d.ts                      # Declaraciones de tipos de Astro
-│   └── content.config.ts             # Configuración de Content Collections
-├── scripts/
-│   └── download-fonts.sh             # Script para descargar fuentes
-├── dist/                             # Build output (ignorar)
+│   └── env.d.ts                      # Declaraciones de tipos de Astro
+├── AGENTS.md                         # Guía rápida para desarrolladores (AI agents)
 ├── .editorconfig                     # Configuración del editor
 ├── .gitignore                        # Archivos ignorados en Git
-├── .nvmrc                            # Versión de Node recomendada
+├── .nvmrc                            # Versión de Node requerida (22)
 ├── .prettierrc.mjs                   # Configuración de Prettier
 ├── astro.config.mjs                  # Configuración principal de Astro
 ├── tailwind.config.mjs               # Configuración de Tailwind CSS
 ├── tsconfig.json                     # Configuración de TypeScript
-├── vercel.json                       # Configuración de Vercel
+├── vercel.json                       # Configuración de Vercel (headers, rewrites)
 ├── package.json                      # Dependencias y scripts
 └── README.md                         # Este archivo
 ```
@@ -508,29 +529,40 @@ Contacta a través de:
 
 ### Performance
 
-- ✅ HTML comprimido automáticamente
-- ✅ Optimización de imágenes (AVIF, WebP)
+- ✅ HTML comprimido automáticamente (`compressHTML: true`)
+- ✅ Optimización de imágenes (AVIF, WebP) con sharp
 - ✅ Fonts auto-hospedadas con preload
-- ✅ Code splitting por vendors
+- ✅ Code splitting por vendors (`astro-vendor`, `vendor`)
 - ✅ CSS code splitting independiente
+- ✅ Build paralelo con concurrencia optimizada
+- ✅ Prefetch estratégico (hover)
 - ✅ Analytics con impact mínimo
 
-### SEO
+### SEO Técnico
 
-- ✅ Sitemap automático generado
-- ✅ Open Graph meta tags
+- ✅ Sitemap XML automático con prioridades personalizadas
+- ✅ JSON-LD Structured Data para rich snippets
+- ✅ Open Graph meta tags dinámicos
 - ✅ Twitter Cards
-- ✅ RSS feed
-- ✅ Canonical URLs
-- ✅ Meta descriptions dinámicas
+- ✅ Canonical URLs automáticos
+- ✅ Meta descriptions dinámicas por página
+- ✅ RSS feed XML
+- ✅ Robots.txt configurado
+
+### Seguridad
+
+- ✅ Headers HTTP de seguridad (X-Content-Type-Options, X-Frame-Options, Referrer-Policy)
+- ✅ Security.txt en `.well-known/`
+- ✅ Content Security Policy ready
 
 ### Accesibilidad
 
 - ✅ ARIA labels y roles semánticos
-- ✅ Skip link para teclado
+- ✅ Skip link para navegación por teclado
 - ✅ Contraste de colores WCAG AA
 - ✅ Navegación por teclado completa
 - ✅ Focus indicators visibles
+- ✅ Semantic HTML5
 
 ### Deployment
 
@@ -538,7 +570,8 @@ Contacta a través de:
 - 📍 Región: Singapore (sin1)
 - ⚡ CDN global automático
 - 🔄 Deploys en cada push a main
-- 📊 Vercel Analytics habilitado
+- 📊 Vercel Analytics y Speed Insights habilitados
+- 🖼️ Image Optimization de Vercel activado
 
 ---
 
@@ -553,4 +586,6 @@ Contacta a través de:
 
 ---
 
-**Última actualización:** 2026-04-09 | Versión: 0.0.1
+**Última actualización:** 2026-04-20 | Versión: 0.0.1
+
+_Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>_
