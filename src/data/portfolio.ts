@@ -20,23 +20,27 @@ export const site = {
   title: "Diseñador UX/UI y Desarrollador Web | VicWithGG",
   description:
     "Soy Francisco Victorico, diseñador UX/UI y desarrollador frontend especializado en experiencias digitales de alto rendimiento. +4 años de experiencia.",
-  seoTitle: "Diseñador UX/UI y Desarrollador Web | VicWithGG - Oaxaca",
+  seoTitle: "Diseñador UX/UI y Desarrollador Web | VicWithGG - Oaxaca, México",
   seoDescription:
-    "Portafolio de Francisco Victorico Aguirre. Especialista en diseño UX/UI, React, Astro. +4 años de experiencia. Disponible para proyectos freelance.",
+    "Portafolio de Francisco Victorico Aguirre. Especialista en diseño UX/UI, React, Astro, Figma. +4 años de experiencia creando experiencias digitales. Disponible para proyectos freelance en Oaxaca y remoto.",
   seoKeywords: [
-    "diseñador UX/UI",
-    "desarrollador web",
+    "diseñador UX/UI Oaxaca",
+    "desarrollador web México",
     "frontend developer",
     "react developer",
-    "astro",
+    "astro developer",
     "figma designer",
     "oaxaca mexico",
-    "web design",
+    "web design freelancer",
     "ui ux design",
     "freelance web developer",
+    "design systems",
+    "portafolio diseñador",
   ],
   url: "https://vicwithgg-portfolio.vercel.app/",
-  locale: "es",
+  locale: "es-MX",
+  twitter: "@VicWithGG1",
+  ogImage: "/og-image.jpg",
 } as const;
 
 // ── PERSONAL INFO ─────────────────────────────────────────────

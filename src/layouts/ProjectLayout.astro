@@ -11,9 +11,10 @@ import BaseLayout from './BaseLayout.astro';
 
 interface Props {
   project: CollectionEntry<'proyectos'>;
+  index?: number;
 }
 
-const { project } = Astro.props;
+const { project, index = 0 } = Astro.props;
 const { name, sector, description, thumbnail, tech, links } = project.data;
 
 // SEO optimizado
@@ -156,13 +157,14 @@ const structuredDataProject = {
         thumbnail && (
           <div class="case-thumbnail-full">
             <Image
-              format="webp"
               src={thumbnail}
               alt={`Captura de pantalla del proyecto ${name} - ${sector}`}
+              format="webp"
               width="1600"
               height="900"
-              decoding="async"
-              loading="lazy"
+              fetchpriority={index === 0 ? 'high' : 'auto'}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding={index === 0 ? 'sync' : 'async'}
               itemprop="image"
               quality={80}
             />

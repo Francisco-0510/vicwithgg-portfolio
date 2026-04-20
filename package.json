@@ -4,10 +4,11 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "preinstall": "node -e \"const v=process.version.match(/^v(\\d+)\\./); if(!v||v[1]<22){console.error('❌ Node 22+ requerido. Actual: '+process.version); process.exit(1)}\"",
     "start": "astro dev",
     "build": "astro check && astro build",
     "build:fast": "astro build",
-    "postbuild": "npx pagefind --site dist",
+    "postbuild": "pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "fonts": "bash scripts/download-fonts.sh",
@@ -37,5 +38,8 @@
     "pagefind": "^1.4.0",
     "prettier": "^3.4.1",
     "prettier-plugin-astro": "^0.14.1"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

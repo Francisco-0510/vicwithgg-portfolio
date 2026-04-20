@@ -3,7 +3,8 @@
   "outputDirectory": "dist",
   "framework": "astro",
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "NODE_VERSION": "22"
   },
   "headers": [
     {

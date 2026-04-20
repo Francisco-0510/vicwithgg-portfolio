@@ -1,28 +1,37 @@
 ---
 // src/components/SEO.astro
+// src/components/SEO.astro
+// ═══════════════════════════════════════════════════════════════
+//  Componente SEO optimizado para Astro 6
+//  - Meta tags dinámicos completos
+//  - Open Graph y Twitter Cards
+//  - Canonical URLs correctas
+//  - Soporte para artículos y páginas
+// ═══════════════════════════════════════════════════════════════
 import { person, site } from '../data/portfolio';
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
-  //ogImageWidth?: number;
-  //ogImageHeight?: number;
-  ogType?: 'website' | 'article' | 'profile';
+  ogImageWidth?: number;
+  ogImageHeight?: number;
+  ogType?: 'website' | 'article' | 'profile' | 'portfolio';
   publishedDate?: string;
   modifiedDate?: string;
   keywords?: string[];
   author?: string;
   canonical?: string;
   robots?: string;
+  twitterCreator?: string;
 }
 
 const {
-  title = site.title,
-  description = site.description,
-  ogImage = '/og-image.jpg',
-  //ogImageWidth = 1200,
-  //ogImageHeight = 630,
+  title = site.seoTitle || site.title,
+  description = site.seoDescription || site.description,
+  ogImage = site.ogImage || '/og-image.jpg',
+  ogImageWidth = 1200,
+  ogImageHeight = 630,
   ogType = 'website',
   publishedDate,
   modifiedDate,
@@ -30,56 +39,97 @@ const {
   author = person.name,
   canonical = Astro.url.href,
   robots = 'index, follow',
+  twitterCreator = person.social.x?.replace('https://x.com/', '@') ||
+    '@VicWithGG1',
 } = Astro.props;
 
-const canonicalURL = new URL(canonical, site.url);
-const ogImageURL = new URL(ogImage, site.url);
+// Construir canonical URL correctamente
+const canonicalURL = canonical.startsWith('http')
+  ? new URL(canonical)
+  : new URL(canonical, site.url);
+
+// Construir OG image URL correctamente
+const ogImageURL = ogImage.startsWith('http')
+  ? new URL(ogImage)
+  : new URL(ogImage, site.url);
 ---
 
-<!-- Primary Meta Tags -->
-<title>Diseñador UX/UI y Desarrollador Web | VicWithGG</title>
+<!--══════════════════════════════════════════════════════════════--><!--  Primary Meta Tags                                               --><!--══════════════════════════════════════════════════════════════-->
+<title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
-<meta name="keywords" content={keywords.join(', ')} />
+<meta name="keywords" content={keywords?.join(', ')} />
 <meta name="author" content={author} />
 <meta name="robots" content={robots} />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <meta name="theme-color" content="#06080d" />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
+<!-- Canonical URL (evita contenido duplicado) -->
+<link rel="canonical" href={canonicalURL.toString()} />
 
-<!-- Open Graph / Facebook -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  Open Graph / Facebook                                           -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
 <meta property="og:type" content={ogType} />
-<meta property="og:url" content={canonicalURL} />
+<meta property="og:url" content={canonicalURL.toString()} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={ogImageURL} />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<!-- <meta property="og:image:width" content={ogImageWidth} />
-<meta property="og:image:height" content={ogImageHeight} /> -->
+<meta property="og:image" content={ogImageURL.toString()} />
+<meta property="og:image:width" content={ogImageWidth.toString()} />
+<meta property="og:image:height" content={ogImageHeight.toString()} />
+<meta property="og:image:alt" content={title} />
 <meta property="og:locale" content="es_MX" />
 <meta property="og:site_name" content={site.title} />
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalURL} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={ogImageURL} />
-<meta property="twitter:creator" content="@VicWithGG1" />
+<!-- Article meta tags (si aplica) -->
+{
+  ogType === 'article' && publishedDate && (
+    <>
+      <meta property="article:published_time" content={publishedDate} />
+      {modifiedDate && (
+        <meta property="article:modified_time" content={modifiedDate} />
+      )}
+      <meta property="article:author" content={author} />
+    </>
+  )
+}
 
-<!-- Article Meta Tags (si aplica) -->
-{
-  publishedDate && (
-    <meta property="article:published_time" content={publishedDate} />
-  )
-}
-{
-  modifiedDate && (
-    <meta property="article:modified_time" content={modifiedDate} />
-  )
-}
-{author && <meta property="article:author" content={author} />}
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  Twitter Card                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL.toString()} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL.toString()} />
+<meta name="twitter:image:alt" content={title} />
+<meta name="twitter:creator" content={twitterCreator} />
+<meta name="twitter:site" content={twitterCreator} />
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  Favicon & Icons                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.json" />
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  RSS Feed Discovery                                              -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={`${site.title} — RSS`}
+  href="/rss.xml"
+/>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  Preconnect para recursos externos                               -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://va.vercel-scripts.com" crossorigin />
+<link rel="preconnect" href="https://analytics.vercel.com" crossorigin />

@@ -1,13 +1,43 @@
 ---
 // src/components/StructuredData.astro
+// ═══════════════════════════════════════════════════════════════
+//  Componente JSON-LD para Schema.org optimizado
+//  - Person (perfil profesional completo)
+//  - Organization (marca personal)
+//  - CreativeWork/Project (proyectos individuales)
+//  - BreadcrumbList (navegación jerárquica)
+//  - WebSite (sitio web con search action)
+// ═══════════════════════════════════════════════════════════════
 import { person, site } from '../data/portfolio';
 
 interface Props {
-  type?: 'Person' | 'Organization' | 'BreadcrumbList' | 'Project';
+  type?:
+    | 'Person'
+    | 'Organization'
+    | 'CreativeWork'
+    | 'BreadcrumbList'
+    | 'WebSite'
+    | 'Portfolio';
   data?: Record<string, any>;
+  breadcrumbs?: Array<{ name: string; url: string }>;
 }
 
-const { type = 'Person', data = {} } = Astro.props;
+const { type = 'Person', data = {}, breadcrumbs = [] } = Astro.props;
+
+// Helper para construir sameAs array desde portfolio.ts
+const getSameAs = () => {
+  return [
+    person.social.linkedin,
+    person.social.github,
+    person.social.figma,
+    person.social.x,
+    person.social.instagram,
+    person.social.linkMe,
+  ].filter(Boolean);
+};
+
+// URL base sin trailing slash para consistencia
+const baseUrl = site.url.replace(/\/$/, '');
 
 let structuredData: Record<string, any> = {};
 
@@ -15,84 +45,164 @@ if (type === 'Person') {
   structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    '@id': site.url,
+    '@id': `${baseUrl}/#person`,
     name: person.name,
-    url: site.url,
-    image: new URL(person.photo, site.url),
-    description: site.description,
+    alternateName: person.handle,
+    url: baseUrl,
+    image: {
+      '@type': 'ImageObject',
+      url: `${baseUrl}${person.photo}`,
+      width: 800,
+      height: 800,
+    },
+    description: site.seoDescription,
     jobTitle: person.roles,
     worksFor: {
       '@type': 'Organization',
       name: 'VGG Design & Dev',
-      url: site.url,
+      url: baseUrl,
     },
-    sameAs: [
-      person.social.github,
-      person.social.linkedin,
-      person.social.x,
-      person.social.figma,
-      person.social.instagram,
-    ],
-    email: person.email,
+    email: `mailto:${person.email}`,
     telephone: person.social.phone,
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Oaxaca',
+      addressLocality: 'Oaxaca de Juárez',
+      addressRegion: 'Oaxaca',
       addressCountry: 'MX',
     },
+    sameAs: getSameAs(),
+    knowsAbout: [
+      'UX/UI Design',
+      'Frontend Development',
+      'React',
+      'Astro',
+      'TypeScript',
+      'Figma',
+      'Design Systems',
+      'Web Performance',
+    ],
   };
-}
-
-if (type === 'Organization') {
+} else if (type === 'Organization') {
   structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': `${baseUrl}/#organization`,
+
     name: 'VGG Design & Dev',
-    url: site.url,
-    logo: new URL('/og-image.jpg', site.url),
-    description: site.description,
+    url: baseUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${baseUrl}/logo.png`,
+      width: 200,
+      height: 60,
+    },
+    description: site.seoDescription,
     founder: {
       '@type': 'Person',
+      '@id': `${baseUrl}/#person`,
       name: person.name,
     },
-    sameAs: [person.social.github, person.social.linkedin, person.social.x],
+    sameAs: getSameAs(),
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: person.email,
+      telephone: person.social.phone,
+      contactType: 'customer service',
+      availableLanguage: ['Spanish', 'English'],
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Mexico',
+    },
   };
-}
-
-if (type === 'BreadcrumbList' && data.items) {
-  structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: data.items.map((item: any, index: number) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.name,
-      item: new URL(item.url, site.url),
-    })),
-  };
-}
-
-if (type === 'Project' && data.name) {
+} else if (type === 'CreativeWork' && data) {
   structuredData = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
+    '@id': `${baseUrl}/proyectos/${data.slug || ''}/#project`,
     name: data.name,
     description: data.description,
-    image: new URL(data.image || '/og-image.jpg', site.url),
-    url: data.url || site.url,
-    creator: {
+    image: {
+      '@type': 'ImageObject',
+      url: data.thumbnail?.startsWith('http')
+        ? data.thumbnail
+        : `${baseUrl}${data.thumbnail}`,
+      width: 1200,
+      height: 630,
+    },
+    url: `${baseUrl}/proyectos/${data.slug || ''}`,
+    datePublished: data.publishedDate || new Date().toISOString(),
+    dateModified:
+      data.updatedDate || data.publishedDate || new Date().toISOString(),
+    author: {
       '@type': 'Person',
+      '@id': `${baseUrl}/#person`,
+      name: person.name,
+      url: baseUrl,
+    },
+    keywords: data.tech?.join(', ') || '',
+    mentions: {
+      '@type': 'Thing',
+      name: data.sector,
+    },
+    isPartOf: {
+      '@type': 'CreativeWorkSeries',
+      name: 'Portfolio Projects',
+      url: `${baseUrl}/#projects`,
+    },
+  };
+} else if (type === 'BreadcrumbList' && breadcrumbs.length > 0) {
+  structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url.startsWith('http') ? crumb.url : `${baseUrl}${crumb.url}`,
+    })),
+  };
+} else if (type === 'WebSite') {
+  structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${baseUrl}/#website`,
+    name: site.title,
+    alternateName: 'VicWithGG Portfolio',
+    url: baseUrl,
+    description: site.seoDescription,
+    inLanguage: 'es-MX',
+    publisher: {
+      '@type': 'Person',
+      '@id': `${baseUrl}/#person`,
       name: person.name,
     },
-    keywords: data.keywords?.join(', ') || '',
-    dateCreated: data.dateCreated,
-    dateModified: data.dateModified,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${baseUrl}/?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  };
+} else if (type === 'Portfolio') {
+  structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Collection',
+    '@id': `${baseUrl}/#portfolio`,
+    name: 'Portfolio de Proyectos UX/UI y Desarrollo Web',
+    description: site.seoDescription,
+    url: `${baseUrl}/#projects`,
+    creator: {
+      '@type': 'Person',
+      '@id': `${baseUrl}/#person`,
+      name: person.name,
+    },
+    numberOfItems: data.itemCount || 0,
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': `${baseUrl}/#website`,
+    },
   };
 }
 ---
 
-<script
-  is:inline
-  type="application/ld+json"
-  set:html={JSON.stringify(structuredData)}
-/>
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />

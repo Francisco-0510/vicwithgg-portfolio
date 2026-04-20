@@ -4,9 +4,14 @@ import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 
 import { defineConfig } from "astro/config";
+
+// https://astro.com/config
 export default defineConfig({
-  site: "https://vicwithgg-portfolio.vercel.app/",
-  compressHTML: true, // ← Habilitar compresión HTML
+  // SEO: URL base del sitio (sin trailing slash para consistencia)
+  site: "https://vicwithgg-portfolio.vercel.app",
+
+  // Compresión HTML para reducir tamaño de respuesta
+  compressHTML: true,
 
   // ── Integrations ──────────────────────────────────────────────
   integrations: [
@@ -16,40 +21,44 @@ export default defineConfig({
         wrap: true,
       },
     }),
+    // SEO: Sitemap optimizado con prioridades personalizadas
     sitemap({
       filter: (page) =>
         !page.includes("/privacidad") && !page.includes("/terminos"),
       serialize(item) {
-        // Aumentar prioridad de servicios
+        // Prioridad máxima para homepage
+        if (item.url.endsWith("/")) {
+          return { ...item, changefreq: "weekly", priority: 1.0 };
+        }
+        // Alta prioridad para servicios (página de conversión)
         if (item.url.includes("/servicios")) {
           return { ...item, changefreq: "monthly", priority: 0.9 };
         }
+        // Prioridad media-alta para proyectos
         if (item.url.includes("/proyectos/")) {
           return { ...item, changefreq: "monthly", priority: 0.8 };
         }
-        if (item.url === "https://vicwithgg-portfolio.vercel.app/") {
-          return { ...item, changefreq: "weekly", priority: 1.0 };
-        }
+        // Prioridad estándar para otras páginas
         return { ...item, changefreq: "monthly", priority: 0.6 };
       },
     }),
     tailwindcss(),
   ],
 
-  // ── Output ────────────────────────────────────────────────────
+  // ── Output: SSG puro para máximo rendimiento ─────────────────
   output: "static",
   build: {
     assets: "_assets",
     inlineStylesheets: "auto",
-    concurrency: 4,
+    concurrency: 4, // Build paralelo para mejor performance
     format: "file",
   },
-  // Para compresión Brotli/Gzip en producción:
 
-  // ── Prefetch ──────────────────────────────────────────────────
+  // ── Prefetch: Estrategia híbrida para UX óptima ───────────────
+
   prefetch: {
-    prefetchAll: false,
-    defaultStrategy: "hover",
+    prefetchAll: false, // No precargar todo (ahorra bandwidth)
+    defaultStrategy: "hover", // Precargar al hacer hover (mejor INP)
   },
 
   // ── Image (una sola vez, consolidado) ─────────────────────────
@@ -59,8 +68,8 @@ export default defineConfig({
     service: {
       entrypoint: "astro/assets/services/sharp",
       config: {
-        limitInputPixels: 100_000_000,
-        formats: ["avif", "webp"],
+        limitInputPixels: 100_000_000, // Permite imágenes grandes
+        formats: ["avif", "webp"], // Formatos modernos primero
       },
     },
   },
@@ -93,7 +102,7 @@ export default defineConfig({
       },
       cssCodeSplit: true,
       minify: "esbuild",
-      sourcemap: false,
+      sourcemap: false, // Sin source maps en producción (reduce tamaño)
     },
     optimizeDeps: {
       exclude: ["@astrojs/rss"],
@@ -103,9 +112,9 @@ export default defineConfig({
     },
   },
   adapter: vercel({
-    imageService: true,
+    imageService: true, // Usar Image Optimization de Vercel
     webAnalytics: {
-      enabled: true,
+      enabled: true, // Vercel Analytics
     },
   }),
 });

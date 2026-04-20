@@ -1,15 +1,38 @@
 User-agent: *
 Allow: /
+
+# Bloquear rutas de desarrollo y build
 Disallow: /.vercel/
 Disallow: /.astro/
 Disallow: /admin/
+Disallow: /node_modules/
+Disallow: /*.json$
 
-# Rastreadores específicos
+# Crawl-delay para bots agresivos (opcional, descomentar si es necesario)
+# Crawl-delay: 1
+
+# Rastreadores específicos - Permitir todo
 User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
-# Sitemap
+User-agent: Slurp
+Allow: /
+
+# Bloquear bots maliciosos conocidos
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Sitemap - URL dinámica basada en el dominio principal
 Sitemap: https://vicwithgg-portfolio.vercel.app/sitemap-index.xml
