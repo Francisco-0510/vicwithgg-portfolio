@@ -1,7 +1,7 @@
 ---
 name: "Hospital Ángel del Mar"
-sector: "Salud · Healthcare / Institutional Web"
-description: "Rediseño del sitio web institucional del Hospital Ángel del Mar en Puerto Escondido. Sistema visual completo con directorio médico verificable, buscador de especialidades, y arquitectura de información diseñada para funcionar tanto en exploración planificada como en urgencia médica."
+sector: "Salud · Web"
+description: "Rediseño UI/UX e implementación en Webflow."
 thumbnail: "/images/projects/thumbnail-ham.webp"
 tech: ["Figma", "Design System", "Webflow", "UX/UI", "Responsive Design"]
 links:
@@ -14,333 +14,42 @@ draft: false
 
 ## 🎯 Visión General
 
-El Hospital Ángel del Mar (HAM) es una institución médico-quirúrgica privada afiliada al Consorcio Mexicano de Hospitales, con múltiples clínicas especializadas, atención de emergencias 24/7, y un equipo de especialistas certificados en Puerto Escondido, Oaxaca. Sin embargo, su presencia digital no comunicaba ninguna de estas fortalezas.
+[Breve párrafo describiendo el propósito del proyecto, tu rol y duración.]
 
-> **Headline del proyecto:** Rediseñé el sitio web de un hospital privado 24/7 para que cualquier persona pueda encontrar al especialista correcto — o el número de urgencias — en menos de 5 segundos.
-
-**Metadatos del proyecto:**
-
-| Campo        | Detalle               |
-| ------------ | --------------------- |
-| Proyecto     | HAM Website           |
-| Rol          | UX/UI Designer        |
-| Plataforma   | Desktop Web (1440px)  |
-| Herramientas | Figma · Design System |
+> **Rol:** [Tu rol específico]  
+> **Duración:** [Periodo]  
+> **Contexto:** [Cliente personal / freelance / académico]
 
 ---
 
-## 01 · Problema
+## 💡 Solución Clave
 
-### Un hospital de primer nivel sin una presencia digital que lo demostrara
-
-Un paciente que buscaba un especialista en Puerto Escondido no encontraba información confiable sobre el hospital: qué especialidades ofrece, qué médicos lo atienden, ni cómo contactarlo en una emergencia. La fricción digital le costaba pacientes reales al hospital.
-
-### Pain points detectados
-
-1. **Descubribilidad cero** — Sin un directorio de especialistas organizado, los pacientes no sabían quién los podía atender, qué clínicas existían, ni cuáles eran sus credenciales. La confianza médica requiere transparencia — y no había ninguna.
-2. **Urgencias sin señalización de acceso** — Un hospital 24/7 con servicios de emergencia no tenía un número de contacto prominente en su sitio. En un momento de crisis, el usuario no debería necesitar más de 2 segundos para encontrar cómo llamar.
-3. **Falta de jerarquía de servicios** — HAM opera clínicas especializadas (Mujer, Diabético, Enfermedades Digestivas, Pediátrica), hemodiálisis, laboratorio y farmacia. Sin arquitectura de información clara, esos servicios eran invisibles para el usuario.
-4. **Credibilidad institucional sin comunicar** — HAM está regulado por NOM Oficiales y afiliado al Consorcio Mexicano de Hospitales. Estos activos de confianza nunca llegaban al usuario porque no tenían espacio en el diseño anterior.
-
-### Datos del contexto
-
-| Métrica | Situación                                                           |
-| ------- | ------------------------------------------------------------------- |
-| 10+     | Clínicas y servicios especializados sin visibilidad digital         |
-| 24/7    | Atención de emergencias sin número prominente en web                |
-| 0 seg   | Lo que debería tardar el usuario en encontrar contacto de urgencias |
+- **Punto diferencial 1:** [Descripción breve]
+- **Punto diferencial 2:** [Descripción breve]
+- **Punto diferencial 3:** [Descripción breve]
 
 ---
 
-## 02 · Objetivos
-
-### Tres conversiones que el diseño debe lograr
-
-El sitio web de HAM tiene tres CTA críticos: encontrar un especialista, contactar en urgencias, y conocer los servicios disponibles. Cada sección del diseño responde a uno de estos objetivos.
-
-**Business Goals:**
-
-- Aumentar consultas generadas vía web
-- Posicionar como hospital de referencia regional en Puerto Escondido
-- Diferenciarse de clínicas locales sin afiliación institucional
-- Reducir llamadas de información al mostrar datos clave en web
-- Amplificar la credibilidad del Consorcio Mexicano
-  **User Goals:**
-- Encontrar un especialista verificado en minutos
-- Confirmar que el hospital atiende mi padecimiento específico
-- Llegar al número de urgencias sin buscar
-- Conocer ubicación exacta y horarios sin llamar
-- Generar confianza antes de ir al hospital
-
-### KPIs potenciales (hipótesis de medición)
-
-| KPI                | Descripción                                          |
-| ------------------ | ---------------------------------------------------- |
-| Click-to-call rate | % de visitas que hacen tap en el número de urgencias |
-| Search engagement  | Uso del buscador de especialidades y condiciones     |
-| Doctor card CTR    | Clics en "Ver especialista" por tarjeta de médico    |
-| Maps interaction   | Clics al mapa embed en la sección de contacto        |
-
----
-
-## 03 · Research
-
-### Usuarios, contexto y comportamiento en momentos críticos
-
-En un sitio de salud, el contexto emocional del usuario varía drásticamente: desde una búsqueda planificada de especialista hasta una emergencia con alta carga de estrés. El diseño debe funcionar en ambos extremos sin sacrificar ninguno.
-
-> **Hipótesis de research:** Los usuarios de salud en contextos regionales como Puerto Escondido priorizan **credibilidad** (nombre del médico, cédula profesional) sobre estética. La confianza se construye con datos verificables, no con fotografías de stock.
-
-### User Personas
-
-**👩 Madre de familia** · 35–50 años · Puerto Escondido
-Busca pediatra o ginecólogo de confianza. Revisa credenciales antes de llamar. Decide en base a referencias sociales.
-
-> _"Quiero saber que el médico que verá a mi hijo tiene sus papeles en regla antes de ir."_
-
-**👴 Paciente crónico** · 55–70 años · Paciente recurrente
-Padecimiento de diabetes o enfermedad renal. Necesita saber si el hospital maneja su condición y tiene los servicios de soporte (farmacia, lab, hemodiálisis).
-
-> _"Necesito un lugar que tenga todo en un mismo lugar para no andar corriendo."_
-
-**🏥 Turista en emergencia** · 25–45 años · Visitante en Puerto Escondido
-Turista nacional o extranjero que necesita atención urgente. Llega al sitio con stress elevado. Necesita el número de teléfono y la dirección en segundos.
-
-> _"Sólo necesito saber a dónde ir y a quién llamar. Ahora."_
-
-### Jobs To Be Done
-
-- **Cuando…** tengo una urgencia médica a las 2am → **Quiero…** encontrar el número de contacto del hospital en menos de 5 segundos, **para…** poder actuar sin perder tiempo buscando información.
-- **Cuando…** busco un especialista para una condición específica → **Quiero…** ver al médico, su especialidad y sus cédulas, **para…** saber que tiene la capacitación formal para atenderme.
-- **Cuando…** evalúo si este hospital es confiable → **Quiero…** ver credenciales institucionales, testimonios de pacientes y una imagen clara de las instalaciones, **para…** confiar antes de pagar por atención privada.
-
----
-
-## 04 · Proceso UX
-
-### De la urgencia a la información, con cero fricción
-
-La arquitectura del sitio resuelve dos modos de uso simultáneamente: el modo urgencia (alto estrés, necesita datos de contacto ahora) y el modo exploración (tiempo disponible, busca el médico correcto). El user flow principal prioriza el primero sin sacrificar el segundo.
-
-### User Flow principal
-
-```
-[Hero — Frase + contacto] → [Buscar Especialidad] → [Explorar Servicios (tabs)] → [Directorio Médicos] → [Confianza — Testimonios] → [Contacto — Mapa + datos]
-```
-
-### Decisiones de arquitectura clave
-
-**A — Contacto de urgencias en el hero, no en el footer**
-El número de urgencias (954 103 4110) y el teléfono de recepción (954 177 0692) aparecen visibles en el hero como información contextual, no enterrados al fondo. Esta decisión responde directamente al JTBD del usuario en crisis.
-
-**B — Tabs en lugar de scroll infinito para servicios**
-Con 10+ clínicas y servicios, el scroll lineal crea fatiga. El sistema de tabs con pills agrupa los servicios por categoría (clínicas especializadas, diagnóstico, hospitalización), permitiendo al usuario ir directo a lo que necesita sin escanear toda la lista.
-
-**C — Buscador de especialidades centrado como acción principal**
-La sección de búsqueda de especialidades usa un datalist + CTA centrado al 100% del ancho, jerarquizando esta acción como la más importante después del hero. La posición central y el espacio negativo guían la atención naturalmente.
-
-**D — Directorio de médicos con cédulas visibles en la tarjeta**
-Cada Card Doctor muestra nombre, cédula profesional y cédula de especialidad. Esta decisión no es estética — es de confianza. Para el usuario, ver "Ced. Prof: 3297941" transforma al médico de anónimo a verificable. El costo visual es mínimo; el impacto en confianza es alto.
-
-### Navegación: jerarquía y acceso rápido
-
-La barra de navegación principal (1440px, 80px de alto) incluye 6 items con dropdowns en "Sobre Nosotros" y "Servicios", un campo de búsqueda inline, y un switcher de idioma — demostrando que el hospital recibe pacientes turistas y entiende la necesidad bilingüe de Puerto Escondido como destino internacional.
-
-Items de navegación: `Inicio` · `Sobre Nosotros ↓` · `Urgencias` · `Promociones` · `Servicios ↓` · `Contáctanos` · `🔍 Buscar` · `🌐 Lang`
-
----
-
-## 05 · UI Design
-
-### Un sistema visual que construye confianza médica
-
-El sistema de diseño de HAM parte de una premisa clara: en salud, la confianza se construye con claridad, no con decoración. El color verde médico como primario no es accidental — activa asociaciones culturales de salud, higiene y profesionalismo.
-
-### Color Strategy
-
-| Paleta                 | Hex                   | Uso                                                   |
-| ---------------------- | --------------------- | ----------------------------------------------------- |
-| Verde médico (Primary) | `#1a7a4a`             | Brand color, CTAs, accents, iconografía               |
-| Verde oscuro           | `#062e1c` → `#0e5433` | Fondos hero, gradientes institucionales               |
-| Verde claro            | `#a8e6c5` / `#e8f5ee` | Highlights, fondos de sección                         |
-| Lila (Secondary)       | `#6B4ED6`             | Botones secundarios, Sobre Nosotros, acento editorial |
-| Neutral (UI)           | `#1a1917` → `#f8f7f4` | Tipografía, fondos, divisores, estados desactivados   |
-
-### Sistema de botones
-
-El sistema de botones define 4 variantes con roles específicos, evitando la ambigüedad de acción:
-
-| Variante                        | Rol                                                |
-| ------------------------------- | -------------------------------------------------- |
-| **Primary** (verde relleno)     | Acción principal: agendar, buscar                  |
-| **Secondary** (verde outline)   | Acción de navegación: ver más, conocer             |
-| **Tertiary** (verde subrayado)  | Acción inline de bajo compromiso                   |
-| **Primary Lila** (lila relleno) | Acción institucional: Sobre Nosotros, afiliaciones |
-
-### Sistema de tags
-
-Los tags funcionan como etiquetas de clasificación para servicios, clínicas y especialidades. Su tamaño reducido (24px de altura) permite apilarlos en tarjetas sin competir con el título.
-
-Ejemplos: `Clínica de la Mujer` · `Urgencias 24/7` · `Consulta Externa` · `Cirugía` · `Diagnóstico`
-
-### Componentes clave del sistema
-
-| Componente         | Descripción                                                                         |
-| ------------------ | ----------------------------------------------------------------------------------- |
-| 🃏 Card Servicio   | Icono SVG + Tag categoría + Título + Descripción + CTA terciario. Grid 3 columnas.  |
-| 👨‍⚕️ Card Doctor     | Foto + Nombre + Cédulas + Tags clínica/especialidad + CTA primario full-width.      |
-| 💬 Card Comentario | Quote text + Avatar (64px rounded) + Nombre + Rol. Grid 3 columnas.                 |
-| 🔍 Datalist Search | Input con autocomplete de especialidades + botón CTA. Centrado en sección dedicada. |
-| 📑 Tabs / Pill     | Navegación por categoría de servicios. Pills style, 1200px ancho. Activo en green.  |
-| 📸 Carousel 3-up   | Imagen central destacada (529px) flanqueada por previews laterales. Instalaciones.  |
-| 🗺️ Contact + Map   | Split layout: datos de contacto iconificados (izq.) + mapa embed full (der. 784px). |
-| 🎯 Featured Icon   | Icono con contenedor 48px + label + CTA inline. Usado en sección de contacto.       |
-
-### Iconografía: sistema duotono
-
-El diseño utiliza un sistema de iconos duotono (Two-Colors) para los servicios del hero y bicolor para el navbar. Esta decisión eleva la percepción de calidad sin requerir ilustraciones complejas — el duotono en verde/verde-claro refuerza la identidad cromática en cada punto de contacto.
-
-> **Decisión de accesibilidad:** El cambio de idioma (ícono mdi:language en navbar) y la visibilidad del número de emergencias reflejan que el hospital atiende una audiencia mixta: residentes locales, turistas nacionales y extranjeros. El switcher de idioma es una decisión UX, no solo de UI.
-
----
-
-## 06 · Pantallas Clave
-
-### Cada sección tiene un trabajo que hacer
-
-**Pantalla 01 — Hero: "¡Tu SALUD y la de tu familia en BUENAS MANOS!"**
-
-<iframe
-  style="border: 1px solid rgba(0, 0, 0, 0.1);"
-  width="800"
-  height="450"
-  src="https://embed.figma.com/proto/4YoJl2Snui84vWfMs7rqUZ/HAM?node-id=1-26436&viewport=424%2C-765%2C0.15&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1&embed-host=share"
-  allowfullscreen
-></iframe>
-
-**Objetivo:** Capturar la atención, comunicar la promesa de marca, y dar acceso inmediato a información de emergencias.
-
-**Decisión UX:** El hero no tiene solo imagen + headline. Incluye un bloque de datos de contacto estructurado (icono + label + dato) que funciona como tarjeta de presentación rápida. El usuario puede salir del sitio en 3 segundos con toda la información que necesita en una urgencia.
-
-- Servicio 24 Hrs.
-- Urgencias: 954 103 4110
-- Dirección: Sexta Norte, PEO
-  **Decisión UI:** El headline usa texto con capitalización selectiva ("SALUD", "BUENAS MANOS") para crear jerarquía tipográfica sin cambiar de familia. Es un recurso de copywriting que el diseño respeta.
-
----
-
-**Pantalla 02 — Buscador de Especialidades: Acción centrada**
-
-**Objetivo:** Resolver el JTBD de búsqueda específica — "tengo una condición y quiero saber si este hospital la atiende".
-
-**Decisión UX:** Sección dedicada centrada al 100%, con contexto de heading + subheading antes del input. El datalist (autocomplete) reduce la fricción de escritura y asegura que el usuario use los términos correctos del sistema. El botón "Buscar" es explícito y necesario — no hay submit por Enter como único mecanismo.
-
----
-
-**Pantalla 03 — Servicios: Sistema de tabs con cards**
-
-**Objetivo:** Presentar 10+ clínicas y servicios sin abrumar. Permitir que el usuario filtre por categoría sin scroll infinito.
-
-**Decisión UX:** Los tabs tipo pill son la solución correcta para una colección de 10+ ítems heterogéneos. Agrupa los servicios en 4 categorías lógicas:
-
-- Clínicas especializadas
-- Diagnóstico
-- Hospitalización
-- Servicios de apoyo
-  El tab activo en verde refuerza la marca.
-
----
-
-**Pantalla 04 — Directorio de Médicos: Confianza como componente**
-
-**Objetivo:** Presentar al equipo médico de forma que el usuario pueda verificar credenciales y elegir especialista con confianza.
-
-**Decisión de diseño:** La Card Doctor es el componente más crítico del sistema. Su estructura sigue una jerarquía de confianza: Foto (humaniza) → Nombre completo (identifica) → Cédula Profesional y Cédula de Especialidad (verifica) → Tags de clínica y especialidad (contextualiza) → CTA "Agendar consulta" (convierte).
-
----
-
-**Pantalla 05 — Carousel de Instalaciones**
-
-**Objetivo:** Responder la pregunta no formulada: "¿es este un hospital real y profesional?"
-
-**Decisión UX:** El carousel de 3 imágenes (una central destacada de 529px flanqueada por previews) no es decorativo — es una herramienta de reducción de ansiedad pre-visita. Para un paciente nuevo, visualizar el entorno antes de ir reduce la barrera de decisión significativamente.
-
----
-
-**Pantalla 06 — Testimonios**
-
-**Objetivo:** Reducir la fricción de decisión final. Después de ver los servicios y los médicos, los testimonios funcionan como validación social.
-
-**Decisión de posicionamiento:** Los testimonios aparecen antes de la sección de contacto, no después. La secuencia es: información (servicios + médicos) → confianza (testimonios) → acción (contacto). Invertirlo reduciría la tasa de conversión porque el usuario llegaría al CTA sin haber construido confianza.
-
----
-
-## 07 · Retos
-
-### Los trade-offs que definen el diseño
-
-**🔄 Actualización de contenido médico**
-El directorio de médicos contiene cédulas, clínicas y fotos de cada especialista. Un hospital cambia su plantilla con frecuencia.
-✓ Componentes atómicos en Figma permiten actualizar tarjetas sin romper el sistema. El componente Card Doctor es una instancia reutilizable.
-
-**📱 Desktop-first con alto riesgo mobile**
-El diseño está pensado para 1440px. Los usuarios en emergencias probablemente lleguen desde móvil. La jerarquía de urgencias debe sobrevivir en pantalla pequeña.
-✓ La información de emergencias (número, 24hrs, dirección) está estructurada con componentes flex que colapsan bien en columna.
-
-**🗂️ Densidad de información vs. claridad**
-10+ clínicas, 6+ médicos por especialidad, múltiples datos de contacto. El riesgo es un sitio denso y confuso.
-✓ Tabs para servicios, filtro por especialidad para médicos, y secciones dedicadas con máximo 3 elementos visibles por defecto.
-
-**🌐 Audiencia bilingüe**
-Puerto Escondido es destino turístico con visitantes internacionales que pueden necesitar atención médica. El switcher de idioma en navbar debe estar donde el ojo lo busca.
-✓ Language switcher posicionado en el extremo derecho del navbar, consistente con convenciones web internacionales.
-
-**📊 Sin métricas base previas**
-Sin analytics históricos del sitio anterior es imposible establecer un baseline de conversión. Los KPIs se definen como hipótesis de medición, no como comparativas.
-✓ Se priorizan métricas de comportamiento (click-to-call, search engagement) sobre métricas de resultado que requieren tiempo para acumular.
-
-**🏥 Regulación institucional**
-Como hospital regulado por NOM y afiliado al Consorcio Mexicano, ciertos datos (cédulas, afiliaciones) deben mostrarse con precisión exacta, limitando libertad de copywriting.
-✓ Los datos regulatorios se presentan como datos de confianza, no como obligación legal. El "Afiliado al Consorcio Mexicano de Hospitales" es un valor que convence, no un disclaimer.
+## ⚙️ Stack Técnico
+
+| Tecnología | Propósito        |
+| ---------- | ---------------- |
+| [Tech 1]   | [Uso específico] |
+| [Tech 2]   | [Uso específico] |
+| [Tech 3]   | [Uso específico] |
 
 ---
 
 ## 📊 Resultados
 
-> **Nota metodológica:** Los resultados son proyecciones razonadas basadas en benchmarks del sector salud digital y los cambios específicos implementados en el diseño. No son datos reales medidos post-lanzamiento — se marcan como hipótesis.
-
-| Métrica | Impacto esperado                                                             | Justificación                                 |
-| ------- | ---------------------------------------------------------------------------- | --------------------------------------------- |
-| ↑ 3×    | Aumento en click-to-call desde el hero vs. footer-only                       | Hipótesis · Benchmark healthcare UX           |
-| -60%    | Reducción en llamadas de información básica (horarios, dirección, servicios) | Hipótesis · Basado en contenido ahora visible |
-| +40%    | Mejora en tiempo de descubrimiento de especialista correcto                  | Hipótesis · Tabs + filtro vs. scroll lineal   |
-
-### Impacto cualitativo
-
-- **Credibilidad institucional visible** — La afiliación al Consorcio Mexicano de Hospitales y el cumplimiento de NOM ahora tienen espacio en el diseño. Para el usuario no iniciado, esto transforma a HAM de "una clínica más" a "un hospital con respaldo institucional".
-- **El hospital como referencia regional** — Un directorio médico completo con cédulas verificables convierte al sitio de HAM en la fuente de referencia para especialidades en Puerto Escondido — potencialmente recibiendo tráfico orgánico que el hospital nunca capturó antes.
-- **Reducción de fricción en la decisión de pagar** — En salud privada, el mayor bloqueador de conversión es la duda: "¿es este hospital lo suficientemente bueno para que yo pague?" El flujo testimonios → contacto responde esa duda justo antes del momento de acción.
+- [Métrica o logro cuantificable 1]
+- [Métrica o logro cuantificable 2]
+- [Feedback destacado de cliente/usuario]
 
 ---
 
-## 09 · Aprendizajes
+## 🔗 Enlaces
 
-### Lo que este proyecto enseña sobre diseño en salud
-
-1. **La información de emergencia es una decisión de diseño, no de contenido** — Dónde colocas el número de urgencias determina si alguien puede usarlo en un momento de pánico. Esto no se resuelve con buena redacción — se resuelve con jerarquía visual y posicionamiento intencional. El héroe es el único lugar correcto.
-2. **En salud, la confianza se construye con datos verificables, no con aspiración** — Una fotografía bonita del lobby no convence a nadie de confiar su salud a un hospital. Un número de cédula profesional con nombre completo, sí. El diseño debe facilitar la verificación, no esconderla detrás de estética.
-3. **La componentización hace escalable un sistema de información médica** — Médicos cambian, clínicas abren, servicios se añaden. Un sistema de componentes atómicos (Card Doctor, Card Servicio, Tag) permite al hospital actualizar su contenido sin rediseñar. El valor del diseño no está en las pantallas, está en el sistema.
-4. **Mejoras futuras priorizadas** — Las siguientes iteraciones deberían incluir: (1) diseño mobile-first paralelo al desktop, (2) sistema de citas online integrado, (3) sección de promociones con filtro por tipo de seguro/aseguradora, y (4) micro-animaciones en el tab de servicios para guiar la atención al contenido activo.
-
----
-
-## 10 · Insights UX
-
-### Principios que guiaron cada decisión
-
-- **El estrés del usuario define la jerarquía.** En salud, la arquitectura de información debe diseñarse para el estado emocional más crítico del usuario: la emergencia. Todo lo que importa en urgencia debe ser accesible en 0–3 segundos.
-- **Los tabs no son navegación — son filtros de contenido.** El sistema de tabs para servicios no navega a otra página; filtra el contenido visible. Esta distinción UX elimina la ruptura de contexto y mantiene al usuario en su journey de exploración.
-- **La prueba social debe ir antes del CTA, no después.** Los testimonios inmediatamente antes de la sección de contacto operan como último persuasor antes de la decisión. Moverlos al footer — como es común — los hace invisibles para la mayoría de los usuarios.
-- **Un CTA full-width en cards médicas elimina la ambigüedad de acción.** Cuando hay múltiples elementos informativos en una tarjeta, el ojo no sabe qué elemento es clickeable. Un botón que ocupa el 100% del ancho de la tarjeta resuelve esta ambigüedad sin diseño adicional.
-- **El idioma en el navbar no es una feature — es accesibilidad.** Puerto Escondido recibe miles de turistas internacionales anualmente. Un switcher de idioma en el navbar convierte el hospital en accesible para pacientes que no hablan español, en el momento en que más lo necesitan.
-- **El carousel de instalaciones responde al question "¿es esto profesional?".** La galería de fotos del hospital no está por estética — está para que el usuario pueda visualizar el entorno antes de ir. Es una herramienta de reducción de ansiedad pre-visita, especialmente para pacientes nuevos.
+- [🌐 Sitio en producción]({links.live})
+- [💻 Código en GitHub]({links.github})
+- [🎨 Diseño en Figma]({links.figma})
