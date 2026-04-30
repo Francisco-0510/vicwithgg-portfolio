@@ -68,5 +68,4 @@ coverage/
 !public/
 ```
 
-.vercel
 .env*.local
