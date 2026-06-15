@@ -3,8 +3,8 @@
 import '../styles/global.css';
 import { site } from '../data/portfolio';
 import ClientRouter from 'astro/components/ClientRouter.astro';
-import Analytics from '@vercel/analytics/astro';
-import SpeedInsights from '@vercel/speed-insights/astro';
+/* import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro'; */
 import SEO from '../components/SEO.astro';
 
 interface Props {
@@ -175,7 +175,7 @@ const {
       crossorigin
     />
 
-    <style>
+    <!--   <style>
       @font-face {
         font-family: 'Barlow Condensed';
         src: url('/fonts/barlow-condensed-900.woff2') format('woff2');
@@ -196,7 +196,7 @@ const {
         font-style: normal;
         font-display: swap;
       }
-    </style>
+    </style> -->
   </head>
 
   <body>
@@ -289,8 +289,8 @@ const {
     </script>
 
     <slot name="scripts" />
-    <Analytics />
-    <SpeedInsights />
+    <!--   <Analytics />
+    <SpeedInsights /> -->
   </body>
 </html>
 

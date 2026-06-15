@@ -1,7 +1,6 @@
 ---
 // src/layouts/ProjectLayout.astro
 // Migrado a Astro Content Collections
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Footer from '../components/layout/Footer.astro';
 import Navbar from '../components/layout/Navbar.astro';
@@ -156,17 +155,15 @@ const structuredDataProject = {
       {
         thumbnail && (
           <div class="case-thumbnail-full">
-            <Image
+            <img
               src={thumbnail}
               alt={`Captura de pantalla del proyecto ${name} - ${sector}`}
-              format="webp"
               width="1600"
               height="900"
               fetchpriority={index === 0 ? 'high' : 'auto'}
               loading={index === 0 ? 'eager' : 'lazy'}
               decoding={index === 0 ? 'sync' : 'async'}
               itemprop="image"
-              quality={80}
             />
           </div>
         )

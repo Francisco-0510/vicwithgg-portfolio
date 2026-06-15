@@ -3,7 +3,6 @@
 import { getProjectSlug } from '@/lib/collections';
 import ArrowRight from '@lucide/astro/icons/arrow-right';
 import SquareArrowOutUpRight from '@lucide/astro/icons/square-arrow-out-up-right';
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Figma from '../icons/Figma.astro';
 import GitHub from '../icons/GitHub.astro';
@@ -42,12 +41,11 @@ const isLCP = index === 0;
   <a href={projectHref} class="block group/link" aria-label={name}>
     <div
       class="relative flex h-50 w-full items-center justify-center overflow-hidden bg-(--line)/10">
-      <Image
+      <img
         src={thumbnail}
         alt={`Captura de pantalla de ${name}`}
         width={800}
         height={400}
-        quality={80}
         loading={index === 0 ? 'eager' : 'lazy'}
         decoding={index === 0 ? 'sync' : 'async'}
         fetchpriority={index === 0 ? 'high' : 'auto'}

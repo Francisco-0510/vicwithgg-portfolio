@@ -29,6 +29,28 @@
 }
 
 :root {
+  --bg: #06080d;
+  --bg-1: #0b0f18;
+  --bg-2: #10151f;
+  --bg-card: #141921;
+  --bg-card-h: #191e28; /* desde tailwind.config.mjs */
+
+  --accent: #d9a84e;
+  --accent-dim: rgba(217, 168, 78, 0.18);
+  --accent-glow: rgba(217, 168, 78, 0.06);
+
+  --blue: #3a7bd5;
+  --blue-dim: rgba(58, 123, 213, 0.15);
+
+  --text: #ede9e0;
+  --text-2: #9299a6;
+  --text-3: #8b93a0; /* se conserva el valor actual */
+
+  --line: rgba(237, 233, 224, 0.07);
+  --line-accent: rgba(217, 168, 78, 0.22);
+
+  --r: 4px;
+
   --f-display: "Barlow Condensed", "Barlow Condensed Fallback", sans-serif;
   --f-body: "Open Sans", sans-serif;
 
@@ -42,45 +64,102 @@
   --color-bg-2: #10151f;
   --color-bg-card: #141921;
   --color-accent: #d9a84e;
+  --color-accent-dim: rgba(217, 168, 78, 0.18);
+  --color-accent-glow: rgba(217, 168, 78, 0.06);
   --color-blue: #3a7bd5;
+  --color-blue-dim: rgba(58, 123, 213, 0.15);
   --color-text: #ede9e0;
   --color-text-2: #9299a6;
   --color-text-3: #8b93a0;
+  --color-line: rgba(237, 233, 224, 0.07);
+  --color-line-accent: rgba(217, 168, 78, 0.22);
 
   --font-display: "Barlow Condensed", sans-serif;
-
   --font-body: "Open Sans", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
+
+  /* Tamaños de texto personalizados (display) */
+  --font-size-display-xl: clamp(62px, 9vw, 128px);
+  --font-size-display-xl--line-height: 0.92;
+  --font-size-display-xl--letter-spacing: -0.01em;
+
+  --font-size-display-lg: clamp(42px, 6vw, 80px);
+  --font-size-display-lg--line-height: 0.92;
+  --font-size-display-lg--letter-spacing: -0.01em;
+
+  --font-size-display-md: clamp(38px, 4.5vw, 60px);
+  --font-size-display-md--line-height: 0.95;
+  --font-size-display-md--letter-spacing: -0.01em;
+
+  --font-size-display-sm: clamp(28px, 3vw, 36px);
+  --font-size-display-sm--line-height: 1;
+  --font-size-display-sm--letter-spacing: -0.01em;
+
+  /* Espaciado seccional */
+  --spacing-section: 120px;
+  --spacing-section-sm: 80px;
+
+  /* Border radius por defecto */
+  --radius-default: 4px;
+
+  /* Animaciones (shorthands para utilities animate-*) */
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-scroll-pulse: scroll-pulse 2.2s ease-in-out infinite;
+  --animate-fade-in: fadeIn 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  --animate-slide-up: slideUp 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+
+  /* Timing function suave */
+  --ease-smooth: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Backdrop blur para navbar */
+  --blur-nav: 12px;
+
+  /* Z-index */
+  --z-index-navbar: 100;
+  --z-index-modal: 200;
+  --z-index-tooltip: 300;
 }
 
-/* ── DESIGN TOKENS ────────────────────────────────── */
-:root {
-  --bg: #06080d;
-  --bg-1: #0b0f18;
-  --bg-2: #10151f;
-  --bg-card: #141921;
-  --bg-card-h: #191e28;
+/* ── KEYFRAMES (definiciones globales) ───────────── */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 
-  --accent: #d9a84e;
-  --accent-dim: rgba(217, 168, 78, 0.18);
-  --accent-glow: rgba(217, 168, 78, 0.06);
+@keyframes scroll-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(6px);
+  }
+}
 
-  --blue: #3a7bd5;
-  --blue-dim: rgba(58, 123, 213, 0.15);
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
-  --text: #ede9e0;
-  --text-2: #9299a6;
-  --text-3: #8b93a0;
-
-  --line: rgba(237, 233, 224, 0.07);
-  --line-accent: rgba(217, 168, 78, 0.22);
-
-  --r: 4px;
-
-  --f-display: "Barlow Condensed", sans-serif;
-
-  --f-body: "Open Sans", sans-serif;
-  --f-mono: "IBM Plex Mono", monospace;
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── RESET ───────────────────────────────────────── */
@@ -94,7 +173,6 @@
   }
   html {
     scroll-behavior: smooth;
-    /* Reduce CLS reservando espacio para fuentes antes de cargar */
     font-size: 16px;
   }
   body {
@@ -105,7 +183,6 @@
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    /* min-height evita layout shifts en páginas cortas */
     min-height: 100svh;
   }
   a {
@@ -115,7 +192,6 @@
   img {
     display: block;
     max-width: 100%;
-    /* Evita CLS: reservar espacio mientras carga */
     height: auto;
   }
   /* Reducir motion para accesibilidad */
@@ -131,6 +207,52 @@
       opacity: 1 !important;
       transform: none !important;
     }
+  }
+}
+
+/* ── UTILIDADES PERSONALIZADAS (desde plugins) ─── */
+@layer utilities {
+  .text-stroke {
+    -webkit-text-stroke: 1px rgba(237, 233, 224, 0.04);
+    color: transparent;
+  }
+  .text-stroke-accent {
+    -webkit-text-stroke: 1px rgba(217, 168, 78, 0.06);
+    color: transparent;
+  }
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, #d9a84e, #3a7bd5);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  /* Compatibilidad con .label-line (estilo similar a .label) */
+  .label-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .label-line::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+    flex-shrink: 0;
   }
 }
 
@@ -187,13 +309,13 @@
   }
 
   /* ── Reveal animation ─────────────────────────── */
+  /* Reveal animation (compatible con scroll reveal) */
   .reveal {
     opacity: 0;
     transform: translateY(28px);
     transition:
-      opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
-      transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
-    /* Usar will-change solo cuando sea necesario para evitar layer explosions */
+      opacity 0.7s var(--ease-smooth),
+      transform 0.7s var(--ease-smooth);
     will-change: opacity, transform;
   }
   .reveal.visible {
