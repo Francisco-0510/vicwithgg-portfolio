@@ -206,29 +206,6 @@ const structuredDataProject = {
   <Footer />
 </BaseLayout>
 
-<!-- JSON-LD Estructura completa -->
-<script is:inline type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    "@id": "https://vicwithgg-portfolio.vercel.app/proyectos/{project.slug}",
-    "name": "{name}",
-    "description": "{description}",
-    "image": "{thumbnail}",
-    "url": "https://vicwithgg-portfolio.vercel.app/proyectos/{project.slug}",
-    "creator": {
-      "@type": "Person",
-      "name": "{person.name}",
-      "url": "{site.url}"
-    },
-    "keywords": "{tech.join(', ')}",
-    "mentions": {
-      "@type": "Thing",
-      "name": "{sector}"
-    }
-  }
-</script>
-
 <style>
   .breadcrumbs-container {
     margin-bottom: 2rem;
