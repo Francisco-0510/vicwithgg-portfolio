@@ -49,7 +49,7 @@ export default defineConfig({
   output: "static",
   build: {
     assets: "_assets",
-    inlineStylesheets: "auto",
+    inlineStylesheets: "always",
     concurrency: 4, // Build paralelo para mejor performance
     format: "file",
   },
@@ -116,5 +116,6 @@ export default defineConfig({
     webAnalytics: {
       enabled: true, // Vercel Analytics
     },
+    speedInsights: { enabled: true },
   }),
 });

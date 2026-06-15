@@ -67,4 +67,4 @@ coverage/
 !public/
 ```
 
-.env*.local
+.env.local
