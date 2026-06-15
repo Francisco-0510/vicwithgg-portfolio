@@ -1,55 +1,210 @@
 ---
 name: "Hospital Ángel del Mar"
 sector: "Salud · Web"
-description: "Rediseño UI/UX e implementación en Webflow."
+description: "Rediseño UI/UX e implementación del sitio web institucional de un hospital médico-quirúrgico privado en Puerto Escondido, Oaxaca."
 thumbnail: "/images/projects/thumbnail-ham.webp"
 tech: ["Figma", "Design System", "Webflow", "UX/UI", "Responsive Design"]
 links:
   live: "https://hospitalangeldelmar.com.mx/"
+  figma: "https://www.figma.com/design/YkCO5cpqCc2oiFViCTGbO5/HAM-FINAL"
 featured: false
 type: "web"
 order: 10
 draft: false
 ---
 
+import { Image } from "astro:assets";
+
 ## 🎯 Visión General
 
-[Breve párrafo describiendo el propósito del proyecto, tu rol y duración.]
+Hospital Ángel del Mar (HAM) es una institución médico-quirúrgica privada afiliada al Consorcio Mexicano de Hospitales, con más de 10 clínicas especializadas, atención de emergencias 24/7 y un equipo de especialistas certificados en Puerto Escondido, Oaxaca. El problema: su presencia digital no comunicaba ninguna de esas fortalezas. Rediseñé el sitio institucional completo —desde la arquitectura de información hasta el sistema de componentes en Figma— y lo implementé en Webflow, priorizando dos modos de uso críticos: la exploración planificada de especialista y la urgencia médica con tiempo mínimo de respuesta.
 
-> **Rol:** [Tu rol específico]  
-> **Duración:** [Periodo]  
-> **Contexto:** [Cliente personal / freelance / académico]
+> **Rol:** UX/UI Designer · Diseño de sistema completo e implementación Webflow
+
+> **Duración:** Proyecto freelance · 2024
+
+> **Contexto:** Cliente externo · Hospital privado regional · Puerto Escondido, Oaxaca
 
 ---
 
 ## 💡 Solución Clave
 
-- **Punto diferencial 1:** [Descripción breve]
-- **Punto diferencial 2:** [Descripción breve]
-- **Punto diferencial 3:** [Descripción breve]
+- **Arquitectura orientada a la urgencia:** El número de emergencias (954 103 4110), el servicio 24 hrs. y la dirección exacta se posicionaron en el hero —no en el footer— para que cualquier usuario pueda obtener esa información en menos de 3 segundos, incluso bajo estrés máximo.
+- **Directorio médico con credenciales verificables:** Cada tarjeta de médico muestra nombre, foto, cédula profesional y cédula de especialidad. En salud privada, la confianza se construye con datos verificables, no con estética. Esta decisión convierte al directorio en la sección de mayor impacto sobre la decisión de consulta.
+- **Sistema de componentes escalable:** Un design system atómico en Figma (Card Doctor, Card Servicio, Tags, Tabs, variantes de botón) permite al hospital actualizar su contenido —médicos nuevos, clínicas que abren, servicios que cambian— sin necesidad de rediseñar. El valor del trabajo está en el sistema, no en las pantallas.
 
 ---
 
 ## ⚙️ Stack Técnico
 
-| Tecnología | Propósito        |
-| ---------- | ---------------- |
-| [Tech 1]   | [Uso específico] |
-| [Tech 2]   | [Uso específico] |
-| [Tech 3]   | [Uso específico] |
+| Tecnología      | Propósito                                                 |
+| --------------- | --------------------------------------------------------- |
+| Figma           | Diseño UI, componentes, design tokens y prototipado       |
+| Design System   | Librería de componentes atómicos reutilizables en Figma   |
+| Webflow         | Implementación y CMS para contenido dinámico              |
+| Responsive Web  | Layout adaptable desktop (1440px) con colapso a mobile    |
+| Iconografía SVG | Sistema duotono para servicios e iconos bicolor en navbar |
+
+---
+
+## 📐 Problema
+
+El Hospital Ángel del Mar operaba más de 10 clínicas especializadas, un equipo médico certificado y servicios de diagnóstico completos, pero su sitio web no comunicaba ninguna de esas capacidades. Cuatro fricciones centrales bloqueaban la conversión:
+
+1. **Descubribilidad cero:** Sin directorio de especialistas organizado, los pacientes no sabían quién los podía atender ni cuáles eran sus credenciales.
+2. **Urgencias sin acceso rápido:** El número de contacto de emergencias no tenía jerarquía visible. En una crisis, el usuario no puede darse el lujo de buscar.
+3. **Servicios invisibles:** Clínica de la Mujer, Clínica del Diabético, Hemodiálisis, Laboratorio, Farmacia — todos existían, ninguno era encontrable.
+4. **Credibilidad institucional sin comunicar:** La afiliación al Consorcio Mexicano de Hospitales y el cumplimiento de NOM son activos de confianza que nunca llegaban al usuario.
+
+---
+
+## 🧭 Proceso UX
+
+### User Flow principal
+
+El flujo del sitio resuelve dos modos de uso de forma simultánea:
+
+**_`Hero (contacto visible) → Buscador de especialidades → Servicios (tabs) → Directorio médicos → Testimonios → Contacto + mapa1`_**
+
+El **modo urgencia** (usuario bajo estrés, necesita actuar ya) sale del flujo en el paso 1 con el número visible en el hero. El **modo exploración** (usuario con tiempo, evaluando opciones) recorre el flujo completo hasta contacto.
+
+    ### Decisiones de arquitectura
+
+- **Contacto de urgencias en el hero, no en el footer.** Responde directamente al Job To Be Done del turista o paciente en crisis.
+- **Tabs para servicios en lugar de scroll lineal.** Con 10+ clínicas y servicios, el scroll crea fatiga de exploración. Los tabs agrupan por categoría (Clínicas, Diagnóstico, Hospitalización, Apoyo) y permiten navegación directa.
+- **Buscador de especialidades como acción principal.** Datalist con autocomplete centrado al 100% del ancho, jerarquizado visualmente como la acción más importante después del hero.
+- **Testimonios antes del CTA de contacto.** La secuencia correcta es: información → confianza → acción. Mover los testimonios al footer los hace invisibles y rompe el momentum de conversión.
+
+### User Personas
+
+**Madre de familia (35–50 años, residente):**
+
+> "Quiero saber que el médico que verá a mi hijo tiene sus papeles en regla antes de ir."
+
+**Paciente crónico (55–70 años):**
+
+> "Necesito un lugar que tenga todo en un mismo lugar para no andar corriendo."
+
+**Turista en emergencia (25–45 años, visitante):**
+
+> "Sólo necesito saber a dónde ir y a quién llamar. Ahora."
+
+---
+
+## 🎨 Sistema Visual
+
+### Color Strategy
+
+El sistema usa dos colores de marca con roles semánticos diferenciados:
+
+- **Verde médico `#1a7a4a` (Primary):** CTAs, iconografía, elementos activos, acento de marca. Activa asociaciones culturales de salud, higiene y profesionalismo.
+- **Lila `#6B4ED6` (Secondary):** Botones institucionales, sección Sobre Nosotros, acento editorial.
+- **Neutral `#1a1917 → #f8f7f4`:** Tipografía, fondos, divisores, estados desactivados.
+
+<img
+  src="public/images/projects/ham/paleta_de_colores.png"
+  alt="Paleta de colores del Hospital Ángel del Mar"
+/>
+![Paleta de Colores Hospital Ángel del
+Mar](public/images/projects/ham/paleta_de_colores.png)
+
+### Sistema de botones
+
+(4 variantes con roles claros)
+
+| Variante          | Uso                                                 |
+| ----------------- | --------------------------------------------------- |
+| Primary / Green   | Acción principal: agendar consulta, buscar médico   |
+| Secondary / Green | Acción de navegación: ver más, conocer especialidad |
+| Tertiary / Green  | Acción inline de bajo compromiso: enlace textual    |
+| Primary / Lila    | Acción institucional: Sobre Nosotros, afiliaciones  |
+
+### Componentes clave
+
+| Componente      | Descripción                                                            |
+| --------------- | ---------------------------------------------------------------------- |
+| Card Doctor     | Foto + Nombre + Cédulas + Tags clínica/especialidad + CTA full-width   |
+| Card Servicio   | Icono SVG 90px + Tag categoría + Título + Descripción + CTA terciario  |
+| Card Comentario | Quote + Avatar 64px + Nombre + Rol. Grid 3 columnas                    |
+| Tabs / Pill     | Filtro de servicios por categoría. Activo en verde, 1200px ancho       |
+| Datalist Search | Input con autocomplete de especialidades + botón CTA centrado          |
+| Carousel 3-up   | Frame central 529px + previews laterales. Instalaciones del hospital   |
+| Contact + Map   | Split layout: datos iconificados (izq.) + mapa embed full (der. 784px) |
+| Featured Icon   | Icono 48px + label + CTA inline. Sección de contacto                   |
+
+### Iconografía
+
+Sistema **duotono (two-colors)** para servicios del hero y bicolor para navbar. El duotono en verde/verde-claro refuerza la identidad cromática sin requerir ilustraciones complejas.
+
+---
+
+## 🖥️ Pantallas Clave
+
+### 01 — Hero: información de urgencias como primer elemento
+
+El hero no es solo imagen + headline. Incluye un bloque estructurado de datos críticos (icono + label + dato) que funciona como tarjeta de presentación instantánea: servicio 24 hrs., número de urgencias, dirección. El usuario puede salir del sitio en 3 segundos con todo lo que necesita en una crisis.
+
+**Decisión UI:** El headline usa capitalización selectiva ("SALUD", "BUENAS MANOS") para crear jerarquía tipográfica sin cambiar de familia. Es una decisión de copywriting que el diseño respeta, no sobreescribe.
+
+### 02 — Buscador de Especialidades: la acción más frecuente, centrada
+
+Sección dedicada con heading + subheading antes del input. El datalist reduce la fricción de escritura y asegura que el usuario use términos del sistema. El botón "Buscar" es explícito —no hay submit implícito por Enter como único mecanismo de acceso.
+
+### 03 — Servicios con Tabs: navegación por categoría
+
+Los tabs son filtros de contenido, no navegación a otra página. Esta distinción UX elimina la ruptura de contexto. Cuatro categorías: Clínicas especializadas, Diagnóstico, Hospitalización, Servicios de apoyo. Máximo 3 cards visibles por defecto para evitar sobrecarga cognitiva.
+
+### 04 — Directorio Médico: trust by credentials
+
+Estructura rígida por diseño: foto → nombre → cédulas → clínica → especialidades → CTA. Este orden responde a cómo el usuario evalúa a un médico. El CTA Button Primary ocupa el 100% del ancho de la tarjeta —cada Card Doctor es una unidad de conversión completa, sin ambigüedad sobre qué elemento es clickeable.
+
+### 05 — Testimonios: la prueba social antes del contacto
+
+Posicionados inmediatamente antes de la sección de contacto —no en el footer. Operan como último persuasor antes de la decisión. La secuencia es deliberada: información (servicios + médicos) → confianza (testimonios) → acción (contacto + mapa).
+
+---
+
+## ⚡ Retos y Trade-offs
+
+| Reto                                 | Solución                                                                                                |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| Actualización frecuente de médicos   | Componentes atómicos en Figma: Card Doctor es una instancia reutilizable, no un frame estático          |
+| Desktop-first con uso mobile crítico | Datos de urgencias estructurados con flex que colapsa bien en columna sin perder jerarquía              |
+| Densidad: 10+ servicios, 6+ médicos  | Tabs para servicios + filtro por especialidad para médicos + máximo 3 elementos visibles por defecto    |
+| Audiencia bilingüe (turistas)        | Language switcher en extremo derecho del navbar, consistente con convenciones internacionales           |
+| Sin métricas base previas            | KPIs definidos como hipótesis de comportamiento (click-to-call, search engagement) medibles desde día 1 |
+| Datos regulatorios obligatorios      | Cédulas y afiliaciones presentadas como activos de confianza, no como disclaimers legales               |
 
 ---
 
 ## 📊 Resultados
 
-- [Métrica o logro cuantificable 1]
-- [Métrica o logro cuantificable 2]
-- [Feedback destacado de cliente/usuario]
+- **↑ 3× en click-to-call esperado** desde el hero vs. acceso de footer únicamente — benchmark de UX en salud digital para datos de contacto en posición primaria _(hipótesis)_.
+- **-60% en llamadas de información básica** (horarios, dirección, servicios) al hacer visible en web lo que antes solo se respondía por teléfono _(hipótesis basada en contenido ahora accesible)_.
+- **+40% en velocidad de descubrimiento de especialista** por tabs + filtro vs. scroll lineal sin categorización _(hipótesis comparativa)_.
+- **Sistema de componentes publicable:** El design system en Figma fue entregado como librería activa, no como archivo estático. El cliente puede actualizar el directorio médico de forma autónoma sin intervención de diseño.
+- **Directorio médico verificable:** Primera vez que HAM tiene un directorio de especialistas con cédulas profesionales públicas en su web, posicionándolo como referencia regional en Puerto Escondido.
+
+---
+
+## 💬 Aprendizajes
+
+**La información de emergencia es una decisión de diseño, no de contenido.** Dónde colocas el número de urgencias determina si alguien puede usarlo bajo pánico. Esto no se resuelve con buena redacción —se resuelve con jerarquía visual y posicionamiento intencional.
+
+**En salud, la confianza se construye con datos verificables, no con aspiración.** Una fotografía bonita del lobby no convence a nadie. Un número de cédula profesional con nombre completo, sí. El diseño debe facilitar la verificación, no esconderla detrás de la estética.
+
+**La componentización hace escalable un sistema de información médica.** Médicos cambian, clínicas abren, servicios se añaden. El valor real del trabajo no está en las pantallas —está en el sistema que las hace sostenibles en el tiempo.
+
+**Mejoras futuras priorizadas:**
+
+1. Diseño mobile-first paralelo al desktop (alto impacto para el turista en emergencia)
+2. Sistema de citas online integrado con disponibilidad por especialista
+3. Sección de promociones con filtro por tipo de seguro/aseguradora
+4. Micro-animaciones en tabs de servicios para guiar la atención al contenido activo
 
 ---
 
 ## 🔗 Enlaces
 
-- [🌐 Sitio en producción]({links.live})
-- [💻 Código en GitHub]({links.github})
-- [🎨 Diseño en Figma]({links.figma})
+- [🌐 Sitio en producción](https://hospitalangeldelmar.com.mx/)
+- [🎨 Diseño en Figma](https://www.figma.com/design/YkCO5cpqCc2oiFViCTGbO5/HAM-FINAL)
