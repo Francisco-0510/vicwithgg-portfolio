@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 2
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "sector": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 50
+    },
+    "thumbnail": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "string",
+          "pattern": "^\\/.*"
+        }
+      ]
+    },
+    "tech": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "links": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "live": {
+          "type": "string",
+          "format": "uri"
+        },
+        "github": {
+          "type": "string",
+          "format": "uri"
+        },
+        "figma": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "app",
+        "web",
+        "design"
+      ]
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "slug",
+    "sector",
+    "description",
+    "thumbnail",
+    "tech",
+    "type"
+  ]
+}

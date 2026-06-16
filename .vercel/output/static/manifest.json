@@ -1,0 +1,27 @@
+{
+  "name": "VicWithGG - Diseñador UX/UI y Desarrollador Web",
+  "short_name": "VicWithGG",
+  "description": "Portafolio de Francisco Victorico Aguirre Jiménez - Diseñador UX/UI y Desarrollador Frontend especializado en React, Astro y Figma",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#06080d",
+  "theme_color": "#06080d",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "design", "development"],
+  "lang": "es-MX",
+  "dir": "ltr"
+}

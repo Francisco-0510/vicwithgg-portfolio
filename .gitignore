@@ -6,7 +6,6 @@ node_modules/
 dist/
 build/
 target/
-.vercel/
 
 # Cache directories
 .cache/
@@ -14,14 +13,11 @@ target/
 .next/
 .vuepress/dist
 .output
-.astro/
 
 # Environment variables
 .env
 .env.local
 .env.*
-.env.production
-.env.development
 
 # Logs
 *.log
@@ -66,4 +62,9 @@ typings/
 coverage/
 *.lcov
 
+# Astro specific
+!dist/
+!public/
+```
 
+.env*.local
