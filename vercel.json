@@ -64,5 +64,5 @@
       ]
     }
   ],
-  "rewrites": [{ "source": "/((?!pagefind/).*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/((?!pagefind/).*)$", "destination": "/index.html" }]
 }
