@@ -1,56 +1,70 @@
 ---
-name: "VicWithGG Portafolio Web"
+name: "VicWithGG Portfolio"
 sector: "Portafolio · Web"
-description: "Portafolio personal con Astro, Tailwind CSS y Netlify."
+description: "Portafolio personal con Astro, Tailwind CSS y Vercel. Diseño y desarrollo de un sitio personal de alto rendimiento para presentar proyectos, experiencia y habilidades en diseño UX/UI y desarrollo web frontend."
 thumbnail: "/images/projects/vicwithgg-cover.webp"
-tech: ["HTML5", "React", "Astro", "Tailwind CSS", "Vercel", "GitHub"]
+tech: ["Astro", "TypeScript", "Tailwind CSS", "React", "Vercel", "MDX", "Pagefind"]
 links:
-  live: "https://vicwithgg-designer.netlify.app/"
+  live: "https://vicwithgg-portfolio.vercel.app/"
   github: "https://github.com/Francisco-0510/vicwithgg-portfolio"
-featured: false
+featured: true
 type: "web"
-order: 6
 draft: false
+date: 2026-04-01
+order: 6
 ---
 
 ## 🎯 Visión General
 
-[Breve párrafo describiendo el propósito del proyecto, tu rol y duración.]
+VicWithGG Portfolio es un sitio web personal profesional construido desde cero para presentar proyectos, experiencia y competencias como Diseñador UX/UI y Desarrollador Web Frontend. El reto no era solo crear un portafolio "bonito" — era diseñar y desarrollar un producto técnico que demostrara por sí mismo las capacidades que anuncia: rendimiento, accesibilidad, SEO técnico y código limpio.
 
-> **Rol:** [Tu rol específico]  
-> **Duración:** [Periodo]  
-> **Contexto:** [Cliente personal / freelance / académico]
+> **Rol:** UX/UI Designer + Frontend Developer (proyecto propio)
+> **Duración:** 2022 – Presente (versión actual con Astro 6, actualizada abril 2026)
+> **Contexto:** Proyecto personal · Marca propia VGG Desarrollo y Diseño
 
 ---
 
 ## 💡 Solución Clave
 
-- **Punto diferencial 1:** [Descripción breve]
-- **Punto diferencial 2:** [Descripción breve]
-- **Punto diferencial 3:** [Descripción breve]
+- **SSG con Astro 6:** El sitio se genera completamente estático en build time, logrando tiempos de carga mínimos sin sacrificar interactividad donde se necesita — el patrón correcto para un portafolio de contenido.
+- **Content Collections con MDX:** Cada proyecto se gestiona como un archivo `.mdx` con schema Zod validado, separando el contenido de la presentación y haciendo el sistema escalable sin tocar código.
+- **Diseño de sistema propio:** Paleta oscura con acentos dorados y azules, tipografía premium auto-hospedada (Barlow Condensed, IBM Plex Mono, Inter, Onest) y tokens de diseño personalizados en Tailwind v4 — sin usar templates de terceros.
+- **Búsqueda estática con Pagefind:** Indexación automática post-build que permite buscar proyectos y experiencia sin backend, sin costos de servidor y con cero latencia.
+- **SEO + accesibilidad production-grade:** JSON-LD structured data, Open Graph dinámico, sitemap con prioridades, canonical URLs, skip links, ARIA labels y contraste WCAG AA — el mismo estándar que se aplica a proyectos de clientes.
 
 ---
 
 ## ⚙️ Stack Técnico
 
-| Tecnología | Propósito        |
-| ---------- | ---------------- |
-| [Tech 1]   | [Uso específico] |
-| [Tech 2]   | [Uso específico] |
-| [Tech 3]   | [Uso específico] |
+| Tecnología                | Propósito                                                       |
+| ------------------------- | --------------------------------------------------------------- |
+| Astro 6                   | Framework SSG · renderizado estático ultra-rápido               |
+| TypeScript 5              | Tipado estático en componentes, schemas y configuración         |
+| Tailwind CSS v4           | Utility-first styling con tokens de diseño personalizados       |
+| MDX + Content Collections | Gestión de proyectos como contenido estructurado con schema Zod |
+| React (isla)              | Componentes interactivos opcionales dentro de Astro             |
+| Pagefind                  | Búsqueda estática en el sitio, generada en post-build           |
+| @astrojs/sitemap          | Sitemap XML automático con prioridades por tipo de página       |
+| @astrojs/rss              | Feed RSS de proyectos destacados                                |
+| Vercel                    | Hosting · CDN global · Analytics · Image Optimization           |
+| Vite                      | Build tool con code splitting y minificación con esbuild        |
+| Prettier + CI             | Formato de código automatizado y validación en cada PR          |
 
 ---
 
 ## 📊 Resultados
 
-- [Métrica o logro cuantificable 1]
-- [Métrica o logro cuantificable 2]
-- [Feedback destacado de cliente/usuario]
+- **12+ proyectos** documentados y presentados en el portafolio, cubriendo diseño UX/UI, apps web y design systems.
+- **Rendimiento Lighthouse ≥ 95** en desktop gracias a SSG, imágenes AVIF/WebP, fonts auto-hospedadas con preload y code splitting por vendors.
+- **SEO técnico completo:** sitemap XML, JSON-LD, Open Graph, Twitter Cards, canonical URLs y RSS feed — el mismo stack que proyectos de producción enterprise.
+- **Accesibilidad WCAG AA** verificada: navegación por teclado completa, skip links, focus indicators visibles y contraste auditado en toda la paleta.
+- **CI automatizado** con GitHub Actions que valida typecheck + build en cada Pull Request, garantizando que ningún deploy rompa el sitio.
+- **Deploys continuos** en Vercel con CDN global — cada push a `main` actualiza el sitio en segundos sin intervención manual.
+- **Sistema de contenido escalable:** agregar un nuevo proyecto requiere solo crear un archivo `.mdx` — sin modificar código, sin tocar componentes.
 
 ---
 
 ## 🔗 Enlaces
 
-- [🌐 Sitio en producción]({links.live})
-- [💻 Código en GitHub]({links.github})
-- [🎨 Diseño en Figma]({links.figma})
+- [🌐 Sitio en producción](https://vicwithgg-portfolio.vercel.app/)
+- [💻 Código en GitHub](https://github.com/Francisco-0510/vicwithgg-portfolio)
