@@ -7,19 +7,15 @@ import Search from '../ui/Search.astro';
 <nav id="navbar">
   <div class="wrap">
     <div class="nav-inner">
-      <!-- Logo -->
-      <!--   <a href="/" class="nav-logo" aria-label="VGG — VicWithGG, ir al inicio">
-        <span class="logo-abbr" aria-hidden="true">VGG</span>
-        <span class="logo-full" aria-hidden="true">Design & Dev</span>
-      </a> -->
-      <a href="/" class="nav-logo">
+      <!-- Logo con nombre accesible -->
+      <a href="/" class="nav-logo" aria-label="Ir al inicio">
         <span class="nav-logo-main">{person.initials}</span>
         <span class="nav-logo-sub">
           <span class="logo-full" aria-hidden="true">Design & Dev</span>
         </span>
       </a>
 
-      <!-- Links -->
+      <!-- Enlaces de navegación -->
       <ul class="nav-links" role="list">
         {
           navLinks.map((link) => (
@@ -30,16 +26,12 @@ import Search from '../ui/Search.astro';
         }
       </ul>
 
-      <!-- CTA -->
+      <!-- CTA y búsqueda -->
       <Search />
       <a href={`mailto:${person.email}`} class="nav-cta"> Contactar </a>
 
-      <!-- Mobile toggle -->
-      <button
-        class="nav-menu-toggle"
-        aria-label="Abrir menú"
-        aria-expanded="false"
-        id="nav-toggle">
+      <!-- Botón hamburguesa -->
+      <button class="nav-menu-toggle" aria-label="Abrir menú" aria-expanded="false" id="nav-toggle">
         <span></span>
         <span></span>
         <span></span>
@@ -48,7 +40,7 @@ import Search from '../ui/Search.astro';
   </div>
 </nav>
 
-<!-- Mobile drawer (hidden by default) -->
+<!-- Panel móvil (oculto inicialmente) -->
 <div id="nav-drawer" class="nav-drawer" aria-hidden="true" inert>
   <ul role="list">
     {
@@ -61,10 +53,7 @@ import Search from '../ui/Search.astro';
       ))
     }
     <li>
-      <a
-        href={`mailto:${person.email}`}
-        class="btn-primary"
-        style="margin-top: 8px;">
+      <a href={`mailto:${person.email}`} class="btn-primary" style="margin-top: 8px;">
         Contactar
       </a>
     </li>
@@ -231,22 +220,36 @@ import Search from '../ui/Search.astro';
 
 <script>
   const drawer = document.getElementById('nav-drawer');
-  //const trigger = document.getElementById('menu-trigger');
   const toggle = document.getElementById('nav-toggle');
 
+  function openDrawer() {
+    drawer?.classList.add('open');
+    drawer?.removeAttribute('inert');
+    drawer?.setAttribute('aria-hidden', 'false');
+    toggle?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer?.classList.remove('open');
+    drawer?.setAttribute('inert', '');
+    drawer?.setAttribute('aria-hidden', 'true');
+    toggle?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
   toggle?.addEventListener('click', () => {
-    const isOpen = drawer?.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(isOpen));
-    drawer?.setAttribute('aria-hidden', String(!isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (drawer?.classList.contains('open')) {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
   });
 
-  // Close on link click
+  // Cerrar el drawer al hacer clic en cualquier enlace
   drawer?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      drawer.classList.remove('open');
-      toggle?.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      closeDrawer();
     });
   });
 </script>
