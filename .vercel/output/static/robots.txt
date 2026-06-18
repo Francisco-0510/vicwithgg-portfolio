@@ -35,4 +35,4 @@ User-agent: SemrushBot
 Disallow: /
 
 # Sitemap - URL dinámica basada en el dominio principal
-Sitemap: https://vicwithgg-portfolio.vercel.app/sitemap-0.xml
+Sitemap: https://vicwithgg-portfolio.vercel.app/sitemap-index.xml
