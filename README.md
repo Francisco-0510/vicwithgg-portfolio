@@ -4,6 +4,13 @@ Un portafolio profesional moderno, rápido y visualmente cautivador construido c
 
 **Sitio en vivo:** [https://vicwithgg-portfolio.vercel.app/](https://vicwithgg-portfolio.vercel.app/)
 
+[![CI](https://github.com/Francisco-0510/vicwithgg-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Francisco-0510/vicwithgg-portfolio/actions/workflows/ci.yml)
+[![Astro](https://img.shields.io/badge/Astro_6-BC52EE?logo=astro)](https://astro.build)
+[![TypeScript](https://img.shields.io/badge/TypeScript_5-3178C6?logo=typescript)](https://www.typescriptlang.org)
+[![Tailwind](https://img.shields.io/badge/Tailwind_v4-06B6D4?logo=tailwindcss)](https://tailwindcss.com)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?logo=vercel)](https://vercel.com)
+[![License](https://img.shields.io/github/license/Francisco-0510/vicwithgg-portfolio?color=blue)](LICENSE)
+
 ---
 
 ## 📋 Descripción General
@@ -467,30 +474,18 @@ Este archivo es la **Single Source of Truth (SSOT)** — cualquier cambio se pro
 
 ## 🤝 Contribución
 
-Las contribuciones son bienvenidas para:
+Las contribuciones son bienvenidas. Revisa [`CONTRIBUTING.md`](./CONTRIBUTING.md) para guía detallada sobre:
 
-- Mejoras de rendimiento
-- Correcciones de bugs
-- Mejoras de accesibilidad
-- Nuevas características o componentes
-- Mejoras de documentación
+- Cómo reportar bugs y proponer features
+- Estándares de código (TypeScript, Tailwind, Prettier, Conventional Commits)
+- Proceso de Pull Requests (checklist pre-commit)
+- Estructura del proyecto
 
-### Proceso de Contribución
+Este proyecto sigue [Conventional Commits](https://www.conventionalcommits.org/) y usa GitHub Actions para validar typecheck + build en cada PR.
 
-1. **Fork** el repositorio
-2. **Crea una rama** (`git checkout -b feature/AmazingFeature`)
-3. **Realiza cambios** manteniendo el estilo de código (Prettier está configurado)
-4. **Commit** tus cambios (`git commit -m 'Add some AmazingFeature'`)
-5. **Push** a la rama (`git push origin feature/AmazingFeature`)
-6. **Abre un Pull Request** describiendo los cambios
+---
 
-### Estándares de Código
-
-- Usa TypeScript con tipos estrictos
-- Formatea con `npm run format` (Prettier)
-- Respeta la estructura de componentes existente
-- Incluye comentarios en código complejo
-- Asegúrate de que el build sea exitoso (`npm run build`)
+| **Última actualización** | 2026-06-18 |
 
 ---
 
@@ -552,7 +547,6 @@ Contacta a través de:
 ### Seguridad
 
 - ✅ Headers HTTP de seguridad (X-Content-Type-Options, X-Frame-Options, Referrer-Policy)
-- ✅ Security.txt en `.well-known/`
 - ✅ Content Security Policy ready
 
 ### Accesibilidad
@@ -567,7 +561,6 @@ Contacta a través de:
 ### Deployment
 
 - 🚀 Deployado en **Vercel**
-- 📍 Región: Singapore (sin1)
 - ⚡ CDN global automático
 - 🔄 Deploys en cada push a main
 - 📊 Vercel Analytics y Speed Insights habilitados
@@ -585,7 +578,3 @@ Contacta a través de:
 - [Pagefind Search](https://pagefind.app/)
 
 ---
-
-**Última actualización:** 2026-04-20 | Versión: 0.0.1
-
-_Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>_
