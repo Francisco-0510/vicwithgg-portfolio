@@ -1,70 +1,36 @@
-```
-# Dependencies
+# Cores / Dependencias
 node_modules/
+.pnpm-store/
 
-# Build outputs
+# Carpeta de caché de Astro (¡Importante!)
+.astro/
+
+# Outputs de producción (Vercel compila esto en la nube)
 dist/
 build/
-target/
+.vercel/
 
-# Cache directories
-.cache/
-.nuxt/
-.next/
-.vuepress/dist
-.output
-
-# Environment variables
+# Variables de entorno (Seguridad)
 .env
 .env.local
-.env.*
+.env.production
+.env.development
+.env.*.local
 
-# Logs
+# Logs de errores
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# OS generated files
+# Archivos del Sistema Operativo
 .DS_Store
 Thumbs.db
+*.local
 
-# Editor files
+# Configuración de Editores (Opcional, déjalos si compartes repo)
 .vscode/
 .idea/
 *.swp
 *.swo
-*.tmp
-
-# Python specific
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
-.coverage
-coverage/
-htmlcov/
-.pytest_cache/
-.mypy_cache/
-.tox/
-.eggs/
-*.egg-info/
-pip-log.txt
-pip-delete-this-directory.txt
-*.npy
-
-# Node.js specific
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-jspm_packages/
-typings/
-.nyc_output
-coverage/
-*.lcov
-
-# Astro specific
-!dist/
-!public/
-```
-
-.env*.local

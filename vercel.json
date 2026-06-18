@@ -8,61 +8,34 @@
   },
   "headers": [
     {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=()"
-        }
-      ]
-    },
-    {
       "source": "/robots.txt",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
     },
     {
-      "source": "/sitemap*(.*)",
+      "source": "/sitemap.xml",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
     },
     {
       "source": "/rss.xml",
-      "headers": [
-        { "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" }
-      ]
+      "headers": [{ "key": "Content-Type", "value": "application/rss+xml" }]
     },
     {
-      "source": "/fonts/(.*)",
+      "source": "/(.*)",
       "headers": [
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/images/(.*)",
-      "headers": [
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/_assets/(.*)",
-      "headers": [
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
         }
       ]
     }
   ],
-  "rewrites": [{ "source": "/((?!pagefind/).*)$", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/((?!pagefind/).*)", "destination": "/index.html" }]
 }
