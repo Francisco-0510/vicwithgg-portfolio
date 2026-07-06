@@ -6,6 +6,7 @@ import ClientRouter from 'astro/components/ClientRouter.astro';
 /* import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro'; */
 import SEO from '../components/SEO.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 
 interface Props {
   title?: string;
@@ -167,6 +168,7 @@ const {
         font-display: swap;
       }
     </style> -->
+    <GoogleAnalytics />
   </head>
 
   <body>
@@ -212,20 +214,18 @@ const {
         }
 
         // ── Smooth scroll anchors ─────────────────────────────────
-        document
-          .querySelectorAll<HTMLAnchorElement>('a[href^="#"]')
-          .forEach((anchor) => {
-            anchor.addEventListener('click', (e) => {
-              const href = anchor.getAttribute('href');
-              if (!href || href === '#') return;
-              e.preventDefault();
-              const target = document.getElementById(href.slice(1));
-              if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                history.pushState(null, '', href);
-              }
-            });
+        document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener('click', (e) => {
+            const href = anchor.getAttribute('href');
+            if (!href || href === '#') return;
+            e.preventDefault();
+            const target = document.getElementById(href.slice(1));
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              history.pushState(null, '', href);
+            }
           });
+        });
 
         // ── Copy code blocks ──────────────────────────────────────
         document.querySelectorAll('pre').forEach((pre) => {
