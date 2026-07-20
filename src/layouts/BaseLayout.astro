@@ -3,8 +3,8 @@
 import '../styles/global.css';
 import { site } from '../data/portfolio';
 import ClientRouter from 'astro/components/ClientRouter.astro';
-/* import Analytics from '@vercel/analytics/astro';
-import SpeedInsights from '@vercel/speed-insights/astro'; */
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import SEO from '../components/SEO.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import GoogleTagManager from '@/components/GoogleTagManager.astro';
@@ -262,8 +262,8 @@ const {
     </script>
 
     <slot name="scripts" />
-    <!--   <Analytics />
-    <SpeedInsights /> -->
+    <Analytics />
+    <SpeedInsights />
   </body>
 </html>
 

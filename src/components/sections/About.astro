@@ -5,6 +5,7 @@ import Label from '../ui/Label.astro';
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import { Image } from 'astro:assets';
+import ContactLinks from '../ui/ContactLinks.astro';
 ---
 
 <section id="about" itemscope itemtype="https://schema.org/Person">
@@ -28,7 +29,7 @@ import { Image } from 'astro:assets';
 
         <div class="about-contact">
           <p>Encuéntrame en</p>
-          <div class="about-social">
+          <!--   <div class="about-social">
             {
               person.social?.linkedin && (
                 <Button
@@ -79,8 +80,9 @@ import { Image } from 'astro:assets';
                 </Button>
               )
             }
-          </div>
+          </div> -->
         </div>
+        <ContactLinks />
       </div>
 
       <div class="about-content">

@@ -1,0 +1,90 @@
+---
+import { AtSignIcon, XIcon } from '@lucide/astro';
+import GitHub from '../icons/GitHub.astro';
+import Linkedin from '../icons/Linkedin.astro';
+
+// ContactLinks.astro
+// Sección "Encuéntrame en" — lista de contacto para el sidebar de "Sobre mí"
+// Requiere Tailwind CSS configurado en el proyecto Astro.
+
+interface ContactLink {
+  platform: string;
+  handle: string;
+  href: string;
+  ariaLabel: string;
+  icon: 'linkedin' | 'github' | 'twitter' | 'email';
+}
+
+const links: ContactLink[] = [
+  {
+    platform: 'LinkedIn',
+    handle: '/in/vicwith-gg',
+    href: 'https://www.linkedin.com/in/vicwith-gg/',
+    ariaLabel: 'LinkedIn',
+    icon: 'linkedin',
+  },
+  {
+    platform: 'GitHub',
+    handle: 'github.com/Francisco-0510',
+    href: 'https://github.com/Francisco-0510',
+    ariaLabel: 'GitHub',
+    icon: 'github',
+  },
+  {
+    platform: 'Twitter',
+    handle: '@VicWithGG1',
+    href: 'https://x.com/VicWithGG1',
+    ariaLabel: 'Twitter / X',
+    icon: 'twitter',
+  },
+  {
+    platform: 'Email',
+    handle: 'vgg.designer.01@gmail.com',
+    href: 'mailto:vgg.designer.01@gmail.com',
+    ariaLabel: 'Correo electrónico',
+    icon: 'email',
+  },
+];
+---
+
+<div class="w-full max-w-sm">
+  <!--   <div class="mb-4.5 flex items-center gap-2">
+    <span
+      class="relative flex h-1.75 w-1.75 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_0_3px_rgba(74,222,128,0.15)]"
+    ></span>
+    <span class="font-mono text-[11px] uppercase tracking-[0.12em] text-slate-400">
+      Disponible para proyectos
+    </span>
+  </div> -->
+
+  <div class="flex flex-col">
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          aria-label={link.ariaLabel}
+          target={link.icon === 'email' ? undefined : '_blank'}
+          rel={link.icon === 'email' ? undefined : 'noopener noreferrer'}
+          class="group relative flex items-center gap-3.5 border-b border-slate-800 py-3.5 px-1 text-inherit no-underline transition-[padding,border-color] duration-200 ease-out hover:border-slate-600 hover:pl-2.5 focus-visible:outline focus-visible:outline-amber-400 focus-visible:outline-offset-2">
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-slate-800 text-slate-400 transition-colors duration-200 ease-out group-hover:border-amber-400 group-hover:bg-amber-400/10 group-hover:text-amber-400">
+            {link.icon === 'linkedin' && <Linkedin />}
+            {link.icon === 'github' && <GitHub />}
+            {link.icon === 'twitter' && <XIcon />}
+            {link.icon === 'email' && <AtSignIcon />}
+          </span>
+
+          <span class="min-w-0 flex-1">
+            <div class="text-sm font-semibold tracking-[0.01em] text-slate-100">
+              {link.platform}
+            </div>
+            <div class="mt-0.5 truncate font-mono text-[11px] text-slate-400">{link.handle}</div>
+          </span>
+
+          <span class="shrink-0 -translate-x-1 text-sm text-slate-400 opacity-0 transition-all duration-200 ease-out group-hover:translate-x-0 group-hover:text-amber-400 group-hover:opacity-100">
+            →
+          </span>
+        </a>
+      ))
+    }
+  </div>
+</div>
