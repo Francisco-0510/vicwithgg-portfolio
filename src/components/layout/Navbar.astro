@@ -222,6 +222,36 @@ import Search from '../ui/Search.astro';
   const drawer = document.getElementById('nav-drawer');
   const toggle = document.getElementById('nav-toggle');
 
+  function initNav() {
+    const drawer = document.getElementById('nav-drawer');
+    const toggle = document.getElementById('nav-toggle');
+    if (!drawer || !toggle) return;
+
+    const open = () => {
+      drawer.classList.add('open');
+      drawer.removeAttribute('inert');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    };
+    const close = () => {
+      drawer.classList.remove('open');
+      drawer.setAttribute('inert', '');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    };
+
+    toggle.addEventListener('click', () => (drawer.classList.contains('open') ? close() : open()));
+    drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) {
+        close();
+        toggle.focus();
+      }
+    });
+  }
+  initNav();
+  document.addEventListener('astro:page-load', initNav);
+
   function openDrawer() {
     drawer?.classList.add('open');
     drawer?.removeAttribute('inert');
