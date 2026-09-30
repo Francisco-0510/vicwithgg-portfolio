@@ -8,21 +8,15 @@
 //  - BreadcrumbList (navegación jerárquica)
 //  - WebSite (sitio web con search action)
 // ═══════════════════════════════════════════════════════════════
-import { person, site } from '../data/portfolio';
+import { person, site } from "../data/portfolio";
 
 interface Props {
-  type?:
-    | 'Person'
-    | 'Organization'
-    | 'CreativeWork'
-    | 'BreadcrumbList'
-    | 'WebSite'
-    | 'Portfolio';
+  type?: "Person" | "Organization" | "CreativeWork" | "BreadcrumbList" | "WebSite" | "Portfolio";
   data?: Record<string, any>;
   breadcrumbs?: Array<{ name: string; url: string }>;
 }
 
-const { type = 'Person', data = {}, breadcrumbs = [] } = Astro.props;
+const { type = "Person", data = {}, breadcrumbs = [] } = Astro.props;
 
 // Helper para construir sameAs array desde portfolio.ts
 const getSameAs = () => {
@@ -37,20 +31,20 @@ const getSameAs = () => {
 };
 
 // URL base sin trailing slash para consistencia
-const baseUrl = site.url.replace(/\/$/, '');
+const baseUrl = site.url.replace(/\/$/, "");
 
 let structuredData: Record<string, any> = {};
 
-if (type === 'Person') {
+if (type === "Person") {
   structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    '@id': `${baseUrl}/#person`,
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${baseUrl}/#person`,
     name: person.name,
     alternateName: person.handle,
     url: baseUrl,
     image: {
-      '@type': 'ImageObject',
+      "@type": "ImageObject",
       url: `${baseUrl}${person.photo}`,
       width: 800,
       height: 800,
@@ -58,155 +52,148 @@ if (type === 'Person') {
     description: site.seoDescription,
     jobTitle: person.roles,
     worksFor: {
-      '@type': 'Organization',
-      name: 'VGG Design & Dev',
+      "@type": "Organization",
+      name: "VGG Design & Dev",
       url: baseUrl,
     },
     email: `mailto:${person.email}`,
     telephone: person.social.phone,
     address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Oaxaca de Juárez',
-      addressRegion: 'Oaxaca',
-      addressCountry: 'MX',
+      "@type": "PostalAddress",
+      addressLocality: "Oaxaca de Juárez",
+      addressRegion: "Oaxaca",
+      addressCountry: "MX",
     },
     sameAs: getSameAs(),
     knowsAbout: [
-      'UX/UI Design',
-      'Frontend Development',
-      'React',
-      'Astro',
-      'TypeScript',
-      'Figma',
-      'Design Systems',
-      'Web Performance',
+      "UX/UI Design",
+      "Frontend Development",
+      "React",
+      "Astro",
+      "TypeScript",
+      "Figma",
+      "Design Systems",
+      "Web Performance",
     ],
   };
-} else if (type === 'Organization') {
+} else if (type === "Organization") {
   structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    '@id': `${baseUrl}/#organization`,
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${baseUrl}/#organization`,
 
-    name: 'VGG Design & Dev',
+    name: "VGG Design & Dev",
     url: baseUrl,
     logo: {
-      '@type': 'ImageObject',
+      "@type": "ImageObject",
       url: `${baseUrl}/logo.png`,
       width: 200,
       height: 60,
     },
     description: site.seoDescription,
     founder: {
-      '@type': 'Person',
-      '@id': `${baseUrl}/#person`,
+      "@type": "Person",
+      "@id": `${baseUrl}/#person`,
       name: person.name,
     },
     sameAs: getSameAs(),
     contactPoint: {
-      '@type': 'ContactPoint',
+      "@type": "ContactPoint",
       email: person.email,
       telephone: person.social.phone,
-      contactType: 'customer service',
-      availableLanguage: ['Spanish', 'English'],
+      contactType: "customer service",
+      availableLanguage: ["Spanish", "English"],
     },
     areaServed: {
-      '@type': 'Country',
-      name: 'Mexico',
+      "@type": "Country",
+      name: "Mexico",
     },
   };
-} else if (type === 'CreativeWork' && data) {
+} else if (type === "CreativeWork" && data) {
   structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'CreativeWork',
-    '@id': `${baseUrl}/proyectos/${data.slug || ''}/#project`,
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${baseUrl}/proyectos/${data.slug || ""}/#project`,
     name: data.name,
     description: data.description,
     image: {
-      '@type': 'ImageObject',
-      url: data.thumbnail?.startsWith('http')
-        ? data.thumbnail
-        : `${baseUrl}${data.thumbnail}`,
+      "@type": "ImageObject",
+      url: data.thumbnail?.startsWith("http") ? data.thumbnail : `${baseUrl}${data.thumbnail}`,
       width: 1200,
       height: 630,
     },
-    url: `${baseUrl}/proyectos/${data.slug || ''}`,
+    url: `${baseUrl}/proyectos/${data.slug || ""}`,
     datePublished: data.publishedDate || new Date().toISOString(),
-    dateModified:
-      data.updatedDate || data.publishedDate || new Date().toISOString(),
+    dateModified: data.updatedDate || data.publishedDate || new Date().toISOString(),
     author: {
-      '@type': 'Person',
-      '@id': `${baseUrl}/#person`,
+      "@type": "Person",
+      "@id": `${baseUrl}/#person`,
       name: person.name,
       url: baseUrl,
     },
-    keywords: data.tech?.join(', ') || '',
+    keywords: data.tech?.join(", ") || "",
     mentions: {
-      '@type': 'Thing',
+      "@type": "Thing",
       name: data.sector,
     },
     isPartOf: {
-      '@type': 'CreativeWorkSeries',
-      name: 'Portfolio Projects',
+      "@type": "CreativeWorkSeries",
+      name: "Portfolio Projects",
       url: `${baseUrl}/#projects`,
     },
   };
-} else if (type === 'BreadcrumbList' && breadcrumbs.length > 0) {
+} else if (type === "BreadcrumbList" && breadcrumbs.length > 0) {
   structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
     itemListElement: breadcrumbs.map((crumb, index) => ({
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: index + 1,
       name: crumb.name,
-      item: crumb.url.startsWith('http') ? crumb.url : `${baseUrl}${crumb.url}`,
+      item: crumb.url.startsWith("http") ? crumb.url : `${baseUrl}${crumb.url}`,
     })),
   };
-} else if (type === 'WebSite') {
+} else if (type === "WebSite") {
   structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': `${baseUrl}/#website`,
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${baseUrl}/#website`,
     name: site.title,
-    alternateName: 'VicWithGG Portfolio',
+    alternateName: "VicWithGG Portfolio",
     url: baseUrl,
     description: site.seoDescription,
-    inLanguage: 'es-MX',
+    inLanguage: "es-MX",
     publisher: {
-      '@type': 'Person',
-      '@id': `${baseUrl}/#person`,
+      "@type": "Person",
+      "@id": `${baseUrl}/#person`,
       name: person.name,
     },
     potentialAction: {
-      '@type': 'SearchAction',
+      "@type": "SearchAction",
       target: `${baseUrl}/?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
+      "query-input": "required name=search_term_string",
     },
   };
-} else if (type === 'Portfolio') {
+} else if (type === "Portfolio") {
   structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Collection',
-    '@id': `${baseUrl}/#portfolio`,
-    name: 'Portfolio de Proyectos UX/UI y Desarrollo Web',
+    "@context": "https://schema.org",
+    "@type": "Collection",
+    "@id": `${baseUrl}/#portfolio`,
+    name: "Portfolio de Proyectos UX/UI y Desarrollo Web",
     description: site.seoDescription,
     url: `${baseUrl}/#projects`,
     creator: {
-      '@type': 'Person',
-      '@id': `${baseUrl}/#person`,
+      "@type": "Person",
+      "@id": `${baseUrl}/#person`,
       name: person.name,
     },
     numberOfItems: data.itemCount || 0,
     isPartOf: {
-      '@type': 'WebSite',
-      '@id': `${baseUrl}/#website`,
+      "@type": "WebSite",
+      "@id": `${baseUrl}/#website`,
     },
   };
 }
 ---
 
-<script
-  is:inline
-  type="application/ld+json"
-  set:html={JSON.stringify(structuredData)}
-/>
+<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />

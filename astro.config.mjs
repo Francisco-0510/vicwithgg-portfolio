@@ -23,8 +23,7 @@ export default defineConfig({
     }),
     // SEO: Sitemap optimizado con prioridades personalizadas
     sitemap({
-      filter: (page) =>
-        !page.includes("/privacidad") && !page.includes("/terminos"),
+      filter: (page) => !page.includes("/privacidad") && !page.includes("/terminos"),
       serialize(item) {
         // Prioridad máxima para homepage
         if (item.url.endsWith("/")) {
@@ -42,20 +41,19 @@ export default defineConfig({
         return { ...item, changefreq: "monthly", priority: 0.6 };
       },
     }),
-    tailwindcss(),
   ],
 
   // ── Output: SSG puro para máximo rendimiento ─────────────────
   output: "static",
+
   build: {
     assets: "_assets",
-    inlineStylesheets: "always",
+    inlineStylesheets: "auto",
     concurrency: 4, // Build paralelo para mejor performance
     format: "file",
   },
 
   // ── Prefetch: Estrategia híbrida para UX óptima ───────────────
-
   prefetch: {
     prefetchAll: false, // No precargar todo (ahorra bandwidth)
     defaultStrategy: "hover", // Precargar al hacer hover (mejor INP)

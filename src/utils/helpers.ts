@@ -5,10 +5,7 @@
 /**
  * Formatea una fecha a formato legible
  */
-export function formatDate(
-  date: string | Date,
-  options?: Intl.DateTimeFormatOptions,
-): string {
+export function formatDate(date: string | Date, options?: Intl.DateTimeFormatOptions): string {
   const d = typeof date === "string" ? new Date(date) : date;
   const defaultOptions: Intl.DateTimeFormatOptions = {
     year: "numeric",
@@ -20,11 +17,7 @@ export function formatDate(
 /**
  * Trunca un texto a una longitud máxima
  */
-export function truncate(
-  text: string,
-  maxLength: number,
-  suffix = "...",
-): string {
+export function truncate(text: string, maxLength: number, suffix = "..."): string {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength - suffix.length) + suffix;
 }
@@ -104,8 +97,7 @@ export function isInViewport(element: HTMLElement, offset = 0): boolean {
   return (
     rect.top >= -offset &&
     rect.left >= 0 &&
-    rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) + offset &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + offset &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
@@ -140,20 +132,14 @@ export async function copyToClipboard(text: string): Promise<boolean> {
  * Detecta preferencia de modo oscuro del sistema
  */
 export function prefersDarkMode(): boolean {
-  return (
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
 }
 
 /**
  * Detecta si el usuario prefiere movimiento reducido
  */
 export function prefersReducedMotion(): boolean {
-  return (
-    window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
+  return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 /**
@@ -190,11 +176,7 @@ export function groupBy<T>(array: T[], key: keyof T): Record<string, T[]> {
 /**
  * Ordena un array por una clave
  */
-export function sortBy<T>(
-  array: T[],
-  key: keyof T,
-  order: "asc" | "desc" = "asc",
-): T[] {
+export function sortBy<T>(array: T[], key: keyof T, order: "asc" | "desc" = "asc"): T[] {
   return [...array].sort((a, b) => {
     const aVal = a[key];
     const bVal = b[key];

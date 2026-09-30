@@ -19,22 +19,15 @@ const {
   centered = false,
   reveal = false,
   delay = 0,
-  class: extraClass = '',
-  as: Tag = 'div',
+  class: extraClass = "",
+  as: Tag = "div",
 } = Astro.props;
 
-const revealClass = reveal
-  ? `reveal${delay > 0 ? ` reveal-delay-${delay}` : ''}`
-  : '';
+const revealClass = reveal ? `reveal${delay > 0 ? ` reveal-delay-${delay}` : ""}` : "";
 
-const classes = [
-  'label',
-  centered && 'label--centered',
-  revealClass,
-  extraClass,
-]
+const classes = ["label", centered && "label--centered", revealClass, extraClass]
   .filter(Boolean)
-  .join(' ');
+  .join(" ");
 ---
 
 <Tag class={classes}>
@@ -55,7 +48,7 @@ const classes = [
     gap: 10px;
   }
   .label::before {
-    content: '';
+    content: "";
     display: inline-block;
     width: 24px;
     height: 1px;

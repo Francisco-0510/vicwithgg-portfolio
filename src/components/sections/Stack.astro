@@ -1,16 +1,16 @@
 ---
 // src/components/sections/Stack.astro
-import { stackCategories, techLogos } from '../../data/portfolio';
-import Label from '../ui/Label.astro';
-import Icon from '../ui/Icon.astro';
-import type { IconName } from '../ui/icon-types';
-import { Image } from 'astro:assets';
+import { stackCategories, techLogos } from "../../data/portfolio";
+import Label from "../ui/Label.astro";
+import Icon from "../ui/Icon.astro";
+import type { IconName } from "../ui/icon-types";
+import { Image } from "astro:assets";
 
 const iconMap: Record<string, IconName> = {
-  design: 'design',
-  code: 'code',
-  data: 'database',
-  tools: 'tool',
+  design: "design",
+  code: "code",
+  data: "database",
+  tools: "tool",
 };
 ---
 
@@ -20,8 +20,8 @@ const iconMap: Record<string, IconName> = {
       <Label centered reveal>Herramientas y tecnologías</Label>
       <h2 class="stack-h2 reveal reveal-delay-1">Mi Stack</h2>
       <p class="reveal reveal-delay-2">
-        Trabajo a lo largo de todo el pipeline de producto — desde la ideación y
-        prototipado en Figma hasta el desarrollo e implementación en producción.
+        Trabajo a lo largo de todo el pipeline de producto — desde la ideación y prototipado en
+        Figma hasta el desarrollo e implementación en producción.
       </p>
     </div>
     <div class="skills-grid">
@@ -29,7 +29,7 @@ const iconMap: Record<string, IconName> = {
         stackCategories.map((cat, i) => (
           <div class={`skill-category reveal reveal-delay-${i % 3}`}>
             <div class="skill-category-title">
-              <Icon name={iconMap[cat.icon] ?? 'tool'} size={18} />
+              <Icon name={iconMap[cat.icon] ?? "tool"} size={18} />
               {cat.title}
             </div>
             <ul class="skill-list" role="list">

@@ -3,7 +3,7 @@
 //  SINGLE SOURCE OF TRUTH — VicWithGG Portfolio Data
 //  Edit this file to update all sections of the site.
 // ═══════════════════════════════════════════════════════════════
-
+export type ProjectType = "app" | "web" | "design";
 // ── SITE META ────────────────────────────────────────────────
 export const site = {
   title: "Diseñador UX/UI y Desarrollador Web | VicWithGG",
@@ -44,12 +44,11 @@ export const person = {
     "Soy Francisco Victorico Aguirre Jiménez, Diseñador UX/UI y Desarrollador Web comprometido con crear experiencias digitales que destacan. Equilibro las necesidades del usuario con los objetivos de negocio para entregar soluciones que generan impacto real.",
     "Mi enfoque estratégico e intuitivo, junto con el dominio de herramientas avanzadas, me permite convertir ideas en soluciones innovadoras y efectivas. Siempre busco aprender, mejorar y superar expectativas en cada proyecto.",
   ],
-  availability:
-    "Disponible para proyectos freelance, colaboraciones y oportunidades full-time",
+  availability: "Disponible para proyectos freelance, colaboraciones y oportunidades full-time",
   photo: "/images/me.jpg",
   email: "vgg.designer.01@gmail.com",
   social: {
-    phone: "+52 1 951 391 5906",
+    phone: "+52 951 203 0791",
     linkMe: "https://link.me/vicwithgg",
     figma: "https://www.figma.com/@vicwithgg",
     github: "https://github.com/Francisco-0510",
@@ -102,13 +101,7 @@ export const pagesMeta = {
     title: "Sobre Francisco Victorico | Diseñador UX/UI & Developer",
     description:
       "Conoce mi trayectoria, experiencia en diseño y desarrollo, y cómo puedo ayudarte con tu proyecto digital.",
-    keywords: [
-      "sobre mi",
-      "experiencia",
-      "educación",
-      "skills",
-      "certificaciones",
-    ],
+    keywords: ["sobre mi", "experiencia", "educación", "skills", "certificaciones"],
   },
 } as const;
 
@@ -242,8 +235,7 @@ export const experience = [
   },
   {
     role: "Diseñador UX/UI y Desarrollador Web",
-    company:
-      "Universidad Tecnológica de los Valles Centrales de Oaxaca (UTVCO)",
+    company: "Universidad Tecnológica de los Valles Centrales de Oaxaca (UTVCO)",
     logo: "/images/experience/utvco.jpg",
     period: "2019 - 2023",
     description:
@@ -387,8 +379,7 @@ export const education = [
     logo: "/images/edu/utvco.png",
   },
   {
-    degree:
-      "Técnico Superior Universitario (T.S.U) en Tecnologías de la Información",
+    degree: "Técnico Superior Universitario (T.S.U) en Tecnologías de la Información",
     school: "Universidad Tecnológica de los Valles Centrales de Oaxaca (UTVCO)",
     period: "2019 — 2021",
     logo: "/images/edu/utvco.png",
@@ -410,6 +401,11 @@ export interface HeroStat {
   num: string;
   label: string;
 }
+export interface ProjectLinks {
+  live?: string;
+  github?: string;
+  figma?: string;
+}
 
 export interface Project {
   slug: string;
@@ -422,9 +418,12 @@ export interface Project {
   thumbnail: string;
   ogImage?: string;
   tech: string[];
-  links: { figma?: string; github?: string; live?: string };
+  links: ProjectLinks;
   featured: boolean;
-  type: "app" | "web" | "design";
+  type: ProjectType;
+  publishedDate?: Date;
+  updatedDate?: Date;
+  order?: number;
 }
 
 export interface ExperienceItem {

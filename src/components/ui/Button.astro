@@ -14,8 +14,8 @@
  *   icon     — optional SVG icon (rendered after label)
  */
 
-type Variant = 'primary' | 'ghost' | 'outline';
-type Tag = 'a' | 'button';
+type Variant = "primary" | "ghost" | "outline";
+type Tag = "a" | "button";
 
 interface Props {
   variant?: Variant;
@@ -23,7 +23,7 @@ interface Props {
   href?: string;
   target?: string;
   rel?: string;
-  type?: 'button' | 'submit' | 'reset';
+  type?: "button" | "submit" | "reset";
   disabled?: boolean;
   class?: string;
   reveal?: boolean;
@@ -33,14 +33,14 @@ interface Props {
 }
 
 const {
-  variant = 'primary',
-  tag = 'a',
+  variant = "primary",
+  tag = "a",
   href,
   target,
   rel,
-  type = 'button',
+  type = "button",
   disabled = false,
-  class: extraClass = '',
+  class: extraClass = "",
   reveal = false,
   delay = 0,
   ariaLabel,
@@ -49,21 +49,17 @@ const {
 
 const Tag = tag;
 
-const revealClass = reveal
-  ? `reveal${delay > 0 ? ` reveal-delay-${delay}` : ''}`
-  : '';
+const revealClass = reveal ? `reveal${delay > 0 ? ` reveal-delay-${delay}` : ""}` : "";
 
-const classes = [`btn btn--${variant}`, revealClass, extraClass]
-  .filter(Boolean)
-  .join(' ');
+const classes = [`btn btn--${variant}`, revealClass, extraClass].filter(Boolean).join(" ");
 
 // Lógica mejorada para manejar atributos de enlace y descarga
 const linkProps =
-  tag === 'a'
+  tag === "a"
     ? {
         href,
         target,
-        rel: target === '_blank' ? 'noopener noreferrer' : rel,
+        rel: target === "_blank" ? "noopener noreferrer" : rel,
         download: download, // Si es true o un string, se añade el atributo
       }
     : { type, disabled };

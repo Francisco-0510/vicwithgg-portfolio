@@ -18,9 +18,7 @@ const breadcrumbs = [
   description={meta.description}
   keywords={[...meta.keywords]}
   ogType="website"
-  structuredData={{
-    type: 'Organization',
-  }}>
+  schemaType="Organization">
   <Navbar />
   <main>
     <section class="hero-services">
@@ -28,8 +26,8 @@ const breadcrumbs = [
       <div class="container">
         <h1>Servicios de Diseño y Desarrollo Web</h1>
         <p class="lead">
-          Soluciones completas de diseño UX/UI y desarrollo frontend para llevar
-          tu visión digital a realidad
+          Soluciones completas de diseño UX/UI y desarrollo frontend para llevar tu visión digital a
+          realidad
         </p>
       </div>
     </section>
@@ -62,15 +60,13 @@ const breadcrumbs = [
         <h2>¿Por qué trabajar conmigo?</h2>
         <ul>
           <li>
-            <strong>Enfoque integral:</strong> Combino diseño y desarrollo en un solo
-            profesional
+            <strong>Enfoque integral:</strong> Combino diseño y desarrollo en un solo profesional
           </li>
           <li>
             <strong>Performance First:</strong> Sitios web rápidos y optimizados
           </li>
           <li>
-            <strong>Experiencia probada:</strong> +4 años trabajando con marcas y
-            startups
+            <strong>Experiencia probada:</strong> +4 años trabajando con marcas y startups
           </li>
           <li>
             <strong>Metodología ágil:</strong> Entregas rápidas sin sacrificar calidad
@@ -88,11 +84,7 @@ const breadcrumbs = [
 <style>
   .hero-services {
     padding: 4rem 2rem;
-    background: linear-gradient(
-      135deg,
-      var(--color-bg) 0%,
-      var(--color-surface) 100%
-    );
+    background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-surface) 100%);
   }
 
   .container {

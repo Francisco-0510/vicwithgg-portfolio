@@ -1,10 +1,10 @@
 ---
 // src/components/sections/Projects.astro
-import { getCollection } from 'astro:content';
-import Label from '../ui/Label.astro';
-import ProjectCard from '../ui/ProjectCard.astro';
+import { getCollection } from "astro:content";
+import Label from "../ui/Label.astro";
+import ProjectCard from "../ui/ProjectCard.astro";
 
-const allProjects = await getCollection('proyectos', ({ data }) => !data.draft);
+const allProjects = await getCollection("proyectos", ({ data }) => !data.draft);
 
 const projects = allProjects.sort((a, b) => {
   if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
@@ -17,20 +17,18 @@ const projects = allProjects.sort((a, b) => {
     <div class="projects-header">
       <div>
         <Label reveal>Descubre mis trabajos</Label>
-        <h2 class="projects-h2 reveal reveal-delay-1">
-          Algunos de mis Proyectos
-        </h2>
+        <h2 class="projects-h2 reveal reveal-delay-1">Algunos de mis Proyectos</h2>
       </div>
       <p class="projects-sub reveal reveal-delay-2">
-        Diseño y desarrollo de productos digitales para clientes reales, desde
-        sistemas de diseño hasta aplicaciones web complejas.
+        Diseño y desarrollo de productos digitales para clientes reales, desde sistemas de diseño
+        hasta aplicaciones web complejas.
       </p>
     </div>
     <div class="projects-grid" role="list">
       {
         projects.map((project, i) => (
           <div role="listitem">
-            <ProjectCard project={project} index={i} />
+            <ProjectCard project={project} index={i} loading="lazy" />
           </div>
         ))
       }

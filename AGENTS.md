@@ -1,6 +1,7 @@
 # AGENTS.md
 
 ## Dev Commands
+
 ```bash
 npm run dev      # Dev server: http://localhost:4321
 npm run build    # Full build (typecheck + build + pagefind)
@@ -19,6 +20,7 @@ npm run fonts    # Download local fonts (runs scripts/download-fonts.sh)
 - **Vercel** - Adapter configured with web analytics. Build output `dist/`.
 
 ## Path Aliases
+
 ```json
 "@/*": "src/*"
 "@components/*": "src/components/*"
@@ -28,6 +30,7 @@ npm run fonts    # Download local fonts (runs scripts/download-fonts.sh)
 ```
 
 ## Architecture
+
 - Static site (SSG) with Astro
 - No database or API routes
 - No test suite (no tests in repo)

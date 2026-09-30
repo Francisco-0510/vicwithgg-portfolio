@@ -19,15 +19,7 @@ const { name, sector, description, thumbnail, tech, links } = project.data;
 // SEO optimizado
 const seoTitle = `${name} | Proyecto de ${person.name}`;
 const seoDescription = description;
-const seoKeywords = [
-  ...tech,
-  name,
-  sector,
-  'proyecto',
-  'portafolio',
-  'diseño',
-  'desarrollo',
-];
+const seoKeywords = [...tech, name, sector, 'proyecto', 'portafolio', 'diseño', 'desarrollo'];
 
 // Breadcrumbs para SEO
 const breadcrumbs = [
@@ -58,11 +50,7 @@ const structuredDataProject = {
   title={seoTitle}
   description={seoDescription}
   ogImage={thumbnail ? thumbnail : undefined}
-  keywords={seoKeywords}
-  structuredData={{
-    type: 'Project',
-    data: structuredDataProject.data,
-  }}>
+  keywords={seoKeywords}>
   <Navbar />
 
   <main>
@@ -171,10 +159,7 @@ const structuredDataProject = {
     </header>
 
     <!-- Content con Schema.org -->
-    <article
-      class="case-content wrap prose"
-      itemscope
-      itemtype="https://schema.org/BlogPosting">
+    <article class="case-content wrap prose" itemscope itemtype="https://schema.org/BlogPosting">
       <!-- Meta información para Schema.org -->
       <meta itemprop="headline" content={name} />
       <meta itemprop="description" content={description} />
@@ -183,11 +168,7 @@ const structuredDataProject = {
       <meta itemprop="author" content={person.name} />
 
       <!-- Autor structurado -->
-      <div
-        itemprop="author"
-        itemscope
-        itemtype="https://schema.org/Person"
-        style="display:none">
+      <div itemprop="author" itemscope itemtype="https://schema.org/Person" style="display:none">
         <meta itemprop="name" content={person.name} />
         <meta itemprop="url" content={site.url} />
       </div>

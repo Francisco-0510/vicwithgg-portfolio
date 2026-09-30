@@ -1,11 +1,11 @@
 ---
 // src/components/sections/About.astro
-import { person, certificates, education } from '../../data/portfolio';
-import Label from '../ui/Label.astro';
-import Button from '../ui/Button.astro';
-import Icon from '../ui/Icon.astro';
-import { Image } from 'astro:assets';
-import ContactLinks from '../ui/ContactLinks.astro';
+import { person, certificates, education } from "../../data/portfolio";
+import Label from "../ui/Label.astro";
+import Button from "../ui/Button.astro";
+import Icon from "../ui/Icon.astro";
+import { Image } from "astro:assets";
+import ContactLinks from "../ui/ContactLinks.astro";
 ---
 
 <section id="about" itemscope itemtype="https://schema.org/Person">
@@ -93,7 +93,7 @@ import ContactLinks from '../ui/ContactLinks.astro';
         </h2>
 
         <meta itemprop="name" content={person.name} />
-        <meta itemprop="jobTitle" content={person.roles?.join(', ')} />
+        <meta itemprop="jobTitle" content={person.roles?.join(", ")} />
         <meta itemprop="email" content={person.email} />
         <meta itemprop="telephone" content={person.social?.phone} />
         <meta itemprop="url" content={Astro.site?.toString()} />
@@ -115,7 +115,8 @@ import ContactLinks from '../ui/ContactLinks.astro';
                   class={`cert-item reveal reveal-delay-${Math.min(i, 5)}`}
                   itemprop="hasCredential"
                   itemscope
-                  itemtype="https://schema.org/EducationalOccupationalCredential">
+                  itemtype="https://schema.org/EducationalOccupationalCredential"
+                >
                   <div class="cert-logo">
                     <Image
                       format="webp"
@@ -150,7 +151,8 @@ import ContactLinks from '../ui/ContactLinks.astro';
                   class={`edu-item reveal reveal-delay-${Math.min(i, 5)}`}
                   itemprop="hasCredential"
                   itemscope
-                  itemtype="https://schema.org/EducationalOccupationalCredential">
+                  itemtype="https://schema.org/EducationalOccupationalCredential"
+                >
                   <div class="edu-logo">
                     <Image
                       format="webp"

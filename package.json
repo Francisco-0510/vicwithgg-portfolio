@@ -6,11 +6,15 @@
     "dev": "astro dev",
     "preinstall": "node -e \"const v=process.version.match(/^v(\\d+)\\./); if(!v||v[1]<22){console.error('❌ Node 22+ requerido. Actual: '+process.version); process.exit(1)}\"",
     "start": "astro dev",
+    "check": "astro check",
     "build": "astro check && astro build",
     "build:fast": "astro build",
     "postbuild": "pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "npm run check && npm run format:check",
     "fonts": "bash scripts/download-fonts.sh",
     "lighthouse": "npx lighthouse http://localhost:4321 --output=html --output-path=./lighthouse-report.html --only-categories=performance,accessibility,best-practices,seo --preset=desktop",
     "lighthouse:mobile": "npx lighthouse http://localhost:4321 --output=html --output-path=./lighthouse-mobile.html --only-categories=performance,accessibility,best-practices,seo"
@@ -26,12 +30,12 @@
     "@vercel/speed-insights": "^2.0.0",
     "astro": "^6.4.7",
     "tailwindcss": "^4.2.2",
-    "typescript": "^7.0.2"
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "pagefind": "^1.4.0",
-    "prettier": "^3.4.1",
+    "prettier": "^3.9.9",
     "prettier-plugin-astro": "^0.14.1"
   },
   "engines": {

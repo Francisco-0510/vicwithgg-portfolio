@@ -1,8 +1,8 @@
 ---
 // src/components/sections/Experience.astro
-import { Image } from 'astro:assets';
-import { experience } from '../../data/portfolio';
-import Label from '../ui/Label.astro';
+import { Image } from "astro:assets";
+import { experience } from "../../data/portfolio";
+import Label from "../ui/Label.astro";
 ---
 
 <section id="experience">
@@ -15,9 +15,7 @@ import Label from '../ui/Label.astro';
     <div class="timeline" role="list">
       {
         experience.map((item, i) => (
-          <div
-            class={`timeline-item reveal reveal-delay-${Math.min(i + 1, 5)}`}
-            role="listitem">
+          <div class={`timeline-item reveal reveal-delay-${Math.min(i + 1, 5)}`} role="listitem">
             <div class="timeline-date">{item.period}</div>
             <div class="timeline-role">{item.role}</div>
             <div class="timeline-company">
@@ -71,7 +69,7 @@ import Label from '../ui/Label.astro';
     margin-top: 48px;
   }
   .timeline::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 8px;
     top: 10px;
@@ -89,7 +87,7 @@ import Label from '../ui/Label.astro';
     border-left-color: var(--accent);
   }
   .timeline-item::before {
-    content: '';
+    content: "";
     position: absolute;
     left: -39px;
     top: 32px;

@@ -1,38 +1,53 @@
 ---
 // src/layouts/BaseLayout.astro
-import '../styles/global.css';
-import { site } from '../data/portfolio';
-import ClientRouter from 'astro/components/ClientRouter.astro';
-import Analytics from '@vercel/analytics/astro';
-import SpeedInsights from '@vercel/speed-insights/astro';
-import SEO from '../components/SEO.astro';
-import GoogleAnalytics from '../components/GoogleAnalytics.astro';
-import GoogleTagManager from '@/components/GoogleTagManager.astro';
-import GoogleTagManagerNoScript from '@/components/GoogleTagManagerNoScript.astro';
+import "../styles/global.css";
+import { site } from "../data/portfolio";
+import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
+import SEO from "../components/SEO.astro";
+import { ClientRouter } from "astro:transitions";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+import GoogleTagManager from "@/components/GoogleTagManager.astro";
+import GoogleTagManagerNoScript from "@/components/GoogleTagManagerNoScript.astro";
+import { generateSchema } from "@/lib/schema";
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
-  ogType?: 'website' | 'article' | 'profile';
+  ogType?: "website" | "article" | "profile";
   keywords?: string[];
   publishedDate?: string;
   modifiedDate?: string;
-  structuredData?: {
+  schemaType?: "Person" | "Organization" | "Project";
+  schemaName?: string;
+  /*  structuredData?: {
     type: 'Person' | 'Organization' | 'BreadcrumbList' | 'Project';
     data?: Record<string, any>;
-  };
+  }; */
 }
 
 const {
   title = site.title,
   description = site.description,
-  ogImage = '/og-image.jpg',
-  ogType = 'website',
+  ogImage = "/og-image.jpg",
+  ogType = "website",
   keywords,
   publishedDate,
   modifiedDate,
-  structuredData,
+  schemaType = "Person",
+  schemaName,
 } = Astro.props;
+
+const schema = generateSchema({
+  type: schemaType,
+  description,
+  name: schemaName,
+  image: ogImage,
+  url: Astro.url.href,
+});
+/* const schema = structuredData
+  ? generateSchema(structuredData.type, structuredData.data)
+  : generateSchema('Organization'); */
 ---
 
 <!doctype html>
@@ -71,8 +86,9 @@ const {
 
     <!-- Astro View Transitions -->
     <ClientRouter />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
 
-    {
+    <!--  {
       structuredData && structuredData.type === 'Organization' && (
         <script
           is:inline
@@ -122,7 +138,7 @@ const {
           })}
         />
       )
-    }
+    } -->
     <slot name="head" />
 
     <!-- Preload critical fonts -->
@@ -182,83 +198,7 @@ const {
     </main>
 
     <script>
-      function initPage() {
-        // ── Reveal on scroll ──────────────────────────────────────
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                (entry.target as HTMLElement).classList.add('visible');
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.08, rootMargin: '0px 0px -60px 0px' },
-        );
-        document
-          .querySelectorAll<HTMLElement>('.reveal:not(.visible)')
-          .forEach((el) => observer.observe(el));
-
-        // ── Navbar scroll class ───────────────────────────────────
-        const navbar = document.getElementById('navbar');
-        if (navbar) {
-          let ticking = false;
-          const onScroll = () => {
-            if (!ticking) {
-              requestAnimationFrame(() => {
-                navbar.classList.toggle('scrolled', window.scrollY > 50);
-                ticking = false;
-              });
-              ticking = true;
-            }
-          };
-          window.addEventListener('scroll', onScroll, { passive: true });
-          onScroll();
-        }
-
-        // ── Smooth scroll anchors ─────────────────────────────────
-        document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((anchor) => {
-          anchor.addEventListener('click', (e) => {
-            const href = anchor.getAttribute('href');
-            if (!href || href === '#') return;
-            e.preventDefault();
-            const target = document.getElementById(href.slice(1));
-            if (target) {
-              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              history.pushState(null, '', href);
-            }
-          });
-        });
-
-        // ── Copy code blocks ──────────────────────────────────────
-        document.querySelectorAll('pre').forEach((pre) => {
-          if (pre.querySelector('.copy-btn')) return;
-          const btn = document.createElement('button');
-          btn.className = 'copy-btn';
-          btn.setAttribute('aria-label', 'Copiar código');
-          btn.setAttribute('title', 'Copiar al portapapeles');
-          btn.textContent = 'Copiar';
-          btn.addEventListener('click', async () => {
-            const code = pre.querySelector('code')?.textContent ?? '';
-            try {
-              await navigator.clipboard.writeText(code);
-              btn.textContent = '¡Copiado!';
-              btn.classList.add('copied');
-              setTimeout(() => {
-                btn.textContent = 'Copiar';
-                btn.classList.remove('copied');
-              }, 2000);
-            } catch {
-              btn.textContent = 'Error';
-            }
-          });
-          pre.style.position = 'relative';
-          pre.appendChild(btn);
-        });
-      }
-
-      initPage();
-      document.addEventListener('astro:page-load', initPage);
+      import "../scripts/site";
     </script>
 
     <slot name="scripts" />

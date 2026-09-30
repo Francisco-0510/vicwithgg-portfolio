@@ -8,7 +8,7 @@
 //  - Canonical URLs correctas
 //  - Soporte para artículos y páginas
 // ═══════════════════════════════════════════════════════════════
-import { person, site } from '../data/portfolio';
+import { person, site } from "../data/portfolio";
 
 interface Props {
   title?: string;
@@ -16,7 +16,7 @@ interface Props {
   ogImage?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
-  ogType?: 'website' | 'article' | 'profile' | 'portfolio';
+  ogType?: "website" | "article" | "profile" | "portfolio";
   publishedDate?: string;
   modifiedDate?: string;
   keywords?: string[];
@@ -29,36 +29,33 @@ interface Props {
 const {
   title = site.seoTitle || site.title,
   description = site.seoDescription || site.description,
-  ogImage = site.ogImage || '/og-image.jpg',
+  ogImage = site.ogImage || "/og-image.jpg",
   ogImageWidth = 1200,
   ogImageHeight = 630,
-  ogType = 'website',
+  ogType = "website",
   publishedDate,
   modifiedDate,
   keywords = site.seoKeywords,
   author = person.name,
   canonical = Astro.url.href,
-  robots = 'index, follow',
-  twitterCreator = person.social.x?.replace('https://x.com/', '@') ||
-    '@VicWithGG1',
+  robots = "index, follow",
+  twitterCreator = person.social.x?.replace("https://x.com/", "@") || "@VicWithGG1",
 } = Astro.props;
 
 // Construir canonical URL correctamente
-const canonicalURL = canonical.startsWith('http')
+const canonicalURL = canonical.startsWith("http")
   ? new URL(canonical)
   : new URL(canonical, site.url);
 
 // Construir OG image URL correctamente
-const ogImageURL = ogImage.startsWith('http')
-  ? new URL(ogImage)
-  : new URL(ogImage, site.url);
+const ogImageURL = ogImage.startsWith("http") ? new URL(ogImage) : new URL(ogImage, site.url);
 ---
 
 <!--══════════════════════════════════════════════════════════════--><!--  Primary Meta Tags                                               --><!--══════════════════════════════════════════════════════════════-->
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
-<meta name="keywords" content={keywords?.join(', ')} />
+<meta name="keywords" content={keywords?.join(", ")} />
 <meta name="author" content={author} />
 <meta name="robots" content={robots} />
 
@@ -84,12 +81,10 @@ const ogImageURL = ogImage.startsWith('http')
 
 <!-- Article meta tags (si aplica) -->
 {
-  ogType === 'article' && publishedDate && (
+  ogType === "article" && publishedDate && (
     <>
       <meta property="article:published_time" content={publishedDate} />
-      {modifiedDate && (
-        <meta property="article:modified_time" content={modifiedDate} />
-      )}
+      {modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
       <meta property="article:author" content={author} />
     </>
   )
@@ -119,12 +114,7 @@ const ogImageURL = ogImage.startsWith('http')
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!--  RSS Feed Discovery                                              -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<link
-  rel="alternate"
-  type="application/rss+xml"
-  title={`${site.title} — RSS`}
-  href="/rss.xml"
-/>
+<link rel="alternate" type="application/rss+xml" title={`${site.title} — RSS`} href="/rss.xml" />
 
 <!--  Preconnect para recursos externos                               -->
 <!-- ═══════════════════════════════════════════════════════════════ -->

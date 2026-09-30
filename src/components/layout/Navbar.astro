@@ -1,7 +1,7 @@
 ---
 // src/components/layout/Navbar.astro
-import { navLinks, person } from '../../data/portfolio';
-import Search from '../ui/Search.astro';
+import { navLinks, person } from "../../data/portfolio";
+import Search from "../ui/Search.astro";
 ---
 
 <nav id="navbar">
@@ -31,7 +31,14 @@ import Search from '../ui/Search.astro';
       <a href={`mailto:${person.email}`} class="nav-cta"> Contactar </a>
 
       <!-- Botón hamburguesa -->
-      <button class="nav-menu-toggle" aria-label="Abrir menú" aria-expanded="false" id="nav-toggle">
+      <button
+        type="button"
+        class="nav-menu-toggle"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="nav-drawer"
+        id="nav-toggle"
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -219,67 +226,39 @@ import Search from '../ui/Search.astro';
 </style>
 
 <script>
-  const drawer = document.getElementById('nav-drawer');
-  const toggle = document.getElementById('nav-toggle');
-
   function initNav() {
-    const drawer = document.getElementById('nav-drawer');
-    const toggle = document.getElementById('nav-toggle');
-    if (!drawer || !toggle) return;
+    const drawer = document.getElementById("nav-drawer");
+    const toggle = document.getElementById("nav-toggle");
 
-    const open = () => {
-      drawer.classList.add('open');
-      drawer.removeAttribute('inert');
-      toggle.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-    };
-    const close = () => {
-      drawer.classList.remove('open');
-      drawer.setAttribute('inert', '');
-      toggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+    if (!(drawer instanceof HTMLElement) || !(toggle instanceof HTMLButtonElement)) return;
+
+    const setDrawerState = (isOpen: boolean) => {
+      drawer.classList.toggle("open", isOpen);
+      drawer.toggleAttribute("inert", !isOpen);
+      drawer.setAttribute("aria-hidden", String(!isOpen));
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+
+      document.body.style.overflow = isOpen ? "hidden" : "";
     };
 
-    toggle.addEventListener('click', () => (drawer.classList.contains('open') ? close() : open()));
-    drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && drawer.classList.contains('open')) {
-        close();
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      setDrawerState(!isOpen);
+    });
+
+    drawer.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setDrawerState(false));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+        setDrawerState(false);
         toggle.focus();
       }
     });
   }
-  initNav();
-  document.addEventListener('astro:page-load', initNav);
 
-  function openDrawer() {
-    drawer?.classList.add('open');
-    drawer?.removeAttribute('inert');
-    drawer?.setAttribute('aria-hidden', 'false');
-    toggle?.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeDrawer() {
-    drawer?.classList.remove('open');
-    drawer?.setAttribute('inert', '');
-    drawer?.setAttribute('aria-hidden', 'true');
-    toggle?.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  toggle?.addEventListener('click', () => {
-    if (drawer?.classList.contains('open')) {
-      closeDrawer();
-    } else {
-      openDrawer();
-    }
-  });
-
-  // Cerrar el drawer al hacer clic en cualquier enlace
-  drawer?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      closeDrawer();
-    });
-  });
+  // Ejecutar en la carga inicial y en navegaciones de Astro
+  document.addEventListener("astro:page-load", initNav);
 </script>

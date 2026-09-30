@@ -1,9 +1,9 @@
 ---
 // src/components/sections/ContactCTA.astro
-import { person } from '../../data/portfolio';
-import Button from '../ui/Button.astro';
-import Icon from '../ui/Icon.astro';
-import Label from '../ui/Label.astro';
+import { person } from "../../data/portfolio";
+import Button from "../ui/Button.astro";
+import Icon from "../ui/Icon.astro";
+import Label from "../ui/Label.astro";
 ---
 
 <section id="contacto-cta">
@@ -15,15 +15,11 @@ import Label from '../ui/Label.astro';
         Hablemos de tu <em>próximo proyecto</em>
       </h2>
       <p class="cta-body reveal reveal-delay-2">
-        Si buscas un profesional que combine pensamiento estratégico de diseño
-        con ejecución técnica de calidad, iniciemos la conversación.
+        Si buscas un profesional que combine pensamiento estratégico de diseño con ejecución técnica
+        de calidad, iniciemos la conversación.
       </p>
       <div class="contact-methods">
-        <Button
-          href={`mailto:${person.email}`}
-          variant="outline"
-          reveal
-          delay={3}>
+        <Button href={`mailto:${person.email}`} variant="outline" reveal delay={3}>
           <Icon slot="icon" name="mail" size={16} />
           {person.email}
         </Button>
@@ -35,7 +31,8 @@ import Label from '../ui/Label.astro';
               target="_blank"
               class="blue"
               reveal
-              delay={4}>
+              delay={4}
+            >
               <Icon slot="icon" name="linkedin" size={16} />
               LinkedIn
             </Button>
@@ -43,12 +40,7 @@ import Label from '../ui/Label.astro';
         }
         {
           person.social.github && (
-            <Button
-              href={person.social.github}
-              variant="outline"
-              target="_blank"
-              reveal
-              delay={5}>
+            <Button href={person.social.github} variant="outline" target="_blank" reveal delay={5}>
               <Icon slot="icon" name="github" size={16} />
               GitHub
             </Button>
@@ -76,11 +68,7 @@ import Label from '../ui/Label.astro';
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      rgba(217, 168, 78, 0.04) 0%,
-      transparent 70%
-    );
+    background: radial-gradient(circle, rgba(217, 168, 78, 0.04) 0%, transparent 70%);
     pointer-events: none;
   }
   .cta-inner {

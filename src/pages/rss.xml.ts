@@ -5,20 +5,14 @@ import { getCollection } from "astro:content";
 import { person, site } from "../data/portfolio"; // ← módulo separado post-refactor
 
 export async function GET(context: APIContext) {
-  const allProjects = await getCollection(
-    "proyectos",
-    ({ data }) => !data.draft,
-  );
+  const allProjects = await getCollection("proyectos", ({ data }) => !data.draft);
 
   // Todos los proyectos publicados, ordenados por fecha descendente
   // Featured primero, luego por order, luego el resto
   const publishedProjects = allProjects.sort((a, b) => {
     // Si tienen publishedDate, ordenar por fecha real
     if (a.data.publishedDate && b.data.publishedDate) {
-      return (
-        new Date(b.data.publishedDate).getTime() -
-        new Date(a.data.publishedDate).getTime()
-      );
+      return new Date(b.data.publishedDate).getTime() - new Date(a.data.publishedDate).getTime();
     }
     // Fallback: featured primero, luego por order
     if (a.data.featured !== b.data.featured) {

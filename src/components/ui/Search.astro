@@ -10,7 +10,8 @@
   class="search-trigger"
   aria-label="Buscar ⌘K"
   aria-expanded="false"
-  aria-controls="search-modal">
+  aria-controls="search-modal"
+>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
@@ -22,7 +23,8 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     aria-hidden="true"
-    focusable="false">
+    focusable="false"
+  >
     <circle cx="11" cy="11" r="8"></circle>
     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
   </svg>
@@ -37,15 +39,13 @@
   role="dialog"
   aria-modal="true"
   aria-label="Buscar en el portfolio"
-  hidden>
+  hidden
+>
   <div class="search-modal-backdrop" id="search-backdrop"></div>
   <div class="search-modal-inner">
     <div class="search-modal-header">
       <span class="search-modal-title">Buscar proyectos y experiencia</span>
-      <button
-        id="search-close"
-        aria-label="Cerrar búsqueda"
-        class="search-close">
+      <button id="search-close" aria-label="Cerrar búsqueda" class="search-close">
         <svg
           width="16"
           height="16"
@@ -54,7 +54,8 @@
           stroke="currentColor"
           stroke-width="2"
           aria-hidden="true"
-          focusable="false">
+          focusable="false"
+        >
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -189,87 +190,82 @@
       if (_loaded) return;
       try {
         if (!document.querySelector('link[href*="pagefind-ui.css"]')) {
-          var link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = '/pagefind/pagefind-ui.css';
+          var link = document.createElement("link");
+          link.rel = "stylesheet";
+          link.href = "/pagefind/pagefind-ui.css";
           document.head.appendChild(link);
         }
 
-        var mod = await import('/pagefind/pagefind-ui.js');
+        var mod = await import("/pagefind/pagefind-ui.js");
         new mod.PagefindUI({
-          element: '#pagefind-mount',
+          element: "#pagefind-mount",
           showImages: false,
           showSubResults: true,
           translations: {
-            placeholder: 'Buscar proyectos, tecnologías, experiencia…',
+            placeholder: "Buscar proyectos, tecnologías, experiencia…",
             zero_results: 'Sin resultados para "[SEARCH_TERM]"',
             many_results: '[COUNT] resultados para "[SEARCH_TERM]"',
             one_result: '1 resultado para "[SEARCH_TERM]"',
             alt_search: 'Buscando en su lugar "[SEARCH_TERM]"',
-            search_label: 'Buscar en el portfolio',
-            filters_label: 'Filtros',
-            load_more: 'Cargar más',
+            search_label: "Buscar en el portfolio",
+            filters_label: "Filtros",
+            load_more: "Cargar más",
           },
         });
         _loaded = true;
       } catch (err) {
-        console.warn(
-          '[Search] Pagefind no disponible. Ejecuta npm run build primero.',
-          err,
-        );
+        console.warn("[Search] Pagefind no disponible. Ejecuta npm run build primero.", err);
       }
     }
 
     function openModal() {
-      var modal = document.getElementById('search-modal');
-      var trigger = document.getElementById('search-trigger');
+      var modal = document.getElementById("search-modal");
+      var trigger = document.getElementById("search-trigger");
       if (!modal || !trigger) return;
       modal.hidden = false;
-      trigger.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
+      trigger.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
       loadPagefind().then(function () {
         setTimeout(function () {
-          var input = document.querySelector(
-            '#pagefind-mount input[type="text"]',
-          );
+          var input = document.querySelector('#pagefind-mount input[type="text"]');
           if (input) input.focus();
         }, 60);
       });
     }
 
     function closeModal() {
-      var modal = document.getElementById('search-modal');
-      var trigger = document.getElementById('search-trigger');
+      var modal = document.getElementById("search-modal");
+      var trigger = document.getElementById("search-trigger");
       if (!modal || !trigger) return;
       modal.hidden = true;
-      trigger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      trigger.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
       trigger.focus();
     }
 
     function init() {
-      var btn = document.getElementById('search-trigger');
-      var closeBtn = document.getElementById('search-close');
-      var backdrop = document.getElementById('search-backdrop');
-      if (btn) btn.addEventListener('click', openModal);
-      if (closeBtn) closeBtn.addEventListener('click', closeModal);
-      if (backdrop) backdrop.addEventListener('click', closeModal);
+      var btn = document.getElementById("search-trigger");
+      var closeBtn = document.getElementById("search-close");
+      var backdrop = document.getElementById("search-backdrop");
+      if (btn) btn.addEventListener("click", openModal);
+      if (closeBtn) closeBtn.addEventListener("click", closeModal);
+      if (backdrop) backdrop.addEventListener("click", closeModal);
     }
 
-    document.addEventListener('keydown', function (e) {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    document.addEventListener("keydown", function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
-        var modal = document.getElementById('search-modal');
+        var modal = document.getElementById("search-modal");
         if (modal && !modal.hidden) closeModal();
         else openModal();
       }
-      if (e.key === 'Escape') {
-        var modal = document.getElementById('search-modal');
+      if (e.key === "Escape") {
+        var modal = document.getElementById("search-modal");
         if (modal && !modal.hidden) closeModal();
       }
     });
 
     init();
-    document.addEventListener('astro:page-load', init);
+    document.addEventListener("astro:page-load", init);
   })();
 </script>
