@@ -485,7 +485,7 @@ Este proyecto sigue [Conventional Commits](https://www.conventionalcommits.org/)
 
 ---
 
-| **Última actualización** | 2026-06-18 |
+| **Última actualización** | 2026-11-09 |
 
 ---
 
@@ -515,7 +515,7 @@ Este proyecto está bajo la licencia MIT. Ver detalles en el archivo LICENSE si 
 Contacta a través de:
 
 - 📧 Email: <vgg.designer.01@gmail.com>
-- 📱 WhatsApp: +52 1 951 391 5906
+- 📱 WhatsApp: +52 1 951 203 0791
 - 🔗 LinkMe: <https://link.me/vicwithgg>
 
 ---
